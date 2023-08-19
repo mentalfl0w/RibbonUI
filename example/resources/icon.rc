@@ -1,0 +1,42 @@
+#include <windows.h>
+
+IDI_ICON1 ICON "imgs/icon.ico"
+
+#define STR(x) #x
+#define VER_JOIN(a,b,c,d) STR(a.b.c.d)
+#define VER_JOIN_(x) VER_JOIN x
+#define VER_STR VER_JOIN_((RIBBONUIAPP_VERSION))
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     RIBBONUIAPP_VERSION
+PRODUCTVERSION  RIBBONUIAPP_VERSION
+FILEFLAGSMASK   0x3fL
+#ifdef _DEBUG
+FILEFLAGS       VS_FF_DEBUG
+#else
+FILEFLAGS       0x0L
+#endif
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+FILESUBTYPE     VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments",         "Made by Mentalflow."
+            VALUE "CompanyName",      "Mentalflow"
+            VALUE "FileDescription",  "RibbonUI APP"
+            VALUE "FileVersion",      VER_STR
+            VALUE "InternalName",     ""
+            VALUE "LegalCopyright",   "Copyright (C) 2023"
+            VALUE "OriginalFilename", ""
+            VALUE "ProductName",      "RibbonUI APP"
+            VALUE "ProductVersion",   VER_STR
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

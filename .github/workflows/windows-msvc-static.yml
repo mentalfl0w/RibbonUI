@@ -1,0 +1,85 @@
+name: Windows MSVC (Static Library)
+on: 
+  push:
+    paths:
+      - '*.txt'
+      - 'lib_source/**'
+      - 'example/**'
+      - 'scripts/**'
+      - '.github/workflows/windows-msvc-shared.yml'
+  pull_request:
+    paths:
+      - '*.txt'
+      - 'example/**'
+      - 'lib_source/**'
+      - 'scripts/**'
+      - '.github/workflows/windows-msvc-shared.yml'
+      
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2019]
+        include:
+          - qt_ver: 6.2.4        
+            qt_arch: win64_msvc2019_64
+            msvc_arch: x64
+            qt_arch_install: msvc2019_64          
+    env:
+      targetName: RibbonUI-APP.exe
+      fileName: RibbonUI-APP
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+             
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_ver }}
+          arch: ${{ matrix.qt_arch }}
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
+          
+      - name: msvc-build
+        id: build
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ matrix.msvc_arch }}
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\RibbonUI\Qt\6.2.4\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
+          echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
+          echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
+          echo vcToolsRedistDir=%VCToolsRedistDir% >> %GITHUB_ENV%
+          
+      - name: package
+        id: package      
+        env:
+          archiveName: ${{ env.fileName }}-${{ matrix.qt_arch }}-${{ matrix.qt_ver }}
+          msvcArch: ${{ matrix.msvc_arch }}          
+        shell: pwsh
+        run: |
+          & scripts\windows-publish.ps1 ${env:archiveName} ${env:targetName}
+          # 记录packageName给后续step
+           $name = ${env:archiveName}
+           echo "::set-output name=packageName::$name"     
+           
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: ${{ steps.package.outputs.packageName }}
+          
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.fileName }}_${{  github.ref_name }}_${{  matrix.qt_arch }}_Qt${{ matrix.qt_ver }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true 

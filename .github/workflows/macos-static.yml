@@ -1,0 +1,73 @@
+name: MacOS (Static Library)
+on: 
+  push:
+    paths:
+      - '*.txt'
+      - 'example/**'
+      - 'lib_source/**'
+      - 'scripts/**'
+      - '.github/workflows/macos-shared.yml'
+  pull_request:
+    paths:
+      - '*.txt'
+      - 'example/**'
+      - 'lib_source/**'
+      - 'scripts/**'
+      - '.github/workflows/macos-shared.yml' 
+      
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-12]
+        qt_ver: [6.2.4]
+        qt_arch: [clang_64]
+    env:
+      targetName: RibbonUI-APP
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.qt_ver }}
+          arch: ${{ matrix.qt_arch }}
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
+          
+      - name: Set up Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v3
+        with:
+          version: 1.10.2
+          
+      - name: build macos
+        run: |
+          cmake --version
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.2.4/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          
+      - name: package
+        run: |
+          # 拷贝依赖
+          macdeployqt /Users/runner/work/RibbonUI/RibbonUI/build/example/${targetName}.app -qmldir=. -verbose=1 -dmg     
+          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}.zip
+          path: /Users/runner/work/RibbonUI/RibbonUI/build/example/${{ env.targetName }}.app
+          
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /Users/runner/work/RibbonUI/RibbonUI/build/example/${{ env.targetName }}.dmg
+          asset_name: ${{ env.targetName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}.dmg
+          tag: ${{ github.ref }}
+          overwrite: true
