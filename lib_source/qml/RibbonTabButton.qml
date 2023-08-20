@@ -68,8 +68,26 @@ TabButton {
     }
     width: implicitWidth + 15
     height: implicitHeight + 6
+    Timer{
+        id: timer
+        property bool first_run: true
+        interval: 200
+        triggeredOnStart: false
+        onTriggered: need_fold(checked&&!folded, index)
+    }
+
     onClicked: {
+        timer.running = false
         need_fold(checked&&!folded, index)
+    }
+
+    onCheckedChanged: {
+        if (checked&&!(timer.first_run&&index===0))
+        {
+            timer.start()
+        }
+        else
+            timer.first_run = false
     }
 
     function setFolded(value)

@@ -219,14 +219,14 @@ Item{
         Component.onCompleted: {
             for (let i=0,sign=0; i < stack.contentData.length; i++)
             {
-                var item = stack.contentData[i]
+                let item = stack.contentData[i]
                 if(item instanceof RibbonTabPage){
-                    let btn = ribbonTabButton.createObject(bar,{text:qsTr(item.title),index:i})
+                    let btn = ribbonTabButton.createObject(bar,{text:qsTr(item.title),index:sign})
                     if (sign===0)
                     {
                         btn.checked = true
-                        sign++
                     }
+                    sign++
                     btn.need_fold.connect(hide_stack)
                     root.foldedChanged.connect(function(){btn.setFolded(folded)})
                 }
