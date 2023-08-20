@@ -147,9 +147,13 @@ ComboBox {
         y: control.height
         width: control.width
         height: origin_height
-        property int origin_height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
+        property int origin_height: Math.min(contentItem.implicitHeight + topInset + topPadding + bottomPadding + bottomInset, control.Window.height - topMargin - bottomMargin)
         topMargin: 6
         bottomMargin: 6
+
+        padding:5
+        topPadding: 7
+        bottomPadding: 7
 
         contentItem: ListView {
             clip: true
