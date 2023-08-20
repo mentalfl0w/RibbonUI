@@ -71,19 +71,19 @@ jobs:
           export QML_SOURCES_PATHS=./
           # 拷贝依赖
           linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=/home/runner/work/RibbonUI/RibbonUI/build/example/${targetName} --appdir /home/runner/work/RibbonUI/RibbonUI/build/example/
-          mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}.AppImage
+          mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_shared.AppImage
         
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}
-          path: ${{ env.targetName }}.AppImage
+          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_shared
+          path: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_shared.AppImage
 
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.targetName }}.AppImage
-          asset_name: ${{ env.targetName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}.AppImage
+          file: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_shared.AppImage
+          asset_name: ${{ env.targetName }}_${{  github.ref_name }}_${{ matrix.os }}_Qt${{ matrix.qt_ver }}_shared.AppImage
           tag: ${{ github.ref }}
           overwrite: true
