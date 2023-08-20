@@ -45,8 +45,8 @@ SpinBox {
 
         topPadding: 2
         bottomPadding: 2
-        leftPadding: 10 + icon.visible ? icon.contentWidth + padding*2 : 0
-        rightPadding: (10 + clear_btn.visible ? clear_btn.width + padding*2 : 0) + up.indicator.width
+        leftPadding: icon.visible ? icon.contentWidth + padding*2 : 10
+        rightPadding: (clear_btn.visible ? clear_btn.width + padding*2 : 10) + up.indicator.width
 
         readOnly: !control.editable
         validator: control.validator
