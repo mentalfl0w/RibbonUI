@@ -69,6 +69,7 @@ Window {
         }
     }
     onClosing:function(event){
+        window.raise()
         event.accepted = comfirmed_quit
         if (!comfirmed_quit)
             dialog.open()
