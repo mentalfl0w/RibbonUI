@@ -15,14 +15,18 @@ Item {
     property string tip_text: text
     property string text
     default property alias content: m.contentData
-    property int icon_size: height
+    property int icon_size: Math.floor(height * 0.7)
     signal clicked()
     opacity: enabled ? 1.0 : 0.3
-    implicitWidth: left.width + right.width
-    implicitHeight: left.height
+    implicitHeight: 50
+    implicitWidth: (label.contentWidth > 40 ? label.contentWidth - (m.count ? 5 : -5) : 40) + 12
     RowLayout{
         id: btn
-        anchors.centerIn: parent
+        anchors{
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
         spacing: 0
         RibbonRectangle{
             id: left
@@ -30,8 +34,8 @@ Item {
             bottomLeftRadius: topLeftRadius
             topRightRadius:m.count ? 0 : topLeftRadius
             bottomRightRadius:m.count ? 0 : topLeftRadius
-            implicitWidth: label.contentWidth > 40 ? label.contentWidth - (m.count ? 5 : -5) : 40
-            implicitHeight: 40
+            implicitWidth: root.width - (right.visible ? right.width : 0)
+            implicitHeight: root.height - label.contentHeight
             color: {
                 if (left_th.pressed)
                     return pressed_color
@@ -58,7 +62,7 @@ Item {
                 source: typeof(root.icon_source) === "string" ? root.icon_source : ""
                 visible: typeof(root.icon_source) === "string"
                 fillMode:Image.PreserveAspectFit
-                height: icon_size
+                height: left.height
                 width: height
                 Layout.alignment: Qt.AlignVCenter
             }
@@ -75,7 +79,7 @@ Item {
             topRightRadius:3
             bottomRightRadius:3
             implicitWidth: 12
-            implicitHeight: 40
+            implicitHeight: left.height
             visible: m.count
             color: {
                 if (right_th.pressed||m.opened)
@@ -103,15 +107,6 @@ Item {
                 onTapped: m.popup()
             }
         }
-        RibbonToolTip{
-            text: tip_text
-            visible: (left_hh.hovered || right_hh.hovered)&& show_tooltip && text
-        }
-    }
-
-    RibbonMenu{
-        id:m
-        width: 100
     }
 
     Text {
@@ -126,5 +121,15 @@ Item {
         font.pixelSize: 12
         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
         color: text_color
+    }
+
+    RibbonToolTip{
+        text: tip_text
+        visible: (left_hh.hovered || right_hh.hovered)&& show_tooltip && text
+    }
+
+    RibbonMenu{
+        id:m
+        width: 100
     }
 }
