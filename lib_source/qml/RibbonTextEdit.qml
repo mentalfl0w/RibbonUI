@@ -9,6 +9,8 @@ Item{
     property alias icon_source: textedit.icon_source
     property alias show_clear_btn: textedit.show_clear_btn
     property alias textedit: textedit
+    property alias placeholderText: textedit.placeholderText
+    property alias readOnly: textedit.readOnly
     property int max_height: 80
     property bool dark_mode: RibbonTheme.dark_mode
     signal commit()

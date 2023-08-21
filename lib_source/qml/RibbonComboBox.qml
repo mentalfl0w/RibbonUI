@@ -6,6 +6,8 @@ ComboBox {
     id: control
     property bool dark_mode: RibbonTheme.dark_mode
     property int icon_source
+    property int component_width: 150
+    property int component_height:20
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -69,8 +71,8 @@ ComboBox {
 
     contentItem: RibbonLineEdit {
         id: edit
-        leftPadding: (!control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1) + icon.visible ? icon.contentWidth + padding*2 : 0
-        rightPadding: (control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1) + clear_btn.visible ? clear_btn.width + padding*2 : 0
+        leftPadding: (!control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1) + (icon.visible ? icon.contentWidth + padding*2 : 0)
+        rightPadding: (control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1) + (clear_btn.visible ? clear_btn.width + padding*2 : 0)
         topPadding: 6 - control.padding
         bottomPadding: 6 - control.padding
 
@@ -100,8 +102,8 @@ ComboBox {
         background: Rectangle{
             visible: control.enabled && control.editable && !control.flat
             radius: 4
-            implicitHeight: 20
-            implicitWidth: 140
+            implicitHeight: control.component_height
+            implicitWidth: control.component_width-10
             color: "transparent"
             Behavior on color {
                 ColorAnimation {
@@ -113,8 +115,8 @@ ComboBox {
     }
 
     background: Rectangle {
-        implicitWidth: 150
-        implicitHeight: 20
+        implicitWidth: control.component_width
+        implicitHeight: control.component_height
         radius: 4
         color: {
             color: {
