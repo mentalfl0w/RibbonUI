@@ -36,7 +36,7 @@ Item {
         height: Math.abs(top_padding)
         target: flickview
         mask_opacity: 0
-        visible: flickview.contentY > container_bg.anchors.topMargin
+        visible: top_padding
         clip: true
         target_rect: Qt.rect(x,y-top_padding,width,height)
     }
