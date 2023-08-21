@@ -515,6 +515,7 @@ RibbonWindow {
                     height: parent.height
                     spacing: 10
                     RibbonComboBox{
+                        id: theme_combo
                         model: ListModel {
                             id: model_theme
                             ListElement { text: "Light" }
@@ -522,10 +523,7 @@ RibbonWindow {
                             ListElement { text: "System" }
                         }
                         icon_source: RibbonIcons.DarkTheme
-                        Component.onCompleted: {
-                            let str = (RibbonTheme.theme_mode === RibbonThemeType.System ? "System" : RibbonTheme.theme_mode === RibbonThemeType.Light ? "Light" : "Dark")
-                            currentIndex = find(str)
-                        }
+                        Component.onCompleted: update_state()
                         onActivated: {
                             if (currentText === "System")
                                 RibbonTheme.theme_mode = RibbonThemeType.System
@@ -533,6 +531,16 @@ RibbonWindow {
                                 RibbonTheme.theme_mode = RibbonThemeType.Light
                             else
                                 RibbonTheme.theme_mode = RibbonThemeType.Dark
+                        }
+                        Connections{
+                            target: RibbonTheme
+                            function onTheme_modeChanged(){
+                                theme_combo.update_state()
+                            }
+                        }
+                        function update_state(){
+                            let str = (RibbonTheme.theme_mode === RibbonThemeType.System ? "System" : RibbonTheme.theme_mode === RibbonThemeType.Light ? "Light" : "Dark")
+                            currentIndex = find(str)
                         }
                     }
                 }
