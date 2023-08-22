@@ -128,6 +128,7 @@ Item {
             grabber_text_unchecked_color: "white"
             grabber_text_checked_color: "black"
             onClicked: RibbonTheme.modern_style = checked
+            checked: RibbonTheme.modern_style
             visible: show_style_switch
         }
         RibbonButton{
