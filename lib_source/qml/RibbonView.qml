@@ -57,7 +57,7 @@ Item {
                 anchors.right: flickview.right
                 anchors.rightMargin: 2
             }
-            boundsBehavior: Flickable.StopAtBounds
+            boundsBehavior: Flickable.DragOverBounds
             ColumnLayout{
                 id:container
                 anchors{
@@ -82,5 +82,9 @@ Item {
         visible: bottom_padding
         clip: true
         target_rect: Qt.rect(x,y-top_padding,width,height)
+    }
+
+    function scroll_to_bottom(){
+        flickview.contentY = flickview.contentHeight - flickview.height
     }
 }
