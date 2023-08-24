@@ -4713,7 +4713,7 @@ private:                                        \
 
 namespace RibbonPopupDialogType {
 Q_NAMESPACE
-enum ButtonFlag {
+enum class ButtonFlag {
     NeutralButton = 0x0001,
     NegativeButton = 0x0002,
     PositiveButton = 0x0004
