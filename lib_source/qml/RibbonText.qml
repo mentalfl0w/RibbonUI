@@ -17,9 +17,6 @@ TextEdit {
     selectionColor: dark_mode ? "#4F5E7F" : "#BECDE8"
     selectedTextColor: dark_mode ? "white" : "black"
     wrapMode: TextEdit.WrapAnywhere
-    onSelectedTextChanged: {
-        control.forceActiveFocus()
-    }
     enabled: !view_only
     font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
     MouseArea{
