@@ -8,6 +8,7 @@ ComboBox {
     property int icon_source
     property int component_width: 150
     property int component_height:20
+    property string placeholderText: "Please Choose:"
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -84,6 +85,7 @@ ComboBox {
         inputMethodHints: control.inputMethodHints
         validator: control.validator
         selectByMouse: control.selectTextByMouse
+        placeholderText: control.placeholderText
 
         opacity: 1
 
