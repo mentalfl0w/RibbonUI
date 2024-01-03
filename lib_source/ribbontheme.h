@@ -10,7 +10,6 @@ class RibbonTheme : public QQuickItem
     QML_ELEMENT
     QML_SINGLETON
     QML_NAMED_ELEMENT(RibbonTheme)
-    Q_DISABLE_COPY(RibbonTheme)
 
     Q_PROPERTY(bool dark_mode READ dark_mode() NOTIFY dark_modeChanged FINAL)
     Q_PROPERTY_RW(RibbonThemeType::ThemeMode,theme_mode)
@@ -22,6 +21,7 @@ public:
     bool dark_mode();
 private:
     RibbonTheme();
+    Q_DISABLE_COPY_MOVE(RibbonTheme)
     bool eventFilter(QObject *obj, QEvent *event);
     RibbonThemeType::ThemeMode current_theme();
     RibbonThemeType::ThemeMode _system_theme_mode;
