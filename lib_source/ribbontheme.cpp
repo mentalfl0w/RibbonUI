@@ -23,8 +23,14 @@ RibbonTheme::RibbonTheme()
 }
 
 RibbonTheme* RibbonTheme::instance(){
-    static RibbonTheme instance;
-    return &instance;
+    static QMutex mutex;
+    QMutexLocker locker(&mutex);
+
+    static RibbonTheme *singleton = nullptr;
+    if (!singleton) {
+        singleton = new RibbonTheme();
+    }
+    return singleton;
 }
 
 bool RibbonTheme::eventFilter(QObject *obj, QEvent *event)

@@ -10,16 +10,18 @@ class RibbonTheme : public QQuickItem
     QML_ELEMENT
     QML_SINGLETON
     QML_NAMED_ELEMENT(RibbonTheme)
+    Q_DISABLE_COPY(RibbonTheme)
 
     Q_PROPERTY(bool dark_mode READ dark_mode() NOTIFY dark_modeChanged FINAL)
     Q_PROPERTY_RW(RibbonThemeType::ThemeMode,theme_mode)
     Q_PROPERTY_RW(bool,modern_style)
 public:
-    RibbonTheme();
+    static RibbonTheme* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
     static RibbonTheme* instance();
     Q_SIGNAL void dark_modeChanged();
     bool dark_mode();
 private:
+    RibbonTheme();
     bool eventFilter(QObject *obj, QEvent *event);
     RibbonThemeType::ThemeMode current_theme();
     RibbonThemeType::ThemeMode _system_theme_mode;
