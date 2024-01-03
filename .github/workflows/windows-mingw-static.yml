@@ -35,6 +35,11 @@ jobs:
         with:
           submodules: recursive
       
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+        with:
+          version: 1.10.2
+      
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
