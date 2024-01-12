@@ -16,6 +16,9 @@ Item {
     default property alias content: left_container.data
     property alias left_content: left_container.data
     property alias right_content: right_container.data
+    property alias maximizeBtn: maximizeBtn
+    property alias minimizeBtn: minimizeBtn
+    property alias closeBtn: closeBtn
     anchors {
         top: parent.top
         left: parent.left
@@ -78,6 +81,7 @@ Item {
             spacing: 0
             Layout.rightMargin: Qt.platform.os === "osx" ? -5 : 0
             RibbonButton{
+                id: closeBtn
                 show_bg:false
                 icon_source: RibbonIcons.Dismiss
                 icon_source_filled: RibbonIcons_Filled.Dismiss
@@ -90,6 +94,7 @@ Item {
             }
 
             RibbonButton{
+                id: minimizeBtn
                 show_bg:false
                 icon_source: RibbonIcons.Subtract
                 icon_source_filled: RibbonIcons_Filled.Subtract
@@ -103,6 +108,7 @@ Item {
             }
 
             RibbonButton{
+                id: maximizeBtn
                 show_bg:false
                 icon_source: Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize
                 text_color: titleBar.title_text_color

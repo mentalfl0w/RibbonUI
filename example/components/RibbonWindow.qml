@@ -19,6 +19,12 @@ Window {
         return FramelessUtils.defaultSystemLightColor;
     }
     FramelessHelper.onReady: {
+	if (Qt.platform.os === 'windows')
+        {
+            FramelessHelper.setSystemButton(titleBar.minimizeBtn, FramelessHelperConstants.Minimize);
+            FramelessHelper.setSystemButton(titleBar.maximizeBtn, FramelessHelperConstants.Maximize);
+            FramelessHelper.setSystemButton(titleBar.closeBtn, FramelessHelperConstants.Close);
+        }
         FramelessHelper.titleBarItem = titleBar;
         FramelessHelper.moveWindowToDesktopCenter();
         window.visible = true;
