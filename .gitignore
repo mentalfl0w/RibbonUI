@@ -81,3 +81,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# macOS
+.DS_Store
+*/.DS_Store

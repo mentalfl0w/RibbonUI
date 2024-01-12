@@ -7,14 +7,14 @@ on:
       - 'lib_source/**'
       - 'example/**'
       - 'scripts/**'
-      - '.github/workflows/ubuntu-shared.yml'
+      - '.github/workflows/ubuntu-static.yml'
   pull_request:
     paths:
       - '*.txt'
       - 'lib_source/**'
       - 'example/**'
       - 'scripts/**'
-      - '.github/workflows/ubuntu-shared.yml'
+      - '.github/workflows/ubuntu-static.yml'
       
 jobs:
   build:

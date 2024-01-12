@@ -6,14 +6,14 @@ on:
       - 'example/**'
       - 'lib_source/**'
       - 'scripts/**'
-      - '.github/workflows/macos-shared.yml'
+      - '.github/workflows/macos-static.yml'
   pull_request:
     paths:
       - '*.txt'
       - 'example/**'
       - 'lib_source/**'
       - 'scripts/**'
-      - '.github/workflows/macos-shared.yml' 
+      - '.github/workflows/macos-static.yml' 
       
 jobs:
   build:
