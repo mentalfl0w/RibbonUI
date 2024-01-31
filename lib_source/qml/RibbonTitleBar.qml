@@ -11,14 +11,12 @@ Item {
     property bool show_darkmode_btn: true
     property bool dark_mode: RibbonTheme.dark_mode
     property bool modern_style: RibbonTheme.modern_style
+    property bool show_buildin_title_btn: Qt.platform.os !== "osx" || RibbonUI.qt_version > 624
     property string title_color: modern_style ? "transparent" : dark_mode ? "#282828" : "#2C59B7"
     property string title_text_color: modern_style ? dark_mode ? "white" : "black" : "white"
     default property alias content: left_container.data
     property alias left_content: left_container.data
     property alias right_content: right_container.data
-    property alias maximizeBtn: maximizeBtn
-    property alias minimizeBtn: minimizeBtn
-    property alias closeBtn: closeBtn
     anchors {
         top: parent.top
         left: parent.left
@@ -42,7 +40,7 @@ Item {
         id: title_text
         anchors.centerIn: parent
         text: control.title
-        font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
+        font.family: show_buildin_title_btn ? "PingFang SC" : "Microsoft YaHei UI"
         color: title_text_color
         Behavior on color {
             ColorAnimation {
@@ -59,9 +57,13 @@ Item {
             top: parent.top
             left: parent.left
             bottom: parent.bottom
-            leftMargin: Qt.platform.os === "osx" ? 65 : 10
+            leftMargin: !show_buildin_title_btn ? 65 : 10
         }
         Layout.maximumWidth: (parent.width - title_text.contentWidth) / 2
+        Loader{
+            active: Qt.platform.os === "osx"
+            sourceComponent: title_btns
+        }
     }
 
     RowLayout{
@@ -75,54 +77,9 @@ Item {
         }
         Layout.maximumWidth: (parent.width - title_text.contentWidth) / 2
         layoutDirection: Qt.RightToLeft
-        RowLayout{
-            visible: Qt.platform.os !== "osx"
-            layoutDirection: Qt.RightToLeft
-            spacing: 0
-            Layout.rightMargin: Qt.platform.os === "osx" ? -5 : 0
-            RibbonButton{
-                id: closeBtn
-                show_bg:false
-                icon_source: RibbonIcons.Dismiss
-                icon_source_filled: RibbonIcons_Filled.Dismiss
-                text_color: titleBar.title_text_color
-                hover_color: "#ED6B5E"
-                pressed_color: "#B55149"
-                text_color_reverse: false
-                tip_text: qsTr("Close")
-                onClicked: Window.window.close()
-            }
-
-            RibbonButton{
-                id: minimizeBtn
-                show_bg:false
-                icon_source: RibbonIcons.Subtract
-                icon_source_filled: RibbonIcons_Filled.Subtract
-                text_color: titleBar.title_text_color
-                hover_color: "#F4BE4F"
-                pressed_color: "#B78F3B"
-                text_color_reverse: false
-                tip_text: qsTr("Minimize")
-                font.bold: pressed || checked
-                onClicked: Window.window.visibility = Window.Minimized
-            }
-
-            RibbonButton{
-                id: maximizeBtn
-                show_bg:false
-                icon_source: Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize
-                text_color: titleBar.title_text_color
-                hover_color: "#61C554"
-                pressed_color: "#48953F"
-                text_color_reverse: false
-                tip_text: Window.window.visibility === Window.Maximized ? qsTr("Restore") : qsTr("Maximize")
-                onClicked: {
-                    if (Window.window.visibility === Window.Maximized)
-                        Window.window.visibility = Window.Windowed
-                    else
-                        Window.window.visibility = Window.Maximized
-                }
-            }
+        Loader{
+            active: Qt.platform.os !== "osx"
+            sourceComponent: title_btns
         }
         RibbonSwitchButton{
             text: qsTr("Style")
@@ -152,6 +109,56 @@ Item {
             }
             checked: RibbonTheme.dark_mode
             visible: show_darkmode_btn
+        }
+    }
+
+    Component{
+        id: title_btns
+        RowLayout{
+            visible: show_buildin_title_btn
+            layoutDirection: Qt.platform.os === "osx" ? Qt.LeftToRight : Qt.RightToLeft
+            spacing: 0
+            Layout.rightMargin: show_buildin_title_btn ? -5 : 0
+            RibbonButton{
+                show_bg:false
+                icon_source: RibbonIcons.Dismiss
+                icon_source_filled: RibbonIcons_Filled.Dismiss
+                text_color: titleBar.title_text_color
+                hover_color: "#ED6B5E"
+                pressed_color: "#B55149"
+                text_color_reverse: false
+                tip_text: qsTr("Close")
+                onClicked: Window.window.close()
+            }
+
+            RibbonButton{
+                show_bg:false
+                icon_source: RibbonIcons.Subtract
+                icon_source_filled: RibbonIcons_Filled.Subtract
+                text_color: titleBar.title_text_color
+                hover_color: "#F4BE4F"
+                pressed_color: "#B78F3B"
+                text_color_reverse: false
+                tip_text: qsTr("Minimize")
+                font.bold: pressed || checked
+                onClicked: Window.window.visibility = Window.Minimized
+            }
+
+            RibbonButton{
+                show_bg:false
+                icon_source: Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize
+                text_color: titleBar.title_text_color
+                hover_color: "#61C554"
+                pressed_color: "#48953F"
+                text_color_reverse: false
+                tip_text: Window.window.visibility === Window.Maximized ? qsTr("Restore") : qsTr("Maximize")
+                onClicked: {
+                    if (Window.window.visibility === Window.Maximized)
+                        Window.window.visibility = Window.Windowed
+                    else
+                        Window.window.visibility = Window.Maximized
+                }
+            }
         }
     }
 }

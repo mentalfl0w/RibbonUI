@@ -1,8 +1,8 @@
 #include "ribbontheme.h"
-
+#include <QMutex>
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
 #include <QStyleHints>
-#elif ((QT_VERSION >= QT_VERSION_CHECK(6, 2, 1)))
+#elif (QT_VERSION >= QT_VERSION_CHECK(6, 2, 1))
 #include <QtGui/qpa/qplatformtheme.h>
 #include <QtGui/private/qguiapplication_p.h>
 #else

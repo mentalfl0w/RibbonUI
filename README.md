@@ -79,7 +79,7 @@ The current design is based on Qt 6, and support for Qt 5 will be added sometime
 ## 4. How to use it?
 + Before Install
   
-  To install Qt 6, it is recommended to install the **Qt 6.2.4** LTS version via the official online installer, **installing via brew, etc. may cause problems**. **Qt Quick related modules** and the **qt5compat qtshadertools qtimageformats** component are required
+  To install Qt 6, it is recommended to install the **Qt 6.5.3** LTS version via the official online installer, **installing via brew, etc. may cause problems**. **Qt Quick related modules** and the **qt5compat qtshadertools qtimageformats** component are required
 
 + Compile the example and library
   - Clone and enter the library folder
@@ -96,7 +96,7 @@ The current design is based on Qt 6, and support for Qt 5 will be added sometime
     ```shell
     # if you want to make a Debug build, just let -DCMAKE_BUILD_TYPE=Debug, --config Debug
     # if you want a static build, add -DRIBBONUI_BUILD_STATIC_LIB=ON into command
-    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.2.4/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.5.3/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
     # -DCMAKE_PREFIX_PATH={YOUR QT INSTALL FOLDER}
     cmake --build . --target all --config Release --parallel
     ```
@@ -110,7 +110,7 @@ The current design is based on Qt 6, and support for Qt 5 will be added sometime
     ```shell
     # if you want to make a Debug build, just let -DCMAKE_BUILD_TYPE=Debug, --config Debug
     # if you want a static build, add -DRIBBONUI_BUILD_STATIC_LIB=ON into command
-    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.2.4/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_EXAMPLES=OFF -GNinja ..
+    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.5.3/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_EXAMPLES=OFF -GNinja ..
     # -DCMAKE_PREFIX_PATH={YOUR QT INSTALL FOLDER}
     cmake --build . --target all --config Release --parallel
     ```

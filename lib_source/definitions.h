@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtQml/qqml.h>
+#include <QtQml/qqmlregistration.h>
 
 namespace RibbonIconsFilledEnum {
 Q_NAMESPACE
@@ -2336,7 +2337,12 @@ enum class RibbonIcons_Filled{
 };
 Q_ENUM_NS(RibbonIcons_Filled)
 QML_NAMED_ELEMENT(RibbonIcons_Filled)
+#if (QT_VERSION > QT_VERSION_CHECK(6, 3, 0))
+    Q_CLASSINFO("QML.Creatable", "false")
+    Q_CLASSINFO("QML.UncreatableReason", "This type is right-valued only.")
+#elif (QT_VERSION <= QT_VERSION_CHECK(6, 3, 0))
 QML_UNCREATABLE("This type is right-valued only.")
+#endif
 }
 
 namespace RibbonIconsRegularEnum {
@@ -4667,7 +4673,12 @@ enum class RibbonIcons_Regular{
 };
 Q_ENUM_NS(RibbonIcons_Regular)
 QML_NAMED_ELEMENT(RibbonIcons)
+#if (QT_VERSION > QT_VERSION_CHECK(6, 3, 0))
+Q_CLASSINFO("QML.Creatable", "false")
+Q_CLASSINFO("QML.UncreatableReason", "This type is right-valued only.")
+#elif (QT_VERSION <= QT_VERSION_CHECK(6, 3, 0))
 QML_UNCREATABLE("This type is right-valued only.")
+#endif
 }
 
 namespace RibbonThemeType {
@@ -4679,7 +4690,12 @@ enum class ThemeMode {
 };
 Q_ENUM_NS(ThemeMode)
 QML_NAMED_ELEMENT(RibbonThemeType)
+#if (QT_VERSION > QT_VERSION_CHECK(6, 3, 0))
+Q_CLASSINFO("QML.Creatable", "false")
+Q_CLASSINFO("QML.UncreatableReason", "This type is right-valued only.")
+#elif (QT_VERSION <= QT_VERSION_CHECK(6, 3, 0))
 QML_UNCREATABLE("This type is right-valued only.")
+#endif
 }
 
 

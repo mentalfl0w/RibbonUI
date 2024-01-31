@@ -22,8 +22,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04]
-        qt_ver: [6.2.4]
+        os: [ubuntu-latest]
+        qt_ver: [6.5.3]
         qt_arch: [gcc_64]
     env:
       targetName: RibbonUI-APP
@@ -48,13 +48,16 @@ jobs:
       - name: ubuntu install GL library
         run: sudo apt-get install -y libxcb-cursor0 libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
         
+      - name: ubuntu install libfuse2
+        run: sudo apt install libfuse2
+        
       - name: build ubuntu
         run: |
           ninja --version
           cmake --version
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/RibbonUI/Qt/6.2.4/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/RibbonUI/Qt/6.5.3/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_STATIC_LIB=ON -GNinja ..
           cmake --build . --target all --config Release --parallel
           
       - name: install QT linux deploy
