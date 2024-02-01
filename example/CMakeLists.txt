@@ -20,6 +20,12 @@ find_package(Qt6 COMPONENTS Quick REQUIRED)
 
 set(sources_files example.cpp)
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/app/debug)
+else()
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/app/release)
+endif()
+
 if (WIN32)
     set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icon.rc")
     qt_add_executable(${PROJECT_NAME}
@@ -37,7 +43,7 @@ if (WIN32)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
         ${DLL_FILES}
-        "${CMAKE_BINARY_DIR}${PATH_SEPARATOR}example"
+        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
     )
 elseif(APPLE)
     set(MACOSX_BUNDLE_ICON_FILE AppIcon)

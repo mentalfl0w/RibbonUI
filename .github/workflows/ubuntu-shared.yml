@@ -73,7 +73,7 @@ jobs:
           # make sure Qt plugin finds QML sources so it can deploy the imported files
           export QML_SOURCES_PATHS=./
           # 拷贝依赖
-          linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=/home/runner/work/RibbonUI/RibbonUI/build/example/${targetName} --appdir /home/runner/work/RibbonUI/RibbonUI/build/example/
+          linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${targetName}.svg --executable=/home/runner/work/RibbonUI/RibbonUI/build/app/release/${targetName} --appdir /home/runner/work/RibbonUI/RibbonUI/build/app/release/
           mv ${{ env.targetName }}-*.AppImage ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_shared.AppImage
         
       - uses: actions/upload-artifact@v2
