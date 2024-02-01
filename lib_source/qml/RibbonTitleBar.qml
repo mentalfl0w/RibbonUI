@@ -16,6 +16,8 @@ Item {
     default property alias content: left_container.data
     property alias left_content: left_container.data
     property alias right_content: right_container.data
+    property alias left_container: left_container
+    property alias right_container: right_container
     property alias maximizeBtn: maximizeBtn
     property alias minimizeBtn: minimizeBtn
     property alias closeBtn: closeBtn
