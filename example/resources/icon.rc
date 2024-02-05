@@ -3,7 +3,7 @@
 IDI_ICON1 ICON "imgs/icon.ico"
 
 #define STR(x) #x
-#define VER_JOIN(a,b,c,d) STR(a.b.c.d)
+#define VER_JOIN(a,b,c) STR(a.b.c)
 #define VER_JOIN_(x) VER_JOIN x
 #define VER_STR VER_JOIN_((RIBBONUIAPP_VERSION))
 

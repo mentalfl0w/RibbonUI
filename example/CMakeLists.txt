@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(RibbonUIAPP VERSION 1.0.0.0 LANGUAGES CXX)
+project(RibbonUIAPP VERSION 1.0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,7 +14,7 @@ set(PROJECT_COPYRIGHT "Copyright (c) 2023 Mentalflow's Lab. All rights reserved.
 set(PROJECT_DOMAIN "dev.ourdocs.cn.ribbonuiapp")
 set(PROJECT_BUNDLE_NAME RibbonUI-APP)
 
-add_definitions(-DRIBBONUIAPP_VERSION=1,0,0,0)
+add_definitions(-DRIBBONUIAPP_VERSION=1,0,1)
 
 find_package(Qt6 COMPONENTS Quick REQUIRED)
 

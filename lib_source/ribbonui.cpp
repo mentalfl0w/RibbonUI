@@ -1,7 +1,7 @@
 #include "ribbonui.h"
 #include <QMutex>
 #define STR(x) #x
-#define JOIN(a,b,c,d) STR(a.b.c.d)
+#define JOIN(a,b,c) STR(a.b.c)
 #define VER_JOIN(x) JOIN x
 
 RibbonUI::RibbonUI(QQuickItem *parent)

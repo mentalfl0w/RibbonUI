@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(RibbonUI VERSION 1.0.0.0 LANGUAGES CXX)
+project(RibbonUI VERSION 1.0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -11,7 +11,7 @@ endif()
 
 find_package(Qt6 6.2 COMPONENTS Core Quick Qml ShaderTools REQUIRED)
 
-add_definitions(-DRIBBONUI_VERSION=1,0,0,0)
+add_definitions(-DRIBBONUI_VERSION=1,0,1)
 
 if (RIBBONUI_BUILD_STATIC_LIB)
     set(LIB_TYPE "STATIC")
