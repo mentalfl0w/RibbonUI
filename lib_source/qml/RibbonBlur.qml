@@ -18,8 +18,10 @@ Rectangle {
         sourceRect: target_rect
         sourceItem: target
         layer.enabled: true
-        layer.effect: FastBlur{
+        layer.effect: GaussianBlur{
             radius: blur_radius
+            deviation: 8
+            samples: (radius / 4) * 3
         }
     }
     Rectangle{
@@ -29,13 +31,4 @@ Rectangle {
         opacity: mask_opacity
         radius: control.radius
     }
-//    ShaderEffect{
-//        id:blur
-//        anchors.fill: parent
-//        property var src: effect
-//        property int radius: blur_radius
-//        property real deviation: 8
-//        property var pixelStep: Qt.vector2d(1/src.width, 1/src.height)
-//        fragmentShader: "qrc:/RibbonUI/effects/gaussianblur.frag.qsb"
-//    }
 }
