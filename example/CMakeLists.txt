@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(RibbonUIAPP VERSION 1.0.1 LANGUAGES CXX)
+project(RibbonUIAPP VERSION ${CMAKE_PROJECT_VERSION} LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -10,11 +10,12 @@ if(APPLE)
 endif()
 
 set(PROJECT_COMPANY "Mentalflow's Lab")
-set(PROJECT_COPYRIGHT "Copyright (c) 2023 Mentalflow's Lab. All rights reserved.")
+set(PROJECT_COPYRIGHT "Copyright (c) 2024 Mentalflow's Lab. All rights reserved.")
 set(PROJECT_DOMAIN "dev.ourdocs.cn.ribbonuiapp")
 set(PROJECT_BUNDLE_NAME RibbonUI-APP)
 
-add_definitions(-DRIBBONUIAPP_VERSION=1,0,1)
+set(version_str "${CMAKE_PROJECT_VERSION_MAJOR},${CMAKE_PROJECT_VERSION_MINOR},${CMAKE_PROJECT_VERSION_PATCH}")
+add_definitions(-DRIBBONUIAPP_VERSION=${version_str})
 
 find_package(Qt6 COMPONENTS Quick REQUIRED)
 
@@ -61,7 +62,8 @@ endif ()
 
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
-    VERSION 1.0
+    VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}
+    RESOURCE_PREFIX "/qt/qml/"
     QML_FILES example.qml components/RibbonWindow.qml
     RESOURCES resources/imgs/heart.png resources/imgs/search.png resources/icon.rc
 )

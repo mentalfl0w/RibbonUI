@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(RibbonUI_Project VERSION 1.0 LANGUAGES CXX)
+project(RibbonUI_Project VERSION 1.0.2 LANGUAGES CXX)
 
 option(RIBBONUI_BUILD_EXAMPLES "Build RibbonUI APP." ON)
 option(RIBBONUI_BUILD_FRAMELESSHEPLER "Build FramelessHelper." ON)
