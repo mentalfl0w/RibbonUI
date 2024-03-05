@@ -69,10 +69,9 @@ jobs:
           msvcArch: ${{ matrix.msvc_arch }}          
         shell: pwsh
         run: |
-          & scripts\windows-publish.ps1 ${env:archiveName} ${env:targetName}
-          # 记录packageName给后续step
+           & scripts\windows-publish.ps1 ${env:archiveName} ${env:targetName}
            $name = ${env:archiveName}
-           echo "::set-output name=packageName::$name"     
+           echo "packageName=$name" >> $env:GITHUB_OUTPUT
            
       - uses: actions/upload-artifact@v2
         with:

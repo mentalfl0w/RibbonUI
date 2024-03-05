@@ -75,9 +75,9 @@ jobs:
           archiveName: ${{ env.fileName }}-${{ matrix.qt_arch }}-${{ matrix.qt_ver }}-static
         shell: pwsh
         run: |
-          & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:targetName}
+           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:targetName}
            $name = ${env:archiveName}
-           echo "::set-output name=packageName::$name"       
+           echo "packageName=$name" >> $env:GITHUB_OUTPUT
       
       - uses: actions/upload-artifact@v2
         with:
