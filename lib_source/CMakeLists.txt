@@ -2,14 +2,22 @@ cmake_minimum_required(VERSION 3.21)
 
 project(RibbonUI VERSION ${CMAKE_PROJECT_VERSION} LANGUAGES CXX)
 
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
+    qt_standard_project_setup()
+    qt_policy(SET QTP0001 NEW)
+else()
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+    set(CMAKE_AUTOUIC ON)
+endif()
 
 if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-find_package(Qt6 COMPONENTS Core Quick Qml ShaderTools REQUIRED)
+find_package(Qt6 COMPONENTS Core Quick Qml REQUIRED)
 
 set(version_str "${CMAKE_PROJECT_VERSION_MAJOR},${CMAKE_PROJECT_VERSION_MINOR},${CMAKE_PROJECT_VERSION_PATCH}")
 add_definitions(-DRIBBONUI_VERSION=${version_str})
@@ -17,7 +25,7 @@ add_definitions(-DRIBBONUI_VERSION=${version_str})
 if (RIBBONUI_BUILD_STATIC_LIB)
     set(LIB_TYPE "STATIC")
     set(PLUGIN_TARGET_NAME "")
-    qt_add_resources(${PROJECT_NAME} RibbonUI.qmltypes qmldir)
+    set(RIBBONUI_QML_PLUGIN_DIRECTORY ${CMAKE_BINARY_DIR}/RibbonUI)
 else()
     set(LIB_TYPE "SHARED")
     set(PLUGIN_TARGET_NAME ${PROJECT_NAME})
@@ -40,26 +48,17 @@ foreach(qmlfile ${qml_files})
     string(REPLACE "qml/" "" fixedfile ${qmlfile})
     set_source_files_properties(${qmlfile} PROPERTIES QT_RESOURCE_ALIAS ${fixedfile})
 endforeach(qmlfile)
-
+message(${RIBBONUI_QML_PLUGIN_DIRECTORY})
 qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
 qt_add_qml_module(${PROJECT_NAME}
     PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
-    OUTPUT_DIRECTORY ${CMAKE_PREFIX_PATH}/qml/RibbonUI
+    OUTPUT_DIRECTORY ${RIBBONUI_QML_PLUGIN_DIRECTORY}
     URI ${PROJECT_NAME}
     VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}
     QML_FILES ${qml_files}
     SOURCES ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbontheme.cpp
     RESOURCES resources/FluentSystemIcons-Resizable.ttf resources/imgs/icon.png
-)
-
-qt_add_shaders(${PROJECT_NAME} "shaders"
-    BATCHABLE
-    PRECOMPILE
-    OPTIMIZED
-    PREFIX
-        "RibbonUI"
-    FILES
-        "effects/gaussianblur.frag"
+    RESOURCE_PREFIX "/qt/qml/"
 )
 
 target_compile_definitions(${PROJECT_NAME}

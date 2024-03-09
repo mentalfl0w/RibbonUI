@@ -573,7 +573,7 @@ RibbonWindow {
                 }
             }
             Image {
-                source: "qrc:/RibbonUI/resources/imgs/icon.png"
+                source: "qrc:/qt/qml/RibbonUI/resources/imgs/icon.png"
                 fillMode:Image.PreserveAspectFit
                 Layout.preferredHeight: 300
                 Layout.preferredWidth: height

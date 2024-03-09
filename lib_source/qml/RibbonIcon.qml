@@ -23,7 +23,7 @@ Text {
 
     FontLoader{
         id: loader
-        source: "qrc:/RibbonUI/resources/FluentSystemIcons-Resizable.ttf"
+        source: "qrc:/qt/qml/RibbonUI/resources/FluentSystemIcons-Resizable.ttf"
     }
 
 }

@@ -19,17 +19,10 @@ int main(int argc, char *argv[])
 #endif
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
-    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
-#ifdef Q_OS_MACOS
-    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur,false);
-#endif
 
     QQmlApplicationEngine engine;
     FramelessHelper::Quick::registerTypes(&engine);
-#ifdef RIBBONUI_BUILD_STATIC_LIB
-    engine.addImportPath("qrc:/");
-#endif
     const QUrl url(u"qrc:/qt/qml/RibbonUIAPP/example.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {

@@ -2,8 +2,16 @@ cmake_minimum_required(VERSION 3.21)
 
 project(RibbonUIAPP VERSION ${CMAKE_PROJECT_VERSION} LANGUAGES CXX)
 
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
+    qt_standard_project_setup()
+    qt_policy(SET QTP0001 NEW)
+else()
+    set(CMAKE_AUTOMOC ON)
+    set(CMAKE_AUTORCC ON)
+    set(CMAKE_AUTOUIC ON)
+endif()
 
 if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)

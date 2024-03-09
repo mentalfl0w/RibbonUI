@@ -11,7 +11,7 @@ Item {
     property bool show_darkmode_btn: true
     property bool dark_mode: RibbonTheme.dark_mode
     property bool modern_style: RibbonTheme.modern_style
-    property string title_color: modern_style ? "transparent" : dark_mode ? "#282828" : "#2C59B7"
+    property string title_color: modern_style ? Qt.platform.os === "windows" ? dark_mode ? "#141414" : "#F5F5F5" :"transparent" : dark_mode ? "#282828" : "#2C59B7"
     property string title_text_color: modern_style ? dark_mode ? "white" : "black" : "white"
     default property alias content: left_container.data
     property alias left_content: left_container.data
@@ -112,6 +112,7 @@ Item {
             RibbonButton{
                 id: maximizeBtn
                 show_bg:false
+                show_tooltip: Qt.platform.os !== "windows"
                 icon_source: Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize
                 text_color: titleBar.title_text_color
                 hover_color: "#61C554"
