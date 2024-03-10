@@ -245,12 +245,12 @@ RibbonWindow {
                     }
                     RibbonPushButton{
                         text: qsTr("No Menu")
-                        icon_source: "qrc:/RibbonUIAPP/resources/imgs/heart.png"
+                        icon_source: "qrc:/qt/qml/RibbonUIAPP/resources/imgs/heart.png"
                         icon_size: height-5
                     }
                     RibbonPushButton{
                         text: qsTr("Menu")
-                        icon_source: "qrc:/RibbonUIAPP/resources/imgs/search.png"
+                        icon_source: "qrc:/qt/qml/RibbonUIAPP/resources/imgs/search.png"
                         Action{
                             text: "Test Item 3"
                         }
