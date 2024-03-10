@@ -117,7 +117,7 @@ The current design is based on Qt 6, and support for Qt 5 will be added sometime
 
 ## 5. Acknowledgement
 + [@wangwenx190](https://github.com/wangwenx190)'s [framelesshelper](https://github.com/wangwenx190/framelesshelper) for frameless window (aka RibbonWindow's base).
-+ [@Microsoft](https://github.com/microsoft)'s [fluentui-system-icons](https://github.com/zhuzichu520/FluentUI) for beautifully designed icons.
++ [@Microsoft](https://github.com/microsoft)'s [fluentui-system-icons](https://github.com/microsoft/fluentui-system-icons) for beautifully designed icons.
 + [@zhuzichu520](https://github.com/zhuzichu520)'s [FluentUI](https://github.com/zhuzichu520/FluentUI) for inspiration and reference.
 
 ## 6. Get in touch with me

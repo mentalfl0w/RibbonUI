@@ -119,7 +119,7 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 
 ## 5. 鸣谢
 + 感谢[@wangwenx190](https://github.com/wangwenx190)的[framelesshelper](https://github.com/wangwenx190/framelesshelper)让RibbonWindow能实现无边框。
-+ [@Microsoft](https://github.com/microsoft)的[fluentui-system-icons](https://github.com/zhuzichu520/FluentUI)提供的漂亮图标库.
++ [@Microsoft](https://github.com/microsoft)的[fluentui-system-icons](https://github.com/microsoft/fluentui-system-icons)提供的漂亮图标库.
 + 感谢[@zhuzichu520](https://github.com/zhuzichu520)的[FluentUI](https://github.com/zhuzichu520/FluentUI) 为我提供的灵感和参考。
 
 ## 6. 与我联系
