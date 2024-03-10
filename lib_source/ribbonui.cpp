@@ -9,7 +9,6 @@ RibbonUI::RibbonUI(QQuickItem *parent)
 {
     version(VER_JOIN((RIBBONUI_VERSION)));
     qt_version(QString(qVersion()).replace('.',"").toInt());
-    qDebug()<<_qt_version;
 }
 
 RibbonUI* RibbonUI::instance(){
