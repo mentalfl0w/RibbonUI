@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(RibbonUI VERSION ${CMAKE_PROJECT_VERSION} LANGUAGES CXX)
+project(RibbonUI VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -19,7 +19,7 @@ endif()
 
 find_package(Qt6 COMPONENTS Core Quick Qml REQUIRED)
 
-set(version_str "${CMAKE_PROJECT_VERSION_MAJOR},${CMAKE_PROJECT_VERSION_MINOR},${CMAKE_PROJECT_VERSION_PATCH}")
+set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
 add_definitions(-DRIBBONUI_VERSION=${version_str})
 
 if (RIBBONUI_BUILD_STATIC_LIB)
@@ -54,7 +54,7 @@ qt_add_qml_module(${PROJECT_NAME}
     PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
     OUTPUT_DIRECTORY ${RIBBONUI_QML_PLUGIN_DIRECTORY}
     URI ${PROJECT_NAME}
-    VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}
+    VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     QML_FILES ${qml_files}
     SOURCES ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbontheme.cpp
     RESOURCES resources/FluentSystemIcons-Resizable.ttf resources/imgs/icon.png
