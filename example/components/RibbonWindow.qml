@@ -37,14 +37,20 @@ Window {
         anchors.fill: parent
         RibbonTitleBar {
             id: titleBar
+            anchors.topMargin: border_rect.border.width
+            anchors.leftMargin: border_rect.border.width
+            anchors.rightMargin: border_rect.border.width
         }
         Item{
             id:container
             anchors{
                 top: titleBar.bottom
                 left: parent.left
+                leftMargin: border_rect.border.width
                 right: parent.right
+                rightMargin: border_rect.border.width
                 bottom: parent.bottom
+                bottomMargin: border_rect.border.width
             }
             clip: true
         }
@@ -63,6 +69,15 @@ Window {
         anchors.fill: parent
         color: !RibbonTheme.dark_mode ? Qt.rgba(255,255,255,0.3) : Qt.rgba(0,0,0,0.3)
         visible: !Window.active
+    }
+    Rectangle{
+        id: border_rect
+        anchors.fill: parent
+        color: 'transparent'
+        border.color: RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7"
+        border.width: RibbonTheme.modern_style ? 1 : 0
+        radius: 10
+        visible: RibbonTheme.modern_style
     }
     RibbonPopup{
         id: pop
