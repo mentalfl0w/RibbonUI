@@ -4,6 +4,8 @@ project(RibbonUIAPP VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
+
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
     qt_policy(SET QTP0001 NEW)
@@ -17,10 +19,20 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
+string(TIMESTAMP TIME_YEAR %Y)
 set(PROJECT_COMPANY "Mentalflow's Lab")
-set(PROJECT_COPYRIGHT "Copyright (c) 2024 Mentalflow's Lab. All rights reserved.")
+set(PROJECT_COPYRIGHT "Copyright (c) ${TIME_YEAR} Mentalflow's Lab. All rights reserved.")
 set(PROJECT_DOMAIN "dev.ourdocs.cn.ribbonuiapp")
 set(PROJECT_BUNDLE_NAME RibbonUI-APP)
+
+set(MACOSX_BUNDLE_GUI_IDENTIFIER ${PROJECT_DOMAIN})
+set(MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION})
+set(MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
+set(MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_BUNDLE_NAME})
+set(MACOSX_BUNDLE_COPYRIGHT ${PROJECT_COPYRIGHT})
+set(MACOSX_BUNDLE_DEVELOPMENT_REGION "Chinese")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum OS X deployment version" FORCE)
+set(MACOSX_BUNDLE_EXECUTABLE_NAME ${PROJECT_BUNDLE_NAME})
 
 set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
 add_definitions(-DRIBBONUIAPP_VERSION=${version_str})
@@ -36,10 +48,11 @@ else()
 endif()
 
 if (WIN32)
-    set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icon.rc")
+    configure_file(.cmake/win_app.rc.in ${CMAKE_BINARY_DIR}/win_app.rc)
+    set(app_icon_resource_windows ${CMAKE_BINARY_DIR}/win_app.rc)
     qt_add_executable(${PROJECT_NAME}
         ${sources_files}
-        "${CMAKE_CURRENT_SOURCE_DIR}/resources/icon.rc"
+        ${app_icon_resource_windows}
     )
     file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
@@ -55,8 +68,9 @@ if (WIN32)
         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
     )
 elseif(APPLE)
+    configure_file(.cmake/MacOSXBundleInfo.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
     set(MACOSX_BUNDLE_ICON_FILE AppIcon)
-    set(App_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/imgs/AppIcon.icns")
+    set(App_ICON "${PROJECT_SOURCE_DIR}/resources/imgs/AppIcon.icns")
     set_source_files_properties(${App_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
     qt_add_executable(${PROJECT_NAME}
         ${sources_files}
@@ -73,15 +87,11 @@ qt_add_qml_module(${PROJECT_NAME}
     VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     RESOURCE_PREFIX "/qt/qml/"
     QML_FILES example.qml components/RibbonWindow.qml
-    RESOURCES resources/imgs/heart.png resources/imgs/search.png resources/icon.rc
+    RESOURCES resources/imgs/heart.png resources/imgs/search.png
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER ${PROJECT_DOMAIN}
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE_BUNDLE_NAME ${PROJECT_BUNDLE_NAME}
-    MACOSX_BUNDLE_COPYRIGHT ${PROJECT_COPYRIGHT}
+    MACOSX_BUNDLE_INFO_PLIST ${CMAKE_BINARY_DIR}/Info.plist
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
     OUTPUT_NAME ${PROJECT_BUNDLE_NAME}
@@ -106,4 +116,4 @@ else()
 
 endif()
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
