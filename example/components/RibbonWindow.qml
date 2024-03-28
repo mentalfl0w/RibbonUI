@@ -47,6 +47,7 @@ Window {
                 bottom: parent.bottom
             }
             clip: true
+        }
     }
     Connections{
         target: RibbonTheme
