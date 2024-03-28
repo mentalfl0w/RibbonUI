@@ -5,6 +5,7 @@ import org.wangwenx190.FramelessHelper
 Window {
     id:window
     default property alias content: container.data
+    property alias window_items: window_items
     property alias title_bar: titleBar
     property alias popup: pop
     property bool comfirmed_quit: false
@@ -31,18 +32,21 @@ Window {
         FramelessHelper.moveWindowToDesktopCenter();
         window.visible = true;
     }
-    RibbonTitleBar {
-        id: titleBar
-    }
     Item{
-        id:container
-        anchors{
-            top: titleBar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
+        id: window_items
+        anchors.fill: parent
+        RibbonTitleBar {
+            id: titleBar
         }
-        clip: true
+        Item{
+            id:container
+            anchors{
+                top: titleBar.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+            clip: true
     }
     Connections{
         target: RibbonTheme
@@ -61,9 +65,15 @@ Window {
     }
     RibbonPopup{
         id: pop
+        target: window_items
+        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
+        blur_enabled: true
     }
     RibbonPopupDialog{
         id: dialog
+        target: window_items
+        blur_enabled: true
+        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
         positiveText: qsTr("Quit")
         neutralText: qsTr("Minimize")
         negativeText: qsTr("Cancel")

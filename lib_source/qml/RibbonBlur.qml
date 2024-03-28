@@ -2,9 +2,9 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 import RibbonUI
 
-Rectangle {
+Item {
     id: control
-    color: "transparent"
+    property int radius: 0
     property int blur_radius: 32
     property alias target: effect.sourceItem
     property rect target_rect : Qt.rect(control.x, control.y, control.width, control.height)
@@ -17,13 +17,33 @@ Rectangle {
         anchors.fill: parent
         sourceRect: target_rect
         sourceItem: target
-        layer.enabled: true
-        layer.effect: GaussianBlur{
-            radius: blur_radius
-            deviation: 8
-            samples: (radius / 4) * 3
+        visible: false
+        Rectangle{
+            radius: control.radius
+            visible: false
         }
     }
+
+    GaussianBlur{
+        id: blur
+        anchors.fill: parent
+        radius: blur_radius
+        deviation: 8
+        samples: (radius / 4) * 3
+        source: effect
+        visible: false
+    }
+
+    OpacityMask {
+        anchors.fill: parent
+        source: blur
+        maskSource: Rectangle{
+            width: control.width
+            height: control.height
+            radius: control.radius
+        }
+    }
+
     Rectangle{
         id: mask
         anchors.fill: parent
@@ -31,4 +51,6 @@ Rectangle {
         opacity: mask_opacity
         radius: control.radius
     }
+
+
 }

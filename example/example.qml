@@ -500,9 +500,15 @@ RibbonWindow {
                         id: popup
                         height: 200
                         width: height
+                        target: window_items
+                        blur_enabled: true
+                        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
                     }
                     RibbonPopupDialog{
                         id: dialog
+                        target: window_items
+                        blur_enabled: true
+                        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
                     }
                 }
             }
