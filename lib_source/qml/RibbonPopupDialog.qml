@@ -12,6 +12,7 @@ RibbonPopup {
     property string negativeText: "Negative"
     property string positiveText: "Positive"
     property bool dark_mode: RibbonTheme.dark_mode
+    property int content_margins: 20
     show_close_btn: false
     radius: 5
     signal neutralClicked
@@ -19,7 +20,7 @@ RibbonPopup {
     signal positiveClicked
     property int buttonFlags: RibbonPopupDialogType.NegativeButton | RibbonPopupDialogType.PositiveButton
     focus: true
-    implicitWidth: 250
+    implicitWidth: 300
     implicitHeight: text_title.height + text_message.height + layout_actions.height + layout_actions.anchors.topMargin + layout_actions.anchors.bottomMargin
     Rectangle {
         id:layout_content
@@ -31,11 +32,13 @@ RibbonPopup {
             font.pixelSize: 24
             text:title
             view_only: true
-            topPadding: 15
-            leftPadding: 15
-            rightPadding: 15
+            topPadding: content_margins * 3 / 4
+            leftPadding: content_margins
+            rightPadding: content_margins
             wrapMode: Text.WrapAnywhere
-            horizontalAlignment: Text.AlignHCenter
+            color: RibbonTheme.modern_style ?
+                       dark_mode ? '#8AAAEB' : '#2C59B7' :
+                       dark_mode ? "white" : "black"
             verticalAlignment: Text.AlignVCenter
             anchors{
                 top:parent.top
@@ -47,33 +50,48 @@ RibbonPopup {
             id:text_message
             font.pixelSize: 13
             wrapMode: Text.WrapAnywhere
-            horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text:message
             view_only: true
-            topPadding: 15
-            leftPadding: 15
-            rightPadding: 15
-            bottomPadding: 15
+            topPadding: content_margins * 3 / 4
+            leftPadding: content_margins
+            rightPadding: content_margins
+            bottomPadding: content_margins * 3 / 4
             anchors{
                 top:text_title.bottom
                 left: parent.left
                 right: parent.right
             }
         }
+        Rectangle{
+            anchors{
+                top: text_message.bottom
+                topMargin: text_message.anchors.bottomMargin
+                horizontalCenter: parent.horizontalCenter
+            }
+            height: 1
+            width: parent.width - 4
+            color: control.dark_mode ? "#666666" : "#D1D1D1"
+            Behavior on color {
+                ColorAnimation {
+                    duration: 60
+                    easing.type: Easing.OutSine
+                }
+            }
+        }
         RowLayout{
             id:layout_actions
             anchors{
-                topMargin: 15
+                topMargin: content_margins * 3 / 4
                 left: parent.left
-                leftMargin: 15
+                leftMargin: content_margins
                 right: parent.right
-                rightMargin: 15
+                rightMargin: content_margins
                 bottom: parent.bottom
-                bottomMargin: 15
+                bottomMargin: content_margins * 3 / 4
             }
             height: 30
-            spacing: 15
+            spacing: content_margins
             RibbonButton{
                 id:negative_btn
                 Layout.fillWidth: true
