@@ -35,7 +35,7 @@ Item {
     Canvas {
         id: canvas
         anchors.fill: parent
-
+        visible: false
         onPaint: {
             var ctx = getContext("2d")
             ctx.clearRect(0, 0, width, height)
@@ -61,9 +61,9 @@ Item {
         opacity: 0
     }
     OpacityMask {
-        anchors.fill: canvas
+        anchors.fill: parent
         source: container
         maskSource: canvas
-        invert: control.color === "transparent"
+        invert: control.color === "transparent" || control.color === "#00000000"
     }
 }
