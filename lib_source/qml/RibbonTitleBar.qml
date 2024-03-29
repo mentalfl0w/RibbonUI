@@ -112,7 +112,6 @@ Item {
             RibbonButton{
                 id: maximizeBtn
                 show_bg:false
-                show_tooltip: Qt.platform.os !== "windows"
                 icon_source: Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize
                 text_color: titleBar.title_text_color
                 hover_color: "#61C554"
