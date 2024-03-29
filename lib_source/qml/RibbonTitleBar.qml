@@ -156,5 +156,23 @@ Item {
             checked: RibbonTheme.dark_mode
             visible: show_darkmode_btn
         }
+        RibbonButton{
+            id: pinBtn
+            show_bg:false
+            icon_source: checked ? RibbonIcons.Pin : RibbonIcons.PinOff
+            icon_source_filled: checked ? RibbonIcons_Filled.Pin : RibbonIcons_Filled.PinOff
+            checkable: true
+            text_color: title_text_color
+            hover_color: Qt.rgba(0,0,0, 0.3)
+            pressed_color: Qt.rgba(0,0,0, 0.4)
+            text_color_reverse: false
+            tip_text: qsTr("Stay on Top")
+            onClicked: {
+                if (checked)
+                    Window.window.flags = Qt.Window | Qt.WindowStaysOnTopHint
+                else
+                    Window.window.flags = Qt.Window
+            }
+        }
     }
 }
