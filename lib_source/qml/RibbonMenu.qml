@@ -39,7 +39,7 @@ Menu {
                      : false
         clip: true
         currentIndex: control.currentIndex
-        ScrollIndicator.vertical: ScrollIndicator {}
+        ScrollBar.vertical: RibbonScrollBar {}
     }
 
     background: Rectangle {

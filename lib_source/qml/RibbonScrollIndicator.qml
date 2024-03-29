@@ -1,9 +1,8 @@
 import QtQuick
-import QtQuick.Controls.impl
-import QtQuick.Templates as T
+import QtQuick.Controls
 import RibbonUI
 
-T.ScrollIndicator {
+ScrollIndicator {
     id: control
 
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
@@ -45,6 +44,7 @@ T.ScrollIndicator {
         color: RibbonTheme.dark_mode ? '#141414' : '#F5F5F5'
         opacity: 0.0
         radius: implicitWidth / 2
+        visible: control.contentItem.visible
 
         states: State {
             name: "active"

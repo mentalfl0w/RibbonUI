@@ -165,7 +165,7 @@ ComboBox {
             model: control.delegateModel
             currentIndex: control.highlightedIndex
             highlightMoveDuration: 0
-            ScrollIndicator.vertical: ScrollIndicator { }
+            ScrollBar.vertical: RibbonScrollBar { }
         }
 
         background: RibbonBlur{

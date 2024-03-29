@@ -15,7 +15,7 @@ RibbonView {
         Layout.preferredHeight: parent.height
         contentWidth: control.width
         contentHeight: container_bg.height + container_bg.anchors.topMargin + container_bg.anchors.bottomMargin
-        ScrollBar.vertical: ScrollBar {
+        ScrollBar.vertical: RibbonScrollBar {
             anchors.right: flickview.right
             anchors.rightMargin: 2
         }
