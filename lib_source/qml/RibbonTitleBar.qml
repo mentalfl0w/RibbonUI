@@ -166,12 +166,7 @@ Item {
             pressed_color: Qt.rgba(0,0,0, 0.4)
             text_color_reverse: false
             tip_text: qsTr("Stay on Top")
-            onClicked: {
-                if (checked)
-                    Window.window.flags = Qt.Window | Qt.WindowStaysOnTopHint
-                else
-                    Window.window.flags = Qt.Window
-            }
+            onClicked: Window.window.flags ^= Qt.WindowStaysOnTopHint
         }
     }
 }
