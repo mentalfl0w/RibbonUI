@@ -18,8 +18,8 @@ class RibbonUI : public QQuickItem
 public:
     static RibbonUI* instance();
     static RibbonUI* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
-    static void init();
-    static void registerTypes(QQmlEngine *qmlEngine);
+    RIBBONUI_API static void init();
+    RIBBONUI_API static void registerTypes(QQmlEngine *qmlEngine);
 private:
     explicit RibbonUI(QQuickItem *parent = nullptr);
     Q_DISABLE_COPY_MOVE(RibbonUI)

@@ -97,16 +97,19 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if(RIBBONUI_BUILD_STATIC_LIB)
-    add_definitions(-DRIBBONUI_BUILD_STATIC_LIB)
     target_link_libraries(${PROJECT_NAME} PRIVATE
-        Qt::Quick
         RibbonUIplugin
     )
-else()
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-        Qt::Quick
-        RibbonUI
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        RIBBONUI_BUILD_STATIC_LIB
     )
 endif()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt::Quick
+    RibbonUI
+)
+
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+

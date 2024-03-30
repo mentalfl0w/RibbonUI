@@ -5,6 +5,18 @@
 #include <QtQml/qqml.h>
 #include <QtQml/qqmlregistration.h>
 
+#ifndef RIBBONUI_API
+#  ifdef RIBBONUI_BUILD_STATIC_LIB
+#    define RIBBONUI_API
+#  else // RIBBONUI_BUILD_STATIC_LIB
+#    ifdef RIBBONUI_LIBRARY
+#      define RIBBONUI_API Q_DECL_EXPORT
+#    else // RIBBONUI_LIBRARY
+#      define RIBBONUI_API Q_DECL_IMPORT
+#    endif // RIBBONUI_LIBRARY
+#  endif // RIBBONUI_BUILD_STATIC_LIB
+#endif // RIBBONUI_API
+
 namespace RibbonIconsFilledEnum {
 Q_NAMESPACE
 enum class RibbonIcons_Filled{

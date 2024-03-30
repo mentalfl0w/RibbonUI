@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
 
+include(GNUInstallDirs)
+
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
     qt_policy(SET QTP0001 NEW)
@@ -70,18 +72,38 @@ qt_add_qml_module(${PROJECT_NAME}
     RESOURCE_PREFIX "/qt/qml/"
 )
 
+if (MINGW)
+    set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+endif()
+
+if (MSVC)
+    set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
+endif()
+
+if (RIBBONUI_BUILD_STATIC_LIB)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        RIBBONUI_BUILD_STATIC_LIB
+    )
+endif()
+
 target_compile_definitions(${PROJECT_NAME}
-    PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+    PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
+    RIBBONUI_LIBRARY
+)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt::Quick
     Qt::CorePrivate
     Qt::QuickPrivate
     Qt::QmlPrivate
 )
-
 target_link_libraries(${PROJECT_NAME} PUBLIC
     FramelessHelper::Core
     FramelessHelper::Quick
 )
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${PROJECT_SOURCE_DIR}
+    ${PROJECT_SOURCE_DIR}/3rdparty/framelesshelper/include
+)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+install(DIRECTORY ${RIBBONUI_QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)
+
