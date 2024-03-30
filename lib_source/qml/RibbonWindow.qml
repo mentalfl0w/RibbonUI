@@ -108,4 +108,28 @@ Window {
         if (!comfirmed_quit)
             dialog.open()
     }
+
+    function show_popup(content_url, argument)
+    {
+        let component = Qt.createComponent(content_url,pop)
+
+        if (component.status === Component.Error) {
+            console.log(qsTr("Error loading component:"), component.errorString());
+            return
+        }
+        else
+        {
+            if (typeof(argument)!='undefined')
+                pop.contentItem = component.createObject(pop,argument)
+            else
+                pop.contentItem = component.createObject(pop)
+        }
+        pop.open()
+    }
+
+    function close_popup()
+    {
+        pop.close()
+        pop.contentItem.destroy()
+    }
 }
