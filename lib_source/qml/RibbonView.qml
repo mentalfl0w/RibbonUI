@@ -39,6 +39,7 @@ Item {
         visible: top_padding
         clip: true
         target_rect: Qt.rect(x,y-top_padding,width,height)
+        use_solid_bg: false
     }
 
     Item{
@@ -72,5 +73,6 @@ Item {
         visible: bottom_padding
         clip: true
         target_rect: Qt.rect(x,y-top_padding,width,height)
+        use_solid_bg: false
     }
 }

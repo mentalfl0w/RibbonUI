@@ -8,9 +8,10 @@ Item {
     property int blur_radius: 32
     property alias target: effect.sourceItem
     property rect target_rect : Qt.rect(control.x, control.y, control.width, control.height)
-    property color mask_color: RibbonTheme.dark_mode ? "#212629" : "white"
+    property color mask_color: RibbonTheme.dark_mode ? RibbonTheme.modern_style ? '#292929' : "#212629" : "white"
     property double mask_opacity: 0.5
     property alias mask_border: mask.border
+    property bool use_solid_bg: true
 
     ShaderEffectSource {
         id: effect
@@ -18,10 +19,6 @@ Item {
         sourceRect: target_rect
         sourceItem: target
         visible: false
-        Rectangle{
-            radius: control.radius
-            visible: false
-        }
     }
 
     GaussianBlur{
@@ -34,13 +31,18 @@ Item {
         visible: false
     }
 
-    OpacityMask {
+    Rectangle{
         anchors.fill: parent
-        source: blur
-        maskSource: Rectangle{
-            width: control.width
-            height: control.height
-            radius: control.radius
+        color: use_solid_bg ? mask_color : 'transparent'
+        radius: control.radius
+        OpacityMask {
+            anchors.fill: parent
+            source: blur
+            maskSource: Rectangle{
+                width: control.width
+                height: control.height
+                radius: control.radius
+            }
         }
     }
 
@@ -51,6 +53,4 @@ Item {
         opacity: mask_opacity
         radius: control.radius
     }
-
-
 }
