@@ -10,18 +10,18 @@ ScrollBar {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
-    verticalPadding: (control.vertical ? 8 + 5 : 0) + (18 - 8) / 2
-    horizontalPadding: (control.vertical ? 0 : 8 + 5) + (18 - 8) / 2
+    verticalPadding: control.hovered || control.pressed ? (control.vertical ? 8 + 5 : 0) + (18 - 8) / 2 : 2
+    horizontalPadding: control.hovered || control.pressed ? (control.vertical ? 0 : 8 + 5) + (18 - 8) / 2 : 2
     visible: control.policy !== ScrollBar.AlwaysOff
     minimumSize: orientation === Qt.Horizontal ? height / width : width / height
 
     contentItem: Rectangle {
-        implicitWidth: 8
-        implicitHeight: 8
+        implicitWidth: control.hovered || control.pressed ? 8 : 4
+        implicitHeight: control.hovered || control.pressed ? 8 : 4
         visible: control.size < 1.0
         radius: width / 2
         color: RibbonTheme.dark_mode ? hover_handler.hovered ? '#D6D6D6' : hover_handler.hovered && control.pressed ? '#E5E5E5' : '#999999'
-                                : hover_handler.hovered ? '#424242' : hover_handler.hovered && control.pressed ? '#333333' : '#707070'
+        : hover_handler.hovered ? '#424242' : hover_handler.hovered && control.pressed ? '#333333' : '#707070'
         opacity: 0.0
 
         states: State {
@@ -38,21 +38,41 @@ ScrollBar {
             }
         }
 
+        Behavior on implicitWidth {
+            SequentialAnimation {
+                PauseAnimation { duration: hover_handler.hovered ? 0 : 300 }
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.OutSine
+                }
+            }
+        }
+
+        Behavior on implicitHeight {
+            SequentialAnimation {
+                PauseAnimation { duration: hover_handler.hovered ? 0 : 300 }
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.OutSine
+                }
+            }
+        }
+
         HoverHandler{
             id:hover_handler
         }
     }
 
     background: Rectangle{
-        implicitWidth: 18
-        implicitHeight: 18
+        implicitWidth: control.hovered || control.pressed ? 18 : 0
+        implicitHeight: control.hovered || control.pressed ? 18 : 0
         color: RibbonTheme.dark_mode ? '#141414' : '#F5F5F5'
         opacity: 0.0
         radius: implicitWidth / 2
         visible: control.contentItem.visible
         states: State {
             name: "active"
-            when: control.active
+            when: control.active && control.hovered
             PropertyChanges { control.background.opacity: 0.75 }
         }
 
@@ -60,8 +80,13 @@ ScrollBar {
             Transition {
                 from: "active"
                 SequentialAnimation {
-                    PauseAnimation { duration: 450 }
                     NumberAnimation { target: control.background; duration: 200; property: "opacity"; to: 0.0 }
+                }
+            },
+            Transition {
+                to: "active"
+                SequentialAnimation {
+                    NumberAnimation { target: control.background; duration: 200; property: "opacity";}
                 }
             }
         ]
@@ -76,7 +101,7 @@ ScrollBar {
             onClicked: control.decrease()
             Component.onCompleted: setup()
             ribbon_icon.filled: true
-            ribbon_icon.icon_size: 14
+            ribbon_icon.icon_size: 15
             ribbon_icon.color: RibbonTheme.dark_mode ? hovered ? '#D6D6D6' : pressed ? '#E5E5E5' : '#999999'
             : hovered ? '#424242' : pressed ? '#333333' : '#707070'
             Connections{
@@ -116,7 +141,7 @@ ScrollBar {
             onClicked: control.increase()
             Component.onCompleted: setup()
             ribbon_icon.filled: true
-            ribbon_icon.icon_size: 14
+            ribbon_icon.icon_size: 15
             ribbon_icon.color: RibbonTheme.dark_mode ? hovered ? '#D6D6D6' : pressed ? '#E5E5E5' : '#999999'
             : hovered ? '#424242' : pressed ? '#333333' : '#707070'
             Connections{
@@ -144,6 +169,22 @@ ScrollBar {
                     anchors.verticalCenter = parent.verticalCenter
                 }
             }
+        }
+    }
+
+    Behavior on verticalPadding {
+        enabled: control.hovered
+        NumberAnimation {
+            duration: 100
+            easing.type: Easing.OutSine
+        }
+    }
+
+    Behavior on horizontalPadding {
+        enabled: control.hovered
+        NumberAnimation {
+            duration: 100
+            easing.type: Easing.OutSine
         }
     }
 }
