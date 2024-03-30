@@ -5,7 +5,6 @@ import QtQuick.Controls.Material
 import QtQuick.Window
 import RibbonUI
 import org.wangwenx190.FramelessHelper
-import "components"
 
 RibbonWindow {
     id:root

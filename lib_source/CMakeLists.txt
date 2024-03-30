@@ -19,6 +19,12 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
+set(FRAMELESSHELPER_BUILD_STATIC ON)
+set(FRAMELESSHELPER_NO_SUMMARY OFF)
+set(FRAMELESSHELPER_NO_DEBUG_OUTPUT ON)
+set(FRAMELESSHELPER_BUILD_WIDGETS OFF)
+add_subdirectory(3rdparty/framelesshelper)
+
 find_package(Qt6 COMPONENTS Core Quick Qml REQUIRED)
 
 set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
@@ -44,14 +50,14 @@ set(
     qml/RibbonText.qml qml/RibbonTextBoxMenu.qml qml/RibbonPopup.qml
     qml/RibbonPopupDialog.qml qml/RibbonLineEdit.qml qml/RibbonTextEdit.qml
     qml/RibbonComboBox.qml qml/RibbonSpinBox.qml qml/RibbonScrollIndicator.qml
-    qml/RibbonScrollBar.qml
+    qml/RibbonScrollBar.qml qml/RibbonWindow.qml
 )
 
 foreach(qmlfile ${qml_files})
     string(REPLACE "qml/" "" fixedfile ${qmlfile})
     set_source_files_properties(${qmlfile} PROPERTIES QT_RESOURCE_ALIAS ${fixedfile})
 endforeach(qmlfile)
-message(${RIBBONUI_QML_PLUGIN_DIRECTORY})
+
 qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
 qt_add_qml_module(${PROJECT_NAME}
     PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
@@ -73,4 +79,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt::QmlPrivate
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    FramelessHelper::Core
+    FramelessHelper::Quick
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})

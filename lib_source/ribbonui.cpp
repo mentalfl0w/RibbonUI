@@ -21,3 +21,20 @@ RibbonUI* RibbonUI::instance(){
     }
     return singleton;
 }
+
+void RibbonUI::init()
+{
+    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
+    FramelessHelper::Quick::initialize();
+#ifdef Q_OS_WIN
+    FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
+#endif
+    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
+    FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
+    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+}
+
+void RibbonUI::registerTypes(QQmlEngine *qmlEngine)
+{
+    FramelessHelper::Quick::registerTypes(qmlEngine);
+}

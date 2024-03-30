@@ -85,7 +85,7 @@ qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     RESOURCE_PREFIX "/qt/qml/"
-    QML_FILES example.qml components/RibbonWindow.qml
+    QML_FILES example.qml
     RESOURCES resources/imgs/heart.png resources/imgs/search.png
 )
 
@@ -101,18 +101,12 @@ if(RIBBONUI_BUILD_STATIC_LIB)
     target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt::Quick
         RibbonUIplugin
-        FramelessHelper::Core
-        FramelessHelper::Quick
     )
-
 else()
     target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt::Quick
         RibbonUI
-        FramelessHelper::Core
-        FramelessHelper::Quick
     )
-
 endif()
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
