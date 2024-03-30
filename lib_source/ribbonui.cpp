@@ -7,8 +7,8 @@
 RibbonUI::RibbonUI(QQuickItem *parent)
     : QQuickItem(parent)
 {
-    version(VER_JOIN((RIBBONUI_VERSION)));
-    qt_version(QString(qVersion()).replace('.',"").toInt());
+    _version = VER_JOIN((RIBBONUI_VERSION));
+    _qt_version = QString(qVersion()).replace('.',"").toInt();
 }
 
 RibbonUI* RibbonUI::instance(){
