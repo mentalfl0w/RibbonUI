@@ -84,6 +84,7 @@ Window {
         target: window_items
         target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
         blur_enabled: true
+        onClosed: contentItem.destroy()
     }
     RibbonPopupDialog{
         id: dialog
@@ -130,6 +131,5 @@ Window {
     function close_popup()
     {
         pop.close()
-        pop.contentItem.destroy()
     }
 }
