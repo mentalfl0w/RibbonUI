@@ -12,12 +12,11 @@ Item {
     property int spacing: 5
     property int top_padding: 0
     property int bottom_padding: 0
+    property alias bg_color: bg.color
+    property alias bg_visible: bg.visible
     z:-2
     clip: true
-    anchors{
-        left: parent.left
-        right:parent.right
-    }
+    width: parent.width
 
     Rectangle{
         id:bg
