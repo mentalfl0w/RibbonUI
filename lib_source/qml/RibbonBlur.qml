@@ -8,7 +8,7 @@ Item {
     property int blur_radius: 32
     property alias target: effect.sourceItem
     property rect target_rect : Qt.rect(control.x, control.y, control.width, control.height)
-    property color mask_color: RibbonTheme.dark_mode ? RibbonTheme.modern_style ? '#292929' : "#212629" : "white"
+    property color mask_color: RibbonTheme.dark_mode ? RibbonTheme.modern_style ? '#292929' : "#212629" : RibbonTheme.modern_style ? "#F5F5F5" : "#FFFFFF"
     property double mask_opacity: 0.5
     property alias mask_border: mask.border
     property bool use_solid_bg: true
