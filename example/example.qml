@@ -1,10 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick.Controls.Material
-import QtQuick.Window
 import RibbonUI
-import org.wangwenx190.FramelessHelper
 
 RibbonWindow {
     id:root
@@ -423,6 +420,24 @@ RibbonWindow {
             }
         }
         RibbonTabPage{
+            title: qsTr("Views")
+            RibbonTabGroup{
+                width: message_list_view_layout.width + 30
+                text: qsTr("MessageListView")
+                RowLayout{
+                    id: message_list_view_layout
+                    anchors.centerIn: parent
+                    height: parent.height
+                    spacing: 10
+                    RibbonButton{
+                        text: qsTr('Open Message List View')
+                        icon_source: RibbonIcons.Open
+                        onClicked: root.show_popup("qrc:/qt/qml/RibbonUIAPP/components/RibbonMessageListViewExample.qml")
+                    }
+                }
+            }
+        }
+        RibbonTabPage{
             title: qsTr("Others")
             RibbonTabGroup{
                 width: text_layout.width + 30
@@ -555,10 +570,7 @@ RibbonWindow {
 
     RibbonPaperView{
         id: view
-        anchors{
-            top: parent.top
-            bottom: parent.bottom
-        }
+        anchors.fill: parent
         top_padding: tab_bar.height
         bottom_padding: bottom_bar.height
         page_width: (page_slider.value / 100.0) * width

@@ -52,7 +52,8 @@ set(
     qml/RibbonText.qml qml/RibbonTextBoxMenu.qml qml/RibbonPopup.qml
     qml/RibbonPopupDialog.qml qml/RibbonLineEdit.qml qml/RibbonTextEdit.qml
     qml/RibbonComboBox.qml qml/RibbonSpinBox.qml qml/RibbonScrollIndicator.qml
-    qml/RibbonScrollBar.qml qml/RibbonWindow.qml
+    qml/RibbonScrollBar.qml qml/RibbonWindow.qml qml/RibbonMessage.qml
+    qml/RibbonMessageListView.qml
 )
 
 foreach(qmlfile ${qml_files})
