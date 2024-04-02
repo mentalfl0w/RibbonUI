@@ -46,7 +46,7 @@ if (WIN32)
         ${app_icon_resource_windows}
     )
     file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
-    if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    if(MSVC)
         set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/msvc/*.dll)
     else()
         set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
@@ -75,11 +75,11 @@ elseif(APPLE)
         ${sources_files}
         ${App_ICON}
     )
-else ()
+else()
     qt_add_executable(${PROJECT_NAME}
         ${sources_files}
     )
-endif ()
+endif()
 
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
@@ -103,6 +103,25 @@ if(RIBBONUI_BUILD_STATIC_LIB)
     target_compile_definitions(${PROJECT_NAME} PRIVATE
         RIBBONUI_BUILD_STATIC_LIB
     )
+else()
+    if(WIN32)
+        if (MINGW)
+            add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${RIBBONUI_QML_PLUGIN_DIRECTORY}/RibbonUI.dll"
+                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+        else()
+            if (NOT RIBBONUI_BUILD_STATIC_LIB)
+                if (CMAKE_BUILD_TYPE MATCHES "Debug")
+                    set(DEBUG_POSTFIX "d")
+                endif()
+                add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    "${RIBBONUI_QML_PLUGIN_DIRECTORY}/RibbonUI${DEBUG_POSTFIX}.dll"
+                    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+            endif()
+        endif()
+    endif()
 endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
