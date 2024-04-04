@@ -111,13 +111,15 @@ Window {
 
     function show_popup(content_url, arguments)
     {
-        console.warn("RibbonWindow: This \"show_popup()\" function deprecated, please use RibbonPopup.open_content()")
+        console.warn(qsTr("RibbonWindow: This \"show_popup()\" function is deprecated, please use RibbonPopup.open_content()"))
+        popup.show_close_btn = !popup.show_close_btn
         popup.show_content(content_url, arguments)
     }
 
     function close_popup()
     {
-        console.warn("RibbonWindow: This \"close_popup()\" function deprecated, please use RibbonPopup.close_content()")
+        console.warn(qsTr("RibbonWindow: This \"close_popup()\" function is deprecated, please use RibbonPopup.close_content()"))
+        popup.show_close_btn = !popup.show_close_btn
         pop.close_content()
     }
 }
