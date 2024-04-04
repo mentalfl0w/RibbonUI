@@ -84,7 +84,6 @@ Window {
         target: window_items
         target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
         blur_enabled: true
-        onClosed: contentItem.destroy()
     }
     RibbonPopupDialog{
         id: dialog
@@ -110,26 +109,15 @@ Window {
             dialog.open()
     }
 
-    function show_popup(content_url, argument)
+    function show_popup(content_url, arguments)
     {
-        let component = Qt.createComponent(content_url,pop)
-
-        if (component.status === Component.Error) {
-            console.log(qsTr("Error loading component:"), component.errorString());
-            return
-        }
-        else
-        {
-            if (typeof(argument)!='undefined')
-                pop.contentItem = component.createObject(pop,argument)
-            else
-                pop.contentItem = component.createObject(pop)
-        }
-        pop.open()
+        console.warn("RibbonWindow: This \"show_popup()\" function deprecated, please use RibbonPopup.open_content()")
+        popup.show_content(content_url, arguments)
     }
 
     function close_popup()
     {
-        pop.close()
+        console.warn("RibbonWindow: This \"close_popup()\" function deprecated, please use RibbonPopup.close_content()")
+        pop.close_content()
     }
 }

@@ -432,7 +432,9 @@ RibbonWindow {
                     RibbonButton{
                         text: qsTr('Open Message List View')
                         icon_source: RibbonIcons.Open
-                        onClicked: root.show_popup("qrc:/qt/qml/RibbonUIAPP/components/RibbonMessageListViewExample.qml")
+                        onClicked: {
+                            Window.window.popup.show_content("qrc:/qt/qml/RibbonUIAPP/components/RibbonMessageListViewExample.qml")
+                        }
                     }
                 }
             }

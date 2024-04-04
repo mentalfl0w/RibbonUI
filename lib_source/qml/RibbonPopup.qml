@@ -16,6 +16,10 @@ Popup {
     property alias target: blur.target
     property alias target_rect: blur.target_rect
     property alias radius: blur.radius
+    property string content_source: ""
+    property var content_items: undefined
+    property bool destroy_after_close: true
+
     enter: Transition {
         NumberAnimation {
             properties: "scale"
@@ -66,23 +70,47 @@ Popup {
             mask_opacity: blur_enabled ? 0.9 : 1
             mask_border.color: RibbonTheme.modern_style ?
                                    RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7" :
-                                   RibbonTheme.dark_mode ? "#5C5D5D" : "#B5B4B5"
+            RibbonTheme.dark_mode ? "#5C5D5D" : "#B5B4B5"
             mask_border.width: 1
         }
     }
     contentItem: Item{
+        id: control
+        implicitHeight: container.height
+        implicitWidth: container.width
+        property var args
         RibbonButton{
             anchors{
                 top:parent.top
                 topMargin: 8
                 right:parent.right
-                rightMargin: topMargin
+                rightMargin: anchors.topMargin
             }
             show_bg: false
             show_hovered_bg: false
             icon_source: RibbonIcons.Dismiss
-            onClicked: close()
+            onClicked: popup.close_content()
             visible: show_close_btn
+        }
+        Loader{
+            id: container
+            anchors.centerIn: parent
+            width: item ? item.implicitWidth : 0
+            height: item ? item.implicitHeight : 0
+            sourceComponent: content_source ? undefined : content_items
+            source: content_source
+            onLoaded: {
+                if (!control.args)
+                    return
+                else if(Object.keys(control.args).length){
+                    for (let arg in control.args){
+                        item[arg] = control.args[arg]
+                    }
+                }
+                else{
+                    console.error("RibbonPopup: Arguments error, please check.")
+                }
+            }
         }
     }
     Overlay.modal:Rectangle{
@@ -90,5 +118,30 @@ Popup {
     }
     Overlay.modeless:Rectangle{
         color:"transparent"
+    }
+    onClosed: free_content()
+    function show_content(content, args){
+        popup.contentItem.args = args
+        if (content instanceof Component)
+        {
+            content_items = content
+            content.parent = popup
+        }
+        else
+        {
+            content_source = content
+        }
+        open()
+    }
+    function close_content(){
+        free_content()
+        close()
+    }
+    function free_content(){
+        if (destroy_after_close)
+        {
+            content_source = ""
+            content_items = undefined
+        }
     }
 }

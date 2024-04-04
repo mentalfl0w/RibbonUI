@@ -7,18 +7,6 @@ Item {
     id: root
     implicitHeight: layout.height + layout.anchors.margins * 2
     implicitWidth: 500
-    RibbonButton{
-        anchors{
-            top:parent.top
-            topMargin: 8
-            right: parent.right
-            rightMargin: anchors.topMargin
-        }
-        show_bg: false
-        show_hovered_bg: false
-        icon_source: RibbonIcons.Dismiss
-        onClicked: close_popup()
-    }
     ColumnLayout{
         id: layout
         width: parent.width - anchors.margins * 2
