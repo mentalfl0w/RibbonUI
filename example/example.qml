@@ -8,6 +8,7 @@ RibbonWindow {
     width: 1200
     height: 800
     title: qsTr("RibbonUI APP")
+    comfirmed_quit: true
     property bool modern_style: RibbonTheme.modern_style
 
     RibbonTabBar {
@@ -693,6 +694,17 @@ RibbonWindow {
     title_bar.right_content:RowLayout{
         spacing: 1
         layoutDirection: Qt.RightToLeft
+        RibbonButton{
+            show_bg:false
+            icon_source: RibbonIcons.Info
+            icon_source_filled: RibbonIcons_Filled.Info
+            tip_text: qsTr("About")
+            hover_color: Qt.rgba(0,0,0, 0.3)
+            pressed_color: Qt.rgba(0,0,0, 0.4)
+            text_color: title_bar.title_text_color
+            text_color_reverse: false
+            onClicked: root.show_window(Qt.resolvedUrl("about.qml"))
+        }
         RibbonButton{
             show_bg:false
             icon_source: RibbonIcons.CalendarStar

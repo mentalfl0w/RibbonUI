@@ -85,28 +85,55 @@ Window {
         target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
         blur_enabled: true
     }
+
     RibbonPopupDialog{
-        id: dialog
+        id: close_dialog
         target: window_items
         blur_enabled: true
         target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
         positiveText: qsTr("Quit")
         neutralText: qsTr("Minimize")
         negativeText: qsTr("Cancel")
-        message: "Do you want to quit the APP?"
-        title: "Please note"
+        message: qsTr("Do you want to close this window?")
+        title: qsTr("Please note")
         buttonFlags: RibbonPopupDialogType.NegativeButton | RibbonPopupDialogType.PositiveButton | RibbonPopupDialogType.NeutralButton
         onNeutralClicked: window.visibility =  Window.Minimized
         onPositiveClicked: {
-            comfirmed_quit = true
+            comfirmed_quit = false
             Qt.quit()
         }
     }
+
     onClosing:function(event){
         window.raise()
-        event.accepted = comfirmed_quit
-        if (!comfirmed_quit)
-            dialog.open()
+        event.accepted = !comfirmed_quit
+        if (comfirmed_quit)
+            close_dialog.open()
+    }
+
+    Loader{
+        id: window_loader
+        property var args
+        onLoaded: {
+            item.onClosing.connect(function(){
+                window_loader.source = ""
+            })
+            if (!window_loader.args)
+                return
+            else if(Object.keys(window_loader.args).length){
+                for (let arg in window_loader.args){
+                    item[arg] = window_loader.args[arg]
+                }
+            }
+            else{
+                console.error("RibbonWindow: Arguments error, please check.")
+            }
+        }
+    }
+
+    function show_window(window_url, args){
+        window_loader.args = args
+        window_loader.source = window_url
     }
 
     function show_popup(content_url, arguments)
