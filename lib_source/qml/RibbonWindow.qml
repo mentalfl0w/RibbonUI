@@ -128,6 +128,7 @@ Window {
             else{
                 console.error("RibbonWindow: Arguments error, please check.")
             }
+            item.show()
         }
     }
 
