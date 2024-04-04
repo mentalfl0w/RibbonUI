@@ -132,8 +132,17 @@ Window {
     }
 
     function show_window(window_url, args){
-        window_loader.args = args
-        window_loader.source = window_url
+        if (window_url === window_loader.source && window_loader.status === Loader.Ready)
+            window_loader.item.raise()
+        else
+            window_loader.source = window_url
+        if (args !== window_loader.args && Object.keys(window_loader.args).length && window_loader.status === Loader.Ready)
+        {
+            window_loader.args = args
+            for (let arg in window_loader.args){
+                window_loader.item[arg] = window_loader.args[arg]
+            }
+        }
     }
 
     function show_popup(content_url, arguments)
