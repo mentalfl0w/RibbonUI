@@ -94,7 +94,6 @@ Popup {
         }
         Loader{
             id: container
-            anchors.centerIn: parent
             width: item ? item.implicitWidth : 0
             height: item ? item.implicitHeight : 0
             sourceComponent: content_source ? undefined : content_items
