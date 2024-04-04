@@ -9,6 +9,7 @@ Item {
     property string title: Window.window.title
     property bool show_style_switch: true
     property bool show_darkmode_btn: true
+    property bool show_pin_btn: true
     property bool dark_mode: RibbonTheme.dark_mode
     property bool modern_style: RibbonTheme.modern_style
     property string title_color: modern_style ? Qt.platform.os === "windows" ? dark_mode ? "#141414" : "#F5F5F5" :"transparent" : dark_mode ? "#282828" : "#2C59B7"
@@ -167,6 +168,7 @@ Item {
             text_color_reverse: false
             tip_text: qsTr("Stay on Top")
             onClicked: Window.window.flags ^= Qt.WindowStaysOnTopHint
+            visible: control.show_pin_btn
         }
     }
 }
