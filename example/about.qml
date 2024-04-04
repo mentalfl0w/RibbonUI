@@ -5,7 +5,9 @@ import RibbonUI
 
 RibbonWindow {
     id: window
-    width: Math.max(content.width, content.height + title_bar.height) + content.anchors.margins * 2
+    width: Math.max(content.width, content.height + title_bar.height, title_bar.minimumWidth) + content.anchors.margins * 2
+    minimumWidth: title_bar.minimumWidth
+    minimumHeight: content.height + title_bar.height
     height: width
     title: qsTr("About")
     title_bar.show_darkmode_btn: false

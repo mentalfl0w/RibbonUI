@@ -6,6 +6,7 @@ import RibbonUI
 Item {
     id: control
     height: 30
+    property int minimumWidth: title_text.implicitWidth + left_container.width + right_container.width + (Qt.platform.os === "osx" ? 65 : 0) + 40
     property string title: Window.window.title
     property bool show_style_switch: true
     property bool show_darkmode_btn: true
