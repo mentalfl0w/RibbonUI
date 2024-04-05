@@ -4,11 +4,13 @@ import org.wangwenx190.FramelessHelper
 
 Window {
     id:window
+    minimumWidth: title_bar.minimumWidth
     default property alias content: container.data
     property alias window_items: window_items
     property alias title_bar: titleBar
     property alias popup: pop
     property bool comfirmed_quit: false
+    property var sub_windows: ({})
     visible: false
     color: {
         if (FramelessHelper.blurBehindWindowEnabled) {
@@ -75,8 +77,8 @@ Window {
         anchors.fill: parent
         color: 'transparent'
         border.color: RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7"
-        border.width: RibbonTheme.modern_style ? 1 : 0
-        radius: 10
+        border.width: RibbonTheme.modern_style ? Qt.platform.os === 'windows' ? 2 : 1 : 0
+        radius: Qt.platform.os === 'windows' ? 8 : 10
         visible: RibbonTheme.modern_style
     }
     RibbonPopup{
@@ -111,38 +113,35 @@ Window {
             close_dialog.open()
     }
 
-    Loader{
-        id: window_loader
-        property var args
-        onLoaded: {
-            item.onClosing.connect(function(){
-                window_loader.source = ""
-            })
-            if (!window_loader.args)
-                return
-            else if(Object.keys(window_loader.args).length){
-                for (let arg in window_loader.args){
-                    item[arg] = window_loader.args[arg]
+    function show_window(window_url, args){
+        if (sub_windows.hasOwnProperty(window_url))
+        {
+            if (args && Object.keys(args).length)
+            {
+                for (let arg in args){
+                    sub_windows[window_url][arg] = args[arg]
                 }
             }
-            else{
-                console.error("RibbonWindow: Arguments error, please check.")
+            if (!sub_windows[window_url].visible)
+            {
+                sub_windows[window_url].show()
             }
-            item.show()
+            sub_windows[window_url].raise()
+            sub_windows[window_url].requestActivate()
+            return
         }
-    }
-
-    function show_window(window_url, args){
-        if (window_url === window_loader.source && window_loader.status === Loader.Ready)
-            window_loader.item.raise()
-        else
-            window_loader.source = window_url
-        if (args !== window_loader.args && Object.keys(window_loader.args).length && window_loader.status === Loader.Ready)
-        {
-            window_loader.args = args
-            for (let arg in window_loader.args){
-                window_loader.item[arg] = window_loader.args[arg]
-            }
+        var component = Qt.createComponent(window_url, Component.PreferSynchronous, undefined);
+        if (component.status === Component.Ready) {
+            var window = component.createObject(undefined, args);
+            sub_windows[window_url] = window
+            window.onClosing.connect(function() {
+                window.destroy()
+                delete sub_windows[window_url]
+            });
+            window.raise()
+            window.requestActivate()
+        } else if (component.status === Component.Error) {
+            console.error("RibbonWindow: Error loading Window:", component.errorString())
         }
     }
 

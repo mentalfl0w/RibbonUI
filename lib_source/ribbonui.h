@@ -15,6 +15,7 @@ class RibbonUI : public QQuickItem
     QML_NAMED_ELEMENT(RibbonUI)
     Q_PROPERTY_R(QString, version)
     Q_PROPERTY_R(int, qt_version)
+    Q_PROPERTY_R(int, is_win11)
 public:
     static RibbonUI* instance();
     static RibbonUI* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
