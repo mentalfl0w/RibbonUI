@@ -12,7 +12,8 @@ Item {
         anchors.fill: parent
         ScrollBar.horizontal: RibbonScrollBar{
             anchors.bottom: view.bottom
-            width: view.width
+            anchors.horizontalCenter: view.horizontalCenter
+            width: view.width - 10
         }
         RowLayout{
             id: container

@@ -13,7 +13,7 @@ Item {
     property bool show_pin_btn: true
     property bool dark_mode: RibbonTheme.dark_mode
     property bool modern_style: RibbonTheme.modern_style
-    property string title_color: modern_style ? Qt.platform.os === "windows" ? dark_mode ? "#141414" : "#F5F5F5" :"transparent" : dark_mode ? "#282828" : "#2C59B7"
+    property string title_color: modern_style ? "transparent" : dark_mode ? "#282828" : "#2C59B7"
     property string title_text_color: modern_style ? dark_mode ? "white" : "black" : "white"
     default property alias content: left_container.data
     property alias left_content: left_container.data

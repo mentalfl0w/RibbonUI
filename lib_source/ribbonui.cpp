@@ -28,8 +28,13 @@ void RibbonUI::init()
 {
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     FramelessHelper::Quick::initialize();
-    FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
+#ifdef Q_OS_WINDOWS
+    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
     FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
+    if(QOperatingSystemVersion::current() < QOperatingSystemVersion(QOperatingSystemVersion::Windows, 10, 0, 22000))
+        FramelessConfig::instance()->set(Global::Option::WindowUseRoundCorners);
+#endif
+    FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
     FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
     FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
 }
