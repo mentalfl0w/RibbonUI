@@ -16,7 +16,7 @@ Window {
     property alias title_bar: titleBar
     property alias popup: pop
     property bool comfirmed_quit: false
-    property bool blurBehindWindow: true
+    property bool blurBehindWindow: false
     visible: false
     color: {
         if (blurBehindWindow) {
@@ -45,6 +45,7 @@ Window {
         }
         if(Qt.platform.os === "osx")
         {
+            blurBehindWindow = true
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
             PlatformSupport.showSystemTitleBtns(window, true)
         }
