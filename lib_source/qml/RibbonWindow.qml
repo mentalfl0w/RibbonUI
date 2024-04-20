@@ -10,7 +10,6 @@ Window {
     property alias title_bar: titleBar
     property alias popup: pop
     property bool comfirmed_quit: false
-    property var sub_windows: ({})
     visible: false
     color: {
         if (FramelessHelper.blurBehindWindowEnabled) {
@@ -114,6 +113,7 @@ Window {
     }
 
     function show_window(window_url, args){
+        let sub_windows = RibbonUI.windowsSet
         if (sub_windows.hasOwnProperty(window_url))
         {
             if (args && Object.keys(args).length)
@@ -128,15 +128,24 @@ Window {
             }
             sub_windows[window_url].raise()
             sub_windows[window_url].requestActivate()
+            RibbonUI.windowsSet = sub_windows
             return
         }
         var component = Qt.createComponent(window_url, Component.PreferSynchronous, undefined);
         if (component.status === Component.Ready) {
-            var window = component.createObject(undefined, args);
+            var window = component.createObject(undefined, args)
+            if (!(window instanceof Window))
+            {
+                console.error("RibbonWindow: Error loading Window: Instance is not Window.")
+                return
+            }
             sub_windows[window_url] = window
+            RibbonUI.windowsSet = sub_windows
             window.onClosing.connect(function() {
                 window.destroy()
+                let sub_windows = RibbonUI.windowsSet
                 delete sub_windows[window_url]
+                RibbonUI.windowsSet = sub_windows
             });
             window.raise()
             window.requestActivate()
