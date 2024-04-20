@@ -5,7 +5,13 @@ import org.wangwenx190.FramelessHelper
 Window {
     id:window
     minimumWidth: title_bar.minimumWidth
+    enum Status {
+        Stardard,
+        SingleTask,
+        SingleInstance
+    }
     default property alias content: container.data
+    property int windowStatus: RibbonWindow.Status.Stardard
     property alias window_items: window_items
     property alias title_bar: titleBar
     property alias popup: pop
@@ -114,22 +120,29 @@ Window {
 
     function show_window(window_url, args){
         let sub_windows = RibbonUI.windowsSet
-        if (sub_windows.hasOwnProperty(window_url))
+        if (sub_windows.hasOwnProperty(window_url)&&sub_windows[window_url]['windowStatus'] !== RibbonWindow.Status.Stardard)
         {
-            if (args && Object.keys(args).length)
+            if (sub_windows[window_url]['windowStatus'] === RibbonWindow.Status.SingleInstance)
             {
-                for (let arg in args){
-                    sub_windows[window_url][arg] = args[arg]
+                if (args && Object.keys(args).length)
+                {
+                    for (let arg in args){
+                        sub_windows[window_url][arg] = args[arg]
+                    }
                 }
+                if (!sub_windows[window_url].visible)
+                {
+                    sub_windows[window_url].show()
+                }
+                sub_windows[window_url].raise()
+                sub_windows[window_url].requestActivate()
+                RibbonUI.windowsSet = sub_windows
+                return
             }
-            if (!sub_windows[window_url].visible)
+            else
             {
-                sub_windows[window_url].show()
+                sub_windows[window_url].close()
             }
-            sub_windows[window_url].raise()
-            sub_windows[window_url].requestActivate()
-            RibbonUI.windowsSet = sub_windows
-            return
         }
         var component = Qt.createComponent(window_url, Component.PreferSynchronous, undefined);
         if (component.status === Component.Ready) {
