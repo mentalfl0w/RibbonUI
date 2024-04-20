@@ -12,6 +12,7 @@ RibbonWindow {
     title: qsTr("About")
     title_bar.show_darkmode_btn: false
     title_bar.show_style_switch: false
+    windowStatus: RibbonWindow.Status.SingleInstance
 
     ColumnLayout{
         id: content

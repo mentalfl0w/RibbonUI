@@ -3,10 +3,7 @@
 
 #include <QQuickItem>
 #include "definitions.h"
-#include <FramelessHelper/Quick/framelessquickmodule.h>
-#include <FramelessHelper/Core/private/framelessconfig_p.h>
 
-FRAMELESSHELPER_USE_NAMESPACE
 class RibbonUI : public QQuickItem
 {
     Q_OBJECT

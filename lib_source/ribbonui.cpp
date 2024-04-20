@@ -1,6 +1,8 @@
 #include "ribbonui.h"
 #include <QMutex>
 #include <QOperatingSystemVersion>
+#include <QWKQuick/qwkquickglobal.h>
+#include <QtQuick/QQuickWindow>
 #define STR(x) #x
 #define JOIN(a,b,c) STR(a.b.c)
 #define VER_JOIN(x) JOIN x
@@ -26,20 +28,15 @@ RibbonUI* RibbonUI::instance(){
 
 void RibbonUI::init()
 {
-    qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
-    FramelessHelper::Quick::initialize();
-#ifdef Q_OS_WINDOWS
-    FramelessConfig::instance()->set(Global::Option::ForceNonNativeBackgroundBlur);
-    FramelessConfig::instance()->set(Global::Option::DisableLazyInitializationForMicaMaterial);
-    if(QOperatingSystemVersion::current() < QOperatingSystemVersion(QOperatingSystemVersion::Windows, 10, 0, 22000))
-        FramelessConfig::instance()->set(Global::Option::WindowUseRoundCorners);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
+#else
+    qputenv("QT_QUICK_CONTROLS_STYLE", "Default");
 #endif
-    FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
-    FramelessConfig::instance()->set(Global::Option::CenterWindowBeforeShow);
-    FramelessConfig::instance()->set(Global::Option::EnableBlurBehindWindow);
+    QQuickWindow::setDefaultAlphaBuffer(true);
 }
 
 void RibbonUI::registerTypes(QQmlEngine *qmlEngine)
 {
-    FramelessHelper::Quick::registerTypes(qmlEngine);
+    QWK::registerTypes(qmlEngine);
 }

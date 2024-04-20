@@ -5,7 +5,6 @@ project(RibbonUI VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
-
 include(GNUInstallDirs)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
@@ -21,11 +20,15 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
-set(FRAMELESSHELPER_BUILD_STATIC ON)
-set(FRAMELESSHELPER_NO_SUMMARY OFF)
-set(FRAMELESSHELPER_NO_DEBUG_OUTPUT ON)
-set(FRAMELESSHELPER_BUILD_WIDGETS OFF)
-add_subdirectory(3rdparty/framelesshelper)
+if (RIBBONUI_BUILD_QWINDOWKIT)
+    set(QWINDOWKIT_BUILD_STATIC ON)
+    set(QWINDOWKIT_BUILD_EXAMPLES OFF)
+    set(QWINDOWKIT_BUILD_QUICK ON)
+    set(QWINDOWKIT_BUILD_WIDGETS OFF)
+    set(QWINDOWKIT_ENABLE_STYLE_AGENT ON)
+    set(QWINDOWKIT_INSTALL OFF)
+    add_subdirectory(3rdparty/qwindowkit)
+endif()
 
 find_package(Qt6 COMPONENTS Core Quick Qml REQUIRED)
 
@@ -56,6 +59,15 @@ set(
     qml/RibbonMessageListView.qml
 )
 
+set (
+    source_files ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbontheme.cpp
+    platformsupport.h
+)
+
+if(APPLE)
+    list(APPEND source_files platformsupport.mm)
+endif()
+
 foreach(qmlfile ${qml_files})
     string(REPLACE "qml/" "" fixedfile ${qmlfile})
     set_source_files_properties(${qmlfile} PROPERTIES QT_RESOURCE_ALIAS ${fixedfile})
@@ -68,7 +80,7 @@ qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     QML_FILES ${qml_files}
-    SOURCES ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbontheme.cpp
+    SOURCES ${source_files}
     RESOURCES resources/FluentSystemIcons-Resizable.ttf resources/imgs/icon.png
     RESOURCE_PREFIX "/qt/qml/"
 )
@@ -98,12 +110,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt::QmlPrivate
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    FramelessHelper::Core
-    FramelessHelper::Quick
+    QWindowKit::Quick
 )
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}
-    ${PROJECT_SOURCE_DIR}/3rdparty/framelesshelper/include
+    ${PROJECT_SOURCE_DIR}/3rdparty/qwindowkit/include
 )
 
 install(DIRECTORY ${RIBBONUI_QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)

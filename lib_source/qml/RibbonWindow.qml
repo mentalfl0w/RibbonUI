@@ -1,6 +1,6 @@
 import QtQuick
 import RibbonUI
-import org.wangwenx190.FramelessHelper
+import QWindowKit
 
 Window {
     id:window
@@ -16,27 +16,42 @@ Window {
     property alias title_bar: titleBar
     property alias popup: pop
     property bool comfirmed_quit: false
+    property bool blurBehindWindow: true
     visible: false
     color: {
-        if (FramelessHelper.blurBehindWindowEnabled) {
+        if (blurBehindWindow) {
             return "transparent";
         }
-        if (FramelessUtils.systemTheme === FramelessHelperConstants.Dark) {
-            return FramelessUtils.defaultSystemDarkColor;
+        if (RibbonTheme.dark_mode) {
+            return '#2C2B29'
         }
-        return FramelessUtils.defaultSystemLightColor;
+        return '#FFFFFF'
     }
-    FramelessHelper.onReady: {
+    onBlurBehindWindowChanged: {
+        if (Qt.platform.os === 'windows')
+            windowAgent.setWindowAttribute("acrylic-material", blurBehindWindow)
+        else if (Qt.platform.os === 'osx')
+            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
+    }
+
+    Component.onCompleted: {
+        windowAgent.setup(window)
         if (Qt.platform.os === 'windows')
         {
-            FramelessHelper.setSystemButton(titleBar.minimizeBtn, FramelessHelperConstants.Minimize);
-            FramelessHelper.setSystemButton(titleBar.maximizeBtn, FramelessHelperConstants.Maximize);
-            FramelessHelper.setSystemButton(titleBar.closeBtn, FramelessHelperConstants.Close);
+            windowAgent.setWindowAttribute("acrylic-material", blurBehindWindow)
+            windowAgent.setSystemButton(WindowAgent.Minimize, titleBar.minimizeBtn);
+            windowAgent.setSystemButton(WindowAgent.Maximize, titleBar.maximizeBtn);
+            windowAgent.setSystemButton(WindowAgent.Close, titleBar.closeBtn);
         }
-        FramelessHelper.setHitTestVisible(titleBar.left_container)
-        FramelessHelper.setHitTestVisible(titleBar.right_container)
-        FramelessHelper.titleBarItem = titleBar;
-        FramelessHelper.moveWindowToDesktopCenter();
+        if(Qt.platform.os === "osx")
+        {
+            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
+            PlatformSupport.showSystemTitleBtns(window, true)
+        }
+        windowAgent.setHitTestVisible(titleBar.left_container)
+        windowAgent.setHitTestVisible(titleBar.right_container)
+        windowAgent.setTitleBar(titleBar);
+        windowAgent.centralize()
         window.visible = true;
     }
     Item{
@@ -65,10 +80,9 @@ Window {
     Connections{
         target: RibbonTheme
         function onTheme_modeChanged() {
-            if (RibbonTheme.dark_mode)
-                FramelessUtils.systemTheme = FramelessHelperConstants.Dark
-            else
-                FramelessUtils.systemTheme = FramelessHelperConstants.Light
+            windowAgent.setWindowAttribute("dark-mode", RibbonTheme.dark_mode)
+            if (Qt.platform.os === 'osx')
+                windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
         }
     }
     Rectangle{
@@ -82,7 +96,7 @@ Window {
         anchors.fill: parent
         color: 'transparent'
         border.color: RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7"
-        border.width: RibbonTheme.modern_style ? Qt.platform.os === 'windows' ? 2 : 1 : 0
+        border.width: RibbonTheme.modern_style ?  1 : 0
         radius: Qt.platform.os === 'windows' ? 8 : 10
         visible: RibbonTheme.modern_style
     }
@@ -109,6 +123,10 @@ Window {
             comfirmed_quit = false
             Qt.quit()
         }
+    }
+
+    WindowAgent {
+        id: windowAgent
     }
 
     onClosing:function(event){
