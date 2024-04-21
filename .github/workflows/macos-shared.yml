@@ -49,13 +49,13 @@ jobs:
           cmake --version
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.6.3/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/${{ matrix.qt_ver }}/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
           cmake --build . --target all --config Release --parallel
           
       - name: package
         run: |
           # 先删除所有dSYM文件，减少包的体积
-          sudo find /Users/runner/work/RibbonUI/Qt/6.6.3/macos/qml -name "*.dSYM" | xargs rm -r
+          sudo find /Users/runner/work/RibbonUI/Qt/${{ matrix.qt_ver }}/macos/qml -name "*.dSYM" | xargs rm -r
           # 拷贝依赖
           sudo macdeployqt /Users/runner/work/RibbonUI/RibbonUI/build/app/release/${targetName}.app -qmldir=. -verbose=1 -dmg     
           
