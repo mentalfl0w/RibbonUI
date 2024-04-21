@@ -31,12 +31,12 @@ jobs:
       fileName: RibbonUI-APP
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
       
       - name: Setup ninja
-        uses: seanmiddleditch/gha-setup-ninja@master
+        uses: seanmiddleditch/gha-setup-ninja@v4
         with:
           version: 1.10.2
       
@@ -79,7 +79,7 @@ jobs:
            $name = ${env:archiveName}
            echo "packageName=$name" >> $env:GITHUB_OUTPUT
       
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.package.outputs.packageName }}
           path: ${{ steps.package.outputs.packageName }}

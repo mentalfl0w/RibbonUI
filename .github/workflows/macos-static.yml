@@ -28,7 +28,7 @@ jobs:
       targetName: RibbonUI-APP
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
           
@@ -40,7 +40,7 @@ jobs:
           modules: 'qt5compat qtmultimedia qtshadertools qtimageformats'
           
       - name: Set up Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v3
+        uses: seanmiddleditch/gha-setup-ninja@v4
         with:
           version: 1.10.2
           
@@ -59,7 +59,7 @@ jobs:
           # 拷贝依赖
           sudo macdeployqt /Users/runner/work/RibbonUI/RibbonUI/build/app/release/${targetName}.app -qmldir=. -verbose=1 -dmg     
           
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_static.zip
           path: /Users/runner/work/RibbonUI/RibbonUI/build/app/release/${{ env.targetName }}.dmg
