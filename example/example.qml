@@ -10,7 +10,6 @@ RibbonWindow {
     title: qsTr("RibbonUI APP")
     comfirmed_quit: true
     property bool modern_style: RibbonTheme.modern_style
-
     RibbonTabBar {
         id: tab_bar
         modern_style: root.modern_style

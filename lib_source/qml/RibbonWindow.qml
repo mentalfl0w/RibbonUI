@@ -17,10 +17,11 @@ Window {
     property alias popup: pop
     property bool comfirmed_quit: false
     property bool blurBehindWindow: true
+    property int windows_top_fix: Qt.platform.os === 'windows' ? 1 : 0 // a trick to fix Qt or QWindowKit's bug
     visible: false
     color: {
         if (blurBehindWindow) {
-            return "transparent";
+            return "transparent"
         }
         if (RibbonTheme.dark_mode) {
             return '#2C2B29'
@@ -29,7 +30,7 @@ Window {
     }
     onBlurBehindWindowChanged: {
         if (Qt.platform.os === 'windows')
-            windowAgent.setWindowAttribute("mica", blurBehindWindow)
+            windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
         else if (Qt.platform.os === 'osx')
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
     }
@@ -38,13 +39,14 @@ Window {
         windowAgent.setup(window)
         if (Qt.platform.os === 'windows')
         {
-            windowAgent.setWindowAttribute("mica", blurBehindWindow)
+            windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
             windowAgent.setSystemButton(WindowAgent.Minimize, titleBar.minimizeBtn);
             windowAgent.setSystemButton(WindowAgent.Maximize, titleBar.maximizeBtn);
             windowAgent.setSystemButton(WindowAgent.Close, titleBar.closeBtn);
         }
         if(Qt.platform.os === "osx")
         {
+            windowAgent.setWindowAttribute("dark-mode", RibbonTheme.dark_mode)
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
             PlatformSupport.showSystemTitleBtns(window, true)
         }
@@ -52,29 +54,27 @@ Window {
         windowAgent.setHitTestVisible(titleBar.right_container)
         windowAgent.setTitleBar(titleBar)
         windowAgent.centralize()
-        window.flags ^= Qt.WA_AlwaysShowToolTips // It's a trick for Windows
         window.visible = true
-        window.flags ^= Qt.WA_AlwaysShowToolTips // It's a trick for Windows
     }
     Item{
         id: window_items
-        anchors.fill: parent
+        anchors{
+            fill: parent
+            topMargin: border_rect.border.width + windows_top_fix
+            leftMargin: border_rect.border.width
+            rightMargin: border_rect.border.width
+            bottomMargin: border_rect.border.width
+        }
         RibbonTitleBar {
             id: titleBar
-            anchors.topMargin: border_rect.border.width
-            anchors.leftMargin: border_rect.border.width
-            anchors.rightMargin: border_rect.border.width
         }
         Item{
             id:container
             anchors{
                 top: titleBar.bottom
                 left: parent.left
-                leftMargin: border_rect.border.width
                 right: parent.right
-                rightMargin: border_rect.border.width
                 bottom: parent.bottom
-                bottomMargin: border_rect.border.width
             }
             clip: true
         }
@@ -95,12 +95,23 @@ Window {
     }
     Rectangle{
         id: border_rect
+        z: -1
         anchors.fill: parent
-        color: 'transparent'
+        anchors.topMargin: windows_top_fix
+        color: {
+            if (Qt.platform.os === 'windows')
+            {
+                if (RibbonTheme.dark_mode) {
+                    return Qt.alpha('#2C2B29', 0.8)
+                }
+                return Qt.alpha('#FFFFFF',0.8)
+            }
+            return 'transparent'
+        }
         border.color: RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7"
         border.width: RibbonTheme.modern_style ?  1 : 0
         radius: Qt.platform.os === 'windows' ? 7 : 10
-        visible: RibbonTheme.modern_style
+        visible: RibbonTheme.modern_style || blurBehindWindow
     }
     RibbonPopup{
         id: pop
