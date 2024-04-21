@@ -33,6 +33,9 @@ void RibbonUI::init()
 #else
     qputenv("QT_QUICK_CONTROLS_STYLE", "Default");
 #endif
+#ifdef Q_OS_WIN
+    qputenv("QSG_RHI_BACKEND", "opengl");
+#endif
     QQuickWindow::setDefaultAlphaBuffer(true);
 }
 

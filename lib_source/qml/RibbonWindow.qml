@@ -16,7 +16,7 @@ Window {
     property alias title_bar: titleBar
     property alias popup: pop
     property bool comfirmed_quit: false
-    property bool blurBehindWindow: false
+    property bool blurBehindWindow: true
     visible: false
     color: {
         if (blurBehindWindow) {
@@ -29,7 +29,7 @@ Window {
     }
     onBlurBehindWindowChanged: {
         if (Qt.platform.os === 'windows')
-            windowAgent.setWindowAttribute("acrylic-material", blurBehindWindow)
+            windowAgent.setWindowAttribute("mica", blurBehindWindow)
         else if (Qt.platform.os === 'osx')
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
     }
@@ -38,22 +38,23 @@ Window {
         windowAgent.setup(window)
         if (Qt.platform.os === 'windows')
         {
-            windowAgent.setWindowAttribute("acrylic-material", blurBehindWindow)
+            windowAgent.setWindowAttribute("mica", blurBehindWindow)
             windowAgent.setSystemButton(WindowAgent.Minimize, titleBar.minimizeBtn);
             windowAgent.setSystemButton(WindowAgent.Maximize, titleBar.maximizeBtn);
             windowAgent.setSystemButton(WindowAgent.Close, titleBar.closeBtn);
         }
         if(Qt.platform.os === "osx")
         {
-            blurBehindWindow = true
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
             PlatformSupport.showSystemTitleBtns(window, true)
         }
         windowAgent.setHitTestVisible(titleBar.left_container)
         windowAgent.setHitTestVisible(titleBar.right_container)
-        windowAgent.setTitleBar(titleBar);
+        windowAgent.setTitleBar(titleBar)
         windowAgent.centralize()
-        window.visible = true;
+        window.flags ^= Qt.WA_AlwaysShowToolTips // It's a trick for Windows
+        window.visible = true
+        window.flags ^= Qt.WA_AlwaysShowToolTips // It's a trick for Windows
     }
     Item{
         id: window_items
@@ -98,7 +99,7 @@ Window {
         color: 'transparent'
         border.color: RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7"
         border.width: RibbonTheme.modern_style ?  1 : 0
-        radius: Qt.platform.os === 'windows' ? 8 : 10
+        radius: Qt.platform.os === 'windows' ? 7 : 10
         visible: RibbonTheme.modern_style
     }
     RibbonPopup{

@@ -21,7 +21,7 @@ BEGIN
         BEGIN
             VALUE "Comments",         "Made by Mentalflow."
             VALUE "CompanyName",      "${PROJECT_COMPANY}"
-            VALUE "FileDescription",  "${PROJECT_COPYRIGHT}"
+            VALUE "FileDescription",  "${PROJECT_BUNDLE_NAME}"
             VALUE "FileVersion",      "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
             VALUE "InternalName",     "${PROJECT_BUNDLE_NAME}.exe"
             VALUE "LegalCopyright",   "${PROJECT_COPYRIGHT}"
