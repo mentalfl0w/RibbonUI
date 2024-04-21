@@ -39,22 +39,25 @@ Window {
         windowAgent.setup(window)
         if (Qt.platform.os === 'windows')
         {
-            windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
             windowAgent.setSystemButton(WindowAgent.Minimize, titleBar.minimizeBtn);
             windowAgent.setSystemButton(WindowAgent.Maximize, titleBar.maximizeBtn);
             windowAgent.setSystemButton(WindowAgent.Close, titleBar.closeBtn);
-        }
-        if(Qt.platform.os === "osx")
-        {
-            windowAgent.setWindowAttribute("dark-mode", RibbonTheme.dark_mode)
-            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
-            PlatformSupport.showSystemTitleBtns(window, true)
         }
         windowAgent.setHitTestVisible(titleBar.left_container)
         windowAgent.setHitTestVisible(titleBar.right_container)
         windowAgent.setTitleBar(titleBar)
         windowAgent.centralize()
         window.visible = true
+        windowAgent.setWindowAttribute("dark-mode", RibbonTheme.dark_mode)
+        if (Qt.platform.os === 'windows')
+        {
+            windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
+        }
+        if(Qt.platform.os === "osx")
+        {
+            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
+            PlatformSupport.showSystemTitleBtns(window, true)
+        }
     }
     Item{
         id: window_items
