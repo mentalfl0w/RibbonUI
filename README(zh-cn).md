@@ -81,7 +81,7 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 ## 4. 如何使用?
 + 安装前准备
   
-  安装Qt 6，推荐通过官方在线安装器安装**Qt 6.5.3 LTS版本**，**通过brew等方式安装可能会出现问题**。**Qt Quick相关模块**和**qt5compat qtshadertools qtimageformats**组件是必要的。
+  安装Qt 6，推荐通过官方在线安装器安装**Qt 6.6.3版本**，**通过brew等方式安装可能会出现问题**。**Qt Quick相关模块**和**qt5compat qtshadertools qtimageformats**组件是必要的。
 
 + 编译例程和库
   - 下载仓库并进入
@@ -98,7 +98,7 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
     ```shell
     # 如果想进行Debug编译, 请配置 -DCMAKE_BUILD_TYPE=Debug和--config Debug参数
     # 如果想编译静态库, 请在cmake参数中加入-DRIBBONUI_BUILD_STATIC_LIB=ON
-    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.5.3/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.6.3/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
     # -DCMAKE_PREFIX_PATH={你的Qt安装目录}
     cmake --build . --target all --config Release --parallel
     ```
@@ -112,7 +112,7 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
     ```shell
     # 如果想进行Debug编译, 请配置 -DCMAKE_BUILD_TYPE=Debug和--config Debug参数
     # 如果想编译静态库, 请在cmake参数中加入-DRIBBONUI_BUILD_STATIC_LIB=ON
-    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.5.3/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_EXAMPLES=OFF -GNinja ..
+    cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/RibbonUI/Qt/6.6.3/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_EXAMPLES=OFF -GNinja ..
     # -DCMAKE_PREFIX_PATH={你的Qt安装目录}
     cmake --build . --target all --config Release --parallel
     ```

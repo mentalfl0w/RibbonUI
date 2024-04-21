@@ -14,11 +14,12 @@ if(NOT RIBBONUI_QML_PLUGIN_DIRECTORY)
     set(RIBBONUI_QML_PLUGIN_DIRECTORY ${QT_SDK_DIR}/qml/RibbonUI CACHE PATH "RibbonUI Plugin Path")
 endif()
 
+add_subdirectory(lib_source)
+
 if (RIBBONUI_BUILD_EXAMPLES)
     add_subdirectory(example)
 endif()
 
-add_subdirectory(lib_source)
 message("---------------------------- RibbonUI ----------------------------")
 message("Build RibbonUI APP: ${RIBBONUI_BUILD_EXAMPLES}")
 message("Build RibbonUI static library: ${RIBBONUI_BUILD_STATIC_LIB}")

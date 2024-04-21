@@ -23,7 +23,7 @@ jobs:
       matrix:
         include:
           - qt_arch: win64_mingw
-            qt_ver: 6.5.3
+            qt_ver: 6.6.3
             qt_tools: "tools_mingw,9.0.0-1-202203221220,qt.tools.win64_mingw900"
             qt_tools_mingw_install: mingw900_64
     env:
@@ -66,7 +66,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\RibbonUI\Qt\6.5.3\mingw_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\RibbonUI\Qt\6.6.3\mingw_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -DRIBBONUI_BUILD_STATIC_LIB=ON -GNinja ..
           cmake --build . --target all --config Release --parallel
       
       - name: package
