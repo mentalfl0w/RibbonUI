@@ -46,8 +46,8 @@ Window {
         windowAgent.setHitTestVisible(titleBar.left_container)
         windowAgent.setHitTestVisible(titleBar.right_container)
         windowAgent.setTitleBar(titleBar)
-        windowAgent.centralize()
         window.visible = true
+        windowAgent.centralize()
         windowAgent.setWindowAttribute("dark-mode", RibbonTheme.dark_mode)
         if (Qt.platform.os === 'windows')
         {
