@@ -407,12 +407,14 @@ RibbonWindow {
                             validator: DoubleValidator {
                                 bottom: Math.min(spinbox.from, spinbox.to)
                                 top:  Math.max(spinbox.from, spinbox.to)
+                                decimals: 2
+                                notation: DoubleValidator.StandardNotation
                             }
                             textFromValue: function(value, locale) {
                                 return Number(value / 100).toLocaleString(locale, 'f', 2)
                             }
                             valueFromText: function(text, locale) {
-                                return Number.fromLocaleString(locale, text) * 100
+                                return Math.round(Number.fromLocaleString(locale, text) * 100)
                             }
                         }
                     }
