@@ -3,14 +3,12 @@
 #include <QOperatingSystemVersion>
 #include <QWKQuick/qwkquickglobal.h>
 #include <QtQuick/QQuickWindow>
-#define STR(x) #x
-#define JOIN(a,b,c) STR(a.b.c)
-#define VER_JOIN(x) JOIN x
+#include "definitions.h"
 
 RibbonUI::RibbonUI(QQuickItem *parent)
     : QQuickItem(parent)
 {
-    _version = VER_JOIN((RIBBONUI_VERSION));
+    _version = VER_JOIN(RIBBONUI_VERSION);
     _qt_version = QString(qVersion()).replace('.',"").toInt();
     _is_win11 = QOperatingSystemVersion::current() >= QOperatingSystemVersion(QOperatingSystemVersion::Windows, 10, 0, 22000);
 }

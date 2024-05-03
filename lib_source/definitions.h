@@ -17,6 +17,11 @@
 #  endif // RIBBONUI_BUILD_STATIC_LIB
 #endif // RIBBONUI_API
 
+#define STR(x) #x
+#define JOIN(a,b,c) STR(a.b.c)
+#define _VER_JOIN(x) JOIN x
+#define VER_JOIN(x) _VER_JOIN((x))
+
 namespace RibbonIconsFilledEnum {
 Q_NAMESPACE
 enum class RibbonIcons_Filled{
