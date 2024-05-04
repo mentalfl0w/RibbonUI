@@ -6,6 +6,7 @@ on:
       - 'lib_source/**'
       - 'example/**'
       - 'scripts/**'
+      - '3rdparty/**'
       - '.github/workflows/windows-msvc-shared.yml'
   pull_request:
     paths:
@@ -13,6 +14,7 @@ on:
       - 'example/**'
       - 'lib_source/**'
       - 'scripts/**'
+      - '3rdparty/**'
       - '.github/workflows/windows-msvc-shared.yml'
       
 jobs:
