@@ -56,7 +56,6 @@ Window {
         if(Qt.platform.os === "osx")
         {
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
-            PlatformSupport.showSystemTitleBtns(window, true)
         }
     }
     Item{
@@ -113,7 +112,7 @@ Window {
         }
         border.color: RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7"
         border.width: RibbonTheme.modern_style ?  1 : 0
-        radius: Qt.platform.os === 'windows' ? 7 : 10
+        radius: Qt.platform.os === 'windows' ? RibbonUI.is_win11 ? 7 : 0 : 10
         visible: RibbonTheme.modern_style || blurBehindWindow
     }
     RibbonPopup{
