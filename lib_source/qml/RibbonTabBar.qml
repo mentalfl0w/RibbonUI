@@ -90,7 +90,6 @@ Item{
             left: parent.left
             right:tool_bar.left
         }
-
         background: Item{}
         position: TabBar.Header
         currentIndex: stack.currentIndex
@@ -297,6 +296,22 @@ Item{
         {
             folded = true
             timer.start()
+        }
+    }
+
+    function setPage(index)
+    {
+        for (let i=0, count = 0; i < bar.contentChildren.length; i++)
+        {
+            let item = bar.itemAt(i)
+            if(item instanceof RibbonTabButton){
+                if (count === index)
+                {
+                    item.checked = true
+                    break
+                }
+                count++
+            }
         }
     }
 }
