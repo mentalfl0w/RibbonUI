@@ -10,10 +10,14 @@ Item {
     default property alias content: container.data
     property int contenHeight: container.height
     property bool dark_mode: RibbonTheme.dark_mode
+    property bool showOpenExternal: false
     property string font_color: dark_mode ? "white" : "black"
     property string border_color: dark_mode ? "#525252" : "#D4D4D4"
+    property alias externalToolTipText: open_external_btn.tip_text
+    property alias showExternalToolTipText: open_external_btn.show_tooltip
     Layout.fillHeight: true
     clip: true
+    signal openExternal()
 
     Text {
         id :label
@@ -65,5 +69,23 @@ Item {
             margins: 5
         }
         clip: true
+    }
+
+    RibbonButton{
+        id: open_external_btn
+        anchors{
+            right: control.right
+            bottom: control.bottom
+        }
+        implicitWidth: ribbon_icon.width + 10
+        implicitHeight: ribbon_icon.height + 10
+        checkable: false
+        ribbon_icon.icon_size: 14
+        ribbon_icon.rotation: 90
+        show_bg: false
+        tip_text: qsTr("Open ") + label.text + qsTr("'s external")
+        icon_source: RibbonIcons.Open
+        onClicked: openExternal()
+        visible: control.showOpenExternal
     }
 }
