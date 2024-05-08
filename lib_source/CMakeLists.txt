@@ -56,7 +56,7 @@ set(
     qml/RibbonPopupDialog.qml qml/RibbonLineEdit.qml qml/RibbonTextEdit.qml
     qml/RibbonComboBox.qml qml/RibbonSpinBox.qml qml/RibbonScrollIndicator.qml
     qml/RibbonScrollBar.qml qml/RibbonWindow.qml qml/RibbonMessage.qml
-    qml/RibbonMessageListView.qml
+    qml/RibbonMessageListView.qml qml/RibbonTour.qml qml/RibbonTourContent.qml
 )
 
 set (
