@@ -117,9 +117,10 @@ Item{
             left: parent.left
             right:parent.right
         }
+        interactive: false
         clip: true
         property int origin_height: root.height - bar.contentHeight - top_border.height * 2
-        height: origin_height
+        height: folded ? 0 :origin_height
         currentIndex: bar.currentIndex
         background: Item{
             anchors{
@@ -177,44 +178,14 @@ Item{
             }
         }
 
-        states: [
-            State{
-                name:"fold"
-                when: root.folded
-                PropertyChanges {
-                    target: stack
-                    height:0
-                }
-            },
-            State{
-                name:"unfold"
-                when: !root.folded
-                PropertyChanges {
-                    target: stack
-                    height:origin_height
-                }
+        Behavior on height {
+            enabled: folded
+            NumberAnimation {
+                duration: 167
+                easing.type: Easing.OutSine
             }
-        ]
-        transitions: [
-            Transition {
-                from: "fold"
-                to:"unfold"
-                NumberAnimation {
-                    properties: "height"
-                    duration: 167
-                    easing.type: Easing.OutSine
-                }
-            },
-            Transition {
-                from: "unfold"
-                to:"fold"
-                NumberAnimation {
-                    properties: "height"
-                    duration: 167
-                    easing.type: Easing.OutSine
-                }
-            }
-        ]
+        }
+
         Component.onCompleted: {
             for (let i=0,sign=0; i < stack.contentData.length; i++)
             {
