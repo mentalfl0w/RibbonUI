@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
 import RibbonUI
@@ -10,10 +11,87 @@ RibbonWindow {
     title: qsTr("RibbonUI APP")
     comfirmed_quit: true
     property bool modern_style: RibbonTheme.modern_style
+    RibbonTour{
+        id: tour
+        targetList: [
+            {
+                title: qsTr("Tab Bar"),
+                text: qsTr("A tab bar for window, let user choose the controllers."),
+                target: tab_bar
+            },
+            {
+                title: qsTr("Tab Bar Buttons"),
+                text: qsTr("Tool buttons at the top of tab bar."),
+                target: tab_bar_tool
+            },
+            {
+                title: qsTr("Sliders"),
+                text: qsTr("Vertical/Horizental sliders with/without buttons."),
+                target: slider_layout,
+                enter_func: ()=>{
+                    slider_with_btn.value = 70
+                    slider_without_btn.value = 70
+                },
+                exit_func: ()=>{
+                    slider_with_btn.value = 50
+                    slider_without_btn.value = 50
+                }
+            },
+            {
+                title: qsTr("Switch Buttons"),
+                text: qsTr("Switch buttons with/without background color or grabber text."),
+                target: switch_layout,
+                enter_func: ()=>btn_with_color_and_grabber_text.checked = true,
+                exit_func: ()=>btn_with_color_and_grabber_text.checked = false
+            },
+            {
+                title: qsTr("CheckBoxs"),
+                text: qsTr("CheckBoxs with colorful background or with/without label text."),
+                target: checkbox_layout
+            },
+            {
+                title: qsTr("Buttons"),
+                text: qsTr("Buttons with/without background or label text."),
+                target: button_layout,
+                enter_func: ()=>btn_without_bg_and_label.checked = true,
+                exit_func: ()=>btn_without_bg_and_label.checked = false
+            },
+            {
+                title: qsTr("Push Buttons"),
+                text: qsTr("Push buttons with/without sub menu."),
+                target: pushbutton_layout
+            },
+            {
+                title: qsTr("Line Edits"),
+                text: qsTr("Line edits with/without icon."),
+                target: lineedit_layout,
+                enter_func: ()=>{
+                    tab_bar.setPage(1)
+                    lineedit_with_icon.text = "Line Edit with icon."
+                    tour.refresh(300)
+                },
+                exit_func: ()=>{
+                    tab_bar.setPage(0)
+                    lineedit_with_icon.clear()
+                    tour.refresh(300)
+                }
+            },
+            {
+                title: qsTr("Bottom Bar"),
+                text: qsTr("A bottom bar for window."),
+                target: bottom_bar
+            },
+        ]
+        target: window_items
+        blur_enabled: true
+        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
+    }
+    Component.onCompleted: tour.open()
     RibbonTabBar {
         id: tab_bar
         modern_style: root.modern_style
         right_tool_bar: RowLayout{
+            id: tab_bar_tool
             spacing: 10
             RibbonButton{
                 text:"Test Button 1"
@@ -37,12 +115,14 @@ RibbonWindow {
                     height: parent.height
                     spacing: 0
                     RibbonSlider{
+                        id: slider_with_btn
                         Layout.alignment: Qt.AlignVCenter
                         slide_width: 40
                         horizontal: false
                         value: 20
                     }
                     RibbonSlider{
+                        id: slider_without_btn
                         Layout.alignment: Qt.AlignVCenter
                         slide_width: 40
                         horizontal: false
@@ -77,6 +157,7 @@ RibbonWindow {
                     ColumnLayout{
                         spacing: 5
                         RibbonSwitchButton{
+                            id: btn_with_color_and_grabber_text
                             text: "Button"
                             grabber_checked_color: "red"
                             checked: true
@@ -192,6 +273,7 @@ RibbonWindow {
                     ColumnLayout{
                         spacing: 10
                         RibbonButton{
+                            id: btn_without_bg_and_label
                             show_bg:false
                             icon_source: RibbonIcons.Badge
                             icon_source_filled: RibbonIcons_Filled.Badge
@@ -228,6 +310,7 @@ RibbonWindow {
                         icon_source: RibbonIcons.AttachText
                     }
                     RibbonPushButton{
+                        id: push_btn_with_menu
                         text: qsTr("Menu")
                         icon_source: RibbonIcons.MeetNow
                         Action{
@@ -282,6 +365,7 @@ RibbonWindow {
                         spacing: 10
                         Layout.fillHeight: true
                         RibbonLineEdit{
+                            id: lineedit_with_icon
                             icon_source:RibbonIcons.Search
                         }
                         RibbonLineEdit{
@@ -708,14 +792,14 @@ RibbonWindow {
         }
         RibbonButton{
             show_bg:false
-            icon_source: RibbonIcons.CalendarStar
-            icon_source_filled: RibbonIcons_Filled.CalendarStar
-            checkable: true
-            tip_text: "Test Button 11"
+            icon_source: RibbonIcons.Map
+            icon_source_filled: RibbonIcons_Filled.Map
+            tip_text: qsTr("Tour")
             hover_color: Qt.rgba(0,0,0, 0.3)
             pressed_color: Qt.rgba(0,0,0, 0.4)
             text_color: title_bar.title_text_color
             text_color_reverse: false
+            onClicked: tour.open()
         }
 
     }
