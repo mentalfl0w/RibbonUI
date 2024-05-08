@@ -82,6 +82,7 @@ Popup {
             id: container
             spacing: 10
             Loader{
+                id: loader
                 width: item ? item.implicitWidth : 50
                 height: item ? item.implicitHeight : 50
                 sourceComponent: content_source ? undefined : content_items
@@ -232,9 +233,13 @@ Popup {
         rec.close()
         if(popup.targetList[popup.currentIndex].exit_func)
             popup.targetList[popup.currentIndex].exit_func()
+        loader.sourceComponent = undefined
+        loader.source = ""
     }
 
     onAboutToShow: {
+        loader.sourceComponent = content_source ? undefined : content_items
+        loader.source = content_source
         rec.open()
         currentTarget = targetList[0].target
         currentIndex = 0
