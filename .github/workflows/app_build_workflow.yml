@@ -304,7 +304,7 @@ jobs:
           archiveName: ${{ env.APP_NAME }}_${{ env.QT_ARCH_WIN_MINGW }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}
         shell: pwsh
         run: |
-           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe ${env:REPO_NAME}
            $name = ${env:archiveName}
            echo "packageName=$name" >> $env:GITHUB_OUTPUT
       
@@ -360,7 +360,7 @@ jobs:
           archiveName: ${{ env.APP_NAME }}_${{ env.QT_ARCH_WIN_MINGW }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}
         shell: pwsh
         run: |
-           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe ${env:REPO_NAME}
            $name = ${env:archiveName}
            echo "packageName=$name" >> $env:GITHUB_OUTPUT
       
@@ -422,7 +422,7 @@ jobs:
           msvcArch: ${{ env.QT_MSVC_ARCH }}
         shell: pwsh
         run: |
-           & scripts\windows-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           & scripts\windows-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe ${env:REPO_NAME}
            $name = ${env:archiveName}
            echo "packageName=$name" >> $env:GITHUB_OUTPUT
            
@@ -484,7 +484,7 @@ jobs:
           msvcArch: ${{ env.QT_MSVC_ARCH }}
         shell: pwsh
         run: |
-           & scripts\windows-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           & scripts\windows-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe ${env:REPO_NAME}
            $name = ${env:archiveName}
            echo "packageName=$name" >> $env:GITHUB_OUTPUT
            

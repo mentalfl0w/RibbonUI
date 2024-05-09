@@ -1,22 +1,7 @@
 [CmdletBinding()]
 param (
-    [string] $archiveName, [string] $APP_NAME
+    [string] $archiveName, [string] $APP_NAME, [string] $REPO_NAME
 )
-# 外部环境变量包括:
-# archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_arch }}
-# winSdkDir: ${{ steps.build.outputs.winSdkDir }}
-# winSdkVer: ${{ steps.build.outputs.winSdkVer }}
-# vcToolsInstallDir: ${{ steps.build.outputs.vcToolsInstallDir }}
-# vcToolsRedistDir: ${{ steps.build.outputs.vcToolsRedistDir }}
-# msvcArch: ${{ matrix.msvc_arch }}
-
-
-# winSdkDir: C:\Program Files (x86)\Windows Kits\10\ 
-# winSdkVer: 10.0.19041.0\ 
-# vcToolsInstallDir: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.28.29333\ 
-# vcToolsRedistDir: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Redist\MSVC\14.28.29325\ 
-# archiveName: 5.9.9-win32_msvc2015
-# msvcArch: x86
 
 $scriptDir = $PSScriptRoot
 $currentDir = Get-Location
@@ -27,7 +12,7 @@ function Main() {
 
     New-Item -ItemType Directory $archiveName
     # 拷贝exe
-    Copy-Item D:\a\RibbonUI\RibbonUI\build\app\release\* $archiveName\ -Force -Recurse | Out-Null
+    Copy-Item D:\a\$REPO_NAME\$REPO_NAME\build\app\release\* $archiveName\ -Force -Recurse | Out-Null
     # 拷贝依赖
     windeployqt --qmldir . --plugindir $archiveName\plugins --no-translations --compiler-runtime $archiveName\$APP_NAME
     # 删除不必要的文件
@@ -43,8 +28,8 @@ function Main() {
     Compress-Archive -Path $archiveName $archiveName'.zip'
 }
 
-if ($null -eq $archiveName || $null -eq $APP_NAME) {
-    Write-Host "args missing, archiveName is" $archiveName ", APP_NAME is" $APP_NAME
+if ($null -eq $archiveName || $null -eq $APP_NAME || $null -eq $REPO_NAME) {
+    Write-Host "args missing, archiveName is" $archiveName ", APP_NAME is" $APP_NAME ", REPO_NAME is" $REPO_NAME
     return
 }
 Main

@@ -1,12 +1,7 @@
 [CmdletBinding()]
 param (
-    [string] $archiveName, [string] $APP_NAME
+    [string] $archiveName, [string] $APP_NAME, [string] $REPO_NAME
 )
-# 外部环境变量包括:
-# archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_arch }}
-
-
-# archiveName: 5.15.2-win64_mingw81
 
 $scriptDir = $PSScriptRoot
 $currentDir = Get-Location
@@ -17,7 +12,7 @@ function Main() {
 
     New-Item -ItemType Directory $archiveName
     # 拷贝exe
-    Copy-Item D:\a\RibbonUI\RibbonUI\build\app\release\* $archiveName\ -Force -Recurse | Out-Null
+    Copy-Item D:\a\$REPO_NAME\$REPO_NAME\build\app\release\* $archiveName\ -Force -Recurse | Out-Null
     # 拷贝依赖
     windeployqt --qmldir . --plugindir $archiveName\plugins --no-translations --compiler-runtime $archiveName\$APP_NAME
     # 删除不必要的文件
@@ -27,8 +22,8 @@ function Main() {
     Compress-Archive -Path $archiveName $archiveName'.zip'
 }
 
-if ($null -eq $archiveName || $null -eq $APP_NAME) {
-    Write-Host "args missing, archiveName is" $archiveName ", APP_NAME is" $APP_NAME
+if ($null -eq $archiveName || $null -eq $APP_NAME || $null -eq $REPO_NAME) {
+    Write-Host "args missing, archiveName is" $archiveName ", APP_NAME is" $APP_NAME ", REPO_NAME is" $REPO_NAME
     return
 }
 Main
