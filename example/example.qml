@@ -17,7 +17,11 @@ RibbonWindow {
             {
                 title: qsTr("Tab Bar"),
                 text: qsTr("A tab bar for window, let user choose the controllers."),
-                target: tab_bar
+                target: tab_bar,
+                enter_func: ()=>{
+                    tab_bar.folded = false
+                    tour.refresh(300) // Use it if has animation
+                }
             },
             {
                 title: qsTr("Tab Bar Buttons"),
@@ -107,6 +111,7 @@ RibbonWindow {
             id: basic_page
             title: qsTr("Basic")
             RibbonTabGroup{
+                showOpenExternal: true
                 width: slider_layout.width + 20
                 text: qsTr("Slider")
                 RowLayout{
@@ -149,6 +154,7 @@ RibbonWindow {
             RibbonTabGroup{
                 width: switch_layout.width + 30
                 text: qsTr("Switch Button")
+                showOpenExternal: true
                 RowLayout{
                     id: switch_layout
                     anchors.centerIn: parent
@@ -197,6 +203,7 @@ RibbonWindow {
             RibbonTabGroup{
                 width: checkbox_layout.width + 30
                 text: qsTr("CheckBox")
+                showOpenExternal: true
                 RowLayout{
                     id: checkbox_layout
                     anchors.centerIn: parent
@@ -232,6 +239,7 @@ RibbonWindow {
             RibbonTabGroup{
                 width: button_layout.width + 30
                 text: qsTr("Button")
+                showOpenExternal: true
                 RowLayout{
                     id: button_layout
                     anchors.centerIn: parent
