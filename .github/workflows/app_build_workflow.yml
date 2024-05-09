@@ -1,0 +1,526 @@
+name: Example App Build
+on:
+  push:
+    paths:
+      - '*.txt'
+      - 'lib_source/**'
+      - 'example/**'
+      - 'scripts/**'
+      - '3rdparty/**'
+      - '.github/workflows/app_build_workflow.yml'
+  pull_request:
+    paths:
+      - '*.txt'
+      - 'example/**'
+      - 'lib_source/**'
+      - 'scripts/**'
+      - '3rdparty/**'
+      - '.github/workflows/app_build_workflow.yml'
+      
+env:
+  REPO_NAME: ${{ github.event.repository.name }}
+  APP_NAME: RibbonUI-APP
+  QT_VERSION: 6.6.3
+  QT_MODULES: qt5compat qtshadertools qtimageformats
+  OS_MAC: macos-14
+  QT_ARCH_MAC: clang_64
+  QT_ARCH_WIN_MINGW: win64_mingw
+  QT_ARCH_WIN_MSVC: win64_msvc2019_64
+  QT_ARCH_LINUX: gcc_64
+  QT_MINGW_TOOLS: "tools_mingw,9.0.0-1-202203221220,qt.tools.win64_mingw900"
+  QT_MINGW_TOOLS_INSTALL: mingw900_64
+  QT_MSVC_ARCH: x64
+  QT_MSVC_TOOLS_INSTALL: msvc2019_64
+  OS_WIN: windows-latest
+  OS_LINUX: ubuntu-latest
+  RELEASE_OR_NIGHTLY: ${{ startsWith(github.ref, 'refs/tags/v') && 'RELEASE' || 'NIGHTLY' }}
+      
+jobs:
+  build-macos-shared:
+    name: macOS (Shared Library)
+    runs-on: macos-14
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_MAC }}
+          modules: ${{ env.QT_MODULES }}
+          
+      - name: Set up Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+          
+      - name: build macos
+        run: |
+          cmake --version
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          
+      - name: package
+        run: |
+          sudo find /Users/runner/work/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/macos/qml -name "*.dSYM" | xargs rm -r
+          sudo macdeployqt /Users/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${APP_NAME}.app -qmldir=. -verbose=1 -dmg
+          
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}_${{ env.OS_MAC }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}
+          path: /Users/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${{ env.APP_NAME }}.dmg
+          
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /Users/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${{ env.APP_NAME }}.dmg
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{ env.OS_MAC }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}.dmg
+          tag: ${{ github.ref }}
+          overwrite: true
+
+  build-macos-static:
+    name: macOS (Static Library)
+    runs-on: macos-14
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_MAC }}
+          modules: ${{ env.QT_MODULES }}
+          
+      - name: Set up Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+          
+      - name: build macos
+        run: |
+          cmake --version
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/Users/runner/work/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/macos -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          
+      - name: package
+        run: |
+          sudo find /Users/runner/work/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/macos/qml -name "*.dSYM" | xargs rm -r
+          sudo macdeployqt /Users/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${APP_NAME}.app -qmldir=. -verbose=1 -dmg
+          
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}_${{ env.OS_MAC }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}
+          path: /Users/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${{ env.APP_NAME }}.dmg
+          
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /Users/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${{ env.APP_NAME }}.dmg
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{ env.OS_MAC }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.dmg
+          tag: ${{ github.ref }}
+          overwrite: true
+
+  build-ubuntu-shared:
+    name: Ubuntu (Shared Library)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_LINUX }}
+          modules: ${{ env.QT_MODULES }}
+      
+      - name: Set up Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+          
+      - name: ubuntu install GL library
+        run: sudo apt install -y libxcb-cursor0 libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
+        
+      - name: ubuntu install libfuse2
+        run: sudo apt install libfuse2
+        
+      - name: build ubuntu
+        run: |
+          ninja --version
+          cmake --version
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          
+      - name: install QT linux deploy
+        uses: miurahr/install-linuxdeploy-action@v1
+        with:
+          plugins: qt appimage
+          
+      - name: Check if svg file exists
+        run: if [ ! -f "${APP_NAME}.svg" ]; then echo "File not found, creating..."; touch ${APP_NAME}.svg; fi
+
+      - name: package
+        run: |
+          # make sure Qt plugin finds QML sources so it can deploy the imported files
+          export QML_SOURCES_PATHS=./
+          linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${APP_NAME}.svg --executable=/home/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${APP_NAME} --appdir /home/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/
+          mv ${{ env.APP_NAME }}-*.AppImage ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+        
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}
+          path: ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
+
+  build-ubuntu-static:
+    name: Ubuntu (Static Library)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_LINUX }}
+          modules: ${{ env.QT_MODULES }}
+      
+      - name: Set up Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+          
+      - name: ubuntu install GL library
+        run: sudo apt-get install -y libxcb-cursor0 libgl1-mesa-dev libxcb1-dev libgtk-3-dev libxkbcommon-x11-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-sync-dev  libxcb-render-util0-dev libxcb-shm0-dev
+        
+      - name: ubuntu install libfuse2
+        run: sudo apt install libfuse2
+        
+      - name: build ubuntu
+        run: |
+          ninja --version
+          cmake --version
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=/home/runner/work/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/gcc_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          
+      - name: install QT linux deploy
+        uses: miurahr/install-linuxdeploy-action@v1
+        with:
+          plugins: qt appimage
+          
+      - name: Check if svg file exists
+        run: if [ ! -f "${APP_NAME}.svg" ]; then echo "File not found, creating..."; touch ${APP_NAME}.svg; fi
+
+      - name: package
+        run: |
+          # make sure Qt plugin finds QML sources so it can deploy the imported files
+          export QML_SOURCES_PATHS=./
+          # 拷贝依赖
+          linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${APP_NAME}.svg --executable=/home/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${APP_NAME} --appdir /home/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/
+          mv ${{ env.APP_NAME }}-*.AppImage ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+        
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}
+          path: ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
+
+  build-win-mingw-shared:
+    name: Windows MinGW (Shared Library)
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+      
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_WIN_MINGW }}
+          modules: ${{ env.QT_MODULES }}
+      
+      - name: Qt6 environment configuration
+        if: ${{ startsWith( env.QT_VERSION, 6 ) }}
+        shell: pwsh
+        run: |
+          Write-Output "${{ env.Qt6_DIR }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          Write-Output "${{ env.Qt6_DIR }}/../../Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      
+      - name: where is cmake & where is mingw32-make
+        shell: pwsh
+        run: |
+          Get-Command -Name 'cmake' | Format-List
+          Get-Command -Name 'mingw32-make' | Format-List
+      
+      - name: mingw-build
+        id: build
+        shell: cmd
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\mingw_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake --build . --target all --config Release --parallel
+      
+      - name: package
+        id: package
+        env:
+          archiveName: ${{ env.APP_NAME }}_${{ env.QT_ARCH_WIN_MINGW }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}
+        shell: pwsh
+        run: |
+           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           $name = ${env:archiveName}
+           echo "packageName=$name" >> $env:GITHUB_OUTPUT
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: ${{ steps.package.outputs.packageName }}
+      
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{  env.QT_ARCH_WIN_MINGW }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+
+  build-win-mingw-static:
+    name: Windows MinGW (Static Library)
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+      
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_WIN_MINGW }}
+          modules: ${{ env.QT_MODULES }}
+      
+      - name: Qt6 environment configuration
+        if: ${{ startsWith( env.QT_VERSION, 6 ) }}
+        shell: pwsh
+        run: |
+          Write-Output "${{ env.Qt6_DIR }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          Write-Output "${{ env.Qt6_DIR }}/../../Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      
+      - name: where is cmake & where is mingw32-make
+        shell: pwsh
+        run: |
+          Get-Command -Name 'cmake' | Format-List
+          Get-Command -Name 'mingw32-make' | Format-List
+      
+      - name: mingw-build
+        id: build
+        shell: cmd
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\mingw_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake --build . --target all --config Release --parallel
+      
+      - name: package
+        id: package      
+        env:
+          archiveName: ${{ env.APP_NAME }}_${{ env.QT_ARCH_WIN_MINGW }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}
+        shell: pwsh
+        run: |
+           & scripts\windows-mingw-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           $name = ${env:archiveName}
+           echo "packageName=$name" >> $env:GITHUB_OUTPUT
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: ${{ steps.package.outputs.packageName }}
+      
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{  env.QT_ARCH_WIN_MINGW }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true 
+
+  build-win-msvc-shared:
+    name: Windows MSVC (Shared Library)
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_WIN_MSVC }}
+          modules: ${{ env.QT_MODULES }}
+          
+      - name: msvc-build
+        id: build
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
+          echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
+          echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
+          echo vcToolsRedistDir=%VCToolsRedistDir% >> %GITHUB_ENV%
+          
+      - name: package
+        id: package
+        env:
+          archiveName: ${{ env.APP_NAME }}_${{ env.QT_ARCH_WIN_MSVC }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}
+          msvcArch: ${{ env.QT_MSVC_ARCH }}
+        shell: pwsh
+        run: |
+           & scripts\windows-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           $name = ${env:archiveName}
+           echo "packageName=$name" >> $env:GITHUB_OUTPUT
+           
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: ${{ steps.package.outputs.packageName }}
+          
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{  env.QT_ARCH_WIN_MSVC }}_Qt${{ env.QT_VERSION }}_shared_${{ env.RELEASE_OR_NIGHTLY }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+
+  build-win-msvc-static:
+    name: Windows MSVC (Static Library)
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ env.QT_VERSION }}
+          arch: ${{ env.QT_ARCH_WIN_MSVC }}
+          modules: ${{ env.QT_MODULES }}
+          
+      - name: msvc-build
+        id: build
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
+          mkdir build
+          cd build
+          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          cmake --build . --target all --config Release --parallel
+          echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
+          echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
+          echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
+          echo vcToolsRedistDir=%VCToolsRedistDir% >> %GITHUB_ENV%
+          
+      - name: package
+        id: package
+        env:
+          archiveName: ${{ env.APP_NAME }}_${{ env.QT_ARCH_WIN_MSVC }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}
+          msvcArch: ${{ env.QT_MSVC_ARCH }}
+        shell: pwsh
+        run: |
+           & scripts\windows-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe
+           $name = ${env:archiveName}
+           echo "packageName=$name" >> $env:GITHUB_OUTPUT
+           
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: ${{ steps.package.outputs.packageName }}
+          
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{  env.QT_ARCH_WIN_MSVC }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true
