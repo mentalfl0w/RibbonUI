@@ -15,10 +15,6 @@ else()
     set(CMAKE_AUTOUIC ON)
 endif()
 
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
-endif()
-
 string(TIMESTAMP TIME_YEAR %Y)
 set(PROJECT_COMPANY "Mentalflow's Lab")
 set(PROJECT_COPYRIGHT "Copyright (c) ${TIME_YEAR} Mentalflow's Lab. All rights reserved.")

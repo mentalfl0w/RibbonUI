@@ -16,10 +16,6 @@ else()
     set(CMAKE_AUTOUIC ON)
 endif()
 
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
-endif()
-
 find_package(Qt6 COMPONENTS Core Quick Qml REQUIRED)
 
 set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
