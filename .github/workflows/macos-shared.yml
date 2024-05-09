@@ -63,7 +63,7 @@ jobs:
           
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_shared.zip
+          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}_shared
           path: /Users/runner/work/RibbonUI/RibbonUI/build/app/release/${{ env.targetName }}.dmg
           
       - name: uploadRelease
