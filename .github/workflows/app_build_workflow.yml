@@ -27,9 +27,10 @@ env:
   QT_ARCH_WIN_MINGW: win64_mingw
   QT_ARCH_WIN_MSVC: win64_msvc2019_64
   QT_ARCH_LINUX: gcc_64
-  QT_MINGW_TOOLS: "tools_mingw,9.0.0-1-202203221220,qt.tools.win64_mingw900"
-  QT_MINGW_TOOLS_INSTALL: mingw900_64
+  QT_MINGW_TOOLS: "tools_cmake,qt.tools.cmake tools_mingw90,qt.tools.win64_mingw900"
+  QT_MINGW_TOOLS_INSTALL: mingw1120_64
   QT_MSVC_ARCH: x64
+  QT_MSVC_TOOLS: "tools_cmake,qt.tools.cmake"
   QT_MSVC_TOOLS_INSTALL: msvc2019_64
   OS_WIN: windows-latest
   OS_LINUX: ubuntu-latest
@@ -248,7 +249,6 @@ jobs:
         run: |
           # make sure Qt plugin finds QML sources so it can deploy the imported files
           export QML_SOURCES_PATHS=./
-          # 拷贝依赖
           linuxdeploy-x86_64.AppImage --plugin=qt --output=appimage --create-desktop-file --icon-file=${APP_NAME}.svg --executable=/home/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/${APP_NAME} --appdir /home/runner/work/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/build/app/release/
           mv ${{ env.APP_NAME }}-*.AppImage ${{ env.APP_NAME }}_${{ env.OS_LINUX }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.AppImage
         
@@ -287,19 +287,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MINGW }}
           modules: ${{ env.QT_MODULES }}
-      
-      - name: Qt6 environment configuration
-        if: ${{ startsWith( env.QT_VERSION, 6 ) }}
-        shell: pwsh
-        run: |
-          Write-Output "${{ env.Qt6_DIR }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          Write-Output "${{ env.Qt6_DIR }}/../../Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-      
-      - name: where is cmake & where is mingw32-make
-        shell: pwsh
-        run: |
-          Get-Command -Name 'cmake' | Format-List
-          Get-Command -Name 'mingw32-make' | Format-List
+          tools: ${{ env.QT_MINGW_TOOLS }}
       
       - name: mingw-build
         id: build
@@ -307,8 +295,8 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\mingw_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -GNinja ..
-          cmake --build . --target all --config Release --parallel
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
       
       - name: package
         id: package
@@ -355,19 +343,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MINGW }}
           modules: ${{ env.QT_MODULES }}
-      
-      - name: Qt6 environment configuration
-        if: ${{ startsWith( env.QT_VERSION, 6 ) }}
-        shell: pwsh
-        run: |
-          Write-Output "${{ env.Qt6_DIR }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          Write-Output "${{ env.Qt6_DIR }}/../../Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-      
-      - name: where is cmake & where is mingw32-make
-        shell: pwsh
-        run: |
-          Get-Command -Name 'cmake' | Format-List
-          Get-Command -Name 'mingw32-make' | Format-List
+          tools: ${{ env.QT_MINGW_TOOLS }}
       
       - name: mingw-build
         id: build
@@ -375,8 +351,8 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\mingw_64 -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
-          cmake --build . --target all --config Release --parallel
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
       
       - name: package
         id: package      
@@ -423,6 +399,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MSVC }}
           modules: ${{ env.QT_MODULES }}
+          tools: ${{ env.QT_MSVC_TOOLS }}
           
       - name: msvc-build
         id: build
@@ -431,8 +408,8 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
-          cmake --build . --target all --config Release --parallel
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
           echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
@@ -484,6 +461,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MSVC }}
           modules: ${{ env.QT_MODULES }}
+          tools: ${{ env.QT_MSVC_TOOLS }}
           
       - name: msvc-build
         id: build
@@ -492,8 +470,8 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          cmake -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:\a\${{ env.REPO_NAME }}\Qt\${{ env.QT_VERSION }}\msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
-          cmake --build . --target all --config Release --parallel
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
           echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
