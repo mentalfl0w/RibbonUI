@@ -10,8 +10,22 @@ option(RIBBONUI_BUILD_EXAMPLES "Build RibbonUI APP." ON)
 option(RIBBONUI_BUILD_QWINDOWKIT "Build QWindowKit." ON)
 option(RIBBONUI_BUILD_STATIC_LIB "Build RibbonUI static library." OFF)
 
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+endif()
+
 if(NOT RIBBONUI_QML_PLUGIN_DIRECTORY)
     set(RIBBONUI_QML_PLUGIN_DIRECTORY ${QT_SDK_DIR}/qml/RibbonUI CACHE PATH "RibbonUI Plugin Path")
+endif()
+
+if (RIBBONUI_BUILD_QWINDOWKIT)
+    set(QWINDOWKIT_BUILD_STATIC ON)
+    set(QWINDOWKIT_BUILD_EXAMPLES OFF)
+    set(QWINDOWKIT_BUILD_QUICK ON)
+    set(QWINDOWKIT_BUILD_WIDGETS OFF)
+    set(QWINDOWKIT_ENABLE_STYLE_AGENT ON)
+    set(QWINDOWKIT_INSTALL OFF)
+    add_subdirectory(3rdparty/qwindowkit)
 endif()
 
 add_subdirectory(lib_source)
