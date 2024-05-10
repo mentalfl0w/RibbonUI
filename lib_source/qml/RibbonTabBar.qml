@@ -22,10 +22,15 @@ Item{
     property string bg_color: dark_mode ? "#2D2D2D" : "#F4F5F3"
     property double bg_opacity: 0.8
     property string border_color: dark_mode ? "black" : "#CCCCCC"
+    property bool showSettingsBtn: true
+    property alias count: bar.count
+
+    signal settingsBtnClicked()
 
     Component {
         id: ribbonTabButton
         RibbonTabButton{
+            height: bar.contentHeight
         }
     }
 
@@ -48,7 +53,7 @@ Item{
         id:bg
         anchors
         {
-            top: modern_style ? bar.bottom : top_border.bottom
+            top: modern_style ? bar_view.bottom : top_border.bottom
             left: parent.left
             right: parent.right
             bottom:bottom_border.top
@@ -82,17 +87,44 @@ Item{
         anchors.fill: bg
     }
 
-    TabBar {
-        id: bar
-        z:1
+    ScrollView{
+        id: bar_view
         anchors{
             top:top_border.bottom
             left: parent.left
             right:tool_bar.left
         }
-        background: Item{}
-        position: TabBar.Header
-        currentIndex: stack.currentIndex
+        height: bar_layout.height
+        z:1
+        ScrollBar.horizontal: RibbonScrollBar{
+            anchors.bottom: bar_view.bottom
+            anchors.horizontalCenter: bar_view.horizontalCenter
+            width: bar_view.width - 10
+            height: 5
+        }
+        RowLayout
+        {
+            id: bar_layout
+            spacing: 0
+            RibbonTabButton{
+                id: setting_btn
+                height: bar.contentHeight
+                checkable: false
+                Layout.alignment: Qt.AlignHCenter
+                Layout.leftMargin: 5
+                Layout.rightMargin: 10
+                text: qsTr("Settings")
+                onClicked: settingsBtnClicked()
+                visible: root.showSettingsBtn
+            }
+            TabBar {
+                id: bar
+                Layout.alignment: Qt.AlignHCenter
+                background: Item{}
+                position: TabBar.Header
+                currentIndex: stack.currentIndex
+            }
+        }
     }
 
     RowLayout{
@@ -113,7 +145,7 @@ Item{
         id: stack
         z:0
         anchors{
-            top:bar.bottom
+            top: bar_view.bottom
             left: parent.left
             right:parent.right
         }
@@ -251,6 +283,54 @@ Item{
     }
 
     //onModern_styleChanged: refresh()
+
+    function addPage(content, is_highlight)
+    {
+        var item
+        if (content instanceof Component)
+            item = content
+        else
+        {
+            item = Qt.createComponent(content, bar)
+            if (component.status === Component.Error) {
+                console.log(qsTr("RibbonTabBar: Error loading component:"), component.errorString());
+                return
+            }
+        }
+        if(item instanceof RibbonTabPage){
+            let btn = ribbonTabButton.createObject(bar,{text:qsTr(item.title),index:bar.count-1,highlight:is_highlight})
+            btn.need_fold.connect(hide_stack)
+            root.foldedChanged.connect(function(){btn.setFolded(folded)})
+        }
+    }
+
+    function deletePage(index)
+    {
+        for (var i=0, count = 0; i < bar.contentChildren.length; i++)
+        {
+            var item = bar.itemAt(i)
+            if(item instanceof RibbonTabButton){
+                if (count === index)
+                {
+                    item.destroy()
+                    break
+                }
+                count++
+            }
+        }
+        for (let i=0, count = 0; i < stack.contentChildren.length; i++)
+        {
+            let item = stack.itemAt(i)
+            if(item instanceof RibbonTabGroup){
+                if (count === index)
+                {
+                    item.destroy()
+                    break
+                }
+                count++
+            }
+        }
+    }
 
     function hide_stack(need_hide, index)
     {

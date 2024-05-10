@@ -11,7 +11,8 @@ TabButton {
     property bool dark_mode: RibbonTheme.dark_mode
     property string underline_unchecked_color: dark_mode ? "#666666" : RibbonTheme.modern_style ? "#A2A2A2" : "#D1D1D1"
     property string underline_checked_color: dark_mode ? "#8AAAEB" : "#2E4C93"
-    property string font_color: dark_mode ? "white" : "black"
+    property string font_color: highlight ? dark_mode ? "white" : "#355795" : dark_mode ? "white" : "black"
+    property bool highlight: false
 
     background: Item{}
     contentItem: Item{
@@ -24,7 +25,7 @@ TabButton {
             font{
                 family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                 pixelSize: 13
-                bold: true
+                bold: checked
             }
             color: font_color
             height: contentHeight
