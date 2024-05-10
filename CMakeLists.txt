@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.21)
 
 project(RibbonUI_Project VERSION 1.0.4 LANGUAGES CXX)
 
@@ -13,6 +13,8 @@ option(RIBBONUI_UNIVERSAL_BUILD_MACOS "Universal build RibbonUI for macOS." ON)
 
 if(APPLE AND RIBBONUI_UNIVERSAL_BUILD_MACOS)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+else()
+    set(RIBBONUI_UNIVERSAL_BUILD_MACOS OFF)
 endif()
 
 if(NOT RIBBONUI_QML_PLUGIN_DIRECTORY)
