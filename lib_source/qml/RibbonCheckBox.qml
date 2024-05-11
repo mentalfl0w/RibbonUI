@@ -82,6 +82,7 @@ Button {
                     pixelSize: control.text_size
                     bold: control.text_bold
                 }
+                renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
                 color: text_color
                 visible: text
             }

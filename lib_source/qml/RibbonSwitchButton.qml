@@ -128,6 +128,7 @@ Button {
                     text: control.grabber_text
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.margins: 4
+                    renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
                     visible: control.show_grabber_text
                     x: control.checked ? grabber.x - anchors.margins - contentWidth : grabber.x + grabber.width + anchors.margins
                     z: 0
@@ -192,6 +193,7 @@ Button {
                 id:label
                 text:control.text
                 Layout.alignment: Qt.AlignVCenter
+                renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
                 font{
                     family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                     pixelSize: control.text_size

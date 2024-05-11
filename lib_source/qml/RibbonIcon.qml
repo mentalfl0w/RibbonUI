@@ -19,6 +19,7 @@ Text {
     font.pixelSize: icon_size
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
+    renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     text: (String.fromCharCode(filled ? icon_source_filled : icon_source).toString(16))
 
     FontLoader{

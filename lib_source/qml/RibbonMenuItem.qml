@@ -92,6 +92,7 @@ MenuItem {
                 elide: Text.ElideRight
                 font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                 color: text_color
+                renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
                 Layout.preferredWidth:{
                     let w = 0
                     w += rib_icon.visible ? rib_icon.contentWidth : 0

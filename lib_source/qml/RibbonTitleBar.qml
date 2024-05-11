@@ -48,6 +48,7 @@ Item {
         text: control.title
         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
         color: title_text_color
+        renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         Behavior on color {
             ColorAnimation {
                 duration: 60

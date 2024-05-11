@@ -42,6 +42,7 @@ Item{
             selectionColor: dark_mode ? "#4F5E7F" : "#BECDE8"
             selectedTextColor: dark_mode ? "white" : "black"
             wrapMode: Text.WrapAnywhere
+            renderType: RibbonTheme.nativeText ? TextArea.NativeRendering : TextArea.QtRendering
             opacity: enabled ? 1.0 : 0.3
 
             signal commit()

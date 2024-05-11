@@ -14,6 +14,7 @@ class RibbonTheme : public QQuickItem
     Q_PROPERTY(bool dark_mode READ dark_mode() NOTIFY dark_modeChanged FINAL)
     Q_PROPERTY_RW(RibbonThemeType::ThemeMode,theme_mode)
     Q_PROPERTY_RW(bool,modern_style)
+    Q_PROPERTY_RW(bool,nativeText)
 public:
     static RibbonTheme* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
     static RibbonTheme* instance();

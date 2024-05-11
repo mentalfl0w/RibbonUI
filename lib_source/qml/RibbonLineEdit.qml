@@ -26,6 +26,7 @@ TextField{
     width:150
     height:20
     onCommit: cursorVisible = false
+    renderType: RibbonTheme.nativeText ? TextField.NativeRendering : TextField.QtRendering
     background: Rectangle{
         radius: 4
         implicitHeight: 20

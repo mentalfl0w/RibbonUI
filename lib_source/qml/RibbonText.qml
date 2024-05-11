@@ -19,6 +19,12 @@ TextEdit {
     wrapMode: TextEdit.WrapAnywhere
     enabled: !view_only
     font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
+    renderType: RibbonTheme.nativeText ? TextEdit.NativeRendering : TextEdit.QtRendering
+    onRenderTypeChanged: {
+        selectAll()
+        deselect()
+    }
+
     MouseArea{
         anchors.fill: parent
         cursorShape: Qt.IBeamCursor

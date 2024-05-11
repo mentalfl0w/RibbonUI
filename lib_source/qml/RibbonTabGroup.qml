@@ -29,6 +29,7 @@ Item {
         }
         color: font_color
         height: contentHeight
+        renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         anchors{
             horizontalCenter: control.horizontalCenter
             bottom: control.bottom

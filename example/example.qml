@@ -33,8 +33,10 @@ RibbonWindow {
                 text: qsTr("Vertical/Horizental sliders with/without buttons."),
                 target: slider_layout,
                 enter_func: ()=>{
+                    tab_bar.setPage(0)
                     slider_with_btn.value = 70
                     slider_without_btn.value = 70
+                    tour.refresh(500)
                 },
                 exit_func: ()=>{
                     slider_with_btn.value = 50
@@ -554,6 +556,15 @@ RibbonWindow {
                             font.pixelSize: 13
                             text: "Test Text (Read Only)"
                             view_only: true
+                        }
+                        RibbonSwitchButton{
+                            text: "Render"
+                            grabber_text: RibbonTheme.nativeText ? "native" : "Qt"
+                            checked: true
+                            Layout.alignment: Qt.AlignHCenter
+                            onClicked: {
+                                RibbonTheme.nativeText = checked
+                            }
                         }
                     }
                 }

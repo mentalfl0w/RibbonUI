@@ -19,6 +19,7 @@ RibbonTheme::RibbonTheme()
     _theme_mode = RibbonThemeType::ThemeMode::System;
     _system_theme_mode = current_theme();
     modern_style(false);
+    nativeText(true);
     qApp->installEventFilter(this);
 }
 

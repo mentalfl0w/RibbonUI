@@ -27,6 +27,7 @@ TabButton {
                 pixelSize: 13
                 bold: checked
             }
+            renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
             color: font_color
             height: contentHeight
             anchors{

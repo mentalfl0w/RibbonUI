@@ -120,6 +120,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         font.pixelSize: 12
         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
+        renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         color: text_color
     }
 

@@ -12,6 +12,7 @@ ToolTip {
         text: control.text
         font: control.font
         color: RibbonTheme.dark_mode ? "white" : "black"
+        renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     }
 
     background: Rectangle {

@@ -96,12 +96,6 @@ Item{
         }
         height: bar_layout.height
         z:1
-        ScrollBar.horizontal: RibbonScrollBar{
-            anchors.bottom: bar_view.bottom
-            anchors.horizontalCenter: bar_view.horizontalCenter
-            width: bar_view.width - 10
-            height: 5
-        }
         RowLayout
         {
             id: bar_layout
