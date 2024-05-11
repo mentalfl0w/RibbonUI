@@ -133,7 +133,6 @@ Popup {
         open()
     }
     function close_content(){
-        free_content()
         close()
     }
     function free_content(){
