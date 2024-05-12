@@ -26,7 +26,7 @@ Item {
         anchors.fill: parent
         radius: blur_radius
         deviation: 8
-        samples: (radius / 4) * 3
+        samples: (blur_radius / 4) * 3
         source: effect
         visible: false
     }
