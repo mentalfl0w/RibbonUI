@@ -18,6 +18,8 @@ Window {
     property bool comfirmed_quit: false
     property bool blurBehindWindow: true
     property int windows_top_fix: Qt.platform.os === 'windows' ? 1 : 0 // a trick to fix Qt or QWindowKit's bug
+    readonly property int borderWidth: border_rect.border.width
+    readonly property int borderRadius: border_rect.radius
     visible: false
     color: {
         if (blurBehindWindow) {

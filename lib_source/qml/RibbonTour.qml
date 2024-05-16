@@ -30,6 +30,8 @@ Popup {
     leftInset: 0
     rightInset: 0
     bottomInset: 0
+    x: (Overlay.overlay.width - width) / 2
+    y: (Overlay.overlay.height - height) / 2
     closePolicy: Popup.NoAutoClose
     Overlay.modal:Rectangle{
         color: !RibbonTheme.dark_mode ? Qt.alpha("white", 0.5) : Qt.alpha("black", 0.5)

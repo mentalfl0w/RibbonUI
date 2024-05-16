@@ -33,11 +33,13 @@ Item {
         }
     }
 
-    Rectangle{
+    RibbonRectangle{
         visible: modern_style
         color: dark_mode ? "#141414" : "#F5F5F5"
         opacity: bg_opacity
         anchors.fill: parent
+        bottomLeftRadius: Qt.platform.os === 'windows' ? RibbonUI.is_win11 ? 7 : 0 : 10
+        bottomRightRadius: bottomLeftRadius
     }
 
     Rectangle{

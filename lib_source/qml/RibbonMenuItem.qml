@@ -69,7 +69,7 @@ MenuItem {
                 icon_source: typeof(control.icon_source) === "number" ? control.icon_source : 0
                 icon_source_filled: typeof(control.icon_source_filled) === "number" ? control.icon_source_filled : icon_source
                 icon_size: label.contentHeight
-                visible: typeof(control.icon_source) === "number"
+                visible: typeof(control.icon_source) === "number" && control.icon_source
                 Layout.alignment: Qt.AlignVCenter
                 filled: pressed || checked
                 color: text_color
