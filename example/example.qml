@@ -109,6 +109,10 @@ RibbonWindow {
             }
         }
 
+        onSettingsBtnClicked:{
+            backstagepopup.open()
+        }
+
         RibbonTabPage{
             id: basic_page
             title: qsTr("Basic")
@@ -557,15 +561,6 @@ RibbonWindow {
                             text: "Test Text (Read Only)"
                             view_only: true
                         }
-                        RibbonSwitchButton{
-                            text: "Render"
-                            grabber_text: RibbonTheme.nativeText ? "native" : "Qt"
-                            checked: true
-                            Layout.alignment: Qt.AlignHCenter
-                            onClicked: {
-                                RibbonTheme.nativeText = checked
-                            }
-                        }
                     }
                 }
             }
@@ -630,45 +625,6 @@ RibbonWindow {
                         target: window_items
                         blur_enabled: true
                         target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
-                    }
-                }
-            }
-            RibbonTabGroup{
-                width: theme_layout.width + 30
-                text: qsTr("Theme")
-                RowLayout{
-                    id: theme_layout
-                    anchors.centerIn: parent
-                    height: parent.height
-                    spacing: 10
-                    RibbonComboBox{
-                        id: theme_combo
-                        model: ListModel {
-                            id: model_theme
-                            ListElement { text: "Light" }
-                            ListElement { text: "Dark" }
-                            ListElement { text: "System" }
-                        }
-                        icon_source: RibbonIcons.DarkTheme
-                        Component.onCompleted: update_state()
-                        onActivated: {
-                            if (currentText === "System")
-                                RibbonTheme.theme_mode = RibbonThemeType.System
-                            else if (currentText === "Light")
-                                RibbonTheme.theme_mode = RibbonThemeType.Light
-                            else
-                                RibbonTheme.theme_mode = RibbonThemeType.Dark
-                        }
-                        Connections{
-                            target: RibbonTheme
-                            function onTheme_modeChanged(){
-                                theme_combo.update_state()
-                            }
-                        }
-                        function update_state(){
-                            let str = (RibbonTheme.theme_mode === RibbonThemeType.System ? "System" : RibbonTheme.theme_mode === RibbonThemeType.Light ? "Light" : "Dark")
-                            currentIndex = find(str)
-                        }
                     }
                 }
             }
@@ -865,5 +821,35 @@ RibbonWindow {
             text_color_reverse: false
             enabled: false
         }
+    }
+    Component{
+        id: t_content
+        RibbonBackStagePage{
+            onPageNameChanged: t_text.text = pageName
+            Rectangle{
+                anchors.fill: parent
+                color: "transparent"
+                RibbonText{
+                    id: t_text
+                    anchors.centerIn: parent
+                    font.pixelSize: 20
+                }
+            }
+        }
+    }
+
+    RibbonBackStageView{
+        id: backstagepopup
+        implicitHeight: root.height - root.borderWidth * 2
+        implicitWidth: root.width - root.borderWidth * 2
+        blurEnabled: true
+        blurTarget: root.window_items
+        radius: borderRadius
+        pageModel: [{"menu_text":"Home", "menu_icon":RibbonIcons.Home, "type":"head", "sourceComponent":t_content, "sourceArgs":{'pageName':"Home"}},
+            {"menu_text":"File", "menu_icon":RibbonIcons.Document, "type":"head", "sourceComponent":t_content, "sourceArgs":{'pageName':"File"}},
+            {"menu_text":"Search", "menu_icon":RibbonIcons.Search, "type":"body", "sourceComponent":t_content, "sourceArgs":{'pageName':"Search"}},
+            {"menu_text":"Account", "menu_icon":RibbonIcons.PersonAccounts, "type":"tail", "clickOnly":true, "clickFunc": ()=>console.log("Menu Account clicked")},
+            {"menu_text":"About", "menu_icon":RibbonIcons.Info, "type":"tail", "clickOnly":true, "clickFunc": ()=>root.show_window(Qt.resolvedUrl("about.qml"))},
+            {"menu_text":"Settings", "menu_icon":RibbonIcons.Settings, "type":"tail", "sourceUrl":Qt.resolvedUrl("pages/SettingsMenuPage.qml")}]
     }
 }

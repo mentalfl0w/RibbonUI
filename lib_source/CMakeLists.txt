@@ -43,6 +43,7 @@ set(
     qml/RibbonComboBox.qml qml/RibbonSpinBox.qml qml/RibbonScrollIndicator.qml
     qml/RibbonScrollBar.qml qml/RibbonWindow.qml qml/RibbonMessage.qml
     qml/RibbonMessageListView.qml qml/RibbonTour.qml qml/RibbonTourContent.qml
+    qml/RibbonBackStageView.qml qml/RibbonBackStagePage.qml qml/RibbonBackStageGroup.qml
 )
 
 set (

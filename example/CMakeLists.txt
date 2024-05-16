@@ -81,7 +81,7 @@ qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     RESOURCE_PREFIX "/qt/qml/"
-    QML_FILES example.qml about.qml components/RibbonMessageListViewExample.qml
+    QML_FILES example.qml about.qml components/RibbonMessageListViewExample.qml pages/SettingsMenuPage.qml
     RESOURCES resources/imgs/heart.png resources/imgs/search.png
 )
 
