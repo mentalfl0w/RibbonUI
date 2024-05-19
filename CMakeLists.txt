@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(RibbonUI_Project VERSION 1.0.4 LANGUAGES CXX)
+project(RibbonUI_Project VERSION 1.1.0 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED COMPONENTS Core)
 set(QT_SDK_DIR ${Qt6_DIR}/../../..)
