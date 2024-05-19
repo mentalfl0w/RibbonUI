@@ -11,14 +11,14 @@ Popup {
     modal: true
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-    property bool show_close_btn: true
-    property bool blur_enabled: false
+    property bool showCloseBtn: true
+    property bool blurEnabled: false
     property alias target: blur.target
-    property alias target_rect: blur.target_rect
+    property alias targetRect: blur.targetRect
     property alias radius: blur.radius
-    property string content_source: ""
-    property var content_items: undefined
-    property bool destroy_after_close: true
+    property string contentSource: ""
+    property var contentItems: undefined
+    property bool destroyAfterClose: true
 
     enter: Transition {
         NumberAnimation {
@@ -56,10 +56,10 @@ Popup {
         RectangularGlow {
             id: effect
             anchors.fill: blur
-            anchors.margins: blur.mask_border.width
+            anchors.margins: blur.maskBorder.width
             glowRadius: 20
             spread: 0
-            color: RibbonTheme.dark_mode ? Qt.rgba(0,0,0,0.7) : Qt.rgba(0,0,0,0.45)
+            color: RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,0.7) : Qt.rgba(0,0,0,0.45)
             cornerRadius: blur.radius + glowRadius + 10
         }
         RibbonBlur{
@@ -67,11 +67,11 @@ Popup {
             implicitWidth: parent.width
             id: blur
             radius: 20
-            mask_opacity: blur_enabled ? 0.9 : 1
-            mask_border.color: RibbonTheme.modern_style ?
-                                   RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7" :
-            RibbonTheme.dark_mode ? "#5C5D5D" : "#B5B4B5"
-            mask_border.width: 1
+            maskOpacity: blurEnabled ? 0.9 : 1
+            maskBorder.color: RibbonTheme.modernStyle ?
+                                   RibbonTheme.isDarkMode ? "#7A7A7A" : "#2C59B7" :
+            RibbonTheme.isDarkMode ? "#5C5D5D" : "#B5B4B5"
+            maskBorder.width: 1
         }
     }
     contentItem: Item{
@@ -86,18 +86,18 @@ Popup {
                 right:parent.right
                 rightMargin: anchors.topMargin
             }
-            show_bg: false
-            show_hovered_bg: false
-            icon_source: RibbonIcons.Dismiss
-            onClicked: popup.close_content()
-            visible: show_close_btn
+            showBg: false
+            showHoveredBg: false
+            iconSource: RibbonIcons.Dismiss
+            onClicked: popup.closeContent()
+            visible: showCloseBtn
         }
         Loader{
             id: container
             width: item ? item.implicitWidth : 0
             height: item ? item.implicitHeight : 0
-            sourceComponent: content_source ? undefined : content_items
-            source: content_source
+            sourceComponent: contentSource ? undefined : contentItems
+            source: contentSource
             onLoaded: {
                 if (!control.args)
                     return
@@ -118,28 +118,28 @@ Popup {
     Overlay.modeless:Rectangle{
         color:"transparent"
     }
-    onClosed: free_content()
-    function show_content(content, args){
+    onClosed: freeContent()
+    function showContent(content, args){
         popup.contentItem.args = args
         if (content instanceof Component)
         {
-            content_items = content
+            contentItems = content
             content.parent = popup
         }
         else
         {
-            content_source = content
+            contentSource = content
         }
         open()
     }
-    function close_content(){
+    function closeContent(){
         close()
     }
-    function free_content(){
-        if (destroy_after_close)
+    function freeContent(){
+        if (destroyAfterClose)
         {
-            content_source = ""
-            content_items = undefined
+            contentSource = ""
+            contentItems = undefined
         }
     }
 }

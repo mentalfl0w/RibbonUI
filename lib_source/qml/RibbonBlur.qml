@@ -5,35 +5,35 @@ import RibbonUI
 Item {
     id: control
     property int radius: 0
-    property int blur_radius: 32
+    property int blurRadius: 32
     property alias target: effect.sourceItem
-    property rect target_rect : Qt.rect(control.x, control.y, control.width, control.height)
-    property color mask_color: RibbonTheme.dark_mode ? RibbonTheme.modern_style ? '#292929' : "#212629" : RibbonTheme.modern_style ? "#F5F5F5" : "#FFFFFF"
-    property double mask_opacity: 0.5
-    property alias mask_border: mask.border
-    property bool use_solid_bg: true
+    property rect targetRect : Qt.rect(control.x, control.y, control.width, control.height)
+    property color maskColor: RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? '#292929' : "#212629" : RibbonTheme.modernStyle ? "#F5F5F5" : "#FFFFFF"
+    property real maskOpacity: 0.5
+    property alias maskBorder: mask.border
+    property bool useSolidBg: true
 
     ShaderEffectSource {
         id: effect
         anchors.fill: parent
-        sourceRect: target_rect
-        sourceItem: target
+        sourceRect: control.targetRect
+        sourceItem: control.target
         visible: false
     }
 
     GaussianBlur{
         id: blur
         anchors.fill: parent
-        radius: blur_radius
+        radius: control.blurRadius
         deviation: 8
-        samples: (blur_radius / 4) * 3
+        samples: (control.blurRadius / 4) * 3
         source: effect
         visible: false
     }
 
     Rectangle{
         anchors.fill: parent
-        color: use_solid_bg ? mask_color : 'transparent'
+        color: control.useSolidBg ? control.maskColor : 'transparent'
         radius: control.radius
         OpacityMask {
             anchors.fill: parent
@@ -49,8 +49,8 @@ Item {
     Rectangle{
         id: mask
         anchors.fill: parent
-        color: mask_color
-        opacity: mask_opacity
+        color: control.maskColor
+        opacity: control.maskOpacity
         radius: control.radius
     }
 }

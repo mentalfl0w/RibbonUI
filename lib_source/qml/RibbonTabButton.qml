@@ -8,10 +8,10 @@ TabButton {
     signal need_fold(bool needed, int index)
     property bool folded: false
     property int index
-    property bool dark_mode: RibbonTheme.dark_mode
-    property string underline_unchecked_color: dark_mode ? "#666666" : RibbonTheme.modern_style ? "#A2A2A2" : "#D1D1D1"
-    property string underline_checked_color: dark_mode ? "#8AAAEB" : "#2E4C93"
-    property string font_color: highlight ? dark_mode ? "white" : "#355795" : dark_mode ? "white" : "black"
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property string underlineUncheckedColor: isDarkMode ? "#666666" : RibbonTheme.modernStyle ? "#A2A2A2" : "#D1D1D1"
+    property string underlineCheckedColor: isDarkMode ? "#8AAAEB" : "#2E4C93"
+    property string fontColor: highlight ? isDarkMode ? "white" : "#355795" : isDarkMode ? "white" : "black"
     property bool highlight: false
 
     background: Item{}
@@ -28,7 +28,7 @@ TabButton {
                 bold: checked
             }
             renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-            color: font_color
+            color: fontColor
             height: contentHeight
             anchors{
                 centerIn: parent
@@ -48,9 +48,9 @@ TabButton {
             color: {
 
                 if (control.hovered && (!control.checked || folded))
-                    return underline_unchecked_color
+                    return underlineUncheckedColor
                 if (control.checked && !folded)
-                    return underline_checked_color
+                    return underlineCheckedColor
                 return "transparent"
             }
             radius: 3

@@ -11,21 +11,21 @@ class RibbonTheme : public QQuickItem
     QML_SINGLETON
     QML_NAMED_ELEMENT(RibbonTheme)
 
-    Q_PROPERTY(bool dark_mode READ dark_mode() NOTIFY dark_modeChanged FINAL)
-    Q_PROPERTY_RW(RibbonThemeType::ThemeMode,theme_mode)
-    Q_PROPERTY_RW(bool,modern_style)
+    Q_PROPERTY(bool isDarkMode READ isDarkMode() NOTIFY isDarkModeChanged FINAL)
+    Q_PROPERTY_RW(RibbonThemeType::ThemeMode,themeMode)
+    Q_PROPERTY_RW(bool,modernStyle)
     Q_PROPERTY_RW(bool,nativeText)
 public:
     static RibbonTheme* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
     static RibbonTheme* instance();
-    Q_SIGNAL void dark_modeChanged();
-    bool dark_mode();
+    Q_SIGNAL void isDarkModeChanged();
+    bool isDarkMode();
 private:
     RibbonTheme();
     Q_DISABLE_COPY_MOVE(RibbonTheme)
     bool eventFilter(QObject *obj, QEvent *event);
-    RibbonThemeType::ThemeMode current_theme();
-    RibbonThemeType::ThemeMode _system_theme_mode;
+    RibbonThemeType::ThemeMode currentTheme();
+    RibbonThemeType::ThemeMode _system_themeMode;
 };
 
 #endif // RIBBONTHEME_H

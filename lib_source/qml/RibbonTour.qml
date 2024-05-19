@@ -9,19 +9,19 @@ Popup {
     id: popup
     parent: Overlay.overlay
     property var targetList: []
-    property bool blur_enabled: false
+    property bool blurEnabled: false
     property alias target: blur.target
-    property alias target_rect: blur.target_rect
+    property alias targetRect: blur.targetRect
     property alias radius: blur.radius
-    property string content_source: "RibbonTourContent.qml"
-    property var content_items: undefined
-    property bool destroy_after_close: true
+    property string contentSource: "RibbonTourContent.qml"
+    property var contentItems: undefined
+    property bool destroyAfterClose: true
     property var currentTarget: targetList ? targetList[0].target : parent
     property int currentIndex: 0
     property bool preferShowAbove: true
     property bool useHighlightOrRect: true
     property real contentEdgeMargin: 10
-    property alias content_args: control.args
+    property alias contentArgs: control.args
     property alias alwaysNotAutoPopup: always_hide_ckbox.checked
     modal: true
     margins: 0
@@ -34,7 +34,7 @@ Popup {
     y: (Overlay.overlay.height - height) / 2
     closePolicy: Popup.NoAutoClose
     Overlay.modal:Rectangle{
-        color: !RibbonTheme.dark_mode ? Qt.alpha("white", 0.5) : Qt.alpha("black", 0.5)
+        color: !RibbonTheme.isDarkMode ? Qt.alpha("white", 0.5) : Qt.alpha("black", 0.5)
     }
     Overlay.modeless:Rectangle{
         color:"transparent"
@@ -43,10 +43,10 @@ Popup {
         RectangularGlow {
             id: effect
             anchors.fill: blur
-            anchors.margins: blur.mask_border.width
+            anchors.margins: blur.maskBorder.width
             glowRadius: 10
             spread: 0
-            color: RibbonTheme.dark_mode ? Qt.rgba(0,0,0,0.7) : Qt.rgba(0,0,0,0.45)
+            color: RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,0.7) : Qt.rgba(0,0,0,0.45)
             cornerRadius: blur.radius + glowRadius + 10
         }
         RibbonBlur{
@@ -54,11 +54,11 @@ Popup {
             implicitWidth: parent.width
             id: blur
             radius: 10
-            mask_opacity: blur_enabled ? 0.9 : 1
-            mask_border.color: RibbonTheme.modern_style ?
-                                   RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7" :
-            RibbonTheme.dark_mode ? "#5C5D5D" : "#B5B4B5"
-            mask_border.width: 1
+            maskOpacity: blurEnabled ? 0.9 : 1
+            maskBorder.color: RibbonTheme.modernStyle ?
+                                   RibbonTheme.isDarkMode ? "#7A7A7A" : "#2C59B7" :
+            RibbonTheme.isDarkMode ? "#5C5D5D" : "#B5B4B5"
+            maskBorder.width: 1
         }
     }
     contentItem: Item{
@@ -75,9 +75,9 @@ Popup {
                 right:parent.right
                 rightMargin: anchors.topMargin
             }
-            show_bg: false
-            show_hovered_bg: false
-            icon_source: RibbonIcons.Dismiss
+            showBg: false
+            showHoveredBg: false
+            iconSource: RibbonIcons.Dismiss
             onClicked: popup.close()
         }
         ColumnLayout{
@@ -87,8 +87,8 @@ Popup {
                 id: loader
                 width: item ? item.implicitWidth : 50
                 height: item ? item.implicitHeight : 50
-                sourceComponent: content_source ? undefined : content_items
-                source: content_source
+                sourceComponent: contentSource ? undefined : contentItems
+                source: contentSource
                 onLoaded: {
                     if (!control.args)
                         return
@@ -109,13 +109,13 @@ Popup {
                 spacing: 20
                 RibbonCheckBox{
                     id: always_hide_ckbox
-                    show_tooltip: false
+                    showTooltip: false
                     text: qsTr("Don't auto pop up")
                 }
                 RibbonButton{
                     id: previous_btn
                     text: qsTr("Previous")
-                    show_tooltip: false
+                    showTooltip: false
                     enabled: popup.currentIndex
                     onClicked: {
                         if(popup.targetList[popup.currentIndex].exit_func)
@@ -127,7 +127,7 @@ Popup {
                 RibbonButton{
                     id: next_btn
                     text: (popup.currentIndex + 1) === popup.targetList.length ? qsTr("Finish") : qsTr("Next")
-                    show_tooltip: false
+                    showTooltip: false
                     onClicked: {
                         if ((popup.currentIndex + 1) === popup.targetList.length)
                         {
@@ -167,7 +167,7 @@ Popup {
         contentItem:Rectangle{
             color: 'transparent'
             border.width: rec.borderWidth
-            border.color: RibbonTheme.dark_mode ? "#3B69DA" : "#2C59B7"
+            border.color: RibbonTheme.isDarkMode ? "#3B69DA" : "#2C59B7"
             radius: 5
             ShaderEffectSource {
                 anchors.centerIn: parent
@@ -240,8 +240,8 @@ Popup {
     }
 
     onAboutToShow: {
-        loader.sourceComponent = content_source ? undefined : content_items
-        loader.source = content_source
+        loader.sourceComponent = contentSource ? undefined : contentItems
+        loader.source = contentSource
         rec.open()
         currentTarget = targetList[0].target
         currentIndex = 0

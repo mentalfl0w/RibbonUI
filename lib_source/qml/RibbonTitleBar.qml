@@ -6,20 +6,20 @@ import RibbonUI
 Item {
     id: control
     height: 30
-    property int minimumWidth: title_text.implicitWidth + Math.max(left_container.width, right_container.width) * 2 + (Qt.platform.os === "osx" ? 65 : 0) + 20
+    property int minimumWidth: title_text.implicitWidth + Math.max(leftContainer.width, rightContainer.width) * 2 + (Qt.platform.os === "osx" ? 65 : 0) + 20
     property string title: Window.window.title
-    property bool show_style_switch: true
-    property bool show_darkmode_btn: true
-    property bool show_pin_btn: true
-    property bool dark_mode: RibbonTheme.dark_mode
-    property bool modern_style: RibbonTheme.modern_style
-    property string title_color: modern_style ? "transparent" : dark_mode ? "#282828" : "#2C59B7"
-    property string title_text_color: modern_style ? dark_mode ? "white" : "black" : "white"
-    default property alias content: left_container.data
-    property alias left_content: left_container.data
-    property alias right_content: right_container.data
-    property alias left_container: left_container
-    property alias right_container: right_container
+    property bool showStyleSwitch: true
+    property bool showDarkmodeBtn: true
+    property bool showPinBtn: true
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property bool modernStyle: RibbonTheme.modernStyle
+    property string titleColor: modernStyle ? "transparent" : isDarkMode ? "#282828" : "#2C59B7"
+    property string titleTextColor: modernStyle ? isDarkMode ? "white" : "black" : "white"
+    default property alias content: leftContainer.data
+    property alias leftContent: leftContainer.data
+    property alias rightContent: rightContainer.data
+    property alias leftContainer: leftContainer
+    property alias rightContainer: rightContainer
     property alias maximizeBtn: maximizeBtn
     property alias minimizeBtn: minimizeBtn
     property alias closeBtn: closeBtn
@@ -33,7 +33,7 @@ Item {
     Rectangle{
         id: bg
         anchors.fill: parent
-        color: title_color
+        color: titleColor
         Behavior on color {
             ColorAnimation {
                 duration: 60
@@ -47,7 +47,7 @@ Item {
         anchors.centerIn: parent
         text: control.title
         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
-        color: title_text_color
+        color: titleTextColor
         renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         Behavior on color {
             ColorAnimation {
@@ -58,7 +58,7 @@ Item {
     }
 
     RowLayout{
-        id: left_container
+        id: leftContainer
         spacing: 1
         anchors{
             top: parent.top
@@ -70,7 +70,7 @@ Item {
     }
 
     RowLayout{
-        id: right_container
+        id: rightContainer
         spacing: 1
         anchors{
             top: parent.top
@@ -87,40 +87,40 @@ Item {
             Layout.rightMargin: Qt.platform.os === "osx" ? -5 : 0
             RibbonButton{
                 id: closeBtn
-                show_bg:false
-                icon_source: RibbonIcons.Dismiss
-                icon_source_filled: RibbonIcons_Filled.Dismiss
-                text_color: titleBar.title_text_color
-                hover_color: "#ED6B5E"
-                pressed_color: "#B55149"
-                text_color_reverse: false
-                tip_text: qsTr("Close")
+                showBg:false
+                iconSource: RibbonIcons.Dismiss
+                iconSourceFilled: RibbonIcons_Filled.Dismiss
+                textColor: titleBar.titleTextColor
+                hoverColor: "#ED6B5E"
+                pressedColor: "#B55149"
+                textColorReverse: false
+                tipText: qsTr("Close")
                 onClicked: Window.window.close()
             }
 
             RibbonButton{
                 id: minimizeBtn
-                show_bg:false
-                icon_source: RibbonIcons.Subtract
-                icon_source_filled: RibbonIcons_Filled.Subtract
-                text_color: titleBar.title_text_color
-                hover_color: "#F4BE4F"
-                pressed_color: "#B78F3B"
-                text_color_reverse: false
-                tip_text: qsTr("Minimize")
+                showBg:false
+                iconSource: RibbonIcons.Subtract
+                iconSourceFilled: RibbonIcons_Filled.Subtract
+                textColor: titleBar.titleTextColor
+                hoverColor: "#F4BE4F"
+                pressedColor: "#B78F3B"
+                textColorReverse: false
+                tipText: qsTr("Minimize")
                 font.bold: pressed || checked
                 onClicked: Window.window.visibility = Window.Minimized
             }
 
             RibbonButton{
                 id: maximizeBtn
-                show_bg:false
-                icon_source: Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize
-                text_color: titleBar.title_text_color
-                hover_color: "#61C554"
-                pressed_color: "#48953F"
-                text_color_reverse: false
-                tip_text: Window.window.visibility === Window.Maximized ? qsTr("Restore") : qsTr("Maximize")
+                showBg:false
+                iconSource: Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize
+                textColor: titleBar.titleTextColor
+                hoverColor: "#61C554"
+                pressedColor: "#48953F"
+                textColorReverse: false
+                tipText: Window.window.visibility === Window.Maximized ? qsTr("Restore") : qsTr("Maximize")
                 onClicked: {
                     if (Window.window.visibility === Window.Maximized)
                         Window.window.visibility = Window.Windowed
@@ -131,46 +131,46 @@ Item {
         }
         RibbonSwitchButton{
             text: qsTr("Style")
-            grabber_text: checked ? qsTr("Modern") : qsTr("Classic")
-            text_color: titleBar.title_text_color
-            grabber_color: "#F9F9F9"
-            grabber_checked_color: "#BEC1C9"
-            grabber_unchecked_color: "#334668"
-            grabber_text_unchecked_color: "white"
-            grabber_text_checked_color: "black"
-            onClicked: RibbonTheme.modern_style = checked
-            checked: RibbonTheme.modern_style
-            visible: show_style_switch
+            grabberText: checked ? qsTr("Modern") : qsTr("Classic")
+            textColor: titleBar.titleTextColor
+            grabberColor: "#F9F9F9"
+            grabberCheckedColor: "#BEC1C9"
+            grabberUncheckedColor: "#334668"
+            grabberTextUncheckedColor: "white"
+            grabberTextCheckedColor: "black"
+            onClicked: RibbonTheme.modernStyle = checked
+            checked: RibbonTheme.modernStyle
+            visible: showStyleSwitch
         }
         RibbonButton{
-            show_bg:false
-            icon_source: RibbonIcons.DarkTheme
-            icon_source_filled: RibbonIcons_Filled.DarkTheme
+            showBg:false
+            iconSource: RibbonIcons.DarkTheme
+            iconSourceFilled: RibbonIcons_Filled.DarkTheme
             checkable: true
-            tip_text: qsTr("Dark Mode")
-            hover_color: Qt.rgba(0,0,0, 0.3)
-            pressed_color: Qt.rgba(0,0,0, 0.4)
-            text_color: title_text_color
-            text_color_reverse: false
+            tipText: qsTr("Dark Mode")
+            hoverColor: Qt.rgba(0,0,0, 0.3)
+            pressedColor: Qt.rgba(0,0,0, 0.4)
+            textColor: titleTextColor
+            textColorReverse: false
             onClicked: {
-                RibbonTheme.theme_mode = checked ? RibbonThemeType.Dark : RibbonThemeType.Light
+                RibbonTheme.themeMode = checked ? RibbonThemeType.Dark : RibbonThemeType.Light
             }
-            checked: RibbonTheme.dark_mode
-            visible: show_darkmode_btn
+            checked: RibbonTheme.isDarkMode
+            visible: showDarkmodeBtn
         }
         RibbonButton{
             id: pinBtn
-            show_bg:false
-            icon_source: checked ? RibbonIcons.Pin : RibbonIcons.PinOff
-            icon_source_filled: checked ? RibbonIcons_Filled.Pin : RibbonIcons_Filled.PinOff
+            showBg:false
+            iconSource: checked ? RibbonIcons.Pin : RibbonIcons.PinOff
+            iconSourceFilled: checked ? RibbonIcons_Filled.Pin : RibbonIcons_Filled.PinOff
             checkable: true
-            text_color: title_text_color
-            hover_color: Qt.rgba(0,0,0, 0.3)
-            pressed_color: Qt.rgba(0,0,0, 0.4)
-            text_color_reverse: false
-            tip_text: qsTr("Stay on Top")
+            textColor: titleTextColor
+            hoverColor: Qt.rgba(0,0,0, 0.3)
+            pressedColor: Qt.rgba(0,0,0, 0.4)
+            textColorReverse: false
+            tipText: qsTr("Stay on Top")
             onClicked: Window.window.flags ^= Qt.WindowStaysOnTopHint
-            visible: control.show_pin_btn
+            visible: control.showPinBtn
         }
     }
 }

@@ -7,13 +7,13 @@ import RibbonUI
 Item {
     id: root
     default property alias content: container.data
-    property bool modern_style: RibbonTheme.modern_style
-    property bool dark_mode: RibbonTheme.dark_mode
+    property bool modernStyle: RibbonTheme.modernStyle
+    property bool isDarkMode: RibbonTheme.isDarkMode
     property int spacing: 5
-    property int top_padding: 0
-    property int bottom_padding: 0
-    property alias bg_color: bg.color
-    property alias bg_visible: bg.visible
+    property int topPadding: 0
+    property int bottomPadding: 0
+    property alias bgColor: bg.color
+    property alias bgVisible: bg.visible
     z:-2
     clip: true
     width: parent.width
@@ -21,8 +21,8 @@ Item {
     Rectangle{
         id:bg
         anchors.fill: parent
-        color: dark_mode ? "#282828" : "#ECECEC"
-        visible: !modern_style
+        color: isDarkMode ? "#282828" : "#ECECEC"
+        visible: !modernStyle
     }
 
     RibbonBlur{
@@ -32,20 +32,20 @@ Item {
             right: parent.right
             top: parent.top
         }
-        height: Math.abs(top_padding)
+        height: Math.abs(topPadding)
         target: container
-        mask_opacity: 0
-        visible: top_padding
+        maskOpacity: 0
+        visible: topPadding
         clip: true
-        target_rect: Qt.rect(x,y-top_padding,width,height)
-        use_solid_bg: false
+        targetRect: Qt.rect(x,y-topPadding,width,height)
+        useSolidBg: false
     }
 
     Item{
         id: clipper
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top:top_mask.bottom
-        implicitHeight: parent.height - Math.abs(top_padding) - Math.abs(bottom_padding)
+        implicitHeight: parent.height - Math.abs(topPadding) - Math.abs(bottomPadding)
         implicitWidth: parent.width
         clip: true
         ColumnLayout{
@@ -66,12 +66,12 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-        height: Math.abs(bottom_padding)
+        height: Math.abs(bottomPadding)
         target: container
-        mask_opacity: 0
-        visible: bottom_padding
+        maskOpacity: 0
+        visible: bottomPadding
         clip: true
-        target_rect: Qt.rect(x,y-top_padding,width,height)
-        use_solid_bg: false
+        targetRect: Qt.rect(x,y-topPadding,width,height)
+        useSolidBg: false
     }
 }

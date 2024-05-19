@@ -4,7 +4,7 @@ import QWindowKit
 
 Window {
     id:window
-    minimumWidth: title_bar.minimumWidth
+    minimumWidth: titleBar.minimumWidth
     enum Status {
         Stardard,
         SingleTask,
@@ -12,12 +12,12 @@ Window {
     }
     default property alias content: container.data
     property int windowStatus: RibbonWindow.Status.Stardard
-    property alias window_items: window_items
-    property alias title_bar: titleBar
+    property alias windowItems: windowItems
+    property alias titleBar: titleBar
     property alias popup: pop
-    property bool comfirmed_quit: false
+    property bool comfirmedQuit: false
     property bool blurBehindWindow: true
-    property int windows_top_fix: Qt.platform.os === 'windows' ? 1 : 0 // a trick to fix Qt or QWindowKit's bug
+    property int windowsTopFix: Qt.platform.os === 'windows' ? 1 : 0 // a trick to fix Qt or QWindowKit's bug
     readonly property int borderWidth: border_rect.border.width
     readonly property int borderRadius: border_rect.radius
     visible: false
@@ -25,7 +25,7 @@ Window {
         if (blurBehindWindow) {
             return "transparent"
         }
-        if (RibbonTheme.dark_mode) {
+        if (RibbonTheme.isDarkMode) {
             return '#2C2B29'
         }
         return '#FFFFFF'
@@ -34,7 +34,7 @@ Window {
         if (Qt.platform.os === 'windows')
             windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
         else if (Qt.platform.os === 'osx')
-            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
+            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.isDarkMode ? "dark" : "light" : "none")
     }
 
     Component.onCompleted: {
@@ -45,27 +45,27 @@ Window {
             windowAgent.setSystemButton(WindowAgent.Maximize, titleBar.maximizeBtn);
             windowAgent.setSystemButton(WindowAgent.Close, titleBar.closeBtn);
         }
-        windowAgent.setHitTestVisible(titleBar.left_container)
-        windowAgent.setHitTestVisible(titleBar.right_container)
+        windowAgent.setHitTestVisible(titleBar.leftContainer)
+        windowAgent.setHitTestVisible(titleBar.rightContainer)
         windowAgent.setTitleBar(titleBar)
         window.visible = true
         windowAgent.centralize()
         raise()
-        windowAgent.setWindowAttribute("dark-mode", RibbonTheme.dark_mode)
+        windowAgent.setWindowAttribute("dark-mode", RibbonTheme.isDarkMode)
         if (Qt.platform.os === 'windows')
         {
             windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
         }
         if(Qt.platform.os === "osx")
         {
-            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
+            windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.isDarkMode ? "dark" : "light" : "none")
         }
     }
     Item{
-        id: window_items
+        id: windowItems
         anchors{
             fill: parent
-            topMargin: border_rect.border.width + windows_top_fix
+            topMargin: border_rect.border.width + windowsTopFix
             leftMargin: border_rect.border.width
             rightMargin: border_rect.border.width
             bottomMargin: border_rect.border.width
@@ -86,50 +86,50 @@ Window {
     }
     Connections{
         target: RibbonTheme
-        function onTheme_modeChanged() {
-            windowAgent.setWindowAttribute("dark-mode", RibbonTheme.dark_mode)
+        function onThemeModeChanged() {
+            windowAgent.setWindowAttribute("dark-mode", RibbonTheme.isDarkMode)
             if (Qt.platform.os === 'osx')
-                windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.dark_mode ? "dark" : "light" : "none")
+                windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.isDarkMode ? "dark" : "light" : "none")
         }
     }
     Rectangle{
         z:99
         anchors.fill: parent
-        color: !RibbonTheme.dark_mode ? Qt.rgba(255,255,255,0.3) : Qt.rgba(0,0,0,0.3)
+        color: !RibbonTheme.isDarkMode ? Qt.rgba(255,255,255,0.3) : Qt.rgba(0,0,0,0.3)
         visible: !Window.active
     }
     Rectangle{
         id: border_rect
         z: -1
         anchors.fill: parent
-        anchors.topMargin: windows_top_fix
+        anchors.topMargin: windowsTopFix
         color: {
             if (Qt.platform.os === 'windows')
             {
-                if (RibbonTheme.dark_mode) {
+                if (RibbonTheme.isDarkMode) {
                     return Qt.alpha('#2C2B29', 0.8)
                 }
                 return Qt.alpha('#FFFFFF',0.8)
             }
             return 'transparent'
         }
-        border.color: RibbonTheme.dark_mode ? "#7A7A7A" : "#2C59B7"
-        border.width: RibbonTheme.modern_style ?  1 : 0
-        radius: Qt.platform.os === 'windows' ? RibbonUI.is_win11 ? 7 : 0 : 10
-        visible: RibbonTheme.modern_style || blurBehindWindow
+        border.color: RibbonTheme.isDarkMode ? "#7A7A7A" : "#2C59B7"
+        border.width: RibbonTheme.modernStyle ?  1 : 0
+        radius: Qt.platform.os === 'windows' ? RibbonUI.isWin11 ? 7 : 0 : 10
+        visible: RibbonTheme.modernStyle || blurBehindWindow
     }
     RibbonPopup{
         id: pop
-        target: window_items
-        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
-        blur_enabled: true
+        target: windowItems
+        targetRect: Qt.rect(windowItems.x + x, windowItems.y + y, width, height)
+        blurEnabled: true
     }
 
     RibbonPopupDialog{
         id: close_dialog
-        target: window_items
-        blur_enabled: true
-        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
+        target: windowItems
+        blurEnabled: true
+        targetRect: Qt.rect(windowItems.x + x, windowItems.y + y, width, height)
         positiveText: qsTr("Quit")
         neutralText: qsTr("Minimize")
         negativeText: qsTr("Cancel")
@@ -138,7 +138,7 @@ Window {
         buttonFlags: RibbonPopupDialogType.NegativeButton | RibbonPopupDialogType.PositiveButton | RibbonPopupDialogType.NeutralButton
         onNeutralClicked: window.visibility =  Window.Minimized
         onPositiveClicked: {
-            comfirmed_quit = false
+            comfirmedQuit = false
             Qt.quit()
         }
     }
@@ -149,12 +149,12 @@ Window {
 
     onClosing:function(event){
         window.raise()
-        event.accepted = !comfirmed_quit
-        if (comfirmed_quit)
+        event.accepted = !comfirmedQuit
+        if (comfirmedQuit)
             close_dialog.open()
     }
 
-    function show_window(window_url, args){
+    function showWindow(window_url, args){
         let sub_windows = RibbonUI.windowsSet
         if (sub_windows.hasOwnProperty(window_url)&&sub_windows[window_url]['windowStatus'] !== RibbonWindow.Status.Stardard)
         {
@@ -201,19 +201,5 @@ Window {
         } else if (component.status === Component.Error) {
             console.error("RibbonWindow: Error loading Window:", component.errorString())
         }
-    }
-
-    function show_popup(content_url, arguments)
-    {
-        console.warn(qsTr("RibbonWindow: This \"show_popup()\" function is deprecated, please use RibbonPopup.open_content()"))
-        popup.show_close_btn = !popup.show_close_btn
-        popup.show_content(content_url, arguments)
-    }
-
-    function close_popup()
-    {
-        console.warn(qsTr("RibbonWindow: This \"close_popup()\" function is deprecated, please use RibbonPopup.close_content()"))
-        popup.show_close_btn = !popup.show_close_btn
-        pop.close_content()
     }
 }

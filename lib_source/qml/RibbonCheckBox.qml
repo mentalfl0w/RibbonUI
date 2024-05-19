@@ -11,18 +11,18 @@ Button {
     focusPolicy:Qt.TabFocus
     checkable: true
 
-    property bool dark_mode: RibbonTheme.dark_mode
-    property int btn_size: 20
-    property string border_color: dark_mode ? "white" : "black"
-    property double border_width: 1.4
-    property string icon_color: "white"
-    property string icon_filled_bg_color: "#2143AB"
-    property string text_color: dark_mode ? "white" : "black"
-    property int text_size: 11
-    property bool text_bold: false
-    property bool text_on_left: false
-    property bool show_tooltip: false
-    property string tip_text: text
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property int btnSize: 20
+    property string borderColor: isDarkMode ? "white" : "black"
+    property real borderWidth: 1.4
+    property string iconColor: "white"
+    property string iconFilledBgColor: "#2143AB"
+    property string textColor: isDarkMode ? "white" : "black"
+    property int textSize: 11
+    property bool textBold: false
+    property bool textOnLeft: false
+    property bool showTooltip: false
+    property string tipText: text
 
     background: Item{}
     contentItem: Item{
@@ -33,15 +33,15 @@ Button {
             id: btn_layout
             property int margins: 4
             anchors.centerIn: parent
-            layoutDirection: control.text_on_left ? Qt.RightToLeft : Qt.LeftToRight
+            layoutDirection: control.textOnLeft ? Qt.RightToLeft : Qt.LeftToRight
             Rectangle {
                 id: bg
-                implicitHeight: control.btn_size
+                implicitHeight: control.btnSize
                 implicitWidth: implicitHeight
                 color: "transparent"
                 border{
-                    color: control.border_color
-                    width: control.border_width
+                    color: control.borderColor
+                    width: control.borderWidth
                 }
                 radius: 4.5
                 Rectangle{
@@ -49,7 +49,7 @@ Button {
                     anchors.fill: parent
                     scale: control.hovered || control.pressed ? 0.6 : 1.05
                     radius: 4.5
-                    color: !control.pressed?control.icon_filled_bg_color:Qt.darker(control.icon_filled_bg_color)
+                    color: !control.pressed?control.iconFilledBgColor:Qt.darker(control.iconFilledBgColor)
                     visible: control.hovered || control.pressed || control.checked
                     Behavior on scale{
                         NumberAnimation{
@@ -61,16 +61,16 @@ Button {
                 RibbonIcon{
                     id: check_icon
                     anchors.centerIn: bg
-                    icon_source: RibbonIcons.Checkmark
-                    icon_source_filled: RibbonIcons_Filled.Checkmark
+                    iconSource: RibbonIcons.Checkmark
+                    iconSourceFilled: RibbonIcons_Filled.Checkmark
                     font.pixelSize: bg.height-4
                     filled: checked
                     visible: control.pressed || control.checked
-                    color: !control.pressed?control.icon_color:Qt.darker(control.icon_color)
+                    color: !control.pressed?control.iconColor:Qt.darker(control.iconColor)
                 }
                 RibbonToolTip{
-                    text: tip_text
-                    visible: hovered && show_tooltip && text
+                    text: tipText
+                    visible: hovered && showTooltip && text
                 }
             }
             Text {
@@ -79,11 +79,11 @@ Button {
                 Layout.alignment: Qt.AlignVCenter
                 font{
                     family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
-                    pixelSize: control.text_size
-                    bold: control.text_bold
+                    pixelSize: control.textSize
+                    bold: control.textBold
                 }
                 renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-                color: text_color
+                color: textColor
                 visible: text
             }
         }

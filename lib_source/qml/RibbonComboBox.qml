@@ -4,10 +4,10 @@ import RibbonUI
 
 ComboBox {
     id: control
-    property bool dark_mode: RibbonTheme.dark_mode
-    property int icon_source
-    property int component_width: 150
-    property int component_height:20
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property int iconSource
+    property int componentWidth: 150
+    property int componentHeight:20
     property string placeholderText: "Please Choose:"
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
@@ -32,16 +32,16 @@ ComboBox {
         hoverEnabled: control.hoverEnabled
         contentItem: RibbonText{
             id:label
-            view_only: true
+            viewOnly: true
             text: item.text
             font.pixelSize: control.font.pixelSize
             font.weight: control.currentIndex === index ? Font.DemiBold : Font.Normal
-            color: dark_mode ? "white" : highlighted ? "white" : "black"
+            color: isDarkMode ? "white" : highlighted ? "white" : "black"
         }
         background: Rectangle{
             implicitWidth: item.width - 10
             implicitHeight: label.contentHeight + 14
-            color: !dark_mode ? "#506BBD" : "#2A4299"
+            color: !isDarkMode ? "#506BBD" : "#2A4299"
             visible: down || highlighted || visualFocus
             radius: 4
         }
@@ -51,10 +51,10 @@ ComboBox {
         x: control.mirrored ? control.padding : control.width - width - control.padding
         y: control.topPadding + (control.availableHeight - height) / 2
         padding: 5
-        icon_size: 15
-        icon_source: RibbonIcons.ChevronDown
+        iconSize: 15
+        iconSource: RibbonIcons.ChevronDown
         rotation: control.down ? 180 : 0
-        color: dark_mode ? "white" : "black"
+        color: isDarkMode ? "white" : "black"
 
         Behavior on rotation {
             NumberAnimation{
@@ -73,7 +73,7 @@ ComboBox {
     contentItem: RibbonLineEdit {
         id: edit
         leftPadding: (!control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1) + (icon.visible ? icon.contentWidth + padding*2 : 0)
-        rightPadding: (control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1) + (clear_btn.visible ? clear_btn.width + padding*2 : 0)
+        rightPadding: (control.mirrored ? 12 : control.editable && activeFocus ? 3 : 1) + (clearBtn.visible ? clearBtn.width + padding*2 : 0)
         topPadding: 6 - control.padding
         bottomPadding: 6 - control.padding
 
@@ -90,12 +90,12 @@ ComboBox {
         opacity: 1
 
         font: control.font
-        color: dark_mode ? "white" : "black"
-        selectionColor: dark_mode ? "#4F5E7F" : "#BECDE8"
-        selectedTextColor: dark_mode ? "white" : "black"
+        color: isDarkMode ? "white" : "black"
+        selectionColor: isDarkMode ? "#4F5E7F" : "#BECDE8"
+        selectedTextColor: isDarkMode ? "white" : "black"
         verticalAlignment: Text.AlignVCenter
 
-        icon_source: control.icon_source
+        iconSource: control.iconSource
 
         onCommit: {
             accepted()
@@ -104,8 +104,8 @@ ComboBox {
         background: Rectangle{
             visible: control.enabled && control.editable && !control.flat
             radius: 4
-            implicitHeight: control.component_height
-            implicitWidth: control.component_width-10
+            implicitHeight: control.componentHeight
+            implicitWidth: control.componentWidth-10
             color: "transparent"
             Behavior on color {
                 ColorAnimation {
@@ -117,20 +117,20 @@ ComboBox {
     }
 
     background: Rectangle {
-        implicitWidth: control.component_width
-        implicitHeight: control.component_height
+        implicitWidth: control.componentWidth
+        implicitHeight: control.componentHeight
         radius: 4
         color: {
             color: {
                 if (control.down)
-                    return dark_mode ? "#858585" : "#C9CACA"
+                    return isDarkMode ? "#858585" : "#C9CACA"
                 if (control.hovered)
-                    return dark_mode ? "#5A5B5A" : "#E4E4E4"
-                return dark_mode ? "#383838" : "#FFFFFF"
+                    return isDarkMode ? "#5A5B5A" : "#E4E4E4"
+                return isDarkMode ? "#383838" : "#FFFFFF"
             }
         }
         RibbonRectangle{
-            color: dark_mode ? "#383838" : "#FFFFFF"
+            color: isDarkMode ? "#383838" : "#FFFFFF"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: parent.border.width
@@ -141,7 +141,7 @@ ComboBox {
             height: parent.height - parent.border.width * 2
         }
 
-        border.color: edit.cursorVisible ? dark_mode ? "#869CCD" : "#486495" : dark_mode ? "#5E5F5E" : "#B9B9B8"
+        border.color: edit.cursorVisible ? isDarkMode ? "#869CCD" : "#486495" : isDarkMode ? "#5E5F5E" : "#B9B9B8"
         border.width: 1
         visible: !control.flat || control.down
     }
@@ -170,9 +170,9 @@ ComboBox {
 
         background: RibbonBlur{
             radius: 5
-            mask_opacity: 1
-            mask_border.color: RibbonTheme.dark_mode ? "#5C5D5D" : "#B5B4B5"
-            mask_border.width: 1
+            maskOpacity: 1
+            maskBorder.color: RibbonTheme.isDarkMode ? "#5C5D5D" : "#B5B4B5"
+            maskBorder.width: 1
         }
 
         enter: Transition {

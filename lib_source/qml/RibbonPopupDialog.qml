@@ -11,9 +11,9 @@ RibbonPopup {
     property string neutralText: "Neutral"
     property string negativeText: "Negative"
     property string positiveText: "Positive"
-    property bool dark_mode: RibbonTheme.dark_mode
-    property int content_margins: 20
-    show_close_btn: false
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property int contentMargins: 20
+    showCloseBtn: false
     radius: 5
     signal neutralClicked
     signal negativeClicked
@@ -31,14 +31,14 @@ RibbonPopup {
             id:text_title
             font.pixelSize: 24
             text:title
-            view_only: true
-            topPadding: content_margins * 3 / 4
-            leftPadding: content_margins
-            rightPadding: content_margins
+            viewOnly: true
+            topPadding: contentMargins * 3 / 4
+            leftPadding: contentMargins
+            rightPadding: contentMargins
             wrapMode: Text.WrapAnywhere
-            color: RibbonTheme.modern_style ?
-                       dark_mode ? '#8AAAEB' : '#2C59B7' :
-                       dark_mode ? "white" : "black"
+            color: RibbonTheme.modernStyle ?
+                       isDarkMode ? '#8AAAEB' : '#2C59B7' :
+                       isDarkMode ? "white" : "black"
             verticalAlignment: Text.AlignVCenter
             anchors{
                 top:parent.top
@@ -52,11 +52,11 @@ RibbonPopup {
             wrapMode: Text.WrapAnywhere
             verticalAlignment: Text.AlignVCenter
             text:message
-            view_only: true
-            topPadding: content_margins * 3 / 4
-            leftPadding: content_margins
-            rightPadding: content_margins
-            bottomPadding: content_margins * 3 / 4
+            viewOnly: true
+            topPadding: contentMargins * 3 / 4
+            leftPadding: contentMargins
+            rightPadding: contentMargins
+            bottomPadding: contentMargins * 3 / 4
             anchors{
                 top:text_title.bottom
                 left: parent.left
@@ -71,7 +71,7 @@ RibbonPopup {
             }
             height: 1
             width: parent.width - 4
-            color: control.dark_mode ? "#666666" : "#D1D1D1"
+            color: control.isDarkMode ? "#666666" : "#D1D1D1"
             Behavior on color {
                 ColorAnimation {
                     duration: 60
@@ -82,23 +82,23 @@ RibbonPopup {
         RowLayout{
             id:layout_actions
             anchors{
-                topMargin: content_margins * 3 / 4
+                topMargin: contentMargins * 3 / 4
                 left: parent.left
-                leftMargin: content_margins
+                leftMargin: contentMargins
                 right: parent.right
-                rightMargin: content_margins
+                rightMargin: contentMargins
                 bottom: parent.bottom
-                bottomMargin: content_margins * 3 / 4
+                bottomMargin: contentMargins * 3 / 4
             }
             height: 30
-            spacing: content_margins
+            spacing: contentMargins
             RibbonButton{
                 id:negative_btn
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 visible: control.buttonFlags&RibbonPopupDialogType.NegativeButton
                 text: negativeText
-                show_tooltip: false
+                showTooltip: false
                 onClicked: {
                     negativeClicked()
                     control.close()
@@ -110,7 +110,7 @@ RibbonPopup {
                 Layout.fillHeight: true
                 visible: control.buttonFlags&RibbonPopupDialogType.NeutralButton
                 text: neutralText
-                show_tooltip: false
+                showTooltip: false
                 onClicked: {
                     neutralClicked()
                     control.close()
@@ -122,11 +122,11 @@ RibbonPopup {
                 Layout.fillHeight: true
                 visible: control.buttonFlags&RibbonPopupDialogType.PositiveButton
                 text: positiveText
-                show_tooltip: false
-                bg_color: dark_mode ? "#8AAAEB" : "#2C59B7"
-                text_color: "white"
-                hover_color: dark_mode ? Qt.rgba(255, 255, 255, 0.3) : Qt.rgba(0, 0, 0, 0.3)
-                pressed_color: dark_mode ? Qt.rgba(255, 255, 255, 0.5) : Qt.rgba(0,0,0, 0.5)
+                showTooltip: false
+                bgColor: isDarkMode ? "#8AAAEB" : "#2C59B7"
+                textColor: "white"
+                hoverColor: isDarkMode ? Qt.rgba(255, 255, 255, 0.3) : Qt.rgba(0, 0, 0, 0.3)
+                pressedColor: isDarkMode ? Qt.rgba(255, 255, 255, 0.5) : Qt.rgba(0,0,0, 0.5)
                 onClicked: {
                     positiveClicked()
                     control.close()

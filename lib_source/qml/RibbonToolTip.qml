@@ -11,16 +11,16 @@ ToolTip {
     contentItem: Text {
         text: control.text
         font: control.font
-        color: RibbonTheme.dark_mode ? "white" : "black"
+        color: RibbonTheme.isDarkMode ? "white" : "black"
         renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
     }
 
     background: Rectangle {
         radius: 3
-        color: RibbonTheme.dark_mode ? "#2C2C29" : "#E0E0E2"
+        color: RibbonTheme.isDarkMode ? "#2C2C29" : "#E0E0E2"
         layer.enabled: true
         layer.effect: RibbonShadow{}
-        border.color: dark_mode ? "#5C5D5D" : "#B5B4B5"
+        border.color: isDarkMode ? "#5C5D5D" : "#B5B4B5"
         border.width: 1
     }
 }

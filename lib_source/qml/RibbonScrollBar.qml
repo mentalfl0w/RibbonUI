@@ -20,7 +20,7 @@ ScrollBar {
         implicitHeight: control.hovered || control.pressed ? 8 : 4
         visible: control.size < 1.0
         radius: width / 2
-        color: RibbonTheme.dark_mode ? hover_handler.hovered ? '#D6D6D6' : hover_handler.hovered && control.pressed ? '#E5E5E5' : '#999999'
+        color: RibbonTheme.isDarkMode ? hover_handler.hovered ? '#D6D6D6' : hover_handler.hovered && control.pressed ? '#E5E5E5' : '#999999'
         : hover_handler.hovered ? '#424242' : hover_handler.hovered && control.pressed ? '#333333' : '#707070'
         opacity: 0.0
 
@@ -66,7 +66,7 @@ ScrollBar {
     background: Rectangle{
         implicitWidth: control.hovered || control.pressed ? 18 : 0
         implicitHeight: control.hovered || control.pressed ? 18 : 0
-        color: RibbonTheme.dark_mode ? '#141414' : '#F5F5F5'
+        color: RibbonTheme.isDarkMode ? '#141414' : '#F5F5F5'
         opacity: 0.0
         radius: implicitWidth / 2
         visible: control.contentItem.visible
@@ -95,14 +95,14 @@ ScrollBar {
             id: decrease_btn
             width: control.vertical ? control.contentItem.width : control.contentItem.height
             height: width
-            show_bg: false
-            show_hovered_bg: false
-            icon_source: control.vertical ? RibbonIcons.CaretUp : RibbonIcons.CaretLeft
+            showBg: false
+            showHoveredBg: false
+            iconSource: control.vertical ? RibbonIcons.CaretUp : RibbonIcons.CaretLeft
             onClicked: control.decrease()
             Component.onCompleted: setup()
-            ribbon_icon.filled: true
-            ribbon_icon.icon_size: 15
-            ribbon_icon.color: RibbonTheme.dark_mode ? hovered ? '#D6D6D6' : pressed ? '#E5E5E5' : '#999999'
+            ribbonIcon.filled: true
+            ribbonIcon.iconSize: 15
+            ribbonIcon.color: RibbonTheme.isDarkMode ? hovered ? '#D6D6D6' : pressed ? '#E5E5E5' : '#999999'
             : hovered ? '#424242' : pressed ? '#333333' : '#707070'
             Connections{
                 target: control
@@ -135,14 +135,14 @@ ScrollBar {
             id: increase_btn
             width: control.vertical ? control.contentItem.width : control.contentItem.height
             height: width
-            show_bg: false
-            show_hovered_bg: false
-            icon_source: control.vertical ? RibbonIcons.CaretDown : RibbonIcons.CaretRight
+            showBg: false
+            showHoveredBg: false
+            iconSource: control.vertical ? RibbonIcons.CaretDown : RibbonIcons.CaretRight
             onClicked: control.increase()
             Component.onCompleted: setup()
-            ribbon_icon.filled: true
-            ribbon_icon.icon_size: 15
-            ribbon_icon.color: RibbonTheme.dark_mode ? hovered ? '#D6D6D6' : pressed ? '#E5E5E5' : '#999999'
+            ribbonIcon.filled: true
+            ribbonIcon.iconSize: 15
+            ribbonIcon.color: RibbonTheme.isDarkMode ? hovered ? '#D6D6D6' : pressed ? '#E5E5E5' : '#999999'
             : hovered ? '#424242' : pressed ? '#333333' : '#707070'
             Connections{
                 target: control

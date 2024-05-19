@@ -5,9 +5,9 @@ import RibbonUI
 
 RibbonView {
     id: control
-    property int page_width: width * 0.7
-    property int page_height: container.height + page_margin*2
-    property int page_margin: 50
+    property int pageWidth: width * 0.7
+    property int pageHeight: container.height + pageMargin*2
+    property int pageMargin: 50
     default property alias content: container.data
     Flickable{
         id:flickview
@@ -24,18 +24,18 @@ RibbonView {
             id: container_bg
             anchors{
                 top: parent.top
-                topMargin: modern_style ? 20 : 30
-                bottomMargin: modern_style ? 20 : 30
+                topMargin: modernStyle ? 20 : 30
+                bottomMargin: modernStyle ? 20 : 30
                 horizontalCenter: parent.horizontalCenter
             }
-            radius: modern_style ? 10 : 5
-            color: dark_mode ? "#262626" : "white"
-            implicitWidth: control.page_width
-            implicitHeight: control.page_height
+            radius: modernStyle ? 10 : 5
+            color: isDarkMode ? "#262626" : "white"
+            implicitWidth: control.pageWidth
+            implicitHeight: control.pageHeight
             layer.enabled: true
             layer.effect: RibbonShadow {
                 id: effect
-                shadow_opacity:modern_style ? 0.2 : 0.5
+                shadowOpacity:modernStyle ? 0.2 : 0.5
             }
             ColumnLayout{
                 id:container

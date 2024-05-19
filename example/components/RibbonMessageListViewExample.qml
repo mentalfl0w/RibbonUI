@@ -19,15 +19,15 @@ Item {
         }
         RibbonMessageListView{
             id: view
-            auto_scroll_to_bottom: true
+            autoScrollToBottom: true
             Layout.preferredHeight: 500
             Layout.preferredWidth: parent.width
             delegate: RibbonMessage{
                 id: msg
-                sender_text: `${model.time} ${model.recieved ? qsTr('Recieved') : qsTr('Sent')}`
+                senderText: `${model.time} ${model.recieved ? qsTr('Recieved') : qsTr('Sent')}`
                 RibbonText{
-                    font.pixelSize: msg.font_size
-                    color: RibbonTheme.dark_mode ? "white" : !model.recieved ? "white" : "black"
+                    font.pixelSize: msg.fontSize
+                    color: RibbonTheme.isDarkMode ? "white" : !model.recieved ? "white" : "black"
                     text: model.text ? model.text : ""
                     visible: model.text ? true : false
                     Layout.preferredWidth: implicitWidth < (view.width / 2 - padding) ? implicitWidth : (view.width / 2 - padding)
@@ -38,10 +38,10 @@ Item {
         RowLayout{
             Layout.alignment: Qt.AlignHCenter
             RibbonButton{
-                icon_source: RibbonIcons.AddCircle
+                iconSource: RibbonIcons.AddCircle
                 text: qsTr('Add Message')
                 onClicked: {
-                    view.message_model.append({
+                    view.messageModel.append({
                                                   time: Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss.zzz"),
                                                   text: String(Math.random()*10),
                                                   recieved: (Math.floor(Math.random()*10))%2===0,
@@ -49,10 +49,10 @@ Item {
                 }
             }
             RibbonButton{
-                icon_source: RibbonIcons.DismissCircle
+                iconSource: RibbonIcons.DismissCircle
                 text: qsTr('Clear Message')
                 onClicked: {
-                    view.message_model.clear()
+                    view.messageModel.clear()
                 }
             }
         }

@@ -3,44 +3,44 @@ import QtQuick.Controls
 import RibbonUI
 
 RibbonMenu{
-    property var input_item
+    property var inputItem
     id:menu
     width: 100
     onVisibleChanged: {
-        input_item.forceActiveFocus()
+        inputItem.forceActiveFocus()
     }
     Connections{
-        target: input_item
+        target: inputItem
         function onTextChanged() {
             menu.close()
         }
     }
     RibbonMenuItem{
         text: qsTr("Cut")
-        visible: input_item.selectedText !== "" && !input_item.readOnly
+        visible: inputItem.selectedText !== "" && !inputItem.readOnly
         onClicked: {
-            input_item.cut()
+            inputItem.cut()
         }
     }
     RibbonMenuItem{
         text: qsTr("Copy")
-        visible: input_item.selectedText !== ""
+        visible: inputItem.selectedText !== ""
         onClicked: {
-            input_item.copy()
+            inputItem.copy()
         }
     }
     RibbonMenuItem{
         text: qsTr("Paste")
-        visible: input_item.canPaste
+        visible: inputItem.canPaste
         onClicked: {
-            input_item.paste()
+            inputItem.paste()
         }
     }
     RibbonMenuItem{
         text: qsTr("Select All")
-        visible: input_item.text !== ""
+        visible: inputItem.text !== ""
         onClicked: {
-            input_item.selectAll()
+            inputItem.selectAll()
         }
     }
 }

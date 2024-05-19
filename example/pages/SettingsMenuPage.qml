@@ -31,24 +31,24 @@ RibbonBackStagePage{
                             ListElement { text: "Dark" }
                             ListElement { text: "System" }
                         }
-                        icon_source: RibbonIcons.DarkTheme
+                        iconSource: RibbonIcons.DarkTheme
                         Component.onCompleted: update_state()
                         onActivated: {
                             if (currentText === "System")
-                                RibbonTheme.theme_mode = RibbonThemeType.System
+                                RibbonTheme.themeMode = RibbonThemeType.System
                             else if (currentText === "Light")
-                                RibbonTheme.theme_mode = RibbonThemeType.Light
+                                RibbonTheme.themeMode = RibbonThemeType.Light
                             else
-                                RibbonTheme.theme_mode = RibbonThemeType.Dark
+                                RibbonTheme.themeMode = RibbonThemeType.Dark
                         }
                         Connections{
                             target: RibbonTheme
-                            function onTheme_modeChanged(){
+                            function onThemeModeChanged(){
                                 theme_combo.update_state()
                             }
                         }
                         function update_state(){
-                            let str = (RibbonTheme.theme_mode === RibbonThemeType.System ? "System" : RibbonTheme.theme_mode === RibbonThemeType.Light ? "Light" : "Dark")
+                            let str = (RibbonTheme.themeMode === RibbonThemeType.System ? "System" : RibbonTheme.themeMode === RibbonThemeType.Light ? "Light" : "Dark")
                             currentIndex = find(str)
                         }
                     }
@@ -59,9 +59,9 @@ RibbonBackStagePage{
                     }
                     RibbonSwitchButton{
                         text: qsTr("Style")
-                        grabber_text: checked ? qsTr("Modern") : qsTr("Classic")
-                        onClicked: RibbonTheme.modern_style = checked
-                        checked: RibbonTheme.modern_style
+                        grabberText: checked ? qsTr("Modern") : qsTr("Classic")
+                        onClicked: RibbonTheme.modernStyle = checked
+                        checked: RibbonTheme.modernStyle
                     }
                 }
             }
@@ -78,7 +78,7 @@ RibbonBackStagePage{
                 RibbonSwitchButton{
                     id: render_btn
                     text: "Render"
-                    grabber_text: RibbonTheme.nativeText ? "Native" : "Qt"
+                    grabberText: RibbonTheme.nativeText ? "Native" : "Qt"
                     checked: true
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {

@@ -9,8 +9,8 @@ RibbonUI::RibbonUI(QQuickItem *parent)
     : QQuickItem(parent)
 {
     _version = VER_JOIN(RIBBONUI_VERSION);
-    _qt_version = QString(qVersion()).replace('.',"").toInt();
-    _is_win11 = QOperatingSystemVersion::current() >= QOperatingSystemVersion(QOperatingSystemVersion::Windows, 10, 0, 22000);
+    _qtVersion = QString(qVersion()).replace('.',"").toInt();
+    _isWin11 = QOperatingSystemVersion::current() >= QOperatingSystemVersion(QOperatingSystemVersion::Windows, 10, 0, 22000);
 }
 
 RibbonUI* RibbonUI::instance(){

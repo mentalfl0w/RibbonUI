@@ -6,15 +6,15 @@ Item {
     id:control
     width: container.width
     property alias text: label.text
-    property alias show_border: line.visible
+    property alias showBorder: line.visible
     default property alias content: container.data
     property int contenHeight: container.height
-    property bool dark_mode: RibbonTheme.dark_mode
+    property bool isDarkMode: RibbonTheme.isDarkMode
     property bool showOpenExternal: false
-    property string font_color: dark_mode ? "white" : "black"
-    property string border_color: dark_mode ? "#525252" : "#D4D4D4"
-    property alias externalToolTipText: open_external_btn.tip_text
-    property alias showExternalToolTipText: open_external_btn.show_tooltip
+    property string fontColor: isDarkMode ? "white" : "black"
+    property string borderColor: isDarkMode ? "#525252" : "#D4D4D4"
+    property alias externalToolTipText: open_external_btn.tipText
+    property alias showExternalToolTipText: open_external_btn.showTooltip
     Layout.fillHeight: true
     clip: true
     signal openExternal()
@@ -27,7 +27,7 @@ Item {
             pixelSize: 12
             bold: true
         }
-        color: font_color
+        color: fontColor
         height: contentHeight
         renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         anchors{
@@ -47,7 +47,7 @@ Item {
         id: line
         width: 1
         height: control.height - label.anchors.bottomMargin*3
-        color: border_color
+        color: borderColor
         anchors{
             verticalCenter: control.verticalCenter
             right:control.right
@@ -78,14 +78,14 @@ Item {
             right: control.right
             bottom: control.bottom
         }
-        implicitWidth: ribbon_icon.width + 10
-        implicitHeight: ribbon_icon.height + 10
+        implicitWidth: ribbonIcon.width + 10
+        implicitHeight: ribbonIcon.height + 10
         checkable: false
-        ribbon_icon.icon_size: 14
-        ribbon_icon.rotation: 90
-        show_bg: false
-        tip_text: qsTr("Open ") + label.text + qsTr("'s external")
-        icon_source: RibbonIcons.Open
+        ribbonIcon.iconSize: 14
+        ribbonIcon.rotation: 90
+        showBg: false
+        tipText: qsTr("Open ") + label.text + qsTr("'s external")
+        iconSource: RibbonIcons.Open
         onClicked: openExternal()
         visible: control.showOpenExternal
     }

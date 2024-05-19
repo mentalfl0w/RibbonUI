@@ -6,16 +6,16 @@ import RibbonUI
 Item{
     id: control
     property alias text: textedit.text
-    property alias icon_source: textedit.icon_source
-    property alias show_clear_btn: textedit.show_clear_btn
+    property alias iconSource: textedit.iconSource
+    property alias showClearBtn: textedit.showClearBtn
     property alias textedit: textedit
     property alias placeholderText: textedit.placeholderText
     property alias readOnly: textedit.readOnly
-    property int max_height: 80
-    property bool dark_mode: RibbonTheme.dark_mode
+    property int maxHeight: 80
+    property bool isDarkMode: RibbonTheme.isDarkMode
     signal commit()
     width: 150
-    height: Math.min(flickview.contentHeight, max_height)
+    height: Math.min(flickview.contentHeight, maxHeight)
     Flickable{
         id: flickview
         anchors.fill: parent
@@ -29,18 +29,18 @@ Item{
         clip: true
         TextArea.flickable:TextArea {
             id: textedit
-            property int icon_source
-            property bool show_clear_btn: true
+            property int iconSource
+            property bool showClearBtn: true
             focus: true
-            color: dark_mode ? "white" : "black"
+            color: isDarkMode ? "white" : "black"
             padding: 5
             leftPadding: icon.visible ? icon.contentWidth + padding*2 : padding
-            rightPadding: clear_btn.visible ? clear_btn.width + padding*2 : padding
+            rightPadding: clearBtn.visible ? clearBtn.width + padding*2 : padding
             placeholderText: qsTr("Please input:")
-            placeholderTextColor: dark_mode ? Qt.rgba(255,255,255,0.5) : Qt.rgba(0,0,0,0.5)
+            placeholderTextColor: isDarkMode ? Qt.rgba(255,255,255,0.5) : Qt.rgba(0,0,0,0.5)
             selectByMouse: true
-            selectionColor: dark_mode ? "#4F5E7F" : "#BECDE8"
-            selectedTextColor: dark_mode ? "white" : "black"
+            selectionColor: isDarkMode ? "#4F5E7F" : "#BECDE8"
+            selectedTextColor: isDarkMode ? "white" : "black"
             wrapMode: Text.WrapAnywhere
             renderType: RibbonTheme.nativeText ? TextArea.NativeRendering : TextArea.QtRendering
             opacity: enabled ? 1.0 : 0.3
@@ -53,8 +53,8 @@ Item{
             background: Rectangle{
                 id:bg
                 radius: 4
-                color: dark_mode ? "#383838" : "#FFFFFF"
-                border.color: textedit.cursorVisible ? dark_mode ? "#869CCD" : "#486495" : dark_mode ? "#5E5F5E" : "#B9B9B8"
+                color: isDarkMode ? "#383838" : "#FFFFFF"
+                border.color: textedit.cursorVisible ? isDarkMode ? "#869CCD" : "#486495" : isDarkMode ? "#5E5F5E" : "#B9B9B8"
                 border.width: 1
                 Behavior on color {
                     ColorAnimation {
@@ -74,7 +74,7 @@ Item{
             }
             RibbonTextBoxMenu{
                 id:menu
-                input_item: textedit
+                inputItem: textedit
             }
         }
     }
@@ -85,10 +85,10 @@ Item{
             leftMargin: textedit.padding
             verticalCenter: parent.verticalCenter
         }
-        icon_source: textedit.icon_source
-        icon_size: 26 - textedit.padding
-        visible: icon_source
-        color: dark_mode ? "white" : "black"
+        iconSource: textedit.iconSource
+        iconSize: 26 - textedit.padding
+        visible: iconSource
+        color: isDarkMode ? "white" : "black"
         Behavior on color {
             ColorAnimation {
                 duration: 60
@@ -97,19 +97,19 @@ Item{
         }
     }
     RibbonButton{
-        id: clear_btn
+        id: clearBtn
         anchors{
             right: parent.right
             rightMargin: textedit.padding
             verticalCenter: parent.verticalCenter
         }
-        show_bg: false
-        show_hovered_bg: false
-        tip_text: qsTr("Clear")
-        icon_source: RibbonIcons.Dismiss
+        showBg: false
+        showHoveredBg: false
+        tipText: qsTr("Clear")
+        iconSource: RibbonIcons.Dismiss
         height: 26 - textedit.padding
         width: height
-        visible: textedit.text&&show_clear_btn&&textedit.cursorVisible
+        visible: textedit.text&&showClearBtn&&textedit.cursorVisible
         onClicked: textedit.clear()
     }
 }

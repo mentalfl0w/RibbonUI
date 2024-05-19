@@ -5,17 +5,17 @@ import RibbonUI
 
 Item {
     id: root
-    property bool dark_mode: RibbonTheme.dark_mode
-    property bool show_tooltip: true
-    property var icon_source
-    property string hover_color: dark_mode ? "#414140" : "#D8D9D9"
-    property string pressed_color: dark_mode ? "#5B5B5C" : "#BCBCBC"
-    property string buddy_hover_color: dark_mode ? "#383838" : "#E1E1E1"
-    property string text_color: dark_mode ? "white" : "black"
-    property string tip_text: text
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property bool showTooltip: true
+    property var iconSource
+    property string hoverColor: isDarkMode ? "#414140" : "#D8D9D9"
+    property string pressedColor: isDarkMode ? "#5B5B5C" : "#BCBCBC"
+    property string buddyHoverColor: isDarkMode ? "#383838" : "#E1E1E1"
+    property string textColor: isDarkMode ? "white" : "black"
+    property string tipText: text
     property string text
     default property alias content: m.contentData
-    property int icon_size: Math.floor(height * 0.7)
+    property int iconSize: Math.floor(height * 0.7)
     signal clicked()
     opacity: enabled ? 1.0 : 0.3
     implicitHeight: 50
@@ -38,29 +38,29 @@ Item {
             implicitHeight: root.height - label.contentHeight
             color: {
                 if (left_th.pressed)
-                    return pressed_color
+                    return pressedColor
                 if (left_hh.hovered)
-                    return hover_color
+                    return hoverColor
                 if (right_hh.hovered)
-                    return buddy_hover_color
+                    return buddyHoverColor
                 return "transparent"
             }
             RibbonIcon{
                 id :rib_icon
                 anchors.centerIn: parent
-                icon_source: typeof(root.icon_source) === "number" ? root.icon_source : 0
-                icon_source_filled: typeof(root.icon_source) === "number" ? root.icon_source - 1 : 0
-                icon_size: root.icon_size
-                visible: typeof(root.icon_source) === "number"
+                iconSource: typeof(root.iconSource) === "number" ? root.iconSource : 0
+                iconSourceFilled: typeof(root.iconSource) === "number" ? root.iconSource - 1 : 0
+                iconSize: root.iconSize
+                visible: typeof(root.iconSource) === "number"
                 Layout.alignment: Qt.AlignVCenter
                 filled: left_th.pressed
-                color: text_color
+                color: textColor
             }
             Image {
                 id: pic_icon
                 anchors.centerIn: parent
-                source: typeof(root.icon_source) === "string" ? root.icon_source : ""
-                visible: typeof(root.icon_source) === "string"
+                source: typeof(root.iconSource) === "string" ? root.iconSource : ""
+                visible: typeof(root.iconSource) === "string"
                 fillMode:Image.PreserveAspectFit
                 height: left.height
                 width: height
@@ -83,21 +83,21 @@ Item {
             visible: m.count
             color: {
                 if (right_th.pressed||m.opened)
-                    return pressed_color
+                    return pressedColor
                 if (right_hh.hovered)
-                    return hover_color
+                    return hoverColor
                 if (left_hh.hovered)
-                    return buddy_hover_color
+                    return buddyHoverColor
                 return "transparent"
             }
             RibbonIcon{
                 anchors.centerIn: parent
-                icon_source: RibbonIcons.ChevronDown
-                icon_source_filled: RibbonIcons.ChevronDown - 1
-                icon_size: 15
+                iconSource: RibbonIcons.ChevronDown
+                iconSourceFilled: RibbonIcons.ChevronDown - 1
+                iconSize: 15
                 Layout.alignment: Qt.AlignVCenter
                 filled: right_th.pressed
-                color: text_color
+                color: textColor
             }
             HoverHandler{
                 id: right_hh
@@ -121,12 +121,12 @@ Item {
         font.pixelSize: 12
         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
         renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-        color: text_color
+        color: textColor
     }
 
     RibbonToolTip{
-        text: tip_text
-        visible: (left_hh.hovered || right_hh.hovered)&& show_tooltip && text
+        text: tipText
+        visible: (left_hh.hovered || right_hh.hovered)&& showTooltip && text
     }
 
     RibbonMenu{

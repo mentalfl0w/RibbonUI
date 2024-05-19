@@ -10,8 +10,8 @@ Menu {
                              contentHeight + topPadding + bottomPadding))
     overlap: 1
     padding: 5
-    property bool dark_mode: RibbonTheme.dark_mode
-    property string bg_color: !dark_mode ? "#E8E9E9" : "#303131"
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property string bgColor: !isDarkMode ? "#E8E9E9" : "#303131"
     enter: Transition {
         NumberAnimation {
             property: "opacity"
@@ -47,11 +47,11 @@ Menu {
         implicitHeight: 20
         layer.enabled: true
         layer.effect: RibbonShadow{
-            shadow_color: "black"
+            shadowColor: "black"
         }
-        border.color: dark_mode ? "#5C5D5D" : "#B5B4B5"
+        border.color: isDarkMode ? "#5C5D5D" : "#B5B4B5"
         border.width: 1
-        color: bg_color
+        color: bgColor
         radius: 4
     }
 }

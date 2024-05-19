@@ -6,7 +6,7 @@ import RibbonUI
 
 Item{
     id: root
-    height: folded ? top_border.height + bar.contentHeight + bottom_border.height: modern_style ? 200 : 180
+    height: folded ? top_border.height + bar.contentHeight + bottom_border.height: modernStyle ? 200 : 180
     anchors{
         top: parent.top
         left: parent.left
@@ -14,14 +14,14 @@ Item{
     }
     clip: true
     property bool folded: false
-    property int last_index
+    property int lastIndex
     default property alias content: stack.contentData
-    property alias right_tool_bar: tool_bar.data
-    property bool modern_style: RibbonTheme.modern_style
-    property bool dark_mode: RibbonTheme.dark_mode
-    property string bg_color: dark_mode ? "#2D2D2D" : "#F4F5F3"
-    property double bg_opacity: 0.8
-    property string border_color: dark_mode ? "black" : "#CCCCCC"
+    property alias rightToolBar: tool_bar.data
+    property bool modernStyle: RibbonTheme.modernStyle
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property string bgColor: isDarkMode ? "#2D2D2D" : "#F4F5F3"
+    property real bgOpacity: 0.8
+    property string borderColor: isDarkMode ? "black" : "#CCCCCC"
     property bool showSettingsBtn: true
     property alias count: bar.count
 
@@ -39,8 +39,8 @@ Item{
         anchors.top: parent.top
         width: parent.width
         height: 1
-        color: modern_style ? "transparent" : bg_color
-        opacity:bg_opacity
+        color: modernStyle ? "transparent" : bgColor
+        opacity:bgOpacity
         Behavior on color {
             ColorAnimation {
                 duration: 60
@@ -53,23 +53,23 @@ Item{
         id:bg
         anchors
         {
-            top: modern_style ? bar_view.bottom : top_border.bottom
+            top: modernStyle ? bar_view.bottom : top_border.bottom
             left: parent.left
             right: parent.right
             bottom:bottom_border.top
-            topMargin: modern_style ? 10 :0
-            leftMargin: modern_style ? 10 :0
-            rightMargin: modern_style ? 10 :0
-            bottomMargin: modern_style ? 10 :0
+            topMargin: modernStyle ? 10 :0
+            leftMargin: modernStyle ? 10 :0
+            rightMargin: modernStyle ? 10 :0
+            bottomMargin: modernStyle ? 10 :0
         }
         clip: true
-        opacity:bg_opacity
+        opacity:bgOpacity
 
         Rectangle{
             anchors.fill: parent
-            color: bg_color
-            opacity:bg_opacity
-            radius: modern_style ? 10 :0
+            color: bgColor
+            opacity:bgOpacity
+            radius: modernStyle ? 10 :0
             Behavior on color {
                 ColorAnimation {
                     duration: 60
@@ -81,8 +81,8 @@ Item{
 
     RibbonShadow {
         id: effect
-        enabled: modern_style
-        visible: modern_style
+        enabled: modernStyle
+        visible: modernStyle
         source: bg
         anchors.fill: bg
     }
@@ -151,19 +151,19 @@ Item{
         background: Item{
             anchors{
                 fill: parent
-                topMargin: modern_style ? 10 :0
-                leftMargin: modern_style ? 10 :0
-                rightMargin: modern_style ? 10 :0
-                bottomMargin: modern_style ? 10 :0
+                topMargin: modernStyle ? 10 :0
+                leftMargin: modernStyle ? 10 :0
+                rightMargin: modernStyle ? 10 :0
+                bottomMargin: modernStyle ? 10 :0
             }
         }
         contentItem: ListView {
             anchors{
                 fill: parent
-                topMargin: modern_style ? 10 :0
-                leftMargin: modern_style ? 10 :0
-                rightMargin: modern_style ? 10 :0
-                bottomMargin: modern_style ? 10 :0
+                topMargin: modernStyle ? 10 :0
+                leftMargin: modernStyle ? 10 :0
+                rightMargin: modernStyle ? 10 :0
+                bottomMargin: modernStyle ? 10 :0
             }
             clip: true
             model: stack.contentModel
@@ -188,7 +188,7 @@ Item{
                     rightMargin: 5
                     bottomMargin: 5
                 }
-                icon_source: RibbonIcons.ChevronDown
+                iconSource: RibbonIcons.ChevronDown
                 Behavior on rotation {
                     NumberAnimation{
                         duration: 100
@@ -197,10 +197,10 @@ Item{
                 }
                 rotation: folded ? 0 : 180
                 onClicked: folded = !folded
-                show_bg: false
-                show_hovered_bg: false
-                tip_text: folded ? qsTr("Show") : qsTr("Hide")
-                text_color: dark_mode ? "white" : "black"
+                showBg: false
+                showHoveredBg: false
+                tipText: folded ? qsTr("Show") : qsTr("Hide")
+                textColor: isDarkMode ? "white" : "black"
             }
         }
 
@@ -223,7 +223,7 @@ Item{
                         btn.checked = true
                     }
                     sign++
-                    btn.need_fold.connect(hide_stack)
+                    btn.need_fold.connect(hideStack)
                     root.foldedChanged.connect(function(){btn.setFolded(folded)})
                 }
             }
@@ -235,8 +235,8 @@ Item{
         anchors.top: stack.bottom
         width: parent.width
         height: 1
-        color: modern_style ? "transparent" : bg_color
-        opacity:bg_opacity
+        color: modernStyle ? "transparent" : bgColor
+        opacity:bgOpacity
         Rectangle{
             anchors{
                 left: parent.left
@@ -244,9 +244,9 @@ Item{
                 bottom: parent.bottom
             }
             z: 3
-            color: border_color
+            color: borderColor
             height: 1
-            visible: !modern_style
+            visible: !modernStyle
             Behavior on color {
                 ColorAnimation {
                     duration: 60
@@ -293,7 +293,7 @@ Item{
         }
         if(item instanceof RibbonTabPage){
             let btn = ribbonTabButton.createObject(bar,{text:qsTr(item.title),index:bar.count-1,highlight:is_highlight})
-            btn.need_fold.connect(hide_stack)
+            btn.need_fold.connect(hideStack)
             root.foldedChanged.connect(function(){btn.setFolded(folded)})
         }
     }
@@ -326,13 +326,13 @@ Item{
         }
     }
 
-    function hide_stack(need_hide, index)
+    function hideStack(need_hide, index)
     {
-        if (typeof(last_index)==='undefined'||last_index===index||last_index!==index&&!need_hide)
+        if (typeof(lastIndex)==='undefined'||lastIndex===index||lastIndex!==index&&!need_hide)
         {
             folded = need_hide && !folded
         }
-        last_index = index
+        lastIndex = index
     }
 
     function refresh()

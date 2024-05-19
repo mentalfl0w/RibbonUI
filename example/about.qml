@@ -5,12 +5,12 @@ import RibbonUI
 
 RibbonWindow {
     id: window
-    width: Math.max(content.width, content.height + title_bar.height, title_bar.minimumWidth) + content.anchors.margins * 2
-    minimumWidth: title_bar.minimumWidth
-    minimumHeight: content.height + title_bar.height + content.anchors.margins * 2
+    width: Math.max(content.width, content.height + titleBar.height, titleBar.minimumWidth) + content.anchors.margins * 2
+    minimumWidth: titleBar.minimumWidth
+    minimumHeight: content.height + titleBar.height + content.anchors.margins * 2
     title: qsTr("About")
-    title_bar.show_darkmode_btn: false
-    title_bar.show_style_switch: false
+    titleBar.showDarkmodeBtn: false
+    titleBar.showStyleSwitch: false
     windowStatus: RibbonWindow.Status.SingleInstance
 
     ColumnLayout{

@@ -4,8 +4,8 @@ import RibbonUI
 
 SpinBox {
     id: control
-    property bool dark_mode: RibbonTheme.dark_mode
-    property int icon_source
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property int iconSource
 
     font.pixelSize: 13
 
@@ -35,18 +35,18 @@ SpinBox {
     contentItem: RibbonLineEdit {
         text: control.displayText
         font: control.font
-        color: dark_mode ? "white" : "black"
-        selectionColor: dark_mode ? "#4F5E7F" : "#BECDE8"
-        selectedTextColor: dark_mode ? "white" : "black"
+        color: isDarkMode ? "white" : "black"
+        selectionColor: isDarkMode ? "#4F5E7F" : "#BECDE8"
+        selectedTextColor: isDarkMode ? "white" : "black"
         horizontalAlignment: Qt.AlignLeft
         verticalAlignment: Qt.AlignVCenter
-        icon_source: control.icon_source
-        icon.icon_size: 16
+        iconSource: control.iconSource
+        icon.iconSize: 16
 
         topPadding: 2
         bottomPadding: 2
         leftPadding: icon.visible ? icon.contentWidth + padding*2 : 10
-        rightPadding: (clear_btn.visible ? clear_btn.width + padding*2 : 10) + up.indicator.width
+        rightPadding: (clearBtn.visible ? clearBtn.width + padding*2 : 10) + up.indicator.width
 
         readOnly: !control.editable
         validator: control.validator
@@ -59,10 +59,10 @@ SpinBox {
         y: (parent.height / 2) - height + 2
         implicitWidth: 20 - 2
         implicitHeight: 12 - 2
-        icon_source: RibbonIcons.ChevronUp
-        ribbon_icon.icon_size: 10
-        show_bg: false
-        show_tooltip: false
+        iconSource: RibbonIcons.ChevronUp
+        ribbonIcon.iconSize: 10
+        showBg: false
+        showTooltip: false
         onHoveredChanged: control.up.hovered = hovered
         onPressedChanged: control.up.pressed = pressed
         onClicked: increase()
@@ -74,10 +74,10 @@ SpinBox {
         y: (parent.height / 2) - height - 1 + up.indicator.height
         implicitWidth: 20 - 2
         implicitHeight: 12 - 2
-        icon_source: RibbonIcons.ChevronDown
-        ribbon_icon.icon_size: 10
-        show_bg: false
-        show_tooltip: false
+        iconSource: RibbonIcons.ChevronDown
+        ribbonIcon.iconSize: 10
+        showBg: false
+        showTooltip: false
         onHoveredChanged: control.down.hovered = hovered
         onPressedChanged: control.down.pressed = pressed
         onClicked: decrease()
@@ -90,10 +90,10 @@ SpinBox {
         color: {
             color: {
                 if (control.down)
-                    return dark_mode ? "#858585" : "#C9CACA"
+                    return isDarkMode ? "#858585" : "#C9CACA"
                 if (control.hovered)
-                    return dark_mode ? "#5A5B5A" : "#E4E4E4"
-                return dark_mode ? "#383838" : "#FFFFFF"
+                    return isDarkMode ? "#5A5B5A" : "#E4E4E4"
+                return isDarkMode ? "#383838" : "#FFFFFF"
             }
         }
     }

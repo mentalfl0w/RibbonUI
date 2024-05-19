@@ -5,22 +5,22 @@ import RibbonUI
 
 Button {
     id: root
-    property bool dark_mode: RibbonTheme.dark_mode
-    property bool show_bg: true
-    property bool show_hovered_bg: true
-    property bool adapt_height: false
-    property bool show_tooltip: true
-    property var icon_source
-    property var icon_source_filled
-    property alias image_icon: pic_icon
-    property alias ribbon_icon: rib_icon
-    property string bg_color: dark_mode ? "#626262" : "white"
-    property string hover_color: dark_mode ? show_bg ? "#818181" : "#5E5D5D" : show_bg ? "#ECEAE9" : "#B0B0B1"
-    property string pressed_color: dark_mode ? show_bg ? "#424242" : "#5C5C5C" : show_bg ? "#CCCBCB" : "#9D9B9B"
-    property string checked_color: pressed_color
-    property string text_color: dark_mode ? "white" : "black"
-    property bool text_color_reverse: true
-    property string tip_text: text
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property bool showBg: true
+    property bool showHoveredBg: true
+    property bool adaptHeight: false
+    property bool showTooltip: true
+    property var iconSource
+    property var iconSourceFilled
+    property alias imageIcon: pic_icon
+    property alias ribbonIcon: rib_icon
+    property string bgColor: isDarkMode ? "#626262" : "white"
+    property string hoverColor: isDarkMode ? showBg ? "#818181" : "#5E5D5D" : showBg ? "#ECEAE9" : "#B0B0B1"
+    property string pressedColor: isDarkMode ? showBg ? "#424242" : "#5C5C5C" : showBg ? "#CCCBCB" : "#9D9B9B"
+    property string checkedColor: pressedColor
+    property string textColor: isDarkMode ? "white" : "black"
+    property bool textColorReverse: true
+    property string tipText: text
     opacity: enabled ? 1.0 : 0.3
     padding: 0
     leftPadding: 0
@@ -29,28 +29,28 @@ Button {
     background: Rectangle{
         implicitWidth: contentItem.implicitWidth
         implicitHeight: contentItem.implicitHeight
-        visible: show_bg
-        border.color: dark_mode ? "#7F7F7F" : "#D2D1CE"
+        visible: showBg
+        border.color: isDarkMode ? "#7F7F7F" : "#D2D1CE"
         border.width: 1
         radius: 3
-        color: bg_color
+        color: bgColor
     }
     contentItem: Item{
         implicitWidth: layout.width + 13
-        implicitHeight: adapt_height?root.parent.height>=layout.height?root.parent.height:layout.height:layout.height + 10
+        implicitHeight: adaptHeight?root.parent.height>=layout.height?root.parent.height:layout.height:layout.height + 10
         Rectangle{
             anchors.fill: parent
             radius: 3
             color: {
                 if (root.pressed)
-                    return pressed_color
+                    return pressedColor
                 if (root.hovered)
-                    return hover_color
+                    return hoverColor
                 if (root.checked)
-                    return checked_color
+                    return checkedColor
                 return "transparent"
             }
-            visible: show_hovered_bg
+            visible: showHoveredBg
             Behavior on color {
                 ColorAnimation {
                     duration: 60
@@ -74,17 +74,17 @@ Button {
 
             RibbonIcon{
                 id :rib_icon
-                icon_source: typeof(root.icon_source) === "number" ? root.icon_source : 0
-                icon_source_filled: typeof(root.icon_source_filled) === "number" ? root.icon_source_filled : icon_source
-                icon_size: label.contentHeight
-                visible: typeof(root.icon_source) === "number"
+                iconSource: typeof(root.iconSource) === "number" ? root.iconSource : 0
+                iconSourceFilled: typeof(root.iconSourceFilled) === "number" ? root.iconSourceFilled : iconSource
+                iconSize: label.contentHeight
+                visible: typeof(root.iconSource) === "number"
                 Layout.alignment: Qt.AlignVCenter
                 filled: pressed || checked
                 color: {
-                    if (!show_bg && (hovered || checked || pressed) && text_color_reverse)
-                        return Qt.lighter(text_color)
+                    if (!showBg && (hovered || checked || pressed) && textColorReverse)
+                        return Qt.lighter(textColor)
                     else
-                        return text_color
+                        return textColor
                 }
                 Behavior on color {
                     ColorAnimation {
@@ -95,8 +95,8 @@ Button {
             }
             Image {
                 id: pic_icon
-                source: typeof(root.icon_source) === "string" ? root.icon_source : ""
-                visible: typeof(root.icon_source) === "string"
+                source: typeof(root.iconSource) === "string" ? root.iconSource : ""
+                visible: typeof(root.iconSource) === "string"
                 fillMode:Image.PreserveAspectFit
                 height: label.contentHeight
                 width: height
@@ -112,16 +112,16 @@ Button {
                 font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                 renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
                 color: {
-                    if (!show_bg && (hovered || checked || pressed) && text_color_reverse)
-                        return Qt.lighter(text_color)
+                    if (!showBg && (hovered || checked || pressed) && textColorReverse)
+                        return Qt.lighter(textColor)
                     else
-                        return text_color
+                        return textColor
                 }
             }
         }
         RibbonToolTip{
-            text: tip_text
-            visible: hovered && show_tooltip && text
+            text: tipText
+            visible: hovered && showTooltip && text
         }
     }
 }

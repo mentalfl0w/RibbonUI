@@ -8,6 +8,11 @@ Popup {
     padding: 0
     anchors.centerIn: Overlay.overlay
     closePolicy: Popup.NoAutoClose
+    enum MenuItemLocation {
+        Head,
+        Body,
+        Tail
+    }
     property bool blurEnabled: false
     property var blurTarget: control
     property bool showBackBtn: true
@@ -37,14 +42,14 @@ Popup {
         id: blur_bg
         anchors.fill: parent
         target: blurTarget
-        target_rect: Qt.rect(control.x + control.leftMargin, control.y + control.topMargin, control.width, control.height)
+        targetRect: Qt.rect(control.x + control.leftMargin, control.y + control.topMargin, control.width, control.height)
         visible: blurEnabled
-        mask_color: content_bg.color
-        mask_opacity: 0
-        blur_radius: 0
+        maskColor: content_bg.color
+        maskOpacity: 0
+        blurRadius: 0
         radius: control.radius
 
-        Behavior on mask_opacity {
+        Behavior on maskOpacity {
             enabled: parent.visible
             NumberAnimation {
                 duration: 300
@@ -52,7 +57,7 @@ Popup {
             }
         }
 
-        Behavior on blur_radius {
+        Behavior on blurRadius {
             enabled: parent.visible
             NumberAnimation {
                 duration: 300
@@ -77,23 +82,23 @@ Popup {
         }
         width: 150
         x: -width
-        color: Qt.alpha(RibbonTheme.dark_mode ? "#363636" : RibbonTheme.modern_style ? "white" : "#365695", blurEnabled ? RibbonTheme.modern_style ? 0.8 : 0.9 : 1)
+        color: Qt.alpha(RibbonTheme.isDarkMode ? "#363636" : RibbonTheme.modernStyle ? "white" : "#365695", blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
         topLeftRadius: control.topMargin === 0 ? control.radius : 0
         bottomLeftRadius: topLeftRadius
         property int currentMenu: 0
 
         RibbonButton{
             id: back_btn
-            show_bg: false
-            show_hovered_bg: false
-            show_tooltip: false
+            showBg: false
+            showHoveredBg: false
+            showTooltip: false
             text: backText
             font.pixelSize: 30
-            icon_source: RibbonIcons.ArrowCircleLeft
-            implicitWidth: ribbon_icon.width
-            implicitHeight: ribbon_icon.height
-            text_color: RibbonTheme.modern_style && !RibbonTheme.dark_mode ? "black" : "white"
-            ribbon_icon.filled: hovered
+            iconSource: RibbonIcons.ArrowCircleLeft
+            implicitWidth: ribbonIcon.width
+            implicitHeight: ribbonIcon.height
+            textColor: RibbonTheme.modernStyle && !RibbonTheme.isDarkMode ? "black" : "white"
+            ribbonIcon.filled: hovered
             anchors{
                 top: parent.top
                 topMargin: 30
@@ -101,9 +106,9 @@ Popup {
                 leftMargin: 30
             }
             visible: showBackBtn
-            ribbon_icon.icon_size: 30
-            ribbon_icon.color: {
-                if (RibbonTheme.modern_style && !RibbonTheme.dark_mode)
+            ribbonIcon.iconSize: 30
+            ribbonIcon.color: {
+                if (RibbonTheme.modernStyle && !RibbonTheme.isDarkMode)
                 {
                     if(pressed)
                         return Qt.alpha("black", 0.8)
@@ -130,11 +135,11 @@ Popup {
                 property var view: ListView.view
                 property bool clickOnly: typeof(model.clickOnly) !== 'undefined' ? model.clickOnly : false
                 property bool isCurrentMenu: {
-                    if (item_bg.view.type === "head" && menu_bg.currentMenu === 0)
+                    if (item_bg.view.type === RibbonBackStageView.MenuItemLocation.Head && menu_bg.currentMenu === 0)
                         return true
-                    else if (item_bg.view.type === "tail" && menu_bg.currentMenu === 2)
+                    else if (item_bg.view.type === RibbonBackStageView.MenuItemLocation.Tail && menu_bg.currentMenu === 2)
                         return true
-                    else if (item_bg.view.type === "body" && menu_bg.currentMenu === 1)
+                    else if (item_bg.view.type === RibbonBackStageView.MenuItemLocation.Body && menu_bg.currentMenu === 1)
                         return true
                     return false
                 }
@@ -142,24 +147,24 @@ Popup {
                 width: view.width
                 height: item.height + margins * 2
                 color: {
-                    if(RibbonTheme.modern_style)
+                    if(RibbonTheme.modernStyle)
                         return "transparent"
                     if(view.currentIndex === index && item_bg.isCurrentMenu)
                     {
                         if(mouse.containsMouse)
                         {
                             if(mouse.pressed)
-                                return Qt.alpha(back_btn.text_color, 0.4)
-                            return Qt.alpha(back_btn.text_color, 0.3)
+                                return Qt.alpha(back_btn.textColor, 0.4)
+                            return Qt.alpha(back_btn.textColor, 0.3)
                         }
                         else
-                            return Qt.alpha(back_btn.text_color, 0.2)
+                            return Qt.alpha(back_btn.textColor, 0.2)
                     }
                     else
                     {
                         if(mouse.containsMouse)
                         {
-                            let color = back_btn.text_color === 'black' ? "white" : "black"
+                            let color = back_btn.textColor === 'black' ? "white" : "black"
                             if(mouse.pressed)
                                 return Qt.alpha(color, 0.3)
                             return Qt.alpha(color, 0.2)
@@ -179,12 +184,12 @@ Popup {
                     radius: width / 2
                     color: {
                         if (mouse.containsMouse)
-                            return RibbonTheme.dark_mode ? "#666666" : "#D1D1D1"
+                            return RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1"
                         return "transparent"
                     }
                     width: 2
                     height: parent.height - 4
-                    visible: RibbonTheme.modern_style
+                    visible: RibbonTheme.modernStyle
                 }
 
                 RowLayout{
@@ -198,13 +203,13 @@ Popup {
 
                     RibbonIcon{
                         id :rib_icon
-                        icon_source: typeof(model.menu_icon) === "number" ? model.menu_icon : 0
-                        icon_source_filled: typeof(model.menu_icon_filled) === "number" ? model.menu_icon_filled : icon_source
-                        icon_size: menu_label.contentHeight
+                        iconSource: typeof(model.menu_icon) === "number" ? model.menu_icon : 0
+                        iconSourceFilled: typeof(model.menu_icon_filled) === "number" ? model.menu_icon_filled : iconSource
+                        iconSize: menu_label.contentHeight
                         visible: typeof(model.menu_icon) === "number" && model.menu_icon
                         Layout.alignment: Qt.AlignVCenter
                         filled: item_bg.view.currentIndex === index && item_bg.isCurrentMenu
-                        color: model.menu_icon_color ? model.menu_icon_color : back_btn.text_color
+                        color: model.menu_iconColor ? model.menu_iconColor : back_btn.textColor
                     }
                     Image {
                         id: pic_icon
@@ -218,7 +223,7 @@ Popup {
                     Text{
                         id: menu_label
                         text: model.menu_text
-                        color: !mouse.containsMouse && RibbonTheme.modern_style && item_bg.view.currentIndex === index && item_bg.isCurrentMenu ? RibbonTheme.dark_mode ? "#779CDB" : "#5882BB" : back_btn.text_color
+                        color: !mouse.containsMouse && RibbonTheme.modernStyle && item_bg.view.currentIndex === index && item_bg.isCurrentMenu ? RibbonTheme.isDarkMode ? "#779CDB" : "#5882BB" : back_btn.textColor
                         Layout.alignment: Qt.AlignVCenter
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 13
@@ -238,7 +243,7 @@ Popup {
 
                 RibbonToolTip{
                     id: tooltip
-                    visible: mouse.containsMouse && typeof(model.show_tooltip) != "undefined" ? model.show_tooltip : false
+                    visible: mouse.containsMouse && typeof(model.showTooltip) != "undefined" ? model.showTooltip : false
                                                                                                 && typeof(model.tool_text) != "undefined" ? model.tool_text : false
                     text: model.tool_text ? model.tool_text : ""
                 }
@@ -253,12 +258,12 @@ Popup {
                             control.pageModel[model.globalIndex].clickFunc()
                         }
                         else{
-                            if (item_bg.view.type === "head")
+                            if (item_bg.view.type === RibbonBackStageView.MenuItemLocation.Head)
                             {
                                 menu_bg.currentMenu = 0
                                 ani_modern_border.targetMenu = head_menu_list
                             }
-                            else if (item_bg.view.type === "tail")
+                            else if (item_bg.view.type === RibbonBackStageView.MenuItemLocation.Tail)
                             {
                                 menu_bg.currentMenu = 2
                                 ani_modern_border.targetMenu = tail_menu_list
@@ -296,14 +301,14 @@ Popup {
                 Layout.preferredHeight: contentHeight
                 clip: true
                 interactive: false
-                property string type: "head"
+                property var type: RibbonBackStageView.MenuItemLocation.Head
             }
             Rectangle{
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 1
                 Layout.preferredWidth: parent.width - 40
-                color: RibbonTheme.modern_style ? RibbonTheme.dark_mode ? "#666666" : "#D1D1D1" :RibbonTheme.dark_mode ? "#B1B1B1" : Qt.alpha("white", 0.2)
-                visible: body_menu_list.count
+                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : Qt.alpha("white", 0.2)
+                visible: head_menu_list.count && (body_menu_list.count || tail_menu_list.count)
             }
             ListView{
                 id: body_menu_list
@@ -317,14 +322,14 @@ Popup {
                     anchors.rightMargin: 2
                 }
                 clip: true
-                property string type: "body"
+                property var type: RibbonBackStageView.MenuItemLocation.Body
             }
             Rectangle{
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 1
                 Layout.preferredWidth: parent.width - 40
-                color: RibbonTheme.modern_style ? RibbonTheme.dark_mode ? "#666666" : "#D1D1D1" :RibbonTheme.dark_mode ? "#B1B1B1" : Qt.alpha("white", 0.2)
-                visible: tail_menu_list.count
+                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : Qt.alpha("white", 0.2)
+                visible: (head_menu_list.count || body_menu_list.count) && tail_menu_list.count
             }
             ListView{
                 id: tail_menu_list
@@ -336,7 +341,7 @@ Popup {
                 Layout.preferredHeight: contentHeight
                 clip: true
                 interactive: false
-                property string type: "tail"
+                property var type: RibbonBackStageView.MenuItemLocation.Tail
             }
         }
 
@@ -348,14 +353,14 @@ Popup {
             y: list_layout.y + targetMenu.y + (typeof(targetMenu.currentItem) !== 'undefined' && targetMenu.currentItem ? (targetMenu.currentItem.y + 2) : 0)
             radius: width / 2
             color: {
-                if(RibbonTheme.dark_mode)
+                if(RibbonTheme.isDarkMode)
                     return "#82ABF1"
                 else
                     return "#1651AA"
             }
             width: 2
             height: (typeof(targetMenu.currentItem) !== 'undefined' && targetMenu.currentItem) ? targetMenu.currentItem.height - 4 : 0
-            visible: RibbonTheme.modern_style
+            visible: RibbonTheme.modernStyle
             Behavior on y {
                 NumberAnimation {
                     duration: 300
@@ -389,7 +394,7 @@ Popup {
         }
         topRightRadius: control.topMargin === 0 ? control.radius : 0
         bottomRightRadius: topRightRadius
-        color: Qt.alpha(RibbonTheme.dark_mode ? RibbonTheme.modern_style ? "#0A0A0A" : "#262626" : RibbonTheme.modern_style ? "#F0F0F0" : "white", 0)
+        color: Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
 
         Behavior on color {
             ColorAnimation {
@@ -430,32 +435,32 @@ Popup {
 
     Connections{
         target: RibbonTheme
-        function onTheme_modeChanged(){
+        function onThemeModeChanged(){
             refresh()
         }
     }
 
     function show(){
         menu_bg.x = 0
-        content_bg.color = Qt.alpha(RibbonTheme.dark_mode ? RibbonTheme.modern_style ? "#0A0A0A" : "#262626" : RibbonTheme.modern_style ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modern_style ? 0.95 : 0.9 : 1)
-        blur_bg.mask_opacity = blurEnabled ? 0.5 : 1
-        blur_bg.blur_radius = blurEnabled ? 32 : 0
+        content_bg.color = Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
+        blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
     }
 
     function hide(){
         menu_bg.x = -menu_bg.width
-        content_bg.color = Qt.alpha(RibbonTheme.dark_mode ? RibbonTheme.modern_style ? "#0A0A0A" : "#262626" : RibbonTheme.modern_style ? "#F0F0F0" : "white", 0)
-        blur_bg.mask_opacity = 0
-        blur_bg.blur_radius = 0
+        content_bg.color = Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
+        blur_bg.maskOpacity = 0
+        blur_bg.blurRadius = 0
         blur_bg.opacity = 0
         close()
     }
 
     function refresh(){
-        content_bg.color = Qt.alpha(RibbonTheme.dark_mode ? RibbonTheme.modern_style ? "#0A0A0A" : "#262626" : RibbonTheme.modern_style ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modern_style ? 0.95 : 0.9 : 1)
-        blur_bg.mask_opacity = blurEnabled ? 0.5 : 1
-        blur_bg.blur_radius = blurEnabled ? 32 : 0
+        content_bg.color = Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
+        blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
     }
 
@@ -467,11 +472,11 @@ Popup {
         {
             let item = pageModel[i]
             item['globalIndex'] = i
-            if(pageModel[i].type === 'head')
+            if(pageModel[i].type === RibbonBackStageView.MenuItemLocation.Head)
             {
                 head_menu_list.model.append(item)
             }
-            else if(pageModel[i].type === 'tail')
+            else if(pageModel[i].type === RibbonBackStageView.MenuItemLocation.Tail)
             {
                 tail_menu_list.model.append(item)
             }

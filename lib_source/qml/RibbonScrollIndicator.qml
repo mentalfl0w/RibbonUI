@@ -16,7 +16,7 @@ ScrollIndicator {
         implicitWidth: control.hovered ? 8 : 4
         implicitHeight: control.hovered ? 8 : 4
 
-        color: RibbonTheme.dark_mode ? '#999999' : '#707070'
+        color: RibbonTheme.isDarkMode ? '#999999' : '#707070'
         visible: control.size < 1.0
         opacity: 0.0
         radius: implicitWidth / 2
@@ -60,7 +60,7 @@ ScrollIndicator {
     background: Rectangle{
         implicitWidth: control.hovered ? 18 : 0
         implicitHeight: control.hovered ? 18 : 0
-        color: RibbonTheme.dark_mode ? '#141414' : '#F5F5F5'
+        color: RibbonTheme.isDarkMode ? '#141414' : '#F5F5F5'
         opacity: 0.0
         radius: implicitWidth / 2
         visible: control.contentItem.visible

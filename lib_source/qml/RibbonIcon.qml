@@ -3,24 +3,24 @@ import QtQuick.Controls
 import RibbonUI
 
 Text {
-    property int icon_source
-    property int icon_size: 20
+    property int iconSource
+    property int iconSize: 20
     property bool filled: false
-    property int icon_source_filled
+    property int iconSourceFilled
 
-    onIcon_sourceChanged: {
-        if (typeof(icon_source_filled) === 'undefined' || icon_source_filled === icon_source)
-            icon_source_filled = icon_source - 1
+    onIconSourceChanged: {
+        if (typeof(iconSourceFilled) === 'undefined' || iconSourceFilled === iconSource)
+            iconSourceFilled = iconSource - 1
     }
 
     color: "black"
     id:text_icon
     font.family: loader.name
-    font.pixelSize: icon_size
+    font.pixelSize: iconSize
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
     renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-    text: (String.fromCharCode(filled ? icon_source_filled : icon_source).toString(16))
+    text: (String.fromCharCode(filled ? iconSourceFilled : iconSource).toString(16))
 
     FontLoader{
         id: loader

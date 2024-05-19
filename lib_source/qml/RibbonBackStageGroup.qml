@@ -30,7 +30,7 @@ Item {
         }
         height: 1
         width: parent.width
-        color: RibbonTheme.dark_mode ? "#666666" : "#D1D1D1"
+        color: RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1"
     }
 
     Rectangle{

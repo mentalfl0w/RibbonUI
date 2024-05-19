@@ -5,15 +5,15 @@ import RibbonUI
 
 MenuItem {
     id: control
-    property bool dark_mode: RibbonTheme.dark_mode
-    property var icon_source
-    property var icon_source_filled
-    property bool show_tooltip: label.contentWidth < label.implicitWidth
-    property alias image_icon: pic_icon
-    property alias ribbon_icon: rib_icon
-    property string bg_color: !dark_mode ? "#E8E9E9" : "#303131"
-    property string hover_color: !dark_mode ? "#506BBD" : "#2A4299"
-    property string text_color: dark_mode ? "white" : hovered ? "white" : "black"
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property var iconSource
+    property var iconSourceFilled
+    property bool showTooltip: label.contentWidth < label.implicitWidth
+    property alias imageIcon: pic_icon
+    property alias ribbonIcon: rib_icon
+    property string bgColor: !isDarkMode ? "#E8E9E9" : "#303131"
+    property string hoverColor: !isDarkMode ? "#506BBD" : "#2A4299"
+    property string textColor: isDarkMode ? "white" : hovered ? "white" : "black"
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: visible ? Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -32,20 +32,20 @@ MenuItem {
         y: control.topPadding + (control.availableHeight - height) / 2
         visible: control.checkable || control.checked
         filled: control.hovered || control.pressed
-        icon_source: control.checked ? RibbonIcons.CheckmarkCircle : RibbonIcons.Circle
-        icon_source_filled: control.checked ? RibbonIcons_Filled.CheckmarkCircle : RibbonIcons_Filled.Circle
-        color: text_color
-        icon_size: label.contentHeight
+        iconSource: control.checked ? RibbonIcons.CheckmarkCircle : RibbonIcons.Circle
+        iconSourceFilled: control.checked ? RibbonIcons_Filled.CheckmarkCircle : RibbonIcons_Filled.Circle
+        color: textColor
+        iconSize: label.contentHeight
     }
 
     arrow: RibbonIcon {
         x: control.mirrored ? control.padding : control.width - width - control.padding
         y: control.topPadding + (control.availableHeight - height) / 2
-        color: text_color
+        color: textColor
         visible: control.subMenu
-        icon_source: RibbonIcons.ChevronCircleRight
-        icon_source_filled: RibbonIcons_Filled.ChevronCircleRight
-        icon_size: label.contentHeight
+        iconSource: RibbonIcons.ChevronCircleRight
+        iconSourceFilled: RibbonIcons_Filled.ChevronCircleRight
+        iconSize: label.contentHeight
     }
 
     contentItem: Item{
@@ -66,18 +66,18 @@ MenuItem {
 
             RibbonIcon{
                 id :rib_icon
-                icon_source: typeof(control.icon_source) === "number" ? control.icon_source : 0
-                icon_source_filled: typeof(control.icon_source_filled) === "number" ? control.icon_source_filled : icon_source
-                icon_size: label.contentHeight
-                visible: typeof(control.icon_source) === "number" && control.icon_source
+                iconSource: typeof(control.iconSource) === "number" ? control.iconSource : 0
+                iconSourceFilled: typeof(control.iconSourceFilled) === "number" ? control.iconSourceFilled : iconSource
+                iconSize: label.contentHeight
+                visible: typeof(control.iconSource) === "number" && control.iconSource
                 Layout.alignment: Qt.AlignVCenter
                 filled: pressed || checked
-                color: text_color
+                color: textColor
             }
             Image {
                 id: pic_icon
-                source: typeof(control.icon_source) === "string" ? control.icon_source : ""
-                visible: typeof(control.icon_source) === "string"
+                source: typeof(control.iconSource) === "string" ? control.iconSource : ""
+                visible: typeof(control.iconSource) === "string"
                 fillMode:Image.PreserveAspectFit
                 height: label.contentHeight
                 width: height
@@ -91,7 +91,7 @@ MenuItem {
                 font.pixelSize: 13
                 elide: Text.ElideRight
                 font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
-                color: text_color
+                color: textColor
                 renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
                 Layout.preferredWidth:{
                     let w = 0
@@ -103,7 +103,7 @@ MenuItem {
             }
             RibbonToolTip{
                 id: tooltip
-                visible: hovered && show_tooltip && control.text
+                visible: hovered && showTooltip && control.text
                 text: control.text
             }
         }
@@ -120,7 +120,7 @@ MenuItem {
 
             clip: visible
             radius: 4
-            color: control.hovered ?hover_color : bg_color
+            color: control.hovered ?hoverColor : bgColor
         }
     }
 }

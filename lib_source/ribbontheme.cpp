@@ -13,12 +13,12 @@
 
 RibbonTheme::RibbonTheme()
 {
-    connect(this, &RibbonTheme::theme_modeChanged, this, [=](){
-        emit dark_modeChanged();
+    connect(this, &RibbonTheme::themeModeChanged, this, [=](){
+        emit isDarkModeChanged();
     });
-    _theme_mode = RibbonThemeType::ThemeMode::System;
-    _system_theme_mode = current_theme();
-    modern_style(false);
+    _themeMode = RibbonThemeType::ThemeMode::System;
+    _system_themeMode = currentTheme();
+    modernStyle(false);
     nativeText(true);
     qApp->installEventFilter(this);
 }
@@ -39,16 +39,16 @@ bool RibbonTheme::eventFilter(QObject *obj, QEvent *event)
     Q_UNUSED(obj);
     if (event->type() == QEvent::ApplicationPaletteChange || event->type() == QEvent::ThemeChange)
     {
-        _system_theme_mode = current_theme();
-        if (_theme_mode == RibbonThemeType::ThemeMode::System)
-            Q_EMIT theme_modeChanged();
+        _system_themeMode = currentTheme();
+        if (_themeMode == RibbonThemeType::ThemeMode::System)
+            Q_EMIT themeModeChanged();
         event->accept();
         return true;
     }
     return false;
 }
 
-RibbonThemeType::ThemeMode RibbonTheme::current_theme()
+RibbonThemeType::ThemeMode RibbonTheme::currentTheme()
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
     return (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light) ?
@@ -66,8 +66,8 @@ RibbonThemeType::ThemeMode RibbonTheme::current_theme()
 #endif
 }
 
-bool RibbonTheme::dark_mode()
+bool RibbonTheme::isDarkMode()
 {
-    return _theme_mode == RibbonThemeType::ThemeMode::System ? _system_theme_mode == RibbonThemeType::ThemeMode::Dark
-                                                             : _theme_mode == RibbonThemeType::ThemeMode::Dark;
+    return _themeMode == RibbonThemeType::ThemeMode::System ? _system_themeMode == RibbonThemeType::ThemeMode::Dark
+                                                             : _themeMode == RibbonThemeType::ThemeMode::Dark;
 }

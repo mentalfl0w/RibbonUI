@@ -11,22 +11,22 @@ Button {
     focusPolicy:Qt.TabFocus
     checkable: true
 
-    property bool dark_mode: RibbonTheme.dark_mode
-    property bool show_grabber_text: true
-    property string grabber_text: control.checked ? qsTr("Open") : qsTr("Close")
-    property string text_color: dark_mode ? "white" : "black"
-    property int text_size: 11
-    property string grabber_checked_color: dark_mode ? "#8AAAEB" : "#2850A4"
-    property string grabber_unchecked_color: dark_mode ? "#292929" : "white"
-    property string grabber_text_checked_color: dark_mode ? "black" : "white"
-    property string grabber_text_unchecked_color: dark_mode ? "white" : "black"
-    property string grabber_color: dark_mode ? control.pressed ? "#F8F8F8" : "white" : control.pressed ? "#4D4D4D":"#616161"
-    property string border_color: dark_mode ? "white" : "#616161"
-    property double border_width: 1.4
-    property bool text_bold: false
-    property bool text_on_left: false
-    property bool show_tooltip: false
-    property string tip_text: text
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property bool showGrabberText: true
+    property string grabberText: control.checked ? qsTr("Open") : qsTr("Close")
+    property string textColor: isDarkMode ? "white" : "black"
+    property int textSize: 11
+    property string grabberCheckedColor: isDarkMode ? "#8AAAEB" : "#2850A4"
+    property string grabberUncheckedColor: isDarkMode ? "#292929" : "white"
+    property string grabberTextCheckedColor: isDarkMode ? "black" : "white"
+    property string grabberTextUncheckedColor: isDarkMode ? "white" : "black"
+    property string grabberColor: isDarkMode ? control.pressed ? "#F8F8F8" : "white" : control.pressed ? "#4D4D4D":"#616161"
+    property string borderColor: isDarkMode ? "white" : "#616161"
+    property real borderWidth: 1.4
+    property bool textBold: false
+    property bool textOnLeft: false
+    property bool showTooltip: false
+    property string tipText: text
 
     background:Item{}
     contentItem:Item{
@@ -38,18 +38,18 @@ Button {
             property int margins: 4
             spacing: 4
             anchors.centerIn: parent
-            layoutDirection: control.text_on_left ? Qt.RightToLeft : Qt.LeftToRight
+            layoutDirection: control.textOnLeft ? Qt.RightToLeft : Qt.LeftToRight
             Item{
                 id: btn
                 implicitHeight: 20
-                implicitWidth: control.show_grabber_text ? 20 + grabber_text.anchors.margins * 2 + grabber_text.contentWidth : 40
+                implicitWidth: control.showGrabberText ? 20 + grabberText.anchors.margins * 2 + grabberText.contentWidth : 40
                 Rectangle{
                     id:bg
                     implicitWidth: btn.implicitWidth + border.width
                     implicitHeight: btn.implicitHeight + border.width
                     anchors.verticalCenter: parent.verticalCenter
-                    border.color: border_color
-                    border.width: border_width
+                    border.color: borderColor
+                    border.width: borderWidth
                     radius: 12
                     states: [
                         State{
@@ -57,7 +57,7 @@ Button {
                             when: control.checked
                             PropertyChanges {
                                 target: bg
-                                color: grabber_checked_color
+                                color: grabberCheckedColor
                             }
                         },
                         State{
@@ -65,7 +65,7 @@ Button {
                             when: !control.checked
                             PropertyChanges {
                                 target: bg
-                                color: grabber_unchecked_color
+                                color: grabberUncheckedColor
                             }
                         }
                     ]
@@ -74,8 +74,8 @@ Button {
                             from: "checked"
                             to:"unchecked"
                             ColorAnimation {
-                                from: grabber_checked_color
-                                to: grabber_unchecked_color
+                                from: grabberCheckedColor
+                                to: grabberUncheckedColor
                                 duration: 200
                                 easing.type: Easing.OutSine
                             }
@@ -84,8 +84,8 @@ Button {
                             from: "unchecked"
                             to:"checked"
                             ColorAnimation {
-                                from: grabber_unchecked_color
-                                to: grabber_checked_color
+                                from: grabberUncheckedColor
+                                to: grabberCheckedColor
                                 duration: 200
                                 easing.type: Easing.OutSine
                             }
@@ -97,7 +97,7 @@ Button {
                     implicitHeight: bg.implicitHeight - anchors.margins*2
                     implicitWidth:implicitHeight
                     radius: width / 2
-                    color: grabber_color
+                    color: grabberColor
                     anchors{
                         verticalCenter: parent.verticalCenter
                         margins: 4
@@ -119,17 +119,17 @@ Button {
                     }
                     layer.enabled: true
                     layer.effect: RibbonShadow{
-                        shadow_opacity: 0.2
-                        shadow_color: "black"
+                        shadowOpacity: 0.2
+                        shadowColor: "black"
                     }
                 }
                 Text {
-                    id: grabber_text
-                    text: control.grabber_text
+                    id: grabberText
+                    text: control.grabberText
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.margins: 4
                     renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-                    visible: control.show_grabber_text
+                    visible: control.showGrabberText
                     x: control.checked ? grabber.x - anchors.margins - contentWidth : grabber.x + grabber.width + anchors.margins
                     z: 0
                     font{
@@ -148,16 +148,16 @@ Button {
                             name:"checked"
                             when: control.checked
                             PropertyChanges {
-                                target: grabber_text
-                                color: grabber_text_checked_color
+                                target: grabberText
+                                color: grabberTextCheckedColor
                             }
                         },
                         State{
                             name:"unchecked"
                             when: !control.checked
                             PropertyChanges {
-                                target: grabber_text
-                                color: grabber_text_unchecked_color
+                                target: grabberText
+                                color: grabberTextUncheckedColor
                             }
                         }
                     ]
@@ -166,8 +166,8 @@ Button {
                             from: "checked"
                             to:"unchecked"
                             ColorAnimation {
-                                from: grabber_text_checked_color
-                                to: grabber_text_unchecked_color
+                                from: grabberTextCheckedColor
+                                to: grabberTextUncheckedColor
                                 duration: 200
                                 easing.type: Easing.OutSine
                             }
@@ -176,8 +176,8 @@ Button {
                             from: "unchecked"
                             to:"checked"
                             ColorAnimation {
-                                from: grabber_text_checked_color
-                                to: grabber_text_unchecked_color
+                                from: grabberTextCheckedColor
+                                to: grabberTextUncheckedColor
                                 duration: 200
                                 easing.type: Easing.OutSine
                             }
@@ -185,8 +185,8 @@ Button {
                     ]
                 }
                 RibbonToolTip{
-                    text: tip_text
-                    visible: hovered && show_tooltip && text
+                    text: tipText
+                    visible: hovered && showTooltip && text
                 }
             }
             Text {
@@ -196,10 +196,10 @@ Button {
                 renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
                 font{
                     family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
-                    pixelSize: control.text_size
-                    bold: control.text_bold
+                    pixelSize: control.textSize
+                    bold: control.textBold
                 }
-                color: text_color
+                color: textColor
                 visible: text
             }
         }

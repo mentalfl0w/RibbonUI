@@ -11,8 +11,8 @@ class RibbonUI : public QQuickItem
     QML_SINGLETON
     QML_NAMED_ELEMENT(RibbonUI)
     Q_PROPERTY_R(QString, version)
-    Q_PROPERTY_R(int, qt_version)
-    Q_PROPERTY_R(int, is_win11)
+    Q_PROPERTY_R(int, qtVersion)
+    Q_PROPERTY_R(int, isWin11)
     Q_PROPERTY_RW(QVariantMap, windowsSet)
 public:
     static RibbonUI* instance();

@@ -9,8 +9,8 @@ RibbonWindow {
     width: 1200
     height: 800
     title: qsTr("RibbonUI APP")
-    comfirmed_quit: true
-    property bool modern_style: RibbonTheme.modern_style
+    comfirmedQuit: true
+    property bool modernStyle: RibbonTheme.modernStyle
     RibbonTour{
         id: tour
         targetList: [
@@ -47,8 +47,8 @@ RibbonWindow {
                 title: qsTr("Switch Buttons"),
                 text: qsTr("Switch buttons with/without background color or grabber text."),
                 target: switch_layout,
-                enter_func: ()=>btn_with_color_and_grabber_text.checked = true,
-                exit_func: ()=>btn_with_color_and_grabber_text.checked = false
+                enter_func: ()=>btn_with_color_and_grabberText.checked = true,
+                exit_func: ()=>btn_with_color_and_grabberText.checked = false
             },
             {
                 title: qsTr("CheckBoxs"),
@@ -88,20 +88,20 @@ RibbonWindow {
                 target: bottom_bar
             },
         ]
-        target: window_items
-        blur_enabled: true
-        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
+        target: windowItems
+        blurEnabled: true
+        targetRect: Qt.rect(windowItems.x + x, windowItems.y + y, width, height)
     }
     Component.onCompleted: tour.open()
     RibbonTabBar {
         id: tab_bar
-        modern_style: root.modern_style
-        right_tool_bar: RowLayout{
+        modernStyle: root.modernStyle
+        rightToolBar: RowLayout{
             id: tab_bar_tool
             spacing: 10
             RibbonButton{
                 text:"Test Button 1"
-                icon_source: RibbonIcons.Alert
+                iconSource: RibbonIcons.Alert
                 checkable: true
             }
             RibbonButton{
@@ -128,16 +128,16 @@ RibbonWindow {
                     RibbonSlider{
                         id: slider_with_btn
                         Layout.alignment: Qt.AlignVCenter
-                        slide_width: 40
+                        slideWidth: 40
                         horizontal: false
                         value: 20
                     }
                     RibbonSlider{
                         id: slider_without_btn
                         Layout.alignment: Qt.AlignVCenter
-                        slide_width: 40
+                        slideWidth: 40
                         horizontal: false
-                        show_button: false
+                        showButton: false
                         value: 40
                     }
                     ColumnLayout{
@@ -145,13 +145,13 @@ RibbonWindow {
                         Layout.alignment: Qt.AlignVCenter
                         RibbonSlider{
                             Layout.alignment: Qt.AlignHCenter
-                            slide_width: 40
+                            slideWidth: 40
                             value: 60
                         }
                         RibbonSlider{
                             Layout.alignment: Qt.AlignHCenter
-                            slide_width: 40
-                            show_button: false
+                            slideWidth: 40
+                            showButton: false
                             value: 80
                         }
                     }
@@ -169,38 +169,38 @@ RibbonWindow {
                     ColumnLayout{
                         spacing: 5
                         RibbonSwitchButton{
-                            id: btn_with_color_and_grabber_text
+                            id: btn_with_color_and_grabberText
                             text: "Button"
-                            grabber_checked_color: "red"
+                            grabberCheckedColor: "red"
                             checked: true
                         }
                         RibbonSwitchButton{
                             text: "Button"
-                            text_on_left: true
-                            grabber_checked_color: "orange"
+                            textOnLeft: true
+                            grabberCheckedColor: "orange"
                             checked: true
                         }
                         RibbonSwitchButton{
-                            grabber_checked_color: "blue"
+                            grabberCheckedColor: "blue"
                         }
                     }
                     ColumnLayout{
                         spacing: 5
                         RibbonSwitchButton{
                             text: "Button"
-                            show_grabber_text: false
-                            grabber_checked_color: "green"
+                            showGrabberText: false
+                            grabberCheckedColor: "green"
                         }
                         RibbonSwitchButton{
                             text: "Button"
-                            show_grabber_text: false
-                            text_on_left: true
-                            grabber_checked_color: "indigo"
+                            showGrabberText: false
+                            textOnLeft: true
+                            grabberCheckedColor: "indigo"
                             checked: true
                         }
                         RibbonSwitchButton{
-                            show_grabber_text: false
-                            grabber_checked_color: "yellow"
+                            showGrabberText: false
+                            grabberCheckedColor: "yellow"
                             checked: true
                         }
                     }
@@ -219,24 +219,24 @@ RibbonWindow {
                         spacing: 10
                         RibbonCheckBox{
                             text: "CheckBox"
-                            icon_filled_bg_color: "blue"
+                            iconFilledBgColor: "blue"
                             checked: true
                         }
                         RibbonCheckBox{
                             text: "CheckBox"
-                            text_on_left: true
-                            icon_filled_bg_color: "red"
+                            textOnLeft: true
+                            iconFilledBgColor: "red"
                         }
                         RowLayout{
                             spacing: 30
                             RibbonCheckBox{
-                                icon_filled_bg_color:"orange"
-                                tip_text: "CheckBox"
-                                show_tooltip: true
+                                iconFilledBgColor:"orange"
+                                tipText: "CheckBox"
+                                showTooltip: true
                                 checked: true
                             }
                             RibbonCheckBox{
-                                icon_filled_bg_color:"purple"
+                                iconFilledBgColor:"purple"
                             }
                         }
                     }
@@ -255,7 +255,7 @@ RibbonWindow {
                         spacing: 10
                         RibbonButton{
                             text:"Button"
-                            icon_source: RibbonIcons.Accessibility
+                            iconSource: RibbonIcons.Accessibility
                             checkable: true
                         }
                         RibbonButton{
@@ -263,50 +263,50 @@ RibbonWindow {
                         }
                         RibbonButton{
                             text:"Button"
-                            show_tooltip: false
+                            showTooltip: false
                         }
                     }
                     ColumnLayout{
                         spacing: 10
                         RibbonButton{
                             text:"Button"
-                            show_bg:false
-                            icon_source: RibbonIcons.Beaker
+                            showBg:false
+                            iconSource: RibbonIcons.Beaker
                             checkable: true
                         }
                         RibbonButton{
                             text:"Button"
-                            show_bg:false
+                            showBg:false
                         }
                         RibbonButton{
                             text:"Button"
-                            show_bg:false
-                            show_tooltip: false
+                            showBg:false
+                            showTooltip: false
                         }
                     }
                     ColumnLayout{
                         spacing: 10
                         RibbonButton{
                             id: btn_without_bg_and_label
-                            show_bg:false
-                            icon_source: RibbonIcons.Badge
-                            icon_source_filled: RibbonIcons_Filled.Badge
+                            showBg:false
+                            iconSource: RibbonIcons.Badge
+                            iconSourceFilled: RibbonIcons_Filled.Badge
                             checkable: true
-                            tip_text: "Button"
+                            tipText: "Button"
                         }
                         RibbonButton{
-                            show_bg:false
-                            icon_source: RibbonIcons.Clock
-                            icon_source_filled: RibbonIcons_Filled.Clock
-                            tip_text: "Button"
+                            showBg:false
+                            iconSource: RibbonIcons.Clock
+                            iconSourceFilled: RibbonIcons_Filled.Clock
+                            tipText: "Button"
                         }
                         RibbonButton{
-                            show_bg:false
-                            icon_source: RibbonIcons.Board
-                            icon_source_filled: RibbonIcons_Filled.Board
+                            showBg:false
+                            iconSource: RibbonIcons.Board
+                            iconSourceFilled: RibbonIcons_Filled.Board
                             checkable: true
-                            tip_text: "Button"
-                            show_tooltip: false
+                            tipText: "Button"
+                            showTooltip: false
                         }
                     }
                 }
@@ -321,12 +321,12 @@ RibbonWindow {
                     spacing: 10
                     RibbonPushButton{
                         text: qsTr("No Menu")
-                        icon_source: RibbonIcons.AttachText
+                        iconSource: RibbonIcons.AttachText
                     }
                     RibbonPushButton{
                         id: push_btn_with_menu
                         text: qsTr("Menu")
-                        icon_source: RibbonIcons.MeetNow
+                        iconSource: RibbonIcons.MeetNow
                         Action{
                             text: "Test Item 1"
                         }
@@ -338,12 +338,12 @@ RibbonWindow {
                     }
                     RibbonPushButton{
                         text: qsTr("No Menu")
-                        icon_source: "qrc:/qt/qml/RibbonUIAPP/resources/imgs/heart.png"
-                        icon_size: height-5
+                        iconSource: "qrc:/qt/qml/RibbonUIAPP/resources/imgs/heart.png"
+                        iconSize: height-5
                     }
                     RibbonPushButton{
                         text: qsTr("Menu")
-                        icon_source: "qrc:/qt/qml/RibbonUIAPP/resources/imgs/search.png"
+                        iconSource: "qrc:/qt/qml/RibbonUIAPP/resources/imgs/search.png"
                         Action{
                             text: "Test Item 3"
                         }
@@ -372,7 +372,7 @@ RibbonWindow {
                         RibbonLineEdit{
                         }
                         RibbonLineEdit{
-                            show_clear_btn:false
+                            showClearBtn:false
                         }
                     }
                     ColumnLayout{
@@ -380,11 +380,11 @@ RibbonWindow {
                         Layout.fillHeight: true
                         RibbonLineEdit{
                             id: lineedit_with_icon
-                            icon_source:RibbonIcons.Search
+                            iconSource:RibbonIcons.Search
                         }
                         RibbonLineEdit{
-                            icon_source:RibbonIcons.Keyboard
-                            show_clear_btn:false
+                            iconSource:RibbonIcons.Keyboard
+                            showClearBtn:false
                         }
                     }
                 }
@@ -401,24 +401,24 @@ RibbonWindow {
                         spacing: 30
                         Layout.fillHeight: true
                         RibbonTextEdit{
-                            max_height: 50
+                            maxHeight: 50
                         }
                         RibbonTextEdit{
-                            max_height: 30
-                            show_clear_btn:false
+                            maxHeight: 30
+                            showClearBtn:false
                         }
                     }
                     ColumnLayout{
                         spacing: 30
                         Layout.fillHeight: true
                         RibbonTextEdit{
-                            max_height: 50
-                            icon_source:RibbonIcons.Search
+                            maxHeight: 50
+                            iconSource:RibbonIcons.Search
                         }
                         RibbonTextEdit{
-                            max_height: 30
-                            icon_source:RibbonIcons.Keyboard
-                            show_clear_btn:false
+                            maxHeight: 30
+                            iconSource:RibbonIcons.Keyboard
+                            showClearBtn:false
                         }
                     }
                 }
@@ -464,7 +464,7 @@ RibbonWindow {
                                 ListElement { text: "Test Item 2" }
                                 ListElement { text: "Test Item 3" }
                             }
-                            icon_source: RibbonIcons.Beaker
+                            iconSource: RibbonIcons.Beaker
                         }
                         RibbonComboBox{
                             editable: true
@@ -474,7 +474,7 @@ RibbonWindow {
                                 ListElement { text: "Test Item 2" }
                                 ListElement { text: "Test Item 3" }
                             }
-                            icon_source: RibbonIcons.Calendar
+                            iconSource: RibbonIcons.Calendar
                             onAccepted: {
                                 if (find(editText) === -1 && editText)
                                     model_1.append({text: editText})
@@ -486,7 +486,7 @@ RibbonWindow {
             RibbonTabGroup{
                 width: spinbox_layout.width + 30
                 text: qsTr("Spin Box")
-                show_border: false
+                showBorder: false
                 RowLayout{
                     id: spinbox_layout
                     anchors.centerIn: parent
@@ -501,7 +501,7 @@ RibbonWindow {
                         RibbonSpinBox{
                             id: spinbox
                             width: 80
-                            icon_source: RibbonIcons.DataPie
+                            iconSource: RibbonIcons.DataPie
                             validator: DoubleValidator {
                                 bottom: Math.min(spinbox.from, spinbox.to)
                                 top:  Math.max(spinbox.from, spinbox.to)
@@ -531,9 +531,9 @@ RibbonWindow {
                     spacing: 10
                     RibbonButton{
                         text: qsTr('Open Message List View')
-                        icon_source: RibbonIcons.Open
+                        iconSource: RibbonIcons.Open
                         onClicked: {
-                            Window.window.popup.show_content("qrc:/qt/qml/RibbonUIAPP/components/RibbonMessageListViewExample.qml")
+                            Window.window.popup.showContent("qrc:/qt/qml/RibbonUIAPP/components/RibbonMessageListViewExample.qml")
                         }
                     }
                 }
@@ -559,7 +559,7 @@ RibbonWindow {
                         RibbonText{
                             font.pixelSize: 13
                             text: "Test Text (Read Only)"
-                            view_only: true
+                            viewOnly: true
                         }
                     }
                 }
@@ -574,7 +574,7 @@ RibbonWindow {
                     spacing: 10
                     RibbonButton{
                         text: qsTr("Open Menu")
-                        icon_source: RibbonIcons.Open
+                        iconSource: RibbonIcons.Open
                         onClicked: menu.popup()
                     }
                 }
@@ -592,12 +592,12 @@ RibbonWindow {
                         Layout.fillHeight: true
                         RibbonButton{
                             text: qsTr("Open Popup")
-                            icon_source: RibbonIcons.Open
+                            iconSource: RibbonIcons.Open
                             onClicked: popup.open()
                         }
                         RibbonButton{
                             text: qsTr("Open Popup Dialog (Double Choices)")
-                            icon_source: RibbonIcons.Open
+                            iconSource: RibbonIcons.Open
                             onClicked: {
                                 dialog.buttonFlags = RibbonPopupDialogType.NegativeButton | RibbonPopupDialogType.PositiveButton
                                 dialog.open()
@@ -605,7 +605,7 @@ RibbonWindow {
                         }
                         RibbonButton{
                             text: qsTr("Open Popup Dialog (Triple Choices)")
-                            icon_source: RibbonIcons.Open
+                            iconSource: RibbonIcons.Open
                             onClicked: {
                                 dialog.buttonFlags = RibbonPopupDialogType.NegativeButton | RibbonPopupDialogType.PositiveButton | RibbonPopupDialogType.NeutralButton
                                 dialog.open()
@@ -616,15 +616,15 @@ RibbonWindow {
                         id: popup
                         height: 200
                         width: height
-                        target: window_items
-                        blur_enabled: true
-                        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
+                        target: windowItems
+                        blurEnabled: true
+                        targetRect: Qt.rect(windowItems.x + x, windowItems.y + y, width, height)
                     }
                     RibbonPopupDialog{
                         id: dialog
-                        target: window_items
-                        blur_enabled: true
-                        target_rect: Qt.rect(window_items.x + x, window_items.y + y, width, height)
+                        target: windowItems
+                        blurEnabled: true
+                        targetRect: Qt.rect(windowItems.x + x, windowItems.y + y, width, height)
                     }
                 }
             }
@@ -634,9 +634,9 @@ RibbonWindow {
     RibbonPaperView{
         id: view
         anchors.fill: parent
-        top_padding: tab_bar.height
-        bottom_padding: bottom_bar.height
-        page_width: (page_slider.value / 100.0) * width
+        topPadding: tab_bar.height
+        bottomPadding: bottom_bar.height
+        pageWidth: (page_slider.value / 100.0) * width
         spacing: 0
         ColumnLayout{
             Layout.alignment: Qt.AlignCenter
@@ -707,87 +707,87 @@ RibbonWindow {
             right: parent.right
             bottom: parent.bottom
         }
-        right_content: RowLayout{
+        rightContent: RowLayout{
             clip: true
             spacing:1
             Layout.preferredHeight: parent.height
             layoutDirection: Qt.RightToLeft
             RibbonSlider{
                 id: page_slider
-                slide_width: 80
-                show_filled_color: false
+                slideWidth: 80
+                showFilledColor: false
                 value: 70
             }
             RibbonButton{
                 text:"Test Button 3"
-                show_bg:false
-                adapt_height:true
-                icon_source: RibbonIcons.Airplane
+                showBg:false
+                adaptHeight:true
+                iconSource: RibbonIcons.Airplane
             }
             RibbonButton{
                 text:"Test Button 4"
-                show_bg:false
-                adapt_height:true
+                showBg:false
+                adaptHeight:true
             }
         }
         RibbonButton{
             text:"Test Button 5"
-            show_bg:false
-            adapt_height:true
-            icon_source: RibbonIcons.AccessTime
+            showBg:false
+            adaptHeight:true
+            iconSource: RibbonIcons.AccessTime
             checkable: true
         }
         RibbonButton{
             text:"Test Button 6"
-            show_bg:false
-            adapt_height:true
+            showBg:false
+            adaptHeight:true
         }
         RibbonButton{
-            show_bg:false
-            adapt_height:true
-            icon_source: RibbonIcons.AppStore
+            showBg:false
+            adaptHeight:true
+            iconSource: RibbonIcons.AppStore
             checkable: true
-            tip_text: "Test Button 7"
+            tipText: "Test Button 7"
         }
     }
 
-    title_bar.right_content:RowLayout{
+    titleBar.rightContent:RowLayout{
         spacing: 1
         layoutDirection: Qt.RightToLeft
         RibbonButton{
-            show_bg:false
-            icon_source: RibbonIcons.Info
-            icon_source_filled: RibbonIcons_Filled.Info
-            tip_text: qsTr("About")
-            hover_color: Qt.rgba(0,0,0, 0.3)
-            pressed_color: Qt.rgba(0,0,0, 0.4)
-            text_color: title_bar.title_text_color
-            text_color_reverse: false
-            onClicked: root.show_window(Qt.resolvedUrl("about.qml"))
+            showBg:false
+            iconSource: RibbonIcons.Info
+            iconSourceFilled: RibbonIcons_Filled.Info
+            tipText: qsTr("About")
+            hoverColor: Qt.rgba(0,0,0, 0.3)
+            pressedColor: Qt.rgba(0,0,0, 0.4)
+            textColor: titleBar.titleTextColor
+            textColorReverse: false
+            onClicked: root.showWindow(Qt.resolvedUrl("about.qml"))
         }
         RibbonButton{
-            show_bg:false
-            icon_source: RibbonIcons.Map
-            icon_source_filled: RibbonIcons_Filled.Map
-            tip_text: qsTr("Tour")
-            hover_color: Qt.rgba(0,0,0, 0.3)
-            pressed_color: Qt.rgba(0,0,0, 0.4)
-            text_color: title_bar.title_text_color
-            text_color_reverse: false
+            showBg:false
+            iconSource: RibbonIcons.Map
+            iconSourceFilled: RibbonIcons_Filled.Map
+            tipText: qsTr("Tour")
+            hoverColor: Qt.rgba(0,0,0, 0.3)
+            pressedColor: Qt.rgba(0,0,0, 0.4)
+            textColor: titleBar.titleTextColor
+            textColorReverse: false
             onClicked: tour.open()
         }
 
     }
-    title_bar.left_content:RowLayout{
+    titleBar.leftContent:RowLayout{
         spacing: 1
         RibbonButton{
-            show_bg:false
-            icon_source: RibbonIcons.ChevronDown
-            tip_text: "Test Button 8"
-            hover_color: Qt.rgba(0,0,0, 0.3)
-            pressed_color: Qt.rgba(0,0,0, 0.4)
-            text_color: title_bar.title_text_color
-            text_color_reverse: false
+            showBg:false
+            iconSource: RibbonIcons.ChevronDown
+            tipText: "Test Button 8"
+            hoverColor: Qt.rgba(0,0,0, 0.3)
+            pressedColor: Qt.rgba(0,0,0, 0.4)
+            textColor: titleBar.titleTextColor
+            textColorReverse: false
             RibbonMenu{
                 id:menu
                 width: 200
@@ -810,15 +810,15 @@ RibbonWindow {
             onClicked:menu.popup()
         }
         RibbonButton{
-            show_bg:false
-            icon_source: RibbonIcons.Apps
-            icon_source_filled: RibbonIcons_Filled.Apps
+            showBg:false
+            iconSource: RibbonIcons.Apps
+            iconSourceFilled: RibbonIcons_Filled.Apps
             checkable: true
-            tip_text: "Test Button 9"
-            hover_color: Qt.rgba(0,0,0, 0.3)
-            pressed_color: Qt.rgba(0,0,0, 0.4)
-            text_color: title_bar.title_text_color
-            text_color_reverse: false
+            tipText: "Test Button 9"
+            hoverColor: Qt.rgba(0,0,0, 0.3)
+            pressedColor: Qt.rgba(0,0,0, 0.4)
+            textColor: titleBar.titleTextColor
+            textColorReverse: false
             enabled: false
         }
     }
@@ -843,13 +843,13 @@ RibbonWindow {
         implicitHeight: root.height - root.borderWidth * 2
         implicitWidth: root.width - root.borderWidth * 2
         blurEnabled: true
-        blurTarget: root.window_items
+        blurTarget: root.windowItems
         radius: borderRadius
-        pageModel: [{"menu_text":"Home", "menu_icon":RibbonIcons.Home, "type":"head", "sourceComponent":t_content, "sourceArgs":{'pageName':"Home"}},
-            {"menu_text":"File", "menu_icon":RibbonIcons.Document, "type":"head", "sourceComponent":t_content, "sourceArgs":{'pageName':"File"}},
-            {"menu_text":"Search", "menu_icon":RibbonIcons.Search, "type":"body", "sourceComponent":t_content, "sourceArgs":{'pageName':"Search"}},
-            {"menu_text":"Account", "menu_icon":RibbonIcons.PersonAccounts, "type":"tail", "clickOnly":true, "clickFunc": ()=>console.log("Menu Account clicked")},
-            {"menu_text":"About", "menu_icon":RibbonIcons.Info, "type":"tail", "clickOnly":true, "clickFunc": ()=>root.show_window(Qt.resolvedUrl("about.qml"))},
-            {"menu_text":"Settings", "menu_icon":RibbonIcons.Settings, "type":"tail", "sourceUrl":Qt.resolvedUrl("pages/SettingsMenuPage.qml")}]
+        pageModel: [{"menu_text":"Home", "menu_icon":RibbonIcons.Home, "type":RibbonBackStageView.MenuItemLocation.Head, "sourceComponent":t_content, "sourceArgs":{'pageName':"Home"}},
+            {"menu_text":"File", "menu_icon":RibbonIcons.Document, "type":RibbonBackStageView.MenuItemLocation.Head, "sourceComponent":t_content, "sourceArgs":{'pageName':"File"}},
+            {"menu_text":"Search", "menu_icon":RibbonIcons.Search, "type":RibbonBackStageView.MenuItemLocation.Body, "sourceComponent":t_content, "sourceArgs":{'pageName':"Search"}},
+            {"menu_text":"Account", "menu_icon":RibbonIcons.PersonAccounts, "type":RibbonBackStageView.MenuItemLocation.Tail, "clickOnly":true, "clickFunc": ()=>console.log("Menu Account clicked")},
+            {"menu_text":"About", "menu_icon":RibbonIcons.Info, "type":RibbonBackStageView.MenuItemLocation.Tail, "clickOnly":true, "clickFunc": ()=>root.showWindow(Qt.resolvedUrl("about.qml"))},
+            {"menu_text":"Settings", "menu_icon":RibbonIcons.Settings, "type":RibbonBackStageView.MenuItemLocation.Tail, "sourceUrl":Qt.resolvedUrl("pages/SettingsMenuPage.qml")}]
     }
 }

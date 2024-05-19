@@ -7,25 +7,25 @@ RibbonView{
     id: view
     spacing: 0
 
-    property int max_msg_num: 10
-    property bool auto_scroll_to_bottom: false
-    property int animation_time: 200
+    property int maxMsgNum: 10
+    property bool autoScrollToBottom: false
+    property int animationTime: 200
     property alias delegate: message_list.delegate
-    property alias message_model: message_model
+    property alias messageModel: messageModel
     property alias view: message_list
 
     ListModel{
-        id: message_model
+        id: messageModel
         onCountChanged: auto_scroll_btn_timer.restart()
     }
 
     Timer{
         id: auto_scroll_btn_timer
-        interval: animation_time
+        interval: animationTime
         repeat: false
         onTriggered: {
-            if(view.auto_scroll_to_bottom)
-                view.scroll_to_bottom()
+            if(view.autoScrollToBottom)
+                view.scrollToBottom()
         }
     }
 
@@ -35,12 +35,12 @@ RibbonView{
         Layout.alignment: Qt.AlignHCenter
         Layout.preferredHeight: parent.height
         Layout.preferredWidth: parent.width
-        model: message_model
+        model: messageModel
         add: Transition {
             NumberAnimation {
                 properties: "y"
                 from: message_list.height
-                duration: animation_time
+                duration: animationTime
             }
         }
         ScrollBar.vertical: RibbonScrollBar {
@@ -49,11 +49,11 @@ RibbonView{
         }
     }
 
-    function scroll_to_up(){
+    function scrollToUp(){
         message_list.positionViewAtBeginning()
     }
 
-    function scroll_to_bottom(){
+    function scrollToBottom(){
         message_list.positionViewAtEnd()
     }
 

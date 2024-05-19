@@ -5,19 +5,19 @@ import RibbonUI
 TextEdit {
     id: control
     readOnly: true
-    color: dark_mode ? "white" : "black"
-    property bool dark_mode: RibbonTheme.dark_mode
-    property bool view_only: false
+    color: isDarkMode ? "white" : "black"
+    property bool isDarkMode: RibbonTheme.isDarkMode
+    property bool viewOnly: false
     padding: 0
     topPadding: 0
     leftPadding: 0
     rightPadding: 0
     bottomPadding: 0
     selectByMouse: true
-    selectionColor: dark_mode ? "#4F5E7F" : "#BECDE8"
-    selectedTextColor: dark_mode ? "white" : "black"
+    selectionColor: isDarkMode ? "#4F5E7F" : "#BECDE8"
+    selectedTextColor: isDarkMode ? "white" : "black"
     wrapMode: TextEdit.WrapAnywhere
-    enabled: !view_only
+    enabled: !viewOnly
     font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
     renderType: RibbonTheme.nativeText ? TextEdit.NativeRendering : TextEdit.QtRendering
     onRenderTypeChanged: {
@@ -33,6 +33,6 @@ TextEdit {
     }
     RibbonTextBoxMenu{
         id:menu
-        input_item: control
+        inputItem: control
     }
 }
