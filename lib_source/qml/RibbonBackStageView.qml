@@ -83,7 +83,7 @@ Popup {
         width: 150
         x: -width
         color: Qt.alpha(RibbonTheme.isDarkMode ? "#363636" : RibbonTheme.modernStyle ? "white" : "#365695", blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
-        topLeftRadius: control.topMargin === 0 ? control.radius : 0
+        topLeftRadius: control.topMargin <= 0 ? control.radius : 0
         bottomLeftRadius: topLeftRadius
         property int currentMenu: 0
 
@@ -392,7 +392,7 @@ Popup {
             right: parent.right
             bottom: parent.bottom
         }
-        topRightRadius: control.topMargin === 0 ? control.radius : 0
+        topRightRadius: control.topMargin <= 0 ? control.radius : 0
         bottomRightRadius: topRightRadius
         color: Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
 
