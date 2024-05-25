@@ -441,6 +441,7 @@ Popup {
     }
 
     function show(){
+        control.opacity = 1
         menu_bg.x = 0
         content_bg.color = Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
