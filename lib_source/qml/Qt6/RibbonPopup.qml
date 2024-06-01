@@ -9,7 +9,9 @@ Popup {
     id: popup
     padding: 0
     modal: true
-    anchors.centerIn: Overlay.overlay
+    parent: Overlay.overlay
+    x: (Overlay.overlay.width - width) / 2
+    y: (Overlay.overlay.height - height) / 2
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     property bool showCloseBtn: true
     property bool blurEnabled: false
@@ -94,8 +96,6 @@ Popup {
         }
         Loader{
             id: container
-            width: item ? item.implicitWidth : 0
-            height: item ? item.implicitHeight : 0
             sourceComponent: contentSource ? undefined : contentItems
             source: contentSource
             onLoaded: {

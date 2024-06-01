@@ -502,3 +502,65 @@ jobs:
           asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{  env.QT_ARCH_WIN_MSVC }}_Qt${{ env.QT_VERSION }}_static_${{ env.RELEASE_OR_NIGHTLY }}.zip
           tag: ${{ github.ref }}
           overwrite: true
+
+  build-qt5-win-msvc-shared:
+    name: Qt 5.15.2 Windows MSVC (Shared Library)
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@v4
+        with:
+          version: 1.10.2
+          
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: 5.15.2
+          arch: win64_msvc2019_64
+          tools: ${{ env.QT_MSVC_TOOLS }}
+          
+      - name: msvc-build
+        id: build
+        shell: cmd
+        run: |
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
+          mkdir build
+          cd build
+          ${{ env.Qt5_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/5.15.2/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.Qt5_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
+          echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
+          echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
+          echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
+          echo vcToolsRedistDir=%VCToolsRedistDir% >> %GITHUB_ENV%
+          
+      - name: package
+        id: package
+        env:
+          archiveName: ${{ env.APP_NAME }}_${{ env.QT_ARCH_WIN_MSVC }}_Qt5.15.2_shared_${{ env.RELEASE_OR_NIGHTLY }}
+          msvcArch: ${{ env.QT_MSVC_ARCH }}
+        shell: pwsh
+        run: |
+           & scripts\windows-publish.ps1 ${env:archiveName} ${env:APP_NAME}.exe ${env:REPO_NAME}
+           $name = ${env:archiveName}
+           echo "packageName=$name" >> $env:GITHUB_OUTPUT
+           
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.packageName }}
+          path: ${{ steps.package.outputs.packageName }}
+          
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.package.outputs.packageName }}.zip
+          asset_name: ${{ env.APP_NAME }}_${{  github.ref_name }}_${{  env.QT_ARCH_WIN_MSVC }}_Qt5.15.2_shared_${{ env.RELEASE_OR_NIGHTLY }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          

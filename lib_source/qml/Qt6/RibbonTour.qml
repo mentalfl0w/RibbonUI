@@ -85,8 +85,6 @@ Popup {
             spacing: 10
             Loader{
                 id: loader
-                width: item ? item.implicitWidth : 50
-                height: item ? item.implicitHeight : 50
                 sourceComponent: contentSource ? undefined : contentItems
                 source: contentSource
                 onLoaded: {

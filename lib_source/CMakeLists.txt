@@ -4,22 +4,18 @@ project(RibbonUI VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
 include(GNUInstallDirs)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
-    qt_policy(SET QTP0001 NEW)
 else()
     set(CMAKE_AUTOMOC ON)
     set(CMAKE_AUTORCC ON)
     set(CMAKE_AUTOUIC ON)
 endif()
 
-find_package(Qt6 COMPONENTS Core Quick Qml REQUIRED)
-
-set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
-add_definitions(-DRIBBONUI_VERSION=${version_str})
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Qml REQUIRED)
 
 if (RIBBONUI_BUILD_STATIC_LIB)
     set(LIB_TYPE "STATIC")
@@ -30,36 +26,46 @@ else()
     set(PLUGIN_TARGET_NAME ${PROJECT_NAME})
 endif()
 
-set(
-    qml_files qml/RibbonTabBar.qml qml/RibbonTabButton.qml qml/RibbonView.qml
-    qml/RibbonTabPage.qml qml/RibbonTabGroup.qml qml/RibbonButton.qml
-    qml/RibbonBottomBar.qml qml/RibbonIcon.qml qml/RibbonToolTip.qml
-    qml/RibbonTitleBar.qml qml/RibbonSlider.qml qml/RibbonSwitchButton.qml
-    qml/RibbonCheckBox.qml qml/RibbonMenu.qml qml/RibbonMenuItem.qml
-    qml/RibbonShadow.qml qml/RibbonBlur.qml qml/RibbonMenuSeparator.qml
-    qml/RibbonPaperView.qml qml/RibbonPushButton.qml qml/RibbonRectangle.qml
-    qml/RibbonText.qml qml/RibbonTextBoxMenu.qml qml/RibbonPopup.qml
-    qml/RibbonPopupDialog.qml qml/RibbonLineEdit.qml qml/RibbonTextEdit.qml
-    qml/RibbonComboBox.qml qml/RibbonSpinBox.qml qml/RibbonScrollIndicator.qml
-    qml/RibbonScrollBar.qml qml/RibbonWindow.qml qml/RibbonMessage.qml
-    qml/RibbonMessageListView.qml qml/RibbonTour.qml qml/RibbonTourContent.qml
-    qml/RibbonBackStageView.qml qml/RibbonBackStagePage.qml qml/RibbonBackStageGroup.qml
-)
+set(qml_files RibbonTabBar.qml RibbonTabButton.qml RibbonView.qml
+    RibbonTabPage.qml RibbonTabGroup.qml RibbonButton.qml
+    RibbonBottomBar.qml RibbonIcon.qml RibbonToolTip.qml
+    RibbonTitleBar.qml RibbonSlider.qml RibbonSwitchButton.qml
+    RibbonCheckBox.qml RibbonMenu.qml RibbonMenuItem.qml
+    RibbonShadow.qml RibbonBlur.qml RibbonMenuSeparator.qml
+    RibbonPaperView.qml RibbonPushButton.qml RibbonRectangle.qml
+    RibbonText.qml RibbonTextBoxMenu.qml RibbonPopup.qml
+    RibbonPopupDialog.qml RibbonLineEdit.qml RibbonTextEdit.qml
+    RibbonComboBox.qml RibbonSpinBox.qml RibbonScrollIndicator.qml
+    RibbonScrollBar.qml RibbonWindow.qml RibbonMessage.qml
+    RibbonMessageListView.qml RibbonTour.qml RibbonTourContent.qml
+    RibbonBackStageView.qml RibbonBackStagePage.qml RibbonBackStageGroup.qml)
 
-set (
-    source_files ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbontheme.cpp
-    platformsupport.h
-)
+set(qml_prefix "qml/Qt${QT_VERSION_MAJOR}/")
+
+list(TRANSFORM qml_files PREPEND ${qml_prefix})
+
+set (source_files ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbontheme.cpp
+    platformsupport.h)
+
+set(__ribbonui_project_version "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
+string(TOUPPER ${PROJECT_NAME} __ribbonui_project_name)
+string(TOLOWER ${PROJECT_NAME} __ribbonui_project_name_lower)
+configure_file(${CMAKE_SOURCE_DIR}/.cmake/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/${__ribbonui_project_name_lower}_version.h)
+list(APPEND source_files ${CMAKE_CURRENT_BINARY_DIR}/${__ribbonui_project_name_lower}_version.h)
 
 if(APPLE)
     list(APPEND source_files platformsupport.mm)
 endif()
 
 foreach(qmlfile ${qml_files})
-    string(REPLACE "qml/" "" fixedfile ${qmlfile})
+    string(REPLACE "${qml_prefix}" "" fixedfile ${qmlfile})
     set_source_files_properties(${qmlfile} PROPERTIES QT_RESOURCE_ALIAS ${fixedfile})
 endforeach(qmlfile)
 
+if(QT_VERSION VERSION_LESS 6.0)
+    include(Qt5QMLPlugin)
+    set(__qml_plugin_depend_module "QWindowKit")
+endif()
 qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
 qt_add_qml_module(${PROJECT_NAME}
     PLUGIN_TARGET ${PLUGIN_TARGET_NAME}
@@ -80,12 +86,6 @@ if (MSVC)
     set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
 endif()
 
-if (RIBBONUI_BUILD_STATIC_LIB)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE
-        RIBBONUI_BUILD_STATIC_LIB
-    )
-endif()
-
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
     RIBBONUI_LIBRARY
@@ -103,6 +103,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}
     ${PROJECT_SOURCE_DIR}/3rdparty/qwindowkit/include
 )
-
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${PROJECT_BINARY_DIR}
+)
 install(DIRECTORY ${RIBBONUI_QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)
 

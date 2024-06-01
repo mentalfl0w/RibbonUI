@@ -10,8 +10,6 @@
   - [1. 介绍](#1-介绍)
   - [2. 组件列表](#2-组件列表)
   - [3. 支持平台](#3-支持平台)
-    - [Qt 6 分支 (main 分支)](#qt-6-分支-main-分支)
-    - [Qt 5 分支 (***TODO***)](#qt-5-分支-todo)
   - [4. 如何使用?](#4-如何使用)
   - [5. 鸣谢](#5-鸣谢)
   - [6. 与我联系](#6-与我联系)
@@ -68,12 +66,7 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 其他组件的介绍会陆续更新。
 
 ## 3. 支持平台
-目前是基于Qt 6 设计的，之后有时间会加入Qt 5的支持, ***因此目前仅支持Qt 6支持的平台***。
-### Qt 6 分支 (main 分支)
-+ Windows: Windows 10 (1809+), Windows 11.(X86/AMD64, aarch64)
-+ macOS: macOS 11+.(AMD64, aarch64)
-+ Linux: Ubuntu 22.04+ (X86/AMD64)
-### Qt 5 分支 (***TODO***)
+目前是基于Qt 6 设计的，但同样兼容Qt 5(***只支持 Qt 5.15.2***)。
 + Windows: Windows 7+.(X86/AMD64)
 + macOS: MacOS X 10.13 - 10.15, macOS 11+.(AMD64, aarch64)
 + Linux: Ubuntu 18.04+ (X86/AMD64)

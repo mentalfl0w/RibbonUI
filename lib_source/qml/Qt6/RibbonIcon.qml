@@ -24,7 +24,7 @@ Text {
 
     FontLoader{
         id: loader
-        source: "qrc:/qt/qml/RibbonUI/resources/FluentSystemIcons-Resizable.ttf"
+        source: "resources/FluentSystemIcons-Resizable.ttf"
     }
 
 }

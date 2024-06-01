@@ -3,24 +3,24 @@
 
 #include <QObject>
 #include <QtQml/qqml.h>
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 #include <QtQml/qqmlregistration.h>
-
+#endif
 #ifndef RIBBONUI_API
 #  ifdef RIBBONUI_BUILD_STATIC_LIB
 #    define RIBBONUI_API
 #  else // RIBBONUI_BUILD_STATIC_LIB
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 #    ifdef RIBBONUI_LIBRARY
 #      define RIBBONUI_API Q_DECL_EXPORT
 #    else // RIBBONUI_LIBRARY
 #      define RIBBONUI_API Q_DECL_IMPORT
 #    endif // RIBBONUI_LIBRARY
+#else
+#define RIBBONUI_API
+#endif
 #  endif // RIBBONUI_BUILD_STATIC_LIB
 #endif // RIBBONUI_API
-
-#define STR(x) #x
-#define JOIN(a,b,c) STR(a.b.c)
-#define _VER_JOIN(x) JOIN x
-#define VER_JOIN(x) _VER_JOIN((x))
 
 namespace RibbonIconsFilledEnum {
 Q_NAMESPACE

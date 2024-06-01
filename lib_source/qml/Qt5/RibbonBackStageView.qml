@@ -1,12 +1,14 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-import RibbonUI
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.11
+import RibbonUI 1.0
 
 Popup {
     id: control
     padding: 0
-    anchors.centerIn: Overlay.overlay
+    parent: Overlay.overlay
+    x: (Overlay.overlay.width - implicitWidth) / 2
+    y: (Overlay.overlay.height - implicitHeight) / 2
     closePolicy: Popup.NoAutoClose
     enum MenuItemLocation {
         Head,
@@ -82,7 +84,7 @@ Popup {
         }
         width: 150
         x: -width
-        color: Qt.alpha(RibbonTheme.isDarkMode ? "#363636" : RibbonTheme.modernStyle ? "white" : "#365695", blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
+        color: alphaTohex(RibbonTheme.isDarkMode ? "#363636" : RibbonTheme.modernStyle ? "white" : "#365695", blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
         topLeftRadius: control.topMargin <= 0 ? control.radius : 0
         bottomLeftRadius: topLeftRadius
         property int currentMenu: 0
@@ -111,14 +113,14 @@ Popup {
                 if (RibbonTheme.modernStyle && !RibbonTheme.isDarkMode)
                 {
                     if(pressed)
-                        return Qt.alpha("black", 0.8)
+                        return alphaTohex("black", 0.8)
                     else
                         return "black"
                 }
                 else
                 {
                     if(pressed)
-                        return Qt.alpha("white", 0.8)
+                        return alphaTohex("white", 0.8)
                     else
                         return "white"
                 }
@@ -154,11 +156,11 @@ Popup {
                         if(mouse.containsMouse)
                         {
                             if(mouse.pressed)
-                                return Qt.alpha(back_btn.textColor, 0.4)
-                            return Qt.alpha(back_btn.textColor, 0.3)
+                                return alphaTohex(back_btn.textColor, 0.4)
+                            return alphaTohex(back_btn.textColor, 0.3)
                         }
                         else
-                            return Qt.alpha(back_btn.textColor, 0.2)
+                            return alphaTohex(back_btn.textColor, 0.2)
                     }
                     else
                     {
@@ -166,8 +168,8 @@ Popup {
                         {
                             let color = back_btn.textColor === 'black' ? "white" : "black"
                             if(mouse.pressed)
-                                return Qt.alpha(color, 0.3)
-                            return Qt.alpha(color, 0.2)
+                                return alphaTohex(color, 0.3)
+                            return alphaTohex(color, 0.2)
                         }
                         else
                             return 'transparent'
@@ -307,7 +309,7 @@ Popup {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 1
                 Layout.preferredWidth: parent.width - 40
-                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : Qt.alpha("white", 0.2)
+                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : alphaTohex("white", 0.2)
                 visible: head_menu_list.count && (body_menu_list.count || tail_menu_list.count)
             }
             ListView{
@@ -328,7 +330,7 @@ Popup {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 1
                 Layout.preferredWidth: parent.width - 40
-                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : Qt.alpha("white", 0.2)
+                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : alphaTohex("white", 0.2)
                 visible: (head_menu_list.count || body_menu_list.count) && tail_menu_list.count
             }
             ListView{
@@ -394,7 +396,7 @@ Popup {
         }
         topRightRadius: control.topMargin <= 0 ? control.radius : 0
         bottomRightRadius: topRightRadius
-        color: Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
+        color: alphaTohex(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
 
         Behavior on color {
             ColorAnimation {
@@ -443,7 +445,7 @@ Popup {
     function show(){
         control.opacity = 1
         menu_bg.x = 0
-        content_bg.color = Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        content_bg.color = alphaTohex(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
@@ -451,7 +453,7 @@ Popup {
 
     function hide(){
         menu_bg.x = -menu_bg.width
-        content_bg.color = Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
+        content_bg.color = alphaTohex(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
         blur_bg.maskOpacity = 0
         blur_bg.blurRadius = 0
         blur_bg.opacity = 0
@@ -459,7 +461,7 @@ Popup {
     }
 
     function refresh(){
-        content_bg.color = Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        content_bg.color = alphaTohex(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
@@ -486,5 +488,17 @@ Popup {
                 body_menu_list.model.append(item)
             }
         }
+    }
+
+    function alphaTohex(color, alpha)
+    {
+        color = color.replace(/#/g,"")
+        if (color === "white")
+            color = "FFFFFF"
+        else if (color === "black")
+            color = "000000"
+        var num = Math.ceil(alpha * 255)
+        color = "#"+num.toString(16).toUpperCase().padStart(2, '0')+color
+        return color
     }
 }

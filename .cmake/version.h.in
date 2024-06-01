@@ -1,0 +1,6 @@
+#ifndef @__ribbonui_project_name@VERSION_H
+#define @__ribbonui_project_name@VERSION_H
+
+#define @__ribbonui_project_name@_VERSION "@__ribbonui_project_version@"
+
+#endif  // @__ribbonui_project_name@VERSION_H

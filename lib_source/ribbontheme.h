@@ -20,9 +20,13 @@ public:
     static RibbonTheme* instance();
     Q_SIGNAL void isDarkModeChanged();
     bool isDarkMode();
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+public:
+#else
 private:
-    RibbonTheme();
     Q_DISABLE_COPY_MOVE(RibbonTheme)
+#endif
+    RibbonTheme();
     bool eventFilter(QObject *obj, QEvent *event);
     RibbonThemeType::ThemeMode currentTheme();
     RibbonThemeType::ThemeMode _system_themeMode;

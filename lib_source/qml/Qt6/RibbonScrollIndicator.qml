@@ -24,7 +24,7 @@ ScrollIndicator {
         states: State {
             name: "active"
             when: control.active
-            PropertyChanges { control.contentItem.opacity: 0.75 }
+            PropertyChanges { target: control.contentItem; opacity: 0.75 }
         }
 
         transitions: [
@@ -68,7 +68,7 @@ ScrollIndicator {
         states: State {
             name: "active"
             when: control.active && control.hovered
-            PropertyChanges { control.background.opacity: 0.75 }
+            PropertyChanges { target: control.background; opacity: 0.75 }
         }
 
         transitions: [

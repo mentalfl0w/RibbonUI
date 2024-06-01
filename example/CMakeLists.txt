@@ -4,11 +4,8 @@ project(RibbonUIAPP VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/.cmake/)
-
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
-    qt_policy(SET QTP0001 NEW)
 else()
     set(CMAKE_AUTOMOC ON)
     set(CMAKE_AUTORCC ON)
@@ -20,27 +17,38 @@ set(PROJECT_COMPANY "Mentalflow's Lab")
 set(PROJECT_COPYRIGHT "Copyright (c) ${TIME_YEAR} Mentalflow's Lab. All rights reserved.")
 set(PROJECT_DOMAIN "dev.ourdocs.cn.ribbonuiapp")
 set(PROJECT_BUNDLE_NAME RibbonUI-APP)
-
 set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
-add_definitions(-DRIBBONUIAPP_VERSION=${version_str})
-
-find_package(Qt6 COMPONENTS Quick REQUIRED)
-
-set(sources_files example.cpp)
-
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/app/debug)
+set(output_dir ${CMAKE_BINARY_DIR}/app/debug)
 else()
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/app/release)
+set(output_dir ${CMAKE_BINARY_DIR}/app/release)
 endif()
 
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick REQUIRED)
+
+set(sources_files example.cpp)
+set(qml_files example.qml about.qml components/RibbonMessageListViewExample.qml pages/SettingsMenuPage.qml)
+set(qml_prefix "qml/Qt${QT_VERSION_MAJOR}/")
+list(TRANSFORM qml_files PREPEND ${qml_prefix})
+foreach(qmlfile ${qml_files})
+    string(REPLACE "${qml_prefix}" "" fixedfile ${qmlfile})
+    set_source_files_properties(${qmlfile} PROPERTIES QT_RESOURCE_ALIAS ${fixedfile})
+endforeach(qmlfile)
+
+set(__example_project_version "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
+string(TOUPPER ${PROJECT_NAME} __example_project_version)
+string(TOLOWER ${PROJECT_NAME} __example_project_version_lower)
+configure_file(${CMAKE_SOURCE_DIR}/.cmake/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/${__example_project_version_lower}_version.h)
+list(APPEND source_files ${CMAKE_CURRENT_BINARY_DIR}/${__example_project_version_lower}_version.h)
+
+qt_add_executable(${PROJECT_NAME}
+    ${sources_files})
+
 if (WIN32)
-    configure_file(.cmake/win_app.rc.in ${CMAKE_BINARY_DIR}/win_app.rc)
+    configure_file(${CMAKE_SOURCE_DIR}/.cmake/win_app.rc.in ${CMAKE_BINARY_DIR}/win_app.rc)
     set(app_icon_resource_windows ${CMAKE_BINARY_DIR}/win_app.rc)
-    qt_add_executable(${PROJECT_NAME}
-        ${sources_files}
-        ${app_icon_resource_windows}
-    )
+    target_sources(${PROJECT_NAME} PRIVATE ${app_icon_resource_windows})
     file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
     if(MSVC)
         set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/msvc/*.dll)
@@ -50,9 +58,9 @@ if (WIN32)
     string(REPLACE "/" ${PATH_SEPARATOR} DLLPATH "${DLLPATH}")
     file(GLOB DLL_FILES ${DLLPATH})
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${DLL_FILES}
-        ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        ${output_dir}
     )
 elseif(APPLE)
     set(MACOSX_BUNDLE_GUI_IDENTIFIER ${PROJECT_DOMAIN})
@@ -64,48 +72,44 @@ elseif(APPLE)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum OS X deployment version" FORCE)
     set(MACOSX_BUNDLE_EXECUTABLE_NAME ${PROJECT_BUNDLE_NAME})
     set(MACOSX_BUNDLE_ICON_FILE AppIcon)
-    configure_file(.cmake/MacOSXBundleInfo.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
+    configure_file(${CMAKE_SOURCE_DIR}/.cmake/MacOSXBundleInfo.plist.in ${CMAKE_BINARY_DIR}/Info.plist)
     set(App_ICON "${PROJECT_SOURCE_DIR}/resources/imgs/AppIcon.icns")
     set_source_files_properties(${App_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
-    qt_add_executable(${PROJECT_NAME}
-        ${sources_files}
-        ${App_ICON}
-    )
-else()
-    qt_add_executable(${PROJECT_NAME}
-        ${sources_files}
-    )
+    target_sources(${PROJECT_NAME} PRIVATE ${App_ICON})
+endif()
+if (${QT_VERSION_MAJOR} LESS 6)
+    include(Qt5QMLPlugin)
 endif()
 
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     RESOURCE_PREFIX "/qt/qml/"
-    QML_FILES example.qml about.qml components/RibbonMessageListViewExample.qml pages/SettingsMenuPage.qml
+    QML_FILES ${qml_files}
     RESOURCES resources/imgs/heart.png resources/imgs/search.png
 )
-
 set_target_properties(${PROJECT_NAME} PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_BINARY_DIR}/Info.plist
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
     OUTPUT_NAME ${PROJECT_BUNDLE_NAME}
+    RUNTIME_OUTPUT_DIRECTORY ${output_dir}
+    LIBRARY_OUTPUT_DIRECTORY ${output_dir}
+    ARCHIVE_OUTPUT_DIRECTORY ${output_dir}
 )
 
 if(RIBBONUI_BUILD_STATIC_LIB)
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-        RibbonUIplugin
-    )
-    target_compile_definitions(${PROJECT_NAME} PRIVATE
-        RIBBONUI_BUILD_STATIC_LIB
-    )
+    if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+        target_link_libraries(${PROJECT_NAME} PRIVATE
+            RibbonUIplugin)
+    endif()
 else()
     if(WIN32)
         if (MINGW)
             add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 "${RIBBONUI_QML_PLUGIN_DIRECTORY}/RibbonUI.dll"
-                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+                ${output_dir})
         else()
             if (NOT RIBBONUI_BUILD_STATIC_LIB)
                 if (CMAKE_BUILD_TYPE MATCHES "Debug")
@@ -114,7 +118,7 @@ else()
                 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
                     "${RIBBONUI_QML_PLUGIN_DIRECTORY}/RibbonUI${DEBUG_POSTFIX}.dll"
-                    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+                    ${output_dir})
             endif()
         endif()
     endif()

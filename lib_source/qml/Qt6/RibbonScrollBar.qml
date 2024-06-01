@@ -27,7 +27,7 @@ ScrollBar {
         states: State {
             name: "active"
             when: control.policy === ScrollBar.AlwaysOn || (control.active && control.size < 1.0)
-            PropertyChanges { control.contentItem.opacity: 0.75 }
+            PropertyChanges { target: control.contentItem; opacity: 0.75 }
         }
 
         transitions: Transition {
@@ -73,7 +73,7 @@ ScrollBar {
         states: State {
             name: "active"
             when: control.active && control.hovered
-            PropertyChanges { control.background.opacity: 0.75 }
+            PropertyChanges { target: control.background; opacity: 0.75 }
         }
 
         transitions: [

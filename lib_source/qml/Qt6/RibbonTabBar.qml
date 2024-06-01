@@ -87,7 +87,7 @@ Item{
         anchors.fill: bg
     }
 
-    ScrollView{
+    Flickable{
         id: bar_view
         anchors{
             top:top_border.bottom
@@ -96,6 +96,8 @@ Item{
         }
         height: bar_layout.height
         z:1
+        contentWidth: bar_layout.width
+        ScrollIndicator.horizontal: RibbonScrollIndicator{visible:false}
         RowLayout
         {
             id: bar_layout

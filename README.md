@@ -9,8 +9,6 @@
   - [1. Introduction](#1-introduction)
   - [2. Included Components](#2-included-components)
   - [3. Supported platforms](#3-supported-platforms)
-    - [Qt 6 branch (main branch)](#qt-6-branch-main-branch)
-    - [Qt 5 branch (***TODO***)](#qt-5-branch-todo)
   - [4. How to use it?](#4-how-to-use-it)
   - [5. Acknowledgement](#5-acknowledgement)
   - [6. Get in touch with me](#6-get-in-touch-with-me)
@@ -66,12 +64,7 @@ Currently supports ***30*** components, more will be added later.
 ***The introduction of other components will be updated later.***
 
 ## 3. Supported platforms
-The current design is based on Qt 6, and support for Qt 5 will be added sometime later, ***so the current support list is consistent with Qt 6***.
-### Qt 6 branch (main branch)
-+ Windows: Windows 10 (1809+), Windows 11.(X86/AMD64, aarch64)
-+ macOS: macOS 11+.(AMD64, aarch64)
-+ Linux: Ubuntu 22.04+ (X86/AMD64)
-### Qt 5 branch (***TODO***)
+The current design is based on Qt 6, and it support for Qt 5 as well(***ONLY support Qt 5.15.2***).
 + Windows: Windows 7+.(X86/AMD64)
 + macOS: MacOS X 10.13 - 10.15, macOS 11+.(AMD64, aarch64)
 + Linux: Ubuntu 18.04+ (X86/AMD64)

@@ -3,12 +3,13 @@
 #include <QOperatingSystemVersion>
 #include <QWKQuick/qwkquickglobal.h>
 #include <QtQuick/QQuickWindow>
-#include "definitions.h"
+#include <QGuiApplication>
+#include "ribbonui_version.h"
 
 RibbonUI::RibbonUI(QQuickItem *parent)
     : QQuickItem(parent)
 {
-    _version = VER_JOIN(RIBBONUI_VERSION);
+    _version = RIBBONUI_VERSION;
     _qtVersion = QString(qVersion()).replace('.',"").toInt();
     _isWin11 = QOperatingSystemVersion::current() >= QOperatingSystemVersion(QOperatingSystemVersion::Windows, 10, 0, 22000);
 }
@@ -35,9 +36,11 @@ void RibbonUI::init()
     qputenv("QSG_RHI_BACKEND", "opengl");
 #endif
     QQuickWindow::setDefaultAlphaBuffer(true);
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 }
 
-void RibbonUI::registerTypes(QQmlEngine *qmlEngine)
+void RibbonUI::registerTypes(const char *uri)
 {
-    QWK::registerTypes(qmlEngine);
+    Q_UNUSED(uri);
+    QWK::registerTypes(nullptr);
 }

@@ -18,10 +18,14 @@ public:
     static RibbonUI* instance();
     static RibbonUI* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
     RIBBONUI_API static void init();
-    RIBBONUI_API static void registerTypes(QQmlEngine *qmlEngine);
+    RIBBONUI_API static void registerTypes(const char *uri);
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+public:
+#else
 private:
-    explicit RibbonUI(QQuickItem *parent = nullptr);
     Q_DISABLE_COPY_MOVE(RibbonUI)
+#endif
+    explicit RibbonUI(QQuickItem *parent = nullptr);
 };
 
 #endif // RIBBONUI_H

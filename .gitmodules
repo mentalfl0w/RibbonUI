@@ -1,3 +1,6 @@
 [submodule "3rdparty/qwindowkit"]
 	path = 3rdparty/qwindowkit
 	url = https://github.com/stdware/qwindowkit.git
+[submodule "3rdparty/Qt5QMLPlugin"]
+	path = 3rdparty/Qt5QMLPlugin
+	url = https://github.com/mentalfl0w/Qt5QMLPlugin.git
