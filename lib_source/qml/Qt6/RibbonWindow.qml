@@ -155,6 +155,8 @@ Window {
     }
 
     function showWindow(window_url, args){
+        if(typeof args === "undefined")
+            args = {}
         let sub_windows = RibbonUI.windowsSet
         if (sub_windows.hasOwnProperty(window_url)&&sub_windows[window_url]['windowStatus'] !== RibbonWindow.Status.Stardard)
         {
@@ -180,9 +182,9 @@ Window {
                 sub_windows[window_url].close()
             }
         }
-        var component = Qt.createComponent(window_url, Component.PreferSynchronous, undefined);
+        var component = Qt.createComponent(window_url, Component.PreferSynchronous, null);
         if (component.status === Component.Ready) {
-            var window = component.createObject(undefined, args)
+            var window = component.createObject(null, args)
             if (!(window instanceof Window))
             {
                 console.error("RibbonWindow: Error loading Window: Instance is not Window.")
