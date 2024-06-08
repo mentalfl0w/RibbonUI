@@ -3,7 +3,7 @@
 <div align="center">
     <img src="lib_source/resources/imgs/icon.png" alt="Logo" style="width:40%; height:auto;">
 </div>
-<h1 align="center">Qt RibbonUI </h1>
+<h1 align="center">Qt RibbonUI</h1>
 
 - [RibbonUI](#ribbonui)
   - [1. Introduction](#1-introduction)
@@ -14,10 +14,18 @@
   - [6. Get in touch with me](#6-get-in-touch-with-me)
 
 
+
 ## 1. Introduction
 RibbonUI is a lightweight, minimalist and elegant Qt component library written in QML and designed with reference to the Microsoft Ribbon style. 
 
 ***[点击查看中文文档](README(zh-cn).md)***
+
+***[Click here to watch demo video(Bilibili)](https://www.bilibili.com/video/BV1ES411P78Q/)***
+
+<div align="center">
+    <img src="documents/pictures/demo.gif" alt="Demo" style="width:100%; height:auto;">
+</div>
+<p align="center">Qt RibbonUI Demo</p>
 
 <div align="center">
     <div align="center">

@@ -19,6 +19,13 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 
 ***[Click to view English README](README.md)***
 
+***[点击这里观看示例程序演示视频(哔哩哔哩)](https://www.bilibili.com/video/BV1ES411P78Q/)***
+
+<div align="center">
+    <img src="documents/pictures/demo.gif" alt="Demo" style="width:100%; height:auto;">
+</div>
+<p align="center">Qt RibbonUI Demo</p>
+
 <div align="center">
     <div align="center">
         <img src="documents/pictures/home-light-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
