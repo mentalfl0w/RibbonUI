@@ -50,7 +50,7 @@ set (source_files ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbonthem
 set(__ribbonui_project_version "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 string(TOUPPER ${PROJECT_NAME} __ribbonui_project_name)
 string(TOLOWER ${PROJECT_NAME} __ribbonui_project_name_lower)
-configure_file(${CMAKE_SOURCE_DIR}/.cmake/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/${__ribbonui_project_name_lower}_version.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/..//.cmake/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/${__ribbonui_project_name_lower}_version.h)
 list(APPEND source_files ${CMAKE_CURRENT_BINARY_DIR}/${__ribbonui_project_name_lower}_version.h)
 
 if(APPLE)
