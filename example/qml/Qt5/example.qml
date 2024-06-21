@@ -79,7 +79,7 @@ RibbonWindow {
                 exit_func: ()=>{
                     tab_bar.setPage(0)
                     lineedit_with_icon.clear()
-                    tour.refresh(300)
+                    tour.refresh(400)
                 }
             },
             {
@@ -352,6 +352,24 @@ RibbonWindow {
                             text: "Test Item 4"
                             enabled: false
                         }
+                    }
+                }
+            }
+            RibbonTabGroup{
+                width: radiobtn_layout.width + 30
+                text: qsTr("Radio Button")
+                ColumnLayout{
+                    id: radiobtn_layout
+                    anchors.centerIn: parent
+                    height: parent.height
+                    RibbonRadioButton{
+                        text: "Item A"
+                    }
+                    RibbonRadioButton{
+                        text: "Item B"
+                    }
+                    RibbonRadioButton{
+                        text: "Item C"
                     }
                 }
             }
