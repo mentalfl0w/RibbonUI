@@ -60,6 +60,7 @@ Item {
         anchors{
             left: parent.left
             leftMargin: 20
+            verticalCenter: parent.verticalCenter
         }
     }
 
@@ -71,6 +72,7 @@ Item {
         anchors{
             right: parent.right
             rightMargin: 20
+            verticalCenter: parent.verticalCenter
         }
         layoutDirection: Qt.RightToLeft
         RibbonButton{

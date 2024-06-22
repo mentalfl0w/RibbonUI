@@ -97,7 +97,6 @@ Popup {
             text: backText
             font.pixelSize: 30
             iconSource: RibbonIcons.ArrowCircleLeft
-            implicitWidth: ribbonIcon.width
             implicitHeight: ribbonIcon.height
             textColor: RibbonTheme.modernStyle && !RibbonTheme.isDarkMode ? "black" : "white"
             ribbonIcon.filled: hovered
@@ -105,7 +104,7 @@ Popup {
                 top: parent.top
                 topMargin: 30
                 left: parent.left
-                leftMargin: 30
+                leftMargin: 8
             }
             visible: showBackBtn
             ribbonIcon.iconSize: 30

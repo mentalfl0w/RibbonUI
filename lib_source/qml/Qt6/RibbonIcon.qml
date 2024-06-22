@@ -7,6 +7,7 @@ Text {
     property int iconSize: 20
     property bool filled: false
     property int iconSourceFilled
+    clip: true
 
     onIconSourceChanged: {
         if (typeof(iconSourceFilled) === 'undefined' || iconSourceFilled === iconSource)

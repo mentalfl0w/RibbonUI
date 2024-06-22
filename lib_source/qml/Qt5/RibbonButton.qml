@@ -36,6 +36,7 @@ Button {
         color: bgColor
     }
     contentItem: Item{
+        clip: true
         implicitWidth: layout.width + 13
         implicitHeight: adaptHeight?root.parent.height>=layout.height?root.parent.height:layout.height:layout.height + 10
         Rectangle{
@@ -76,7 +77,7 @@ Button {
                 id :rib_icon
                 iconSource: typeof(root.iconSource) === "number" ? root.iconSource : 0
                 iconSourceFilled: typeof(root.iconSourceFilled) === "number" ? root.iconSourceFilled : iconSource
-                iconSize: label.contentHeight
+                iconSize: label.visible ? label.contentHeight : 16
                 visible: typeof(root.iconSource) === "number"
                 Layout.alignment: Qt.AlignVCenter
                 filled: pressed || checked
@@ -98,7 +99,7 @@ Button {
                 source: typeof(root.iconSource) === "string" ? root.iconSource : ""
                 visible: typeof(root.iconSource) === "string"
                 fillMode:Image.PreserveAspectFit
-                height: label.contentHeight
+                height: label.visible ? label.contentHeight : 16
                 width: height
                 Layout.alignment: Qt.AlignVCenter
             }
@@ -111,6 +112,7 @@ Button {
                 font.pixelSize: 12
                 font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                 renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
+                visible: text
                 color: {
                     if (!showBg && (hovered || checked || pressed) && textColorReverse)
                         return Qt.lighter(textColor)

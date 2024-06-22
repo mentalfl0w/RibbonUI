@@ -46,6 +46,7 @@ Window {
             windowAgent.setSystemButton(WindowAgent.Maximize, titleBar.maximizeBtn);
             windowAgent.setSystemButton(WindowAgent.Close, titleBar.closeBtn);
         }
+        windowAgent.setSystemButton(WindowAgent.WindowIcon, titleBar.titleIcon);
         windowAgent.setHitTestVisible(titleBar.leftContainer)
         windowAgent.setHitTestVisible(titleBar.rightContainer)
         windowAgent.setTitleBar(titleBar)
@@ -115,7 +116,7 @@ Window {
             return 'transparent'
         }
         border.color: RibbonTheme.isDarkMode ? "#7A7A7A" : "#2C59B7"
-        border.width: RibbonTheme.modernStyle ?  1 : 0
+        border.width: RibbonTheme.modernStyle && window.visibility === Window.Windowed ?  1 : 0
         radius: Qt.platform.os === 'windows' ? RibbonUI.isWin11 ? 7 : 0 : 10
         visible: RibbonTheme.modernStyle || blurBehindWindow
     }

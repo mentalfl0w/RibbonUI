@@ -18,10 +18,10 @@ ToolTip {
 
     background: Rectangle {
         radius: 3
-        color: RibbonTheme.isDarkMode ? "#2C2C29" : "#E0E0E2"
-        layer.enabled: true
+        color: RibbonTheme.modernStyle ? isDarkMode ? "black" : "white" : RibbonTheme.isDarkMode ? "#2C2C29" : "#E0E0E2"
+        layer.enabled: !RibbonTheme.modernStyle
         layer.effect: RibbonShadow{}
-        border.color: isDarkMode ? "#5C5D5D" : "#B5B4B5"
+        border.color: RibbonTheme.modernStyle ? isDarkMode ? "#ADADAD" : "#616161" : isDarkMode ? "#5C5D5D" : "#B5B4B5"
         border.width: 1
     }
 }

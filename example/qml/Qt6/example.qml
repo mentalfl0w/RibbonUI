@@ -763,12 +763,13 @@ RibbonWindow {
         RibbonButton{
             showBg:false
             adaptHeight:true
-            iconSource: RibbonIcons.AppStore
+            iconSource: RibbonIcons.StoreMicrosoft
             checkable: true
             tipText: "Test Button 7"
         }
     }
 
+    titleBar.titleIconSource: "qrc:/qt/qml/RibbonUI/resources/imgs/icon.png"
     titleBar.rightContent:RowLayout{
         spacing: 1
         layoutDirection: Qt.RightToLeft

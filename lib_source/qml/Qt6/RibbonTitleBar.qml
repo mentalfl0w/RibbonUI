@@ -1,12 +1,13 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Window
 import RibbonUI
 
 Item {
     id: control
     height: 30
-    property int minimumWidth: title_text.implicitWidth + Math.max(leftContainer.width, rightContainer.width) * 2 + (Qt.platform.os === "osx" ? 65 : 0) + 20
+    property int minimumWidth: mid_layout.implicitWidth + Math.max(leftContainer.width, rightContainer.width) * 2 + (Qt.platform.os === "osx" ? 65 : 0) + 20
     property string title: Window.window.title
     property bool showStyleSwitch: true
     property bool showDarkmodeBtn: true
@@ -15,6 +16,9 @@ Item {
     property bool modernStyle: RibbonTheme.modernStyle
     property string titleColor: modernStyle ? "transparent" : isDarkMode ? "#282828" : "#2C59B7"
     property string titleTextColor: modernStyle ? isDarkMode ? "white" : "black" : "white"
+    property var titleIconSource
+    property var titleIconSourceFilled
+    property var titleIcon: typeof(control.titleIconSource) === "string" ? pic_icon : rib_icon
     default property alias content: leftContainer.data
     property alias leftContent: leftContainer.data
     property alias rightContent: rightContainer.data
@@ -42,17 +46,58 @@ Item {
         }
     }
 
-    Text {
-        id: title_text
+
+    RowLayout{
+        id: mid_layout
         anchors.centerIn: parent
-        text: control.title
-        font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
-        color: titleTextColor
-        renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
-        Behavior on color {
-            ColorAnimation {
-                duration: 60
-                easing.type: Easing.OutSine
+        RibbonIcon{
+            id :rib_icon
+            iconSource: typeof(control.titleIconSource) === "number" ? control.titleIconSource : 0
+            iconSourceFilled: typeof(control.titleIconSourceFilled) === "number" ? control.titleIconSourceFilled : iconSource
+            iconSize: title_text.contentHeight
+            visible: typeof(control.titleIconSource) === "number"
+            Layout.preferredHeight: title_text.contentHeight
+            Layout.preferredWidth: Layout.preferredHeight
+            Layout.alignment: Qt.AlignVCenter
+            filled: mouse.pressed
+            color: {
+                if (mouse.containsMouse || mouse.pressed)
+                    return Qt.lighter(titleTextColor)
+                else
+                    return titleTextColor
+            }
+            Behavior on color {
+                ColorAnimation {
+                    duration: 60
+                    easing.type: Easing.OutSine
+                }
+            }
+            MouseArea{
+                id: mouse
+                hoverEnabled: true
+            }
+        }
+        Image {
+            id: pic_icon
+            source: typeof(control.titleIconSource) === "string" ? control.titleIconSource : ""
+            visible: typeof(control.titleIconSource) === "string"
+            fillMode:Image.PreserveAspectFit
+            Layout.preferredHeight: title_text.contentHeight
+            Layout.preferredWidth: Layout.preferredHeight
+            Layout.alignment: Qt.AlignVCenter
+        }
+        Text {
+            id: title_text
+            text: control.title
+            font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
+            color: titleTextColor
+            renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
+            Layout.alignment: Qt.AlignVCenter
+            Behavior on color {
+                ColorAnimation {
+                    duration: 60
+                    easing.type: Easing.OutSine
+                }
             }
         }
     }
@@ -64,9 +109,15 @@ Item {
             top: parent.top
             left: parent.left
             bottom: parent.bottom
-            leftMargin: Qt.platform.os === "osx" ? 65 : 10
+            leftMargin: Qt.platform.os === "osx" && Window.window.visibility === Window.Windowed ? 65 : 10
         }
-        Layout.maximumWidth: (parent.width - title_text.contentWidth) / 2
+        Behavior on anchors.leftMargin {
+            NumberAnimation{
+                duration: 100
+                easing.type: Easing.OutSine
+            }
+        }
+        Layout.maximumWidth: (parent.width - mid_layout.contentWidth) / 2
     }
 
     RowLayout{
@@ -78,7 +129,7 @@ Item {
             bottom: parent.bottom
             rightMargin: 10
         }
-        Layout.maximumWidth: (parent.width - title_text.contentWidth) / 2
+        Layout.maximumWidth: (parent.width - mid_layout.contentWidth) / 2
         layoutDirection: Qt.RightToLeft
         RowLayout{
             visible: Qt.platform.os !== "osx"

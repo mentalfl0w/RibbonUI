@@ -48,9 +48,9 @@ RadioButton {
             radius: width/2
             color: {
                 if(control.down)
-                    return Qt.rgba(255,255,255,0.2)
+                    return RibbonTheme.isDarkMode ? Qt.rgba(255,255,255,0.2) : Qt.rgba(0,0,0,0.2)
                 if(control.hovered)
-                    return Qt.rgba(255,255,255,0.1)
+                    return RibbonTheme.isDarkMode ? Qt.rgba(255,255,255,0.1) : Qt.rgba(0,0,0,0.1)
                 return 'transparent'
             }
         }
