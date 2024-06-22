@@ -1,7 +1,7 @@
 import QtQuick
-import QtQuick.Window
-import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Window
 import RibbonUI
 
 RibbonWindow {
@@ -652,8 +652,6 @@ RibbonWindow {
     RibbonPaperView{
         id: view
         anchors.fill: parent
-        topPadding: tab_bar.height
-        bottomPadding: bottom_bar.height
         pageWidth: (page_slider.value / 100.0) * width
         spacing: 0
         ColumnLayout{

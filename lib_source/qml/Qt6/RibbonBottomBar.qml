@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Window
 import RibbonUI
 
 Item {
@@ -13,12 +14,32 @@ Item {
     property bool modernStyle: RibbonTheme.modernStyle
     property bool isDarkMode: RibbonTheme.isDarkMode
     property bool showVersion: true
-    property real bgOpacity: 0.8
+    property real bgOpacity: blurEnabled ? 0.8 : 1
+    property bool blurEnabled: typeof Window.window.viewItems !== "undefined"
 
     anchors{
         left: parent.left
         right: parent.right
         bottom: parent.bottom
+    }
+
+    RibbonBlur{
+        id: blur
+        anchors.fill: parent
+        maskColor: modernStyle ? isDarkMode ? "#141414" : "#F5F5F5" : isDarkMode ? "#3D3D3D" : "#D9D9D9"
+        maskOpacity: bgOpacity
+        useSolidBg: true
+        clip: true
+        target: Window.window.viewItems
+        targetRect: Qt.rect(x, Window.window.viewItems.y + Window.window.viewItems.height, width, height)
+        bottomLeftRadius: Qt.platform.os === 'windows' ? RibbonUI.isWin11 ? 7 : 0 : 10
+        bottomRightRadius: bottomLeftRadius
+        Behavior on maskColor {
+            ColorAnimation {
+                duration: 60
+                easing.type: Easing.OutSine
+            }
+        }
     }
 
     Rectangle{
@@ -84,4 +105,6 @@ Item {
             onClicked: Qt.openUrlExternally("https://github.com/mentalfl0w/RibbonUI")
         }
     }
+
+    Component.onCompleted: Window.window.bottomBar = root
 }

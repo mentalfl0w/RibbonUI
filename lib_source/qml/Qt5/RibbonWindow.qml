@@ -19,6 +19,9 @@ Window {
     property bool comfirmedQuit: false
     property bool blurBehindWindow: true
     property int windowsTopFix: Qt.platform.os === 'windows' ? 1 : 0 // a trick to fix Qt or QWindowKit's bug
+    property var viewItems
+    property var tabBar
+    property var bottomBar
     readonly property int borderWidth: border_rect.border.width
     readonly property int borderRadius: border_rect.radius
     visible: false

@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.11
+import QtQuick.Window 2.15
 import QtGraphicalEffects 1.0
 import RibbonUI 1.0
 
@@ -20,10 +21,12 @@ Item{
     property bool modernStyle: RibbonTheme.modernStyle
     property bool isDarkMode: RibbonTheme.isDarkMode
     property string bgColor: isDarkMode ? "#2D2D2D" : "#F4F5F3"
-    property real bgOpacity: 0.8
+    property real bgOpacity: blurEnabled ? 0.8 : 1
     property string borderColor: isDarkMode ? "black" : "#CCCCCC"
     property bool showSettingsBtn: true
     property alias count: bar.count
+    property bool blurEnabled: typeof Window.window.viewItems !== "undefined"
+    property real modernMargin: modernStyle ? 10 : 0
 
     signal settingsBtnClicked()
 
@@ -56,21 +59,25 @@ Item{
             top: modernStyle ? bar_view.bottom : top_border.bottom
             left: parent.left
             right: parent.right
-            bottom:bottom_border.top
-            topMargin: modernStyle ? 10 :0
-            leftMargin: modernStyle ? 10 :0
-            rightMargin: modernStyle ? 10 :0
-            bottomMargin: modernStyle ? 10 :0
+            bottom: bottom_border.top
+            topMargin: modernMargin
+            leftMargin: anchors.topMargin
+            rightMargin: anchors.topMargin
+            bottomMargin: anchors.topMargin
         }
         clip: true
-        opacity:bgOpacity
 
-        Rectangle{
+        RibbonBlur{
+            id: blur
             anchors.fill: parent
-            color: bgColor
-            opacity:bgOpacity
+            maskColor: bgColor
+            maskOpacity: bgOpacity
+            useSolidBg: true
             radius: modernStyle ? 10 :0
-            Behavior on color {
+            clip: true
+            target: Window.window.viewItems
+            targetRect: mapToItem(Window.window.viewItems, blur.x, blur.y, width, height)
+            Behavior on maskColor {
                 ColorAnimation {
                     duration: 60
                     easing.type: Easing.OutSine
@@ -278,6 +285,7 @@ Item{
         onTriggered: folded = false
     }
 
+    Component.onCompleted: Window.window.tabBar = root
     //onModern_styleChanged: refresh()
 
     function addPage(content, is_highlight)

@@ -5,6 +5,10 @@ import RibbonUI 1.0
 Item {
     id: control
     property int radius: 0
+    property int topLeftRadius: radius
+    property int bottomLeftRadius: radius
+    property int topRightRadius: radius
+    property int bottomRightRadius: radius
     property int blurRadius: 32
     property alias target: effect.sourceItem
     property rect targetRect : Qt.rect(control.x, control.y, control.width, control.height)
@@ -17,7 +21,6 @@ Item {
         id: effect
         anchors.fill: parent
         sourceRect: control.targetRect
-        sourceItem: control.target
         visible: false
     }
 
@@ -31,10 +34,14 @@ Item {
         visible: false
     }
 
-    Rectangle{
+    RibbonRectangle{
         anchors.fill: parent
         color: control.useSolidBg ? control.maskColor : 'transparent'
         radius: control.radius
+        topLeftRadius: control.topLeftRadius
+        bottomLeftRadius: control.bottomLeftRadius
+        topRightRadius: control.topRightRadius
+        bottomRightRadius: control.bottomRightRadius
         OpacityMask {
             anchors.fill: parent
             source: blur

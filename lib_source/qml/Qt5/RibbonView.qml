@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.11
+import QtQuick.Window 2.15
 import QtGraphicalEffects 1.0
 import RibbonUI 1.0
 
@@ -10,8 +11,6 @@ Item {
     property bool modernStyle: RibbonTheme.modernStyle
     property bool isDarkMode: RibbonTheme.isDarkMode
     property int spacing: 5
-    property int topPadding: 0
-    property int bottomPadding: 0
     property alias bgColor: bg.color
     property alias bgVisible: bg.visible
     z:-2
@@ -25,27 +24,21 @@ Item {
         visible: !modernStyle
     }
 
-    RibbonBlur{
-        id: top_mask
+    Item{
+        id: top_border
         anchors{
             left: parent.left
             right: parent.right
             top: parent.top
         }
-        height: Math.abs(topPadding)
-        target: container
-        maskOpacity: 0
-        visible: topPadding
-        clip: true
-        targetRect: Qt.rect(x,y-topPadding,width,height)
-        useSolidBg: false
+        height: Window.window.tabBar ? Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin) : 0
     }
 
     Item{
         id: clipper
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top:top_mask.bottom
-        implicitHeight: parent.height - Math.abs(topPadding) - Math.abs(bottomPadding)
+        anchors.top: top_border.bottom
+        implicitHeight: parent.height - Math.abs(top_border.height) - Math.abs(bottom_border.height)
         implicitWidth: parent.width
         clip: true
         ColumnLayout{
@@ -59,19 +52,15 @@ Item {
         }
     }
 
-    RibbonBlur{
-        id: bottom_mask
+    Item{
+        id: bottom_border
         anchors{
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
-        height: Math.abs(bottomPadding)
-        target: container
-        maskOpacity: 0
-        visible: bottomPadding
-        clip: true
-        targetRect: Qt.rect(x,y-topPadding,width,height)
-        useSolidBg: false
+        height: Window.window.tabBar ? Math.abs(Window.window.bottomBar.height) : 0
     }
+
+    Component.onCompleted: Window.window.viewItems = container
 }
