@@ -15,7 +15,7 @@ Button {
     property bool showGrabberText: true
     property string grabberText: control.checked ? qsTr("Open") : qsTr("Close")
     property string textColor: isDarkMode ? "white" : "black"
-    property int textSize: 11
+    property int textSize: 12
     property string grabberCheckedColor: isDarkMode ? "#8AAAEB" : "#2850A4"
     property string grabberUncheckedColor: isDarkMode ? "#292929" : "white"
     property string grabberTextCheckedColor: isDarkMode ? "black" : "white"

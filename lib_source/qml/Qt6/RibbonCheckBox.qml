@@ -12,13 +12,13 @@ Button {
     checkable: true
 
     property bool isDarkMode: RibbonTheme.isDarkMode
-    property int btnSize: 20
+    property int btnSize: 16
     property string borderColor: isDarkMode ? "white" : "black"
     property real borderWidth: 1.4
     property string iconColor: "white"
     property string iconFilledBgColor: "#2143AB"
     property string textColor: isDarkMode ? "white" : "black"
-    property int textSize: 11
+    property int textSize: 12
     property bool textBold: false
     property bool textOnLeft: false
     property bool showTooltip: false
@@ -43,12 +43,12 @@ Button {
                     color: control.borderColor
                     width: control.borderWidth
                 }
-                radius: 4.5
+                radius: 0.225 * btnSize
                 Rectangle{
                     id: bg_fill
                     anchors.fill: parent
                     scale: control.hovered || control.pressed ? 0.6 : 1.05
-                    radius: 4.5
+                    radius: 0.225 * btnSize
                     color: !control.pressed?control.iconFilledBgColor:Qt.darker(control.iconFilledBgColor)
                     visible: control.hovered || control.pressed || control.checked
                     Behavior on scale{
