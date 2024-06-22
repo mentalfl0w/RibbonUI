@@ -864,11 +864,46 @@ RibbonWindow {
         blurEnabled: true
         blurTarget: root.windowItems
         radius: borderRadius
-        pageModel: [{"menu_text":"Home", "menu_icon":RibbonIcons.Home, "type":RibbonBackStageView.MenuItemLocation.Head, "sourceComponent":t_content, "sourceArgs":{'pageName':"Home"}},
-            {"menu_text":"File", "menu_icon":RibbonIcons.Document, "type":RibbonBackStageView.MenuItemLocation.Head, "sourceComponent":t_content, "sourceArgs":{'pageName':"File"}},
-            {"menu_text":"Search", "menu_icon":RibbonIcons.Search, "type":RibbonBackStageView.MenuItemLocation.Body, "sourceComponent":t_content, "sourceArgs":{'pageName':"Search"}},
-            {"menu_text":"Account", "menu_icon":RibbonIcons.PersonAccounts, "type":RibbonBackStageView.MenuItemLocation.Tail, "clickOnly":true, "clickFunc": ()=>console.log("Menu Account clicked")},
-            {"menu_text":"About", "menu_icon":RibbonIcons.Info, "type":RibbonBackStageView.MenuItemLocation.Tail, "clickOnly":true, "clickFunc": ()=>root.showWindow(Qt.resolvedUrl("about.qml"))},
-            {"menu_text":"Settings", "menu_icon":RibbonIcons.Settings, "type":RibbonBackStageView.MenuItemLocation.Tail, "sourceUrl":Qt.resolvedUrl("pages/SettingsMenuPage.qml")}]
+        RibbonBackStageMenuItem{
+            menuText: "Home"
+            menuIcon: RibbonIcons.Home
+            type: RibbonBackStageView.MenuItemLocation.Head
+            sourceComponent: t_content
+            sourceArgs:{'pageName':"Home"}
+        }
+        RibbonBackStageMenuItem{
+            menuText: "File"
+            menuIcon: RibbonIcons.Document
+            type: RibbonBackStageView.MenuItemLocation.Head
+            sourceComponent: t_content
+            sourceArgs:{'pageName':"File"}
+        }
+        RibbonBackStageMenuItem{
+            menuText: "Search"
+            menuIcon: RibbonIcons.Search
+            type: RibbonBackStageView.MenuItemLocation.Body
+            sourceComponent: t_content
+            sourceArgs:{'pageName':"Search"}
+        }
+        RibbonBackStageMenuItem{
+            menuText: "Account"
+            menuIcon: RibbonIcons.PersonAccounts
+            type: RibbonBackStageView.MenuItemLocation.Tail
+            clickOnly: true
+            clickFunc: ()=>console.log("Menu Account clicked")
+        }
+        RibbonBackStageMenuItem{
+            menuText: "About"
+            menuIcon: RibbonIcons.Info
+            type: RibbonBackStageView.MenuItemLocation.Tail
+            clickOnly: true
+            clickFunc: ()=>root.showWindow(Qt.resolvedUrl("about.qml"))
+        }
+        RibbonBackStageMenuItem{
+            menuText: "Settings"
+            menuIcon: RibbonIcons.Settings
+            type: RibbonBackStageView.MenuItemLocation.Tail
+            sourceUrl: Qt.resolvedUrl("pages/SettingsMenuPage.qml")
+        }
     }
 }

@@ -21,7 +21,7 @@ Popup {
     property string backText: qsTr("Back")
     property int radius: 0
     property var pageModel: []
-
+    default property alias data: data_container.data
     signal backBtnClicked()
 
     background: Item{}
@@ -35,10 +35,27 @@ Popup {
         }
     }
 
-    Component.onCompleted: refreshModel()
+    Component.onCompleted: {
+        for(let index = pageModel.length; index < data_container.resources.length; index++)
+        {
+            if(data_container.resources[index] instanceof RibbonBackStageMenuItem)
+            {
+                let item = data_container.resources[index]
+                item.getPropertiesReady()
+                pageModel.push(item.properties)
+            }
+        }
+        if(pageModel.length)
+            pageModelChanged()
+        refreshModel()
+    }
     onPageModelChanged: refreshModel()
     onAboutToShow: show()
     onBackBtnClicked: hide()
+
+    Item{
+        id: data_container
+    }
 
     RibbonBlur{
         id: blur_bg
@@ -204,18 +221,18 @@ Popup {
 
                     RibbonIcon{
                         id :rib_icon
-                        iconSource: typeof(model.menu_icon) === "number" ? model.menu_icon : 0
-                        iconSourceFilled: typeof(model.menu_icon_filled) === "number" ? model.menu_icon_filled : iconSource
+                        iconSource: typeof(model.menuIcon) === "number" ? model.menuIcon : 0
+                        iconSourceFilled: typeof(model.menuIconFilled) === "number" ? model.menuIconFilled : iconSource
                         iconSize: menu_label.visible ? menu_label.contentHeight : 16
-                        visible: typeof(model.menu_icon) === "number" && model.menu_icon
+                        visible: typeof(model.menuIcon) === "number" && model.menuIcon
                         Layout.alignment: Qt.AlignVCenter
                         filled: item_bg.view.currentIndex === index && item_bg.isCurrentMenu
-                        color: model.menu_iconColor ? model.menu_iconColor : back_btn.textColor
+                        color: model.menuIconColor ? model.menuIconColor : back_btn.textColor
                     }
                     Image {
                         id: pic_icon
-                        source: typeof(model.menu_icon) === "string" ? model.menu_icon : ""
-                        visible: typeof(model.menu_icon) === "string"
+                        source: typeof(model.menuIcon) === "string" ? model.menuIcon : ""
+                        visible: typeof(model.menuIcon) === "string"
                         fillMode:Image.PreserveAspectFit
                         mipmap: true
                         autoTransform: true
@@ -225,7 +242,7 @@ Popup {
                     }
                     Text{
                         id: menu_label
-                        text: model.menu_text
+                        text: model.menuText
                         color: !mouse.containsMouse && RibbonTheme.modernStyle && item_bg.view.currentIndex === index && item_bg.isCurrentMenu ? RibbonTheme.isDarkMode ? "#779CDB" : "#5882BB" : back_btn.textColor
                         Layout.alignment: Qt.AlignVCenter
                         verticalAlignment: Text.AlignVCenter
@@ -241,7 +258,7 @@ Popup {
                             w += (rib_icon.visible || pic_icon.visible) && menu_label.text ? item.spacing : 0
                             return item_bg.width - w - item_bg.margins * 4
                         }
-                        Layout.leftMargin: (!model.menu_icon && model.menu_text) ? menu_label.contentHeight + item.spacing : 0
+                        Layout.leftMargin: (!model.menuIcon && model.menuText) ? menu_label.contentHeight + item.spacing : 0
                     }
                 }
 
@@ -417,7 +434,7 @@ Popup {
                 model: control.pageModel
                 Loader {
                     active: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
-                    source: typeof(modelData.sourceUrl) !== 'undefined' ? modelData.sourceUrl : ""
+                    source: typeof(modelData.sourceUrl) !== 'undefined' && modelData.sourceUrl !== ""? modelData.sourceUrl : ""
                     sourceComponent: typeof(control.pageModel[modelData.globalIndex].sourceComponent) !== 'undefined' && typeof(modelData.sourceUrl) === 'undefined' ? control.pageModel[modelData.globalIndex].sourceComponent : undefined
                     onLoaded: {
                         if (typeof(modelData.sourceArgs) === 'undefined')
