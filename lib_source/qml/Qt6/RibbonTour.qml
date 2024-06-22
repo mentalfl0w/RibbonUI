@@ -16,13 +16,14 @@ Popup {
     property string contentSource: "RibbonTourContent.qml"
     property var contentItems: undefined
     property bool destroyAfterClose: true
-    property var currentTarget: targetList ? targetList[0].target : parent
+    property var currentTarget: targetList.length ? targetList[0].target : parent
     property int currentIndex: 0
     property bool preferShowAbove: true
     property bool useHighlightOrRect: true
     property real contentEdgeMargin: 10
     property alias contentArgs: control.args
     property alias alwaysNotAutoPopup: always_hide_ckbox.checked
+    default property alias data: data_container.data
     modal: true
     margins: 0
     padding: 0
@@ -86,7 +87,7 @@ Popup {
             Loader{
                 id: loader
                 sourceComponent: contentSource ? undefined : contentItems
-                source: contentSource
+                source: targetList.length ? contentSource : ""
                 onLoaded: {
                     if (!control.args)
                         return
@@ -116,8 +117,8 @@ Popup {
                     showTooltip: false
                     enabled: popup.currentIndex
                     onClicked: {
-                        if(popup.targetList[popup.currentIndex].exit_func)
-                            popup.targetList[popup.currentIndex].exit_func()
+                        if(popup.targetList[popup.currentIndex].exitFunc)
+                            popup.targetList[popup.currentIndex].exitFunc()
                         popup.currentIndex--
                         popup.currentTarget = popup.targetList[popup.currentIndex].target
                     }
@@ -133,8 +134,8 @@ Popup {
                         }
                         else
                         {
-                            if(popup.targetList[popup.currentIndex].exit_func)
-                                popup.targetList[popup.currentIndex].exit_func()
+                            if(popup.targetList[popup.currentIndex].exitFunc)
+                                popup.targetList[popup.currentIndex].exitFunc()
                             popup.currentIndex++
                             popup.currentTarget = popup.targetList[popup.currentIndex].target
                         }
@@ -142,6 +143,24 @@ Popup {
                 }
             }
         }
+    }
+
+    Item{
+        id: data_container
+    }
+
+    Component.onCompleted: {
+        for(let index = targetList.length; index < data_container.resources.length; index++)
+        {
+            if(data_container.resources[index] instanceof RibbonTourItem)
+            {
+                let item = data_container.resources[index]
+                item.getPropertiesReady()
+                targetList.push(item.properties)
+            }
+        }
+        if(targetList.length)
+            targetListChanged()
     }
 
     Popup{
@@ -169,8 +188,8 @@ Popup {
             radius: 5
             ShaderEffectSource {
                 anchors.centerIn: parent
-                width: currentTarget.width
-                height: currentTarget.height
+                width: currentTarget ? currentTarget.width : 0
+                height: currentTarget ? currentTarget.height : 0
                 sourceRect: Qt.rect(0, 0, currentTarget.width, currentTarget.height)
                 sourceItem: currentTarget
                 visible: popup.useHighlightOrRect
@@ -209,9 +228,13 @@ Popup {
 
     onCurrentTargetChanged: {
         Qt.callLater(function() {
+            if(targetList.length<=0){
+                popup.close()
+                return
+            }
             popup.update()
-            if(popup.targetList[popup.currentIndex].enter_func)
-                popup.targetList[popup.currentIndex].enter_func()
+            if(popup.targetList[popup.currentIndex].enterFunc)
+                popup.targetList[popup.currentIndex].enterFunc()
         })
     }
 
@@ -230,18 +253,24 @@ Popup {
     }
 
     onAboutToHide: {
+        if(targetList.length<=0){
+            return
+        }
         rec.close()
-        if(popup.targetList[popup.currentIndex].exit_func)
-            popup.targetList[popup.currentIndex].exit_func()
+        if(popup.targetList[popup.currentIndex].exitFunc)
+            popup.targetList[popup.currentIndex].exitFunc()
         loader.sourceComponent = undefined
         loader.source = ""
     }
 
     onAboutToShow: {
+        if(targetList.length<=0){
+            return
+        }
         loader.sourceComponent = contentSource ? undefined : contentItems
         loader.source = contentSource
         rec.open()
-        currentTarget = targetList[0].target
+        currentTarget = targetList.length ? targetList[0].target : parent
         currentIndex = 0
     }
 

@@ -13,81 +13,79 @@ RibbonWindow {
     property bool modernStyle: RibbonTheme.modernStyle
     RibbonTour{
         id: tour
-        targetList: [
-            {
-                title: qsTr("Tab Bar"),
-                text: qsTr("A tab bar for window, let user choose the controllers."),
-                target: tab_bar,
-                enter_func: ()=>{
-                    tab_bar.folded = false
-                    tour.refresh(300) // Use it if has animation
-                }
-            },
-            {
-                title: qsTr("Tab Bar Buttons"),
-                text: qsTr("Tool buttons at the top of tab bar."),
-                target: tab_bar_tool
-            },
-            {
-                title: qsTr("Sliders"),
-                text: qsTr("Vertical/Horizental sliders with/without buttons."),
-                target: slider_layout,
-                enter_func: ()=>{
-                    tab_bar.setPage(0)
-                    slider_with_btn.value = 70
-                    slider_without_btn.value = 70
-                    tour.refresh(500)
-                },
-                exit_func: ()=>{
-                    slider_with_btn.value = 50
-                    slider_without_btn.value = 50
-                }
-            },
-            {
-                title: qsTr("Switch Buttons"),
-                text: qsTr("Switch buttons with/without background color or grabber text."),
-                target: switch_layout,
-                enter_func: ()=>btn_with_color_and_grabberText.checked = true,
-                exit_func: ()=>btn_with_color_and_grabberText.checked = false
-            },
-            {
-                title: qsTr("CheckBoxs"),
-                text: qsTr("CheckBoxs with colorful background or with/without label text."),
-                target: checkbox_layout
-            },
-            {
-                title: qsTr("Buttons"),
-                text: qsTr("Buttons with/without background or label text."),
-                target: button_layout,
-                enter_func: ()=>btn_without_bg_and_label.checked = true,
-                exit_func: ()=>btn_without_bg_and_label.checked = false
-            },
-            {
-                title: qsTr("Push Buttons"),
-                text: qsTr("Push buttons with/without sub menu."),
-                target: pushbutton_layout
-            },
-            {
-                title: qsTr("Line Edits"),
-                text: qsTr("Line edits with/without icon."),
-                target: lineedit_layout,
-                enter_func: ()=>{
-                    tab_bar.setPage(1)
-                    lineedit_with_icon.text = "Line Edit with icon."
-                    tour.refresh(300)
-                },
-                exit_func: ()=>{
-                    tab_bar.setPage(0)
-                    lineedit_with_icon.clear()
-                    tour.refresh(400)
-                }
-            },
-            {
-                title: qsTr("Bottom Bar"),
-                text: qsTr("A bottom bar for window."),
-                target: bottom_bar
-            },
-        ]
+        RibbonTourItem{
+            title: qsTr("Tab Bar")
+            text: qsTr("A tab bar for window, let user choose the controllers.")
+            target: tab_bar
+            enterFunc: ()=>{
+                tab_bar.folded = false
+                tour.refresh(300) // Use it if has animation
+            }
+        }
+        RibbonTourItem{
+            title: qsTr("Tab Bar Buttons")
+            text: qsTr("Tool buttons at the top of tab bar.")
+            target: tab_bar_tool
+        }
+        RibbonTourItem{
+            title: qsTr("Sliders")
+            text: qsTr("Vertical/Horizental sliders with/without buttons.")
+            target: slider_layout
+            enterFunc: ()=>{
+                tab_bar.setPage(0)
+                slider_with_btn.value = 70
+                slider_without_btn.value = 70
+                tour.refresh(500)
+            }
+            exitFunc: ()=>{
+                slider_with_btn.value = 50
+                slider_without_btn.value = 50
+            }
+        }
+        RibbonTourItem{
+            title: qsTr("Switch Buttons")
+            text: qsTr("Switch buttons with/without background color or grabber text.")
+            target: switch_layout
+            enterFunc: ()=>btn_with_color_and_grabberText.checked = true
+            exitFunc: ()=>btn_with_color_and_grabberText.checked = false
+        }
+        RibbonTourItem{
+            title: qsTr("CheckBoxs")
+            text: qsTr("CheckBoxs with colorful background or with/without label text.")
+            target: checkbox_layout
+        }
+        RibbonTourItem{
+            title: qsTr("Buttons")
+            text: qsTr("Buttons with/without background or label text.")
+            target: button_layout
+            enterFunc: ()=>btn_without_bg_and_label.checked = true
+            exitFunc: ()=>btn_without_bg_and_label.checked = false
+        }
+        RibbonTourItem{
+            title: qsTr("Push Buttons")
+            text: qsTr("Push buttons with/without sub menu.")
+            target: pushbutton_layout
+        }
+        RibbonTourItem{
+            title: qsTr("Line Edits")
+            text: qsTr("Line edits with/without icon.")
+            target: lineedit_layout
+            enterFunc: ()=>{
+                tab_bar.setPage(1)
+                lineedit_with_icon.text = "Line Edit with icon."
+                tour.refresh(300)
+            }
+            exitFunc: ()=>{
+                tab_bar.setPage(0)
+                lineedit_with_icon.clear()
+                tour.refresh(400)
+            }
+        }
+        RibbonTourItem{
+            title: qsTr("Bottom Bar")
+            text: qsTr("A bottom bar for window.")
+            target: bottom_bar
+        }
         target: windowItems
         blurEnabled: true
         targetRect: Qt.rect(windowItems.x + x, windowItems.y + y, width, height)

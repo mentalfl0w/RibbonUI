@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Window
 import RibbonUI
 
 RibbonBackStagePage{
@@ -83,6 +84,26 @@ RibbonBackStagePage{
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         RibbonTheme.nativeText = checked
+                    }
+                }
+            }
+        }
+        RibbonBackStageGroup{
+            Layout.alignment: Qt.AlignTop
+            Layout.preferredHeight: render_btn.height + 40
+            Layout.fillWidth: true
+            groupName: qsTr("TitleBar")
+            RowLayout{
+                RibbonText{
+                    text: qsTr("Show TitleBar Icon: ")
+                }
+                RibbonSwitchButton{
+                    text: "Icon"
+                    grabberText: RibbonTheme.nativeText ? "Show" : "Hide"
+                    checked: true
+                    Layout.alignment: Qt.AlignHCenter
+                    onClicked: {
+                        Window.window.titleBar.titleIcon.visible = checked
                     }
                 }
             }
