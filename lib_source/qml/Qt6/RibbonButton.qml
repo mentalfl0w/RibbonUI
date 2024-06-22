@@ -99,6 +99,8 @@ Button {
                 source: typeof(root.iconSource) === "string" ? root.iconSource : ""
                 visible: typeof(root.iconSource) === "string"
                 fillMode:Image.PreserveAspectFit
+                mipmap: true
+                autoTransform: true
                 height: label.visible ? label.contentHeight : 16
                 width: height
                 Layout.alignment: Qt.AlignVCenter

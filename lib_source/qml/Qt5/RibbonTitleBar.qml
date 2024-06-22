@@ -56,7 +56,7 @@ Item {
             iconSourceFilled: typeof(control.titleIconSourceFilled) === "number" ? control.titleIconSourceFilled : iconSource
             iconSize: title_text.contentHeight
             visible: typeof(control.titleIconSource) === "number"
-            Layout.preferredHeight: title_text.contentHeight
+            Layout.preferredHeight: title_text.visible ? title_text.contentHeight : 16
             Layout.preferredWidth: Layout.preferredHeight
             Layout.alignment: Qt.AlignVCenter
             filled: mouse.pressed
@@ -82,7 +82,9 @@ Item {
             source: typeof(control.titleIconSource) === "string" ? control.titleIconSource : ""
             visible: typeof(control.titleIconSource) === "string"
             fillMode:Image.PreserveAspectFit
-            Layout.preferredHeight: title_text.contentHeight
+            mipmap: true
+            autoTransform: true
+            Layout.preferredHeight: title_text.visible ? title_text.contentHeight : 16
             Layout.preferredWidth: Layout.preferredHeight
             Layout.alignment: Qt.AlignVCenter
         }
@@ -93,6 +95,7 @@ Item {
             color: titleTextColor
             renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
             Layout.alignment: Qt.AlignVCenter
+            visible: text
             Behavior on color {
                 ColorAnimation {
                     duration: 60

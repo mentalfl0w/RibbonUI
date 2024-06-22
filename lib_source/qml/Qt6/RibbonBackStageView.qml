@@ -206,7 +206,7 @@ Popup {
                         id :rib_icon
                         iconSource: typeof(model.menu_icon) === "number" ? model.menu_icon : 0
                         iconSourceFilled: typeof(model.menu_icon_filled) === "number" ? model.menu_icon_filled : iconSource
-                        iconSize: menu_label.contentHeight
+                        iconSize: menu_label.visible ? menu_label.contentHeight : 16
                         visible: typeof(model.menu_icon) === "number" && model.menu_icon
                         Layout.alignment: Qt.AlignVCenter
                         filled: item_bg.view.currentIndex === index && item_bg.isCurrentMenu
@@ -217,7 +217,9 @@ Popup {
                         source: typeof(model.menu_icon) === "string" ? model.menu_icon : ""
                         visible: typeof(model.menu_icon) === "string"
                         fillMode:Image.PreserveAspectFit
-                        height: menu_label.contentHeight
+                        mipmap: true
+                        autoTransform: true
+                        height: menu_label.visible ? menu_label.contentHeight : 16
                         width: height
                         Layout.alignment: Qt.AlignVCenter
                     }
@@ -231,6 +233,7 @@ Popup {
                         elide: Text.ElideRight
                         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                         renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
+                        visible: text
                         Layout.preferredWidth: {
                             let w = 0
                             w += rib_icon.visible ? rib_icon.contentWidth : 0

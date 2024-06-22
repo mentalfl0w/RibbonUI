@@ -68,7 +68,7 @@ MenuItem {
                 id :rib_icon
                 iconSource: typeof(control.iconSource) === "number" ? control.iconSource : 0
                 iconSourceFilled: typeof(control.iconSourceFilled) === "number" ? control.iconSourceFilled : iconSource
-                iconSize: label.contentHeight
+                iconSize: label.visible ? label.contentHeight : 16
                 visible: typeof(control.iconSource) === "number" && control.iconSource
                 Layout.alignment: Qt.AlignVCenter
                 filled: pressed || checked
@@ -79,7 +79,9 @@ MenuItem {
                 source: typeof(control.iconSource) === "string" ? control.iconSource : ""
                 visible: typeof(control.iconSource) === "string"
                 fillMode:Image.PreserveAspectFit
-                height: label.contentHeight
+                mipmap: true
+                autoTransform: true
+                height: label.visible ? label.contentHeight : 16
                 width: height
                 Layout.alignment: Qt.AlignVCenter
             }
@@ -93,6 +95,7 @@ MenuItem {
                 font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                 color: textColor
                 renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
+                visible: text
                 Layout.preferredWidth:{
                     let w = 0
                     w += rib_icon.visible ? rib_icon.contentWidth : 0

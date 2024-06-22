@@ -673,6 +673,8 @@ RibbonWindow {
             Image {
                 source: "qrc:/qt/qml/RibbonUI/resources/imgs/icon.png"
                 fillMode:Image.PreserveAspectFit
+                mipmap: true
+                autoTransform: true
                 Layout.preferredHeight: 300
                 Layout.preferredWidth: height
                 Layout.alignment: Qt.AlignHCenter
