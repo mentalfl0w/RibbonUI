@@ -26,7 +26,7 @@ Item{
     property bool showSettingsBtn: true
     property alias count: bar.count
     property bool blurEnabled: typeof Window.window.viewItems !== "undefined"
-    property real modernMargin: modernStyle ? 10 : 0
+    property real modernMargin: modernStyle && ! folded ? 10 : 0
 
     signal settingsBtnClicked()
 
