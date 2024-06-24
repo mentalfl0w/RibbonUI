@@ -43,7 +43,7 @@ RibbonUI is a lightweight, minimalist and elegant Qt component library written i
 </div>
 
 ## 2. Included Components
-Currently supports ***30*** components, more will be added later.
+Currently supports ***43*** components, more will be added later.
 | Components | Introduction | Demo Picture|
 |:----:|:----:|:----:|
 | RibbonWindow | A Window component that relies on framelesshelper to support exit confirmation popups and blur style backgrounds. |![RibbonWindow](documents/pictures/home-light-modern.png)|
@@ -66,7 +66,7 @@ Currently supports ***30*** components, more will be added later.
 | RibbonTextEdit | Multi-line text input control with support for icons and one-click clearing, automatic line feed/scrolling as text is entered | ![RibbonTextEdit](documents/pictures/RibbonTextEdit.png) |
 | RibbonComboBox | Supports drop-down menu selection controls with icons, and menus can be added with user input. | ![RibbonComboBox](documents/pictures/RibbonComboBox.png) |
 | RibbonSpinBox | SpinBox with support for setting icons | ![RibbonSpinBox](documents/pictures/RibbonSpinBox.png) |
-| RibbonView | Slidable component for use with TabBar and BottomBar, from which the blurred backgrounds of both components are derived. | ![RibbonView](documents/pictures/RibbonView.png) |
+| RibbonView | View container component for use with TabBar and BottomBar, from which the blurred backgrounds of both components are based. | ![RibbonView](documents/pictures/RibbonView.png) |
 | RibbonPaperView | Components similar to paper in Word | ![RibbonPaperView](documents/pictures/RibbonPaperView.png) |
 
 ***The introduction of other components will be updated later.***

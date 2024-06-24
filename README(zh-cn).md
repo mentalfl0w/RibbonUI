@@ -42,7 +42,7 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 </div>
 
 ## 2. 组件列表
-目前支持***30***种组件，后续会添加更多。
+目前支持***43***种组件，后续会添加更多。
 | 名称 | 介绍 | 展示图片|
 |:----:|:----:|:----:|
 | RibbonWindow | 基于framelesshelper实现的无边框窗口，支持退出确认弹窗及模糊/亚克力化背景。|![RibbonWindow](documents/pictures/home-light-modern.png)|
@@ -67,7 +67,7 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 | RibbonComboBox | 支持设置图标的下拉菜单选择控件，菜单支持用户输入添加 | ![RibbonComboBox](documents/pictures/RibbonComboBox.png) |
 | RibbonSpinBox | 支持设置图标的旋钮控件 | ![RibbonSpinBox](documents/pictures/RibbonSpinBox.png) |
 | RibbonSpinBox | 支持设置图标的旋钮控件 | ![RibbonSpinBox](documents/pictures/RibbonSpinBox.png) |
-| RibbonView | 与TabBar和BottomBar搭配使用的可滑动组件，两组件模糊化的背景均来源于它 | ![RibbonView](documents/pictures/RibbonView.png) |
+| RibbonView | 与TabBar和BottomBar搭配使用的界面容器组件，两组件模糊化的背景依赖它 | ![RibbonView](documents/pictures/RibbonView.png) |
 | RibbonPaperView | 类似Word中纸张的组件 | ![RibbonPaperView](documents/pictures/RibbonPaperView.png) |
 
 其他组件的介绍会陆续更新。
