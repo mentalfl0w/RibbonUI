@@ -12,7 +12,7 @@ RadioButton {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
-
+    font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
     padding: 0
     spacing: 6
 
@@ -56,11 +56,10 @@ RadioButton {
         }
     }
 
-    contentItem: RibbonText {
-        viewOnly: true
+    contentItem: Text {
         leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
         rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
-
+        renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         text: control.text
         font: control.font
         color: control.labelColor

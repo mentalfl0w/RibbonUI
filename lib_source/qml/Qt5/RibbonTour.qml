@@ -34,7 +34,7 @@ Popup {
     y: (Overlay.overlay.height - height) / 2
     closePolicy: Popup.NoAutoClose
     Overlay.modal:Rectangle{
-        color: !RibbonTheme.isDarkMode ? Qt.alpha("white", 0.5) : Qt.alpha("black", 0.5)
+        color: !RibbonTheme.isDarkMode ? Qt.rgba(255,255,255,0.5) : Qt.rgba(0,0,0,0.5)
     }
     Overlay.modeless:Rectangle{
         color:"transparent"

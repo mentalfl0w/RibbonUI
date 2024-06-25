@@ -75,8 +75,8 @@ Item{
             useSolidBg: true
             radius: modernStyle ? 10 :0
             clip: true
-            target: Window.window.viewItems
-            targetRect: mapToItem(Window.window.viewItems, blur.x, blur.y, width, height)
+            target: Window.window.viewItems ? Window.window.viewItems : undefined
+            targetRect: Window.window.viewItems ? mapToItem(Window.window.viewItems, blur.x, blur.y, width, height) : Qt.rect(0,0,0,0)
             Behavior on maskColor {
                 ColorAnimation {
                     duration: 60
