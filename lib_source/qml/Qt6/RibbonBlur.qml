@@ -45,10 +45,14 @@ Item {
         OpacityMask {
             anchors.fill: parent
             source: blur
-            maskSource: Rectangle{
+            maskSource: RibbonRectangle{
                 width: control.width
                 height: control.height
                 radius: control.radius
+                topLeftRadius: control.topLeftRadius
+                bottomLeftRadius: control.bottomLeftRadius
+                topRightRadius: control.topRightRadius
+                bottomRightRadius: control.bottomRightRadius
             }
         }
     }
