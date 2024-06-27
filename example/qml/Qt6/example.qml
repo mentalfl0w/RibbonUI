@@ -536,6 +536,84 @@ RibbonWindow {
             }
         }
         RibbonTabPage{
+            title: qsTr("Progress")
+            RibbonTabGroup{
+                width: progressbar_layout.width + 30
+                text: qsTr("ProgressBar")
+                RowLayout{
+                    id: progressbar_layout
+                    anchors.centerIn: parent
+                    height: parent.height
+                    spacing: 10
+                    ColumnLayout{
+                        RibbonProgressBar{
+                            barWidth: 100
+                            value: progressbar_slider.value / 100
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Top
+                        }
+                        RibbonProgressBar{
+                            barWidth: 100
+                            value: progressbar_slider.value / 100
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Left
+                        }
+                        RibbonProgressBar{
+                            barWidth: 100
+                            value: progressbar_slider.value / 100
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Right
+                        }
+                        RibbonProgressBar{
+                            barWidth: 100
+                            value: progressbar_slider.value / 100
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Bottom
+                        }
+                    }
+                    RibbonSlider{
+                        id: progressbar_slider
+                        Layout.alignment: Qt.AlignHCenter
+                        slideWidth: 40
+                        horizontal: false
+                        showButton: false
+                        value: 40
+                    }
+                    ColumnLayout{
+                        RibbonProgressBar{
+                            barWidth: 100
+                            indeterminate: true
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Top
+                        }
+                        RibbonProgressBar{
+                            barWidth: 100
+                            indeterminate: true
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Left
+                        }
+                        RibbonProgressBar{
+                            barWidth: 100
+                            indeterminate: true
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Right
+                        }
+                        RibbonProgressBar{
+                            barWidth: 100
+                            indeterminate: true
+                            textLabelPosition: RibbonProgressBar.LabelPosition.Bottom
+                        }
+                    }
+                    ColumnLayout{
+                        RibbonProgressBar{
+                            barWidth: 100
+                            indeterminate: true
+                            showText: false
+                        }
+                        RibbonProgressBar{
+                            barWidth: 100
+                            indeterminate: false
+                            showText: false
+                            value: progressbar_slider.value / 100
+                        }
+                    }
+                }
+            }
+        }
+        RibbonTabPage{
             title: qsTr("Views")
             RibbonTabGroup{
                 width: message_list_view_layout.width + 30
