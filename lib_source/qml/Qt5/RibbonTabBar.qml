@@ -286,6 +286,7 @@ Item{
     }
 
     Component.onCompleted: Window.window.tabBar = root
+
     //onModern_styleChanged: refresh()
 
     function addPage(content, is_highlight)

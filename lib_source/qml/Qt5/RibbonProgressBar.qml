@@ -6,10 +6,11 @@ import RibbonUI 1.0
 Item{
     id: control
     implicitHeight: (textLabelPosition === RibbonProgressBar.LabelPosition.Top || textLabelPosition === RibbonProgressBar.LabelPosition.Bottom && showText ?
-                         (text_label.contentHeight + textLabelMargin + bar.implicitHeight) : showText ? Math.max(bar.implicitHeight, text_label.contentHeight) : bar.implicitHeight)
+                         (text_label.contentHeight + textLabelMargin + bar.implicitHeight) : showText && textLabelPosition !== RibbonProgressBar.LabelPosition.None ? Math.max(bar.implicitHeight, text_label.contentHeight) : bar.implicitHeight)
     implicitWidth: bar.implicitWidth + (textLabelPosition === RibbonProgressBar.LabelPosition.Left || textLabelPosition === RibbonProgressBar.LabelPosition.Right && showText ?
                                             (text_label.contentWidth + textLabelMargin) : 0)
     enum LabelPosition {
+        None,
         Top,
         Left,
         Right,
@@ -30,6 +31,7 @@ Item{
     property alias position: bar.position
     property alias indeterminate: bar.indeterminate
     property alias bar: bar
+    property alias textLabel: text_label
 
     ProgressBar {
         id: bar
@@ -56,7 +58,6 @@ Item{
             implicitHeight: barHeight
             implicitWidth: barWidth
             height: implicitHeight
-            anchors.verticalCenter: bar.verticalCenter
             clip: true
             layer.enabled: true
             layer.effect: OpacityMask {
@@ -96,7 +97,6 @@ Item{
             implicitHeight: barHeight
             height: barHeight
             radius: height / 2
-            anchors.verticalCenter: bar.verticalCenter
             color: bgColor
         }
     }
