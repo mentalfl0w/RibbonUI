@@ -28,7 +28,8 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick REQUIRED)
 
 set(sources_files example.cpp)
-set(qml_files example.qml about.qml components/RibbonMessageListViewExample.qml pages/SettingsMenuPage.qml)
+set(qml_files example.qml about.qml components/RibbonMessageListViewExample.qml
+    pages/SettingsMenuPage.qml components/TabBar.qml)
 set(qml_prefix "qml/Qt${QT_VERSION_MAJOR}/")
 list(TRANSFORM qml_files PREPEND ${qml_prefix})
 foreach(qmlfile ${qml_files})

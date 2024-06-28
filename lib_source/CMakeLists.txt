@@ -40,7 +40,7 @@ set(qml_files RibbonTabBar.qml RibbonTabButton.qml RibbonView.qml
     RibbonMessageListView.qml RibbonTour.qml RibbonTourContent.qml
     RibbonBackStageView.qml RibbonBackStagePage.qml RibbonBackStageGroup.qml
     RibbonRadioButton.qml RibbonBackStageMenuItem.qml RibbonTourItem.qml
-    RibbonObject.qml RibbonProgressBar.qml)
+    RibbonObject.qml RibbonProgressBar.qml RibbonProgressRing.qml)
 
 set(qml_prefix "qml/Qt${QT_VERSION_MAJOR}/")
 
