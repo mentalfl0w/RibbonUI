@@ -105,6 +105,7 @@ RibbonWindow {
         anchors.fill: parent
         pageWidth: (page_slider.value / 100.0) * width
         spacing: 0
+        isMainView: true
         ColumnLayout{
             Layout.alignment: Qt.AlignCenter
             Layout.topMargin: 30

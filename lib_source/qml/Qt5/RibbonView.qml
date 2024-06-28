@@ -11,6 +11,7 @@ Item {
     property bool modernStyle: RibbonTheme.modernStyle
     property bool isDarkMode: RibbonTheme.isDarkMode
     property int spacing: 5
+    property bool isMainView: false
     property alias bgColor: bg.color
     property alias bgVisible: bg.visible
     z:-2
@@ -31,7 +32,7 @@ Item {
             right: parent.right
             top: parent.top
         }
-        height: Window.window.tabBar ? Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin) : 0
+        height: isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin) : 0 : 0 : 0
     }
 
     Item{
@@ -59,8 +60,11 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-        height: Window.window.tabBar ? Math.abs(Window.window.bottomBar.height) : 0
+        height: isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.bottomBar.height) : 0 : 0 : 0
     }
 
-    Component.onCompleted: Window.window.viewItems = container
+    Component.onCompleted: {
+        if(isMainView && Window.window)
+            Window.window.viewItems = container
+    }
 }

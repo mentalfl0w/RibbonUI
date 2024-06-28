@@ -30,8 +30,10 @@ Item {
         maskOpacity: bgOpacity
         useSolidBg: true
         clip: true
-        target: Window.window.viewItems
-        targetRect: Qt.rect(x, Window.window.viewItems.y + Window.window.viewItems.height, width, height)
+        target: Window.window.viewItems ?  Window.window.viewItems : null
+        targetRect:  Window.window.viewItems ?
+                         Qt.rect(x, Window.window.viewItems.y + Window.window.viewItems.height, width, height) :
+                         Qt.rect(0,0,0,0)
         bottomLeftRadius: Qt.platform.os === 'windows' ? RibbonUI.isWin11 ? 7 : 0 : 10
         bottomRightRadius: bottomLeftRadius
         Behavior on maskColor {
