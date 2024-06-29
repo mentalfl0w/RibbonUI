@@ -613,6 +613,43 @@ RibbonTabBar {
         }
     }
     RibbonTabPage{
+        title: qsTr("Indicator")
+        RibbonTabGroup{
+            text: qsTr("BusyRing")
+            width: busyring_layout.width + 30
+            RowLayout{
+                id: busyring_layout
+                anchors.centerIn: parent
+                height: parent.height
+                RibbonBusyRing{
+                    running: true
+                }
+                RibbonBusyRing{
+                    running: true
+                    clockwise: false
+                }
+            }
+        }
+        RibbonTabGroup{
+            text: qsTr("BusyBar")
+            width: busybar_layout.width + 30
+            ColumnLayout{
+                id: busybar_layout
+                anchors.centerIn: parent
+                height: parent.height
+                RibbonBusyBar{
+                    running: true
+                    barWidth: 100
+                }
+                RibbonBusyBar{
+                    running: true
+                    reversed: true
+                    barWidth: 100
+                }
+            }
+        }
+    }
+    RibbonTabPage{
         title: qsTr("Views")
         RibbonTabGroup{
             width: message_list_view_layout.width + 30
