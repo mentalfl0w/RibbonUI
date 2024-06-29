@@ -648,6 +648,25 @@ RibbonTabBar {
                 }
             }
         }
+        RibbonTabGroup{
+            text: qsTr("PageIndicator")
+            width: pageindicator_layout.width + 30
+            ColumnLayout{
+                id: pageindicator_layout
+                anchors.centerIn: parent
+                height: parent.height
+                RibbonPageIndicator{
+                    count: 100
+                    showPagination: true
+                    Layout.alignment: Qt.AlignHCenter
+                }
+                RibbonPageIndicator{
+                    count: 10
+                    showPagination: false
+                    Layout.alignment: Qt.AlignHCenter
+                }
+            }
+        }
     }
     RibbonTabPage{
         title: qsTr("Views")
