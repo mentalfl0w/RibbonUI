@@ -22,7 +22,7 @@ Item{
     property int barHeight: 6
     property bool showText: true
     property int textLabelMargin: textLabelPosition === RibbonProgressBar.LabelPosition.Top || textLabelPosition === RibbonProgressBar.LabelPosition.Bottom ? 0 : 5
-    property int animationDurarion: 800
+    property int animationDuration: 800
     property int indeterminateWidth: barWidth * 0.25
     property int textLabelPosition: bar.mirrored ? RibbonProgressBar.LabelPosition.Left : RibbonProgressBar.LabelPosition.Right
     property string text: qsTr("Loading")
@@ -86,7 +86,7 @@ Item{
                     from: -indeterminateWidth
                     to:barWidth+indeterminateWidth
                     loops: Animation.Infinite
-                    duration: animationDurarion
+                    duration: animationDuration
                     easing.type: Easing.OutInQuad
                 }
             }

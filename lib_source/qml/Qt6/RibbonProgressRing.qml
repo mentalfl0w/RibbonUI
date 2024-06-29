@@ -5,7 +5,7 @@ RibbonProgressBar {
     id: control
     barWidth: centerInTextLabel && showText ? Math.max(textLabel.contentWidth + ringWidth * 2 + textLabelMargin * 2, 50) : 50
     barHeight: barWidth
-    animationDurarion: 2000
+    animationDuration: 2000
     property real ringWidth: 6
     property bool centerInTextLabel: false
 
@@ -49,14 +49,14 @@ RibbonProgressBar {
         SequentialAnimation on startAngle {
             loops: Animation.Infinite
             running: control.visible && control.indeterminate
-            PropertyAnimation { from: 0; to: 450; duration: control.animationDurarion/2; easing.type: Easing.OutSine }
-            PropertyAnimation { from: 450; to: 1080; duration: control.animationDurarion/2; easing.type: Easing.OutSine }
+            PropertyAnimation { from: 0; to: 450; duration: control.animationDuration/2; easing.type: Easing.OutSine }
+            PropertyAnimation { from: 450; to: 1080; duration: control.animationDuration/2; easing.type: Easing.OutSine }
         }
         SequentialAnimation on sweepAngle {
             loops: Animation.Infinite
             running: control.visible && control.indeterminate
-            PropertyAnimation { from: 0; to: 180; duration: control.animationDurarion/2; easing.type: Easing.OutSine }
-            PropertyAnimation { from: 180; to: 0; duration: control.animationDurarion/2; easing.type: Easing.OutSine }
+            PropertyAnimation { from: 0; to: 180; duration: control.animationDuration/2; easing.type: Easing.OutSine }
+            PropertyAnimation { from: 180; to: 0; duration: control.animationDuration/2; easing.type: Easing.OutSine }
         }
         onStartAngleChanged: {
             requestPaint()

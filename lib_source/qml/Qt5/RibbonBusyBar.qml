@@ -17,7 +17,7 @@ BusyIndicator {
     property real indicatorWidth: 4
     property real indicatorHeight: 4
     property int indicatorNumber: 5
-    property int animationDurarion: 2000
+    property int animationDuration: 2000
     property bool reversed: false
 
     QtObject{
@@ -67,7 +67,7 @@ BusyIndicator {
                         property: "x"
                         from: control.reversed ? barWidth + (index + 1) * indicatorWidth : -(index + 1) * indicatorWidth
                         to: control.reversed ? (index + 1) * indicatorWidth : barWidth - (index + 1) * indicatorWidth
-                        duration: animationDurarion * 9 / 10
+                        duration: animationDuration * 9 / 10
                         easing.type: Easing.OutInCubic
                     }
 
@@ -77,7 +77,7 @@ BusyIndicator {
                             property: "x"
                             from: control.reversed ? (index + 1) * indicatorWidth : barWidth - (index + 1) * indicatorWidth
                             to: control.reversed ? -(index + 1) * indicatorWidth - control.indicatorNumber*indicatorWidth : barWidth + (index + 1) * indicatorWidth + control.indicatorNumber*indicatorWidth
-                            duration: animationDurarion / 10
+                            duration: animationDuration / 10
                             easing.type: Easing.OutInCubic
                         }
 
@@ -86,7 +86,7 @@ BusyIndicator {
                             property: "opacity"
                             from: 0.5
                             to: 0
-                            duration: animationDurarion / 10
+                            duration: animationDuration / 10
                             easing.type: Easing.OutExpo
                         }
                     }

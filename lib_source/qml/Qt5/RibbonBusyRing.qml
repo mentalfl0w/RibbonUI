@@ -16,10 +16,10 @@ BusyIndicator {
     property real radiusWidth: 4
     property int lineNumber: RibbonTheme.modernStyle ? 10 : 8
     property real default_saturation: 0
-    property int animationDurarion: RibbonTheme.modernStyle ? 4000 : 1000
+    property int animationDuration: RibbonTheme.modernStyle ? 4000 : 1000
     property bool clockwise: true
 
-    onAnimationDurarionChanged: {
+    onAnimationDurationChanged: {
         running = !running
         Qt.callLater(()=>running = !running) // Fix Qt 5 animation duration doesn't change
     }
@@ -41,7 +41,7 @@ BusyIndicator {
             from: clockwise ? lineNumber : 0
             to: clockwise ? 0 : lineNumber
             loops: Animation.Infinite
-            duration: animationDurarion
+            duration: animationDuration
         }
 
         Repeater {
@@ -77,7 +77,7 @@ BusyIndicator {
                         property: "rotation"
                         from: (clockwise ? 1 : -1) * 0
                         to: (clockwise ? 1 : -1) * (360 - (index - lineNumber / 4 + 0.5) * private_property.angle * 1.4)
-                        duration: animationDurarion / 2
+                        duration: animationDuration / 2
                         easing.type: Easing.OutInQuad
                     }
 
@@ -87,19 +87,19 @@ BusyIndicator {
                             property: "rotation"
                             from: (clockwise ? 1 : -1) * (360 - (index - lineNumber / 4 + 0.5) * private_property.angle * 1.4)
                             to: (clockwise ? 1 : -1) * 720
-                            duration: animationDurarion / 2
+                            duration: animationDuration / 2
                             easing.type: Easing.OutInQuad
                         }
                         SequentialAnimation{
                             PauseAnimation {
-                                duration: animationDurarion / 2 - animationDurarion / 20
+                                duration: animationDuration / 2 - animationDuration / 20
                             }
                             PropertyAnimation {
                                 target: repeater.itemAt(index)
                                 property: "opacity"
                                 from: 0.5
                                 to: 0
-                                duration: animationDurarion / 20
+                                duration: animationDuration / 20
                                 easing.type: Easing.OutExpo
                             }
                         }
