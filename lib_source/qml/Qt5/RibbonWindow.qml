@@ -34,6 +34,12 @@ Window {
         }
         return '#FFFFFF'
     }
+
+    onActiveChanged: {
+        if(Qt.platform.os === "osx")
+            PlatformSupport.showSystemTitleBtns(window,active)
+    }
+
     onBlurBehindWindowChanged: {
         if (Qt.platform.os === 'windows')
             windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)

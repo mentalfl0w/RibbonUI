@@ -112,11 +112,11 @@ Item {
             top: parent.top
             left: parent.left
             bottom: parent.bottom
-            leftMargin: Qt.platform.os === "osx" && Window.window.visibility === Window.Windowed ? 65 : 10
+            leftMargin: Qt.platform.os === "osx" && Window.window.visibility === Window.Windowed && Window.active ? 65 : 10
         }
         Behavior on anchors.leftMargin {
             NumberAnimation{
-                duration: 100
+                duration: 50
                 easing.type: Easing.OutSine
             }
         }
