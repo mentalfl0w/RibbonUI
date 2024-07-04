@@ -21,6 +21,8 @@ Popup {
     property string backText: qsTr("Back")
     property int radius: 0
     property var pageModel: []
+    property string bgColor: RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white"
+    property string menuBgColor: RibbonTheme.isDarkMode ? "#363636" : RibbonTheme.modernStyle ? "white" : "#365695"
     default property alias data: data_container.data
     signal backBtnClicked()
 
@@ -63,7 +65,7 @@ Popup {
         target: blurTarget
         targetRect: Qt.rect(control.x + control.leftMargin, control.y + control.topMargin, control.width, control.height)
         visible: blurEnabled
-        maskColor: content_bg.color
+        maskColor: control.bgColor
         maskOpacity: 0
         blurRadius: 0
         radius: control.radius
@@ -101,7 +103,7 @@ Popup {
         }
         width: 150
         x: -width
-        color: alphaTohex(RibbonTheme.isDarkMode ? "#363636" : RibbonTheme.modernStyle ? "white" : "#365695", blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
+        color: alphaTohex(control.menuBgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
         topLeftRadius: control.topMargin <= 0 ? control.radius : 0
         bottomLeftRadius: topLeftRadius
         property int currentMenu: 0
@@ -265,7 +267,7 @@ Popup {
                 RibbonToolTip{
                     id: tooltip
                     visible: mouse.containsMouse && typeof(model.showTooltip) != "undefined" ? model.showTooltip : false
-                                                                                                && typeof(model.tool_text) != "undefined" ? model.tool_text : false
+                                                                                               && typeof(model.tool_text) != "undefined" ? model.tool_text : false
                     text: model.tool_text ? model.tool_text : ""
                 }
 
@@ -464,7 +466,7 @@ Popup {
     function show(){
         control.opacity = 1
         menu_bg.x = 0
-        content_bg.color = alphaTohex(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
@@ -472,7 +474,7 @@ Popup {
 
     function hide(){
         menu_bg.x = -menu_bg.width
-        content_bg.color = alphaTohex(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 0)
+        content_bg.color = alphaTohex(control.bgColor, 0)
         blur_bg.maskOpacity = 0
         blur_bg.blurRadius = 0
         blur_bg.opacity = 0
@@ -480,7 +482,7 @@ Popup {
     }
 
     function refresh(){
-        content_bg.color = alphaTohex(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
