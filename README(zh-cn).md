@@ -102,6 +102,16 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
     # -DCMAKE_PREFIX_PATH={你的Qt安装目录}
     cmake --build . --target all --config Release --parallel
     ```
+  - 运行或部署
+
+    ***在其它系统中，编译过后生成的应用可以直接运行，但在Windows上需要先使用Qt的`bin`目录下的`windeployqt.exe`部署相关必需库后才可以不通过`Qt Creator`而直接在编译目录下双击可执行文件运行。***
+    
+    ```powershell
+    #build文件夹下
+    cd app\release
+    C:\Qt\6.6.3\mingw_64\bin\windeployqt.exe --qmldir C:\Qt\6.6.3\mingw_64\qml .\RibbonUI-APP.exe
+    #指定"--qmldir"参数是必须的
+    ```
 + 在其他项目中使用RibbonUI
   - 遵循***编译例程和库***的下载仓库和进入build目录步骤
   - 在CMakeLists.txt中加入以下语句

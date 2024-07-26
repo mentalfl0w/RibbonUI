@@ -101,6 +101,17 @@ The current design is based on Qt 6, and it support for Qt 5 as well(***ONLY sup
     # -DCMAKE_PREFIX_PATH={YOUR QT INSTALL FOLDER}
     cmake --build . --target all --config Release --parallel
     ```
+  - Run or Deploy
+
+    ***On the other system, you could directly start the app after the build process, while you have to use `windeployqt.exe` in Qt's `bin` directory to deploy the required libs first on Windows if you want to click to run rather than through `Qt Creator`.***
+
+    ```powershell
+    #in the build folder
+    cd app\release
+    C:\Qt\6.6.3\mingw_64\bin\windeployqt.exe --qmldir C:\Qt\6.6.3\mingw_64\qml .\RibbonUI-APP.exe
+    #"--qmldir" is essential.
+    ```
+
 + Use library with other project
   - Follow the same steps like clone and enter build folder as ***Compile the example and library***
   - Add the following code to your CMakeLists.txt
