@@ -103,7 +103,7 @@ The current design is based on Qt 6, and it support for Qt 5 as well(***ONLY sup
     ```
   - Run or Deploy
 
-    On the other system, you could directly start the app after the build process, while you have to use "windeployqt.exe" first on Windows.
+    ***On the other system, you could directly start the app after the build process, while you have to use `windeployqt.exe` in Qt's `bin` directory to deploy the required libs first on Windows if you want to click to run rather than through `Qt Creator`.***
 
     ```powershell
     #in the build folder
