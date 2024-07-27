@@ -417,7 +417,7 @@ Popup {
         }
         topRightRadius: control.topMargin <= 0 ? control.radius : 0
         bottomRightRadius: topRightRadius
-        color: Qt.alpha(RibbonTheme.isDarkMode ? RibbonTheme.modernStyle ? "#0A0A0A" : "#262626" : RibbonTheme.modernStyle ? "#F0F0F0" : "white", 1)
+        color: Qt.alpha(control.bgColor, 1)
 
         Behavior on color {
             ColorAnimation {
@@ -455,12 +455,57 @@ Popup {
         }
     }
 
-
-    Connections{
-        target: RibbonTheme
-        function onThemeModeChanged(){
-            refresh()
+    RowLayout{
+        visible: Qt.platform.os !== "osx"
+        layoutDirection: Qt.RightToLeft
+        spacing: 0
+        anchors{
+            top: parent.top
+            right: parent.right
+            margins: 5
         }
+
+        RibbonButton{
+            showBg:false
+            iconSource: RibbonIcons.Dismiss
+            iconSourceFilled: RibbonIcons_Filled.Dismiss
+            hoverColor: "#ED6B5E"
+            pressedColor: "#B55149"
+            textColorReverse: false
+            tipText: qsTr("Close")
+            onClicked: Window.window.close()
+        }
+
+        RibbonButton{
+            showBg:false
+            iconSource: RibbonIcons.Subtract
+            iconSourceFilled: RibbonIcons_Filled.Subtract
+            hoverColor: "#F4BE4F"
+            pressedColor: "#B78F3B"
+            textColorReverse: false
+            tipText: qsTr("Minimize")
+            font.bold: pressed || checked
+            onClicked: Window.window.visibility = Window.Minimized
+        }
+
+        RibbonButton{
+            showBg:false
+            iconSource: Window.window ? Window.window.visibility === Window.Maximized ? RibbonIcons.ArrowMinimize : RibbonIcons.ArrowMaximize : 0
+            hoverColor: "#61C554"
+            pressedColor: "#48953F"
+            textColorReverse: false
+            tipText: Window.window ? Window.window.visibility === Window.Maximized ? qsTr("Restore") : qsTr("Maximize") : ""
+            onClicked: {
+                if (Window.window.visibility === Window.Maximized)
+                    Window.window.visibility = Window.Windowed
+                else
+                    Window.window.visibility = Window.Maximized
+            }
+        }
+    }
+
+    onBgColorChanged: {
+        refresh()
     }
 
     function show(){
