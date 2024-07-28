@@ -43,7 +43,7 @@ TabButton {
 
         Rectangle{
             id: btn_underline
-            height: 3
+            height: 2
             width: control.hovered && control.checked && !folded ? btn_text.contentWidth + 15 : btn_text.contentWidth
             color: {
 
@@ -53,7 +53,7 @@ TabButton {
                     return underlineCheckedColor
                 return "transparent"
             }
-            radius: 3
+            radius: height / 2
             anchors
             {
                 horizontalCenter: parent.horizontalCenter
