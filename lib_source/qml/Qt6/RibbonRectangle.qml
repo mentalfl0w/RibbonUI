@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Shapes
 import Qt5Compat.GraphicalEffects
 
 Item {
@@ -10,60 +11,63 @@ Item {
     property int topRightRadius: radius
     property int bottomLeftRadius: radius
     property int bottomRightRadius: radius
+    property real borderWidth: 0
+    property var borderColor: Qt.color("transparent")
     default property alias contentItem: container.data
-    onWidthChanged: {
-        canvas.requestPaint()
-    }
-    onHeightChanged: {
-        canvas.requestPaint()
-    }
-    onTopLeftRadiusChanged: {
-        canvas.requestPaint()
-    }
-    onTopRightRadiusChanged: {
-        canvas.requestPaint()
-    }
-    onBottomLeftRadiusChanged: {
-        canvas.requestPaint()
-    }
-    onBottomRightRadiusChanged: {
-        canvas.requestPaint()
-    }
-    onColorChanged: {
-        canvas.requestPaint()
-    }
-    Canvas {
-        id: canvas
+
+    Shape {
+        id: shape
         anchors.fill: parent
-        visible: false
-        onPaint: {
-            var ctx = getContext("2d")
-            ctx.clearRect(0, 0, width, height)
-            ctx.beginPath()
-            ctx.moveTo(control.topLeftRadius, 0)
-            ctx.lineTo(width - control.topRightRadius, 0)
-            ctx.arcTo(width, 0, width, control.topRightRadius, control.topRightRadius)
-            ctx.lineTo(width, height - control.bottomRightRadius)
-            ctx.arcTo(width, height, width - control.bottomRightRadius, height, control.bottomRightRadius)
-            ctx.lineTo(control.bottomLeftRadius, height)
-            ctx.arcTo(0, height, 0, height - control.bottomLeftRadius, control.bottomLeftRadius)
-            ctx.lineTo(0, control.topLeftRadius)
-            ctx.arcTo(0, 0, control.topLeftRadius, 0, control.topLeftRadius)
-            ctx.closePath()
-            ctx.fillStyle = control.color
-            ctx.fill()
+        ShapePath {
+            capStyle: ShapePath.RoundCap
+            strokeWidth: 0
+            strokeColor: "transparent"
+            fillColor: control.color
+            joinStyle: ShapePath.RoundJoin
+            startX: control.topLeftRadius; startY: 0
+            PathLine { x: shape.width - control.topRightRadius; y: 0 }
+            PathArc { x: shape.width; y: control.topRightRadius; radiusX: control.topRightRadius; radiusY: radiusX }
+            PathLine { x: shape.width; y: shape.height - control.bottomRightRadius }
+            PathArc { x: shape.width - control.bottomRightRadius; y: shape.height; radiusX: control.bottomRightRadius; radiusY: radiusX }
+            PathLine { x: control.bottomLeftRadius; y: shape.height }
+            PathArc { x: 0; y: shape.height - control.bottomLeftRadius; radiusX: control.bottomLeftRadius; radiusY: radiusX }
+            PathLine { x: 0; y: control.topLeftRadius }
+            PathArc { x: control.topLeftRadius; y: 0; radiusX: control.topLeftRadius; radiusY: radiusX }
         }
     }
-    Rectangle {
+
+    Shape {
+        id: border
+        width: shape.width
+        height: shape.height
+        anchors.centerIn: parent
+        ShapePath {
+            capStyle: ShapePath.RoundCap
+            strokeWidth: control.borderWidth
+            strokeColor: control.borderColor
+            fillColor: "transparent"
+            joinStyle: ShapePath.RoundJoin
+            startX: control.topLeftRadius; startY: 0
+            PathLine { x: border.width - control.topRightRadius; y: 0 }
+            PathArc { x: border.width; y: control.topRightRadius; radiusX: control.topRightRadius; radiusY: radiusX }
+            PathLine { x: border.width; y: border.height - control.bottomRightRadius }
+            PathArc { x: border.width - control.bottomRightRadius; y: border.height; radiusX: control.bottomRightRadius; radiusY: radiusX }
+            PathLine { x: control.bottomLeftRadius; y: border.height }
+            PathArc { x: 0; y: border.height - control.bottomLeftRadius; radiusX: control.bottomLeftRadius; radiusY: radiusX }
+            PathLine { x: 0; y: control.topLeftRadius }
+            PathArc { x: control.topLeftRadius; y: 0; radiusX: control.topLeftRadius; radiusY: radiusX }
+        }
+    }
+
+    Item{
         id: container
         anchors.fill: parent
-        color: control.color
-        opacity: 0
-    }
-    OpacityMask {
-        anchors.fill: parent
-        source: container
-        maskSource: canvas
-        invert: control.color === "transparent" || control.color === "#00000000"
+        clip: true
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            implicitHeight: container.height
+            implicitWidth: container.width
+            maskSource: shape
+        }
     }
 }
