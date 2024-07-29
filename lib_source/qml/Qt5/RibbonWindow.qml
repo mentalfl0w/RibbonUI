@@ -17,7 +17,7 @@ Window {
     property alias titleBar: titleBar
     property alias popup: pop
     property bool comfirmedQuit: false
-    property bool blurBehindWindow: true
+    property bool blurBehindWindow: false
     property int windowsTopFix: Qt.platform.os === 'windows' ? 1 : 0 // a trick to fix Qt or QWindowKit's bug
     property var viewItems
     property var tabBar
@@ -63,6 +63,7 @@ Window {
         windowAgent.centralize()
         raise()
         windowAgent.setWindowAttribute("dark-mode", RibbonTheme.isDarkMode)
+        blurBehindWindow =  Qt.platform.os === 'windows' && !RibbonUI.isWin11 ? false : true
         if (Qt.platform.os === 'windows')
         {
             windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
