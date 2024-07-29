@@ -32,7 +32,7 @@ Button {
         visible: showBg
         border.color: isDarkMode ? "#7F7F7F" : "#D2D1CE"
         border.width: 1
-        radius: 3
+        radius: 5
         color: bgColor
     }
     contentItem: Item{
@@ -41,7 +41,7 @@ Button {
         implicitHeight: adaptHeight?root.parent.height>=layout.height?root.parent.height:layout.height:layout.height + 10
         Rectangle{
             anchors.fill: parent
-            radius: 3
+            radius: background.radius
             color: {
                 if (root.pressed)
                     return pressedColor

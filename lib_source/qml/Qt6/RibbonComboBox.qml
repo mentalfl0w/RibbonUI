@@ -171,8 +171,8 @@ ComboBox {
         background: RibbonBlur{
             radius: 5
             maskOpacity: 1
-            maskBorder.color: RibbonTheme.isDarkMode ? "#5C5D5D" : "#B5B4B5"
-            maskBorder.width: 1
+            maskBorderColor: RibbonTheme.isDarkMode ? "#5C5D5D" : "#B5B4B5"
+            maskBorderWidth: 1
         }
 
         enter: Transition {

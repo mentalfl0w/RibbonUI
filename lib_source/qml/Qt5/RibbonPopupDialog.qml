@@ -13,7 +13,6 @@ RibbonPopup {
     property bool isDarkMode: RibbonTheme.isDarkMode
     property int contentMargins: 20
     showCloseBtn: false
-    radius: 5
     signal neutralClicked
     signal negativeClicked
     signal positiveClicked
@@ -25,7 +24,7 @@ RibbonPopup {
         id:layout_content
         anchors.fill: parent
         color: 'transparent'
-        radius:5
+        radius:3
         RibbonText{
             id:text_title
             font.pixelSize: 24

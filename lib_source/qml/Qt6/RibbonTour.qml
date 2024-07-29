@@ -44,7 +44,7 @@ Popup {
         RectangularGlow {
             id: effect
             anchors.fill: blur
-            anchors.margins: blur.maskBorder.width
+            anchors.margins: blur.maskBorderWidth
             glowRadius: 10
             spread: 0
             color: RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,0.7) : Qt.rgba(0,0,0,0.45)
@@ -54,12 +54,12 @@ Popup {
             implicitHeight: parent.height
             implicitWidth: parent.width
             id: blur
-            radius: 10
+            radius: 7
             maskOpacity: blurEnabled ? 0.9 : 1
-            maskBorder.color: RibbonTheme.modernStyle ?
+            maskBorderColor: RibbonTheme.modernStyle ?
                                    RibbonTheme.isDarkMode ? "#7A7A7A" : "#2C59B7" :
             RibbonTheme.isDarkMode ? "#5C5D5D" : "#B5B4B5"
-            maskBorder.width: 1
+            maskBorderWidth: 1
         }
     }
     contentItem: Item{
