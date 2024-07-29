@@ -61,7 +61,7 @@ Item {
         color: isDarkMode ? "#141414" : "#F5F5F5"
         opacity: bgOpacity
         anchors.fill: parent
-        bottomLeftRadius: Qt.platform.os === 'windows' ? RibbonUI.isWin11 ? 7 : 0 : 10
+        bottomLeftRadius: blur.bottomLeftRadius
         bottomRightRadius: bottomLeftRadius
     }
 
