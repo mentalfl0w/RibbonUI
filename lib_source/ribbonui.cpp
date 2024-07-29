@@ -36,7 +36,8 @@ void RibbonUI::init()
     qputenv("QSG_RHI_BACKEND", "opengl");
 #endif
     QQuickWindow::setDefaultAlphaBuffer(true);
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(
+        Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 }
 
 void RibbonUI::registerTypes(const char *uri)
