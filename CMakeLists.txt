@@ -2,12 +2,16 @@ cmake_minimum_required(VERSION 3.21)
 
 project(RibbonUI_Project VERSION 1.1.0 LANGUAGES CXX)
 
+# Find Qt Package
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
+
+# Set Qt SDK Directory
 set(QT_SDK_DIR ${Qt${QT_VERSION_MAJOR}_DIR}/../../..)
 cmake_path(SET QT_SDK_DIR NORMALIZE ${QT_SDK_DIR})
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/.cmake/ ${CMAKE_CURRENT_LIST_DIR}/3rdparty/Qt5QMLPlugin)
 
+# Set RibbonUI QML Plugin Directory
 option(RIBBONUI_BUILD_EXAMPLES "Build RibbonUI APP." ON)
 option(RIBBONUI_BUILD_QWINDOWKIT "Build QWindowKit." ON)
 option(RIBBONUI_BUILD_STATIC_LIB "Build RibbonUI static library." OFF)
