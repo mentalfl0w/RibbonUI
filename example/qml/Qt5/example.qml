@@ -12,6 +12,57 @@ RibbonWindow {
     title: qsTr("RibbonUI APP")
     comfirmedQuit: true
     property bool modernStyle: RibbonTheme.modernStyle
+    RibbonMessageBarGroup{
+        id: msg_bar
+        implicitWidth: windowItems.width
+        x: windowItems.x
+        y: titleBar.height + tab_bar.y + tab_bar.height - tab_bar.modernMargin + (RibbonTheme.modernStyle ? 5 : 0)
+        target: windowItems
+        Component.onCompleted: {
+            messageModel.append([{
+                    type: RibbonMessageBar.Info,
+                    text: "Info (default) MessageBar."
+                },{
+                    type: RibbonMessageBar.Warning,
+                    text: "Warning defaults to multiline. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus, purus a lobortis tristique, odio augue pharetra metus, ac placerat nunc mi nec dui. Vestibulum aliquam et nunc semper scelerisque. Curabitur vitae orci nec quam condimentum porttitor et sed lacus. Vivamus ac efficitur leo. Cras faucibus mauris libero, ac placerat erat euismod et. Donec pulvinar commodo odio sit amet faucibus. In hac habitasse platea dictumst. Duis eu ante commodo, condimentum nibh pellentesque, laoreet enim. Fusce massa lorem, ultrices eu mi a, fermentum suscipit magna. Integer porta purus pulvinar, hendrerit felis eget, condimentum mauris.Visit our website.",
+                    actionALabel: "Yes",
+                    actionBLabel: "No",
+                    externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                    externalURLLabel: "Visit our website."
+                },{
+                    type: RibbonMessageBar.Warning,
+                    text: "Warning MessageBar content.",
+                    actionALabel: "Action",
+                    externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                    externalURLLabel: "Visit our website.",
+                    disableMultiline: true
+                },{
+                    type: RibbonMessageBar.SevereWarning,
+                    text: "SevereWarning MessageBar with action buttons which defaults to multiline.",
+                    actionALabel: "Yes",
+                    actionBLabel: "No",
+                    externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                    externalURLLabel: "Visit our website.",
+                },{
+                    type: RibbonMessageBar.Blocked,
+                    text: "Blocked MessageBar - single line, with dismiss button and truncated text. Truncation is not available if you use action buttons or multiline and should be used sparingly. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus, purus a lobortis tristique, odio augue pharetra metus, ac placerat nunc mi nec dui. Vestibulum aliquam et nunc semper scelerisque. Curabitur vitae orci nec quam condimentum porttitor et sed lacus. Vivamus ac efficitur leo. Cras faucibus mauris libero, ac placerat erat euismod et. Donec pulvinar commodo odio sit amet faucibus. In hac habitasse platea dictumst. Duis eu ante commodo, condimentum nibh pellentesque, laoreet enim. Fusce massa lorem, ultrices eu mi a, fermentum suscipit magna. Integer porta purus pulvinar, hendrerit felis eget, condimentum mauris.",
+                },{
+                    type: RibbonMessageBar.Success,
+                    text: "Success MessageBar with single line and action buttons.",
+                    actionALabel: "Yes",
+                    actionBLabel: "No",
+                    externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                    externalURLLabel: "Visit our website."
+                },{
+                    type: RibbonMessageBar.Error,
+                    text: "Error MessageBar with single line, with dismiss button.",
+                    externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                    externalURLLabel: "Visit our website."
+                }])
+            messageBar.showMessage(RibbonMessageBar.Info, "test")
+        }
+    }
+
     RibbonTour{
         id: tour
         RibbonTourItem{
@@ -106,6 +157,7 @@ RibbonWindow {
         pageWidth: (page_slider.value / 100.0) * width
         spacing: 0
         isMainView: true
+        topBorderFix: msg_bar.folded ? msg_bar.barHeight : 0
         ColumnLayout{
             Layout.alignment: Qt.AlignCenter
             Layout.topMargin: 30

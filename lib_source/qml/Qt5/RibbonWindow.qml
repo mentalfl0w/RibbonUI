@@ -22,6 +22,7 @@ Window {
     property var viewItems
     property var tabBar
     property var bottomBar
+    property var messageBar
     readonly property int borderWidth: border_rect.border.width
     readonly property int borderRadius: border_rect.radius
     visible: false

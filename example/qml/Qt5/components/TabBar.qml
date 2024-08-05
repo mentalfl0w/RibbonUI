@@ -777,5 +777,29 @@ RibbonTabBar {
                 }
             }
         }
+        RibbonTabGroup{
+            width: messagebar_layout.width + 30
+            text: qsTr("MessageBar")
+            ColumnLayout{
+                id: messagebar_layout
+                anchors.centerIn: parent
+                height: parent.height
+                spacing: 10
+                RibbonButton{
+                    text: qsTr("Generate One Message")
+                    iconSource: RibbonIcons.Add
+                    onClicked: {
+                        messageBar.showMessage(Math.floor(Math.random()*6), "test"+Math.floor(Math.random()*6))
+                    }
+                }
+                RibbonButton{
+                    text: qsTr("Clear All Messages")
+                    iconSource: RibbonIcons.DismissCircle
+                    onClicked: {
+                        messageBar.clearMessages()
+                    }
+                }
+            }
+        }
     }
 }
