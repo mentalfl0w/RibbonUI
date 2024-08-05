@@ -218,7 +218,8 @@ RibbonBlur {
         Window.window.messageBar = control
     }
 
-    function showMessage(type, text, actionALabel, actionBLabel, externalURL, externalURLLabel, disableMultiline){
+    function showMessage(type, text, actionALabel, actionBLabel, externalURL,
+                         externalURLLabel, disableMultiline, rounded){
         let item = {}
         if(type)
             item['type'] = type
@@ -234,6 +235,8 @@ RibbonBlur {
             item['externalURLLabel'] = externalURLLabel
         if(disableMultiline)
             item['disableMultiline'] = disableMultiline
+        if(rounded)
+            item['rounded'] = rounded
         messageModel.append(item)
     }
 
