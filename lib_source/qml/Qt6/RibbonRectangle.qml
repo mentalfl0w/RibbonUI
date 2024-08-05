@@ -68,6 +68,7 @@ Item {
             implicitHeight: container.height
             implicitWidth: container.width
             maskSource: shape
+            invert: control.color === "transparent" || control.color === "#00000000"
         }
     }
 }
