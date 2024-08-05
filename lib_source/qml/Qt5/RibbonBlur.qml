@@ -4,6 +4,7 @@ import RibbonUI 1.0
 
 RibbonRectangle {
     id: control
+    property bool enableEffect: true
     property int blurRadius: 32
     property alias target: effect.sourceItem
     property rect targetRect : Qt.rect(control.x, control.y, control.width, control.height)
@@ -18,7 +19,7 @@ RibbonRectangle {
         id: effect
         anchors.fill: parent
         sourceRect: control.targetRect
-        visible: false
+        visible: !enableEffect
     }
 
     GaussianBlur{
@@ -28,6 +29,7 @@ RibbonRectangle {
         deviation: 8
         samples: (control.blurRadius / 4) * 3
         source: effect
+        visible: enableEffect
     }
 
     RibbonRectangle{
