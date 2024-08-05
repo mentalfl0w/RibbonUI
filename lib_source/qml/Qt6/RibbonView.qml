@@ -14,6 +14,8 @@ Item {
     property bool isMainView: false
     property alias bgColor: bg.color
     property alias bgVisible: bg.visible
+    property real topBorderFix: 0
+    property real bottomBorderFix: 0
     z:-2
     clip: true
     width: parent.width
@@ -32,7 +34,7 @@ Item {
             right: parent.right
             top: parent.top
         }
-        height: isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin) : 0 : 0 : 0
+        height: (isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin) : 0 : 0 : 0) + topBorderFix
     }
 
     Item{
@@ -60,7 +62,7 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-        height: isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.bottomBar.height) : 0 : 0 : 0
+        height: (isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.bottomBar.height) : 0 : 0 : 0) + bottomBorderFix
     }
 
     Component.onCompleted: {
