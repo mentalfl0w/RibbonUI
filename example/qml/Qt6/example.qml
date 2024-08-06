@@ -16,8 +16,9 @@ RibbonWindow {
         id: msg_bar
         implicitWidth: windowItems.width
         x: windowItems.x
-        y: titleBar.height + tab_bar.y + tab_bar.height - tab_bar.modernMargin + (RibbonTheme.modernStyle ? 5 : 0)
+        y: titleBar.height + tab_bar.y + tab_bar.height - tab_bar.modernMargin + msg_bar.topMargin
         target: windowItems
+        targetRect: Qt.rect(tab_bar.x,y,width,height)
         Component.onCompleted: {
             messageModel.append([{
                     type: RibbonMessageBar.Info,
@@ -59,7 +60,6 @@ RibbonWindow {
                     externalURL: "https://github.com/mentalfl0w/RibbonUI",
                     externalURLLabel: "Visit our website."
                 }])
-            messageBar.showMessage(RibbonMessageBar.Info, "test")
         }
     }
 
@@ -157,7 +157,6 @@ RibbonWindow {
         pageWidth: (page_slider.value / 100.0) * width
         spacing: 0
         isMainView: true
-        topBorderFix: msg_bar.folded ? msg_bar.barHeight : 0
         ColumnLayout{
             Layout.alignment: Qt.AlignCenter
             Layout.topMargin: 30

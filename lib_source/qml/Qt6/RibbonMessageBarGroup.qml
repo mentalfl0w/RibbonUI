@@ -7,9 +7,9 @@ RibbonBlur {
     id: control
     parent: Overlay.overlay
     implicitWidth: parent.width
-    useSolidBg: true
     implicitHeight: 30
-    maskColor: folded ? "transparent" : RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+    maskColor: folded && !handler.visible ? "transparent" : RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
+    maskOpacity: 0
     bottomLeftRadius: folded ? 0 : 5
     bottomRightRadius: bottomLeftRadius
     enableEffect: handler.visible || !folded
@@ -17,6 +17,7 @@ RibbonBlur {
     property int animationTime: 400
     property real barHeight: implicitHeight - handler.height
     property alias messageModel: messageModel
+    property real topMargin: RibbonTheme.modernStyle ? 5 : 0
 
     Behavior on implicitHeight {
         NumberAnimation {
@@ -154,12 +155,8 @@ RibbonBlur {
         id: handler
         x: message_list.x + (message_list.width - width) / 2
         y: message_list.y + message_list.height * (folded ? 1 : 0)
-        implicitHeight: 20
+        implicitHeight: folded ? 10 : 20
         implicitWidth: parent.width
-        topLeftRadius: folded ? 0 : 10
-        topRightRadius: topLeftRadius
-        bottomLeftRadius: folded ? 10 : 0
-        bottomRightRadius: bottomLeftRadius
         visible: hover.hovered && messageModel.count
         color: RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,0.5) : Qt.rgba(1,1,1,0.5)
         Behavior on color {
@@ -176,6 +173,7 @@ RibbonBlur {
                 showBg: false
                 showHoveredBg: false
                 iconSource: RibbonIcons.DismissCircle
+                ribbonIcon.iconSize: handler.implicitHeight - 2
                 tipText: qsTr("Clear All")
                 onClicked: clearMessages()
                 visible: !folded
@@ -186,6 +184,7 @@ RibbonBlur {
                 checkable: true
                 showBg: false
                 showHoveredBg: false
+                ribbonIcon.iconSize: handler.implicitHeight - 2
                 iconSource: RibbonIcons.TriangleDown
                 rotation: checked ? 0 : 180
                 checked: true
