@@ -19,7 +19,7 @@ RibbonRectangle {
         id: effect
         anchors.fill: parent
         sourceRect: control.targetRect
-        visible: !enableEffect
+        visible: false
     }
 
     GaussianBlur{
