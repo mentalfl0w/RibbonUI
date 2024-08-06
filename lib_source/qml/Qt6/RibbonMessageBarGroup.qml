@@ -21,7 +21,7 @@ RibbonBlur {
 
     Behavior on implicitHeight {
         NumberAnimation {
-            duration: control.animationTime / 2
+            duration: control.animationTime
             easing.type: Easing.OutSine
         }
     }
@@ -31,13 +31,13 @@ RibbonBlur {
         onCountChanged: {
             message_list.currentIndex = count ? count - 1 : 0
             if(count === 0)
-                folded_btn.checked = true
+                clearMessages()
         }
     }
 
     Timer{
         id: auto_scroll_btn_timer
-        interval: control.animationTime
+        interval: control.animationTime * 2
         repeat: false
         onTriggered: {
             message_list.positionViewAtIndex(message_list.currentIndex, ListView.Center)
@@ -120,7 +120,7 @@ RibbonBlur {
             NumberAnimation {
                 properties: "y"
                 from: message_list.height
-                duration: control.animationTime / 2
+                duration: control.animationTime
             }
         }
         remove: Transition {
@@ -128,7 +128,7 @@ RibbonBlur {
                 property: "opacity"
                 from: 1
                 to: 0
-                duration: control.animationTime / 2
+                duration: control.animationTime
             }
         }
         ScrollBar.vertical: RibbonScrollBar {
@@ -141,7 +141,7 @@ RibbonBlur {
         }
         Behavior on height {
             NumberAnimation {
-                duration: control.animationTime / 2
+                duration: control.animationTime
                 easing.type: Easing.OutSine
             }
         }
@@ -161,7 +161,7 @@ RibbonBlur {
         color: RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,0.5) : Qt.rgba(1,1,1,0.5)
         Behavior on color {
             ColorAnimation {
-                duration: control.animationTime / 2
+                duration: control.animationTime
                 easing.type: Easing.OutSine
             }
         }
@@ -240,6 +240,7 @@ RibbonBlur {
     }
 
     function clearMessages(){
+        folded_btn.checked = true
         messageModel.clear()
         implicitHeight = 0
         barHeight = 0
