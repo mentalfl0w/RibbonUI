@@ -34,7 +34,16 @@ Item {
             right: parent.right
             top: parent.top
         }
-        height: (isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin) : 0 : 0 : 0) + topBorderFix
+        height: {
+            var w = topBorderFix
+            if(isMainView && Window.window){
+                if(Window.window.tabBar)
+                    w += Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin)
+                if(Window.window.messageBar)
+                    w += (Window.window.messageBar.folded ? Window.window.messageBar.barHeight + Window.window.messageBar.topMargin : 0)
+            }
+            return w
+        }
     }
 
     Item{
@@ -62,7 +71,14 @@ Item {
             right: parent.right
             bottom: parent.bottom
         }
-        height: (isMainView ? Window.window ? Window.window.tabBar ? Math.abs(Window.window.bottomBar.height) : 0 : 0 : 0) + bottomBorderFix
+        height: {
+            var w = bottomBorderFix
+            if(isMainView && Window.window){
+                if(Window.window.bottomBar)
+                    w += Math.abs(Window.window.bottomBar.height)
+            }
+            return w
+        }
     }
 
     Component.onCompleted: {
