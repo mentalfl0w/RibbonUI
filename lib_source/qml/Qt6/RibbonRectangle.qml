@@ -18,6 +18,8 @@ Item {
     Shape {
         id: shape
         anchors.fill: parent
+        layer.enabled: true
+        layer.samples: 4 // Workaround for Qt 6.5 and below, for Qt 6.6, just set "preferredRendererType" to "Shape.CurveRenderer"
         ShapePath {
             capStyle: ShapePath.RoundCap
             strokeWidth: 0
@@ -41,9 +43,11 @@ Item {
         width: shape.width
         height: shape.height
         anchors.centerIn: parent
+        layer.enabled: true
+        layer.samples: 4
         ShapePath {
             capStyle: ShapePath.RoundCap
-            strokeWidth: control.borderWidth
+            strokeWidth: control.borderWidth * 2
             strokeColor: control.borderColor
             fillColor: "transparent"
             joinStyle: ShapePath.RoundJoin
