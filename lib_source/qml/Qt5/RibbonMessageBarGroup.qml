@@ -119,7 +119,7 @@ RibbonBlur {
         add: Transition {
             NumberAnimation {
                 properties: "y"
-                from: message_list.height
+                from: -message_list.height
                 duration: control.animationTime
             }
         }
@@ -157,7 +157,7 @@ RibbonBlur {
         y: message_list.y + message_list.height * (folded ? 1 : 0)
         implicitHeight: folded ? 10 : 20
         implicitWidth: parent.width
-        visible: hover.hovered && messageModel.count
+        visible: hover.hovered && messageModel.count > 1
         color: RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,0.5) : Qt.rgba(1,1,1,0.5)
         Behavior on color {
             ColorAnimation {
