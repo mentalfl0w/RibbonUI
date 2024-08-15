@@ -7,7 +7,7 @@ RibbonBlur {
     id: control
     parent: Overlay.overlay
     implicitWidth: parent.width
-    implicitHeight: 30
+    implicitHeight: folded ? barHeight : Window.window.viewItems.height
     maskColor: folded && !handler.visible ? "transparent" : RibbonTheme.isDarkMode ? Qt.rgba(0,0,0,1) : Qt.rgba(1,1,1,1)
     maskOpacity: 0
     bottomLeftRadius: folded ? 0 : 5
@@ -15,7 +15,8 @@ RibbonBlur {
     enableEffect: handler.visible || !folded
     readonly property alias folded: folded_btn.checked
     property int animationTime: 400
-    property real barHeight: implicitHeight - handler.height
+    property real currentMessageHeight: message_list.currentItem ? message_list.currentItem.height : 36
+    property real barHeight: 36
     property alias messageModel: messageModel
     property real topMargin: RibbonTheme.modernStyle ? 5 : 0
 
@@ -67,7 +68,7 @@ RibbonBlur {
                 onIsCurrentItemChanged: {
                     if(folded){
                         message_list.height = item.implicitHeight
-                        control.implicitHeight = item.implicitHeight + handler.height
+                        control.barHeight = item.implicitHeight + handler.height
                     }
                 }
 
@@ -110,7 +111,7 @@ RibbonBlur {
             onImplicitHeightChanged:{
                 if(message_list.currentIndex === index && folded){
                     message_list.height = item.implicitHeight
-                    control.implicitHeight = item.implicitHeight + handler.height
+                    control.barHeight = item.implicitHeight + handler.height
                 }
             }
         }
@@ -192,12 +193,10 @@ RibbonBlur {
                 textColor: RibbonTheme.isDarkMode ? "white" : "black"
                 onClicked:{
                     if(!folded){
-                        control.implicitHeight = Window.window.viewItems.height - control.x
                         message_list.height = control.implicitHeight
                     }
                     else{
                         message_list.height = message_list.currentItem.implicitHeight
-                        control.implicitHeight = message_list.currentItem.implicitHeight + handler.height
                         auto_scroll_btn_timer.restart()
                     }
                 }
@@ -243,7 +242,8 @@ RibbonBlur {
         folded_btn.checked = true
         messageModel.clear()
         implicitHeight = 0
-        barHeight = 0
+        barHeight = folded ? handler.height : 0
+        currentMessageHeight = 0
         message_list.height = 0
     }
 }

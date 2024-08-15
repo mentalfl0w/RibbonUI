@@ -40,7 +40,7 @@ Item {
                 if(Window.window.tabBar)
                     w += Math.abs(Window.window.tabBar.height - Window.window.tabBar.modernMargin)
                 if(Window.window.messageBar)
-                    w += (Window.window.messageBar.folded ? Window.window.messageBar.barHeight + Window.window.messageBar.topMargin : 0)
+                    w += (Window.window.messageBar.folded ? Window.window.messageBar.currentMessageHeight : 0) + Window.window.messageBar.topMargin
             }
             return w
         }
