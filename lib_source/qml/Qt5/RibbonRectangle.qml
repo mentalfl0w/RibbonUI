@@ -1,4 +1,6 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Shapes 1.15
 import QtGraphicalEffects 1.0
 
 Item {
@@ -10,7 +12,7 @@ Item {
     property int bottomLeftRadius: radius
     property int bottomRightRadius: radius
     property real borderWidth: 0
-    property var borderColor: Qt.color("transparent")
+    property string borderColor: "transparent"
     default property alias contentItem: container.data
 
     Shape {

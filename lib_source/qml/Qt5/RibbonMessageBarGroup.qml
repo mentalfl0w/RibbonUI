@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQuick.Window 2.15
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.15
 import RibbonUI 1.0
@@ -15,8 +16,8 @@ RibbonBlur {
     enableEffect: handler.visible || !folded
     readonly property alias folded: folded_btn.checked
     property int animationTime: 400
-    property real currentMessageHeight: message_list.currentItem ? message_list.currentItem.height : 36
-    property real barHeight: 36
+    property real currentMessageHeight: message_list.currentItem ? message_list.currentItem.height : 0
+    property real barHeight: folded ? currentMessageHeight + handler.height : 0
     property alias messageModel: messageModel
     property real topMargin: RibbonTheme.modernStyle ? 5 : 0
 
@@ -55,7 +56,7 @@ RibbonBlur {
             left: parent.left
             right: parent.right
         }
-        height: parent.height - (folded ? handler.height : 0)
+        height: control.implicitHeight - (folded ? handler.height : 0)
         model: messageModel
         delegate: Item{
             id: item
@@ -65,15 +66,9 @@ RibbonBlur {
                 id: bar
                 anchors.centerIn: parent
                 property bool isCurrentItem: item === message_list.currentItem
-                onIsCurrentItemChanged: {
-                    if(folded){
-                        message_list.height = item.implicitHeight
-                        control.barHeight = item.implicitHeight + handler.height
-                    }
-                }
 
                 text: model.text
-                externalURL: model.externalURL
+                externalURL: model.externalURL ? model.externalURL : ""
                 dismissAction: ()=>messageModel.remove(index)
                 Component.onCompleted: {
                     if(model.disableMultiline)
@@ -108,13 +103,8 @@ RibbonBlur {
                     }
                 }
             }
-            onImplicitHeightChanged:{
-                if(message_list.currentIndex === index && folded){
-                    message_list.height = item.implicitHeight
-                    control.barHeight = item.implicitHeight + handler.height
-                }
-            }
         }
+
         verticalLayoutDirection: ListView.BottomToTop
 
         add: Transition {
@@ -192,13 +182,7 @@ RibbonBlur {
                 tipText: checked ? qsTr("Show all messages") : qsTr("Hide all messages")
                 textColor: RibbonTheme.isDarkMode ? "white" : "black"
                 onClicked:{
-                    if(!folded){
-                        message_list.height = control.implicitHeight
-                    }
-                    else{
-                        message_list.height = message_list.currentItem.implicitHeight
-                        auto_scroll_btn_timer.restart()
-                    }
+                    auto_scroll_btn_timer.restart()
                 }
 
                 Behavior on rotation {
@@ -241,9 +225,5 @@ RibbonBlur {
     function clearMessages(){
         folded_btn.checked = true
         messageModel.clear()
-        implicitHeight = 0
-        barHeight = folded ? handler.height : 0
-        currentMessageHeight = 0
-        message_list.height = 0
     }
 }

@@ -12,7 +12,7 @@ Item {
     property int bottomLeftRadius: radius
     property int bottomRightRadius: radius
     property real borderWidth: 0
-    property var borderColor: Qt.color("transparent")
+    property string borderColor: "transparent"
     default property alias contentItem: container.data
 
     Shape {
