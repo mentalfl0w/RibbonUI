@@ -11,6 +11,10 @@ Item {
     property int topRightRadius: radius
     property int bottomLeftRadius: radius
     property int bottomRightRadius: radius
+    property int topPadding: 0
+    property int leftPadding: 0
+    property int rightPadding: 0
+    property int bottomPadding: 0
     property real borderWidth: 0
     property string borderColor: "transparent"
     default property alias contentItem: container.data
@@ -65,7 +69,13 @@ Item {
 
     Item{
         id: container
-        anchors.fill: parent
+        anchors{
+            fill: parent
+            topMargin: control.topPadding
+            bottomMargin: control.bottomPadding
+            leftMargin: control.leftPadding
+            rightMargin: control.rightPadding
+        }
         clip: true
         layer.enabled: true
         layer.effect: OpacityMask {
