@@ -13,7 +13,6 @@ Item{
         left: parent.left
         right:parent.right
     }
-    clip: true
     property bool folded: false
     property int lastIndex
     default property alias content: stack.contentData
@@ -242,6 +241,7 @@ Item{
     Rectangle {
         id: bottom_border
         anchors.top: stack.bottom
+        anchors.topMargin: modernStyle && Window.window.messageBar && Window.window.messageBar.folded ? Window.window.messageBar.currentMessageHeight : 0
         width: parent.width
         height: 1
         color: modernStyle ? "transparent" : bgColor
