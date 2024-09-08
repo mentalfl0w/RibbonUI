@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(RibbonUI_Project VERSION 1.1.0 LANGUAGES CXX)
+project(RibbonUI_Project VERSION 1.1.1 LANGUAGES CXX)
 
 # Find Qt Package
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
