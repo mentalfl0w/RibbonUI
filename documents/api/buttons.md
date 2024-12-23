@@ -13,11 +13,21 @@
       - [1.3.3 Icon Button](#133-icon-button)
         - [1.3.3.1 Code](#1331-code)
         - [1.3.3.2 Code Preview](#1332-code-preview)
+  - [2.RibbonSwitchButton](#2ribbonswitchbutton)
+    - [2.1 Overview](#21-overview)
+    - [2.2 Properties](#22-properties)
+    - [2.3 Example Code](#23-example-code)
+      - [2.3.1 Switch with Grabber Indicator Text](#231-switch-with-grabber-indicator-text)
+        - [2.3.1.1 Code](#2311-code)
+        - [2.3.1.2 Code Preview](#2312-code-preview)
+      - [2.3.2 Switch without Grabber Indicator Text](#232-switch-without-grabber-indicator-text)
+        - [2.3.2.1 Code](#2321-code)
+        - [2.3.2.2 Code Preview](#2322-code-preview)
 
 ## 1.RibbonButton
 ### 1.1 Overview
 + Parent：Button
-+ Demonstrate：
++ Demonstrate:
 <div align="center">
     <div align="center">
         <img src="../pictures/RibbonButton/RB-light.png" alt="RibbonButton Light Style" style="width:30%; height:auto;">
@@ -121,4 +131,76 @@ RibbonButton{
         <img src="../pictures/RibbonButton/RB-iconBtn.png" alt="RibbonButton Light Style" style="width:5%; height:auto;">
     </div>
     <p align="center">Icon button</p>
+</div>
+
+## 2.RibbonSwitchButton
+### 2.1 Overview
++ Parent class: Button
++ Demonstrate:
+<div align="center">
+    <div align="center">
+        <img src="../pictures/RibbonSwitchButton/RSB-light.png" alt="RibbonSwitchButton Light Style" style="width:30%; height:auto;">
+        <img src="../pictures/RibbonSwitchButton/RSB-dark.png" alt="RibbonSwitchButton Dark Style" style="width:30%; height:auto;">
+    </div>
+    <p align="center">RibbonSwitchButton Light/Dark Style</p>
+</div>
+
+### 2.2 Properties
+<!-- | `` | ``， |  |-->
+| Name | Description | Example Image |
+|:----:|:----:|:----:|
+| `isDarkMode` | `bool`, Night mode, controlled by the same-named property of `RibbonTheme` by default | \ |
+| `showGrabberText` | `bool`, Display the text of the grabber indicator, default text is `Open`/`Close` | ![showGrabberText-pic](../pictures/RibbonSwitchButton/RSB-showGrabberText.png) |
+| `grabberText` | `string`, Default is `Open` when the switch is checked, otherwise `Close` | \ |
+| `textColor` | `string`, The color of the switch's label text, default is `white` in night mode, otherwise `black` | ![textColor-pic](../pictures/RibbonSwitchButton/RSB-textColor.png) |
+| `textSize` | `int`, The size of the switch's label text | \ |
+| `grabberCheckedColor` | `string`, The background color of the grabber indicator when the switch is checked, default is `#8AAAEB` in night mode, otherwise `#2850A4` | ![grabberCheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberCheckedColor.png) |
+| `grabberUncheckedColor` | `string`, The background color of the grabber indicator when the switch is not checked, default is `#292929` in night mode, otherwise `white` | ![grabberUncheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberUncheckedColor.png) |
+| `grabberTextCheckedColor` | `string`, The text color of the grabber indicator when the switch is checked, default is `black` in night mode, otherwise `white` | ![grabberTextCheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberTextCheckedColor.png) |
+| `grabberTextUncheckedColor` | `string`, The text color of the grabber indicator when the switch is not checked, default is `white` in night mode, otherwise `black` | ![grabberTextUncheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberTextUncheckedColor.png) |
+| `grabberColor` | `string`, The color of the grabber indicator | ![grabberColor-pic](../pictures/RibbonSwitchButton/RSB-grabberColor.png) |
+| `borderColor` | `string`, The border color of the switch, default is `white` in night mode, otherwise `#616161` | ![borderColor-pic](../pictures/RibbonSwitchButton/RSB-borderColor.png) |
+| `borderWidth` | `real`, The width of the switch's border, default is `1.4` | ![borderColor-pic](../pictures/RibbonSwitchButton/RSB-borderColor.png) |
+| `textBold` | `bool`, Display the switch label text in bold, default is `false` | \ |
+| `textOnLeft` | `bool`, Display the switch label text on the left side of the switch, default is `false` | ![textOnLeft-pic](../pictures/RibbonSwitchButton/RSB-textOnLeft.png) |
+| `showTooltip` | `bool`, Display button tooltip, default is `False` | \ |
+| `tipText` | `string`, Button tooltip text | \ |
+
+### 2.3 Example Code
+#### 2.3.1 Switch with Grabber Indicator Text
+##### 2.3.1.1 Code
+```qml
+RibbonSwitchButton{
+    text: "Button"
+    showGrabberText: true // Display the text of the grabber indicator
+    textOnLeft: false // Let the switch label display on the left side of the switch
+    grabberCheckedColor: "indigo" // The color of the grabber indicator
+}
+```
+
+##### 2.3.1.2 Code Preview
+<div align="center">
+    <div align="center">
+        <img src="../pictures/RibbonSwitchButton/RSB-switchWithGrabberText.png" alt="RibbonSwitchButton With Grabber Text" style="width:20%; height:auto;">
+    </div>
+    <p align="center">RibbonSwitchButton With Grabber Text</p>
+</div>
+
+#### 2.3.2 Switch without Grabber Indicator Text
+##### 2.3.2.1 Code
+```qml
+RibbonSwitchButton{
+    text: "Button"
+    showGrabberText: false // Do not display the text of the grabber indicator
+    textOnLeft: false // Let the switch label display on the left side of the switch
+    grabberCheckedColor: "indigo" // The color of the grabber indicator
+}
+```
+
+##### 2.3.2.2 Code Preview
+<div align="center">
+    <div align="center">
+        <img src="../pictures/RibbonSwitchButton/RSB-switchWithoutGrabberText.png" alt="RibbonSwitchButton With Grabber Text" style="width:20%; height:auto;">
+    </div>
+    <p align="center">RibbonSwitchButton Without Grabber Text</p>
 </div>

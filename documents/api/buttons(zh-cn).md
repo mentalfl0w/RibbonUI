@@ -13,6 +13,16 @@
       - [1.3.3 图标按钮](#133-图标按钮)
         - [1.3.3.1 代码](#1331-代码)
         - [1.3.3.2 代码预览](#1332-代码预览)
+  - [2.RibbonSwitchButton](#2ribbonswitchbutton)
+    - [2.1 概述](#21-概述)
+    - [2.2 属性](#22-属性)
+    - [2.3 示例代码](#23-示例代码)
+      - [2.3.1 显示抓握指示器文本的开关](#231-显示抓握指示器文本的开关)
+        - [2.3.1.1 代码](#2311-代码)
+        - [2.3.1.2 代码预览](#2312-代码预览)
+      - [2.3.2 不显示抓握指示器文本的开关](#232-不显示抓握指示器文本的开关)
+        - [2.3.2.1 代码](#2321-代码)
+        - [2.3.2.2 代码预览](#2322-代码预览)
 
 ## 1.RibbonButton
 ### 1.1 概述
@@ -121,4 +131,76 @@ RibbonButton{
         <img src="../pictures/RibbonButton/RB-iconBtn.png" alt="RibbonButton Light Style" style="width:5%; height:auto;">
     </div>
     <p align="center">Icon button</p>
+</div>
+
+## 2.RibbonSwitchButton
+### 2.1 概述
++ 父类：Button
++ 展示：
+<div align="center">
+    <div align="center">
+        <img src="../pictures/RibbonSwitchButton/RSB-light.png" alt="RibbonSwitchButton Light Style" style="width:30%; height:auto;">
+        <img src="../pictures/RibbonSwitchButton/RSB-dark.png" alt="RibbonSwitchButton Dark Style" style="width:30%; height:auto;">
+    </div>
+    <p align="center">RibbonSwitchButton Light/Dark Style</p>
+</div>
+
+### 2.2 属性
+<!-- | `` | ``， |  |-->
+| 名称 | 说明 | 示例图片 |
+|:----:|:----:|:----:|
+| `isDarkMode` | `bool`, 夜间模式，默认由`RibbonTheme`的同名属性控制 | \ |
+| `showGrabberText` | `bool`，显示抓握指示器的文本，默认文本为`Open`/`Close` | ![showGrabberText-pic](../pictures/RibbonSwitchButton/RSB-showGrabberText.png) |
+| `grabberText` | `string`，默认为开关被选中（checked）时为`Open`，否则为`Close` | \ |
+| `textColor` | `string`，开关的标签文本颜色，默认夜间模式为`white`，反之为`black` | ![textColor-pic](../pictures/RibbonSwitchButton/RSB-textColor.png) |
+| `textSize` | `int`，开关的标签文本大小 | \ |
+| `grabberCheckedColor` | `string`，开关被选中情况下抓握指示器的背景颜色，默认夜间模式下为`#8AAAEB`，反之为`#2850A4` | ![grabberCheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberCheckedColor.png) |
+| `grabberUncheckedColor` | `string`，开关未被选中情况下抓握指示器的背景颜色，默认夜间模式下为`#292929`，反之为`white` | ![grabberUncheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberUncheckedColor.png) |
+| `grabberTextCheckedColor` | `string`，开关被选中情况下抓握指示器的文本颜色，默认夜间模式下为`black`，反之为`white` | ![grabberTextCheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberTextCheckedColor.png) |
+| `grabberTextUncheckedColor` | `string`，开关未被选中情况下抓握指示器的文本颜色，默认夜间模式下为`white`，反之为`black` | ![grabberTextUncheckedColor-pic](../pictures/RibbonSwitchButton/RSB-grabberTextUncheckedColor.png) |
+| `grabberColor` | `string`，抓握指示器颜色 | ![grabberColor-pic](../pictures/RibbonSwitchButton/RSB-grabberColor.png) |
+| `borderColor` | `string`，开关的边框颜色，默认夜间模式下为`white`，反之为`#616161` | ![borderColor-pic](../pictures/RibbonSwitchButton/RSB-borderColor.png) |
+| `borderWidth` | `real`，开关的边框宽度，默认为`1.4` | ![borderColor-pic](../pictures/RibbonSwitchButton/RSB-borderColor.png) |
+| `textBold` | `bool`，开关标签文本粗体显示，默认为`false` | \ |
+| `textOnLeft` | `bool`，开关标签文本显示在开关左边，默认为`false` | ![textOnLeft-pic](../pictures/RibbonSwitchButton/RSB-textOnLeft.png) |
+| `showTooltip` | `bool`, 显示按钮提示浮窗，默认为`False` | \ |
+| `tipText` | `string`， 按钮提示文本 | \ |
+
+### 2.3 示例代码
+#### 2.3.1 显示抓握指示器文本的开关
+##### 2.3.1.1 代码
+```qml
+RibbonSwitchButton{
+    text: "Button"
+    showGrabberText: true // 显示抓握指示器的文本
+    textOnLeft: false // 让开关标签显示在开关左边
+    grabberCheckedColor: "indigo" // 抓握指示器颜色
+}
+```
+
+##### 2.3.1.2 代码预览
+<div align="center">
+    <div align="center">
+        <img src="../pictures/RibbonSwitchButton/RSB-switchWithGrabberText.png" alt="RibbonSwitchButton With Grabber Text" style="width:20%; height:auto;">
+    </div>
+    <p align="center">RibbonSwitchButton With Grabber Text</p>
+</div>
+
+#### 2.3.2 不显示抓握指示器文本的开关
+##### 2.3.2.1 代码
+```qml
+RibbonSwitchButton{
+    text: "Button"
+    showGrabberText: false // 显示抓握指示器的文本
+    textOnLeft: false // 让开关标签显示在开关左边
+    grabberCheckedColor: "indigo" // 抓握指示器颜色
+}
+```
+
+##### 2.3.2.2 代码预览
+<div align="center">
+    <div align="center">
+        <img src="../pictures/RibbonSwitchButton/RSB-switchWithoutGrabberText.png" alt="RibbonSwitchButton With Grabber Text" style="width:20%; height:auto;">
+    </div>
+    <p align="center">RibbonSwitchButton Without Grabber Text</p>
 </div>
