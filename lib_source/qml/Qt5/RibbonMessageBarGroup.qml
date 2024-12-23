@@ -57,6 +57,8 @@ RibbonBlur {
         }
         color: folded ? RibbonTheme.isDarkMode ? "black" : "white" : "transparent"
         height: control.implicitHeight - (folded ? handler.height : 0)
+        topLeftRadius: RibbonTheme.modernStyle && RibbonWindow.window.tabBar.folded ? 10 : 0
+        topRightRadius: topLeftRadius
         bottomLeftRadius: RibbonTheme.modernStyle && folded ? 10 : 0
         bottomRightRadius: bottomLeftRadius
         ListView{
