@@ -512,7 +512,7 @@ Popup {
     function show(){
         control.opacity = 1
         menu_bg.x = 0
-        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.92 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
@@ -528,7 +528,7 @@ Popup {
     }
 
     function refresh(){
-        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.95 : 0.9 : 1)
+        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.92 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
