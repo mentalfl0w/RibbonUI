@@ -20,18 +20,18 @@ on:
 env:
   REPO_NAME: ${{ github.event.repository.name }}
   APP_NAME: RibbonUI-APP
-  QT_VERSION: 6.6.3
+  QT_VERSION: 6.8.2
   QT_MODULES: qt5compat qtshadertools qtimageformats
-  OS_MAC: macos-14
+  OS_MAC: macos-latest
   QT_ARCH_MAC: clang_64
   QT_ARCH_WIN_MINGW: win64_mingw
-  QT_ARCH_WIN_MSVC: win64_msvc2019_64
-  QT_ARCH_LINUX: gcc_64
-  QT_MINGW_TOOLS: "tools_cmake,qt.tools.cmake tools_mingw90,qt.tools.win64_mingw900"
-  QT_MINGW_TOOLS_INSTALL: mingw1120_64
+  QT_ARCH_WIN_MSVC: win64_msvc2022_64
+  QT_ARCH_LINUX: linux_gcc_64
+  QT_MINGW_TOOLS: "tools_cmake tools_mingw1310"
+  QT_MINGW_TOOLS_INSTALL: mingw1310_64
   QT_MSVC_ARCH: x64
-  QT_MSVC_TOOLS: "tools_cmake,qt.tools.cmake"
-  QT_MSVC_TOOLS_INSTALL: msvc2019_64
+  QT_MSVC_TOOLS: "tools_cmake"
+  QT_MSVC_TOOLS_INSTALL: msvc2022_64
   OS_WIN: windows-latest
   OS_LINUX: ubuntu-latest
   RELEASE_OR_NIGHTLY: ${{ startsWith(github.ref, 'refs/tags/v') && 'RELEASE' || 'NIGHTLY' }}
@@ -39,7 +39,7 @@ env:
 jobs:
   build-macos-shared:
     name: macOS (Shared Library)
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
           submodules: recursive
           
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_MAC }}
@@ -88,7 +88,7 @@ jobs:
 
   build-macos-static:
     name: macOS (Static Library)
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -96,7 +96,7 @@ jobs:
           submodules: recursive
           
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_MAC }}
@@ -145,7 +145,7 @@ jobs:
           submodules: recursive
           
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_LINUX }}
@@ -211,7 +211,7 @@ jobs:
           submodules: recursive
           
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_LINUX }}
@@ -282,7 +282,7 @@ jobs:
           version: 1.10.2
       
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MINGW }}
@@ -295,8 +295,8 @@ jobs:
         run: |
           mkdir build
           cd build
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -GNinja ..
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
       
       - name: package
         id: package
@@ -338,7 +338,7 @@ jobs:
           version: 1.10.2
       
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MINGW }}
@@ -351,8 +351,8 @@ jobs:
         run: |
           mkdir build
           cd build
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
       
       - name: package
         id: package      
@@ -394,7 +394,7 @@ jobs:
           version: 1.10.2
           
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MSVC }}
@@ -408,8 +408,8 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
           echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
@@ -456,7 +456,7 @@ jobs:
           version: 1.10.2
           
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           arch: ${{ env.QT_ARCH_WIN_MSVC }}
@@ -470,8 +470,8 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
-          ${{ env.Qt6_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
           echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
@@ -518,7 +518,7 @@ jobs:
           version: 1.10.2
           
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: 5.15.2
           arch: win64_msvc2019_64
@@ -531,8 +531,8 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          ${{ env.Qt5_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/5.15.2/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
-          ${{ env.Qt5_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/5.15.2/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
           echo vcToolsInstallDir=%VCToolsInstallDir% >> %GITHUB_ENV%
