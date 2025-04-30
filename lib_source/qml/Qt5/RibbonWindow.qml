@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import RibbonUI 1.0
+import RibbonUI 1.1
 import QtQuick.Window 2.15
 import QWindowKit 1.0
 

@@ -23,6 +23,9 @@
       - [2.3.2 不显示抓握指示器文本的开关](#232-不显示抓握指示器文本的开关)
         - [2.3.2.1 代码](#2321-代码)
         - [2.3.2.2 代码预览](#2322-代码预览)
+  - [3.RibbonPushButton](#3ribbonpushbutton)
+    - [3.1 概述](#31-概述)
+    - [3.2 属性](#32-属性)
 
 ## 1.RibbonButton
 ### 1.1 概述
@@ -204,3 +207,21 @@ RibbonSwitchButton{
     </div>
     <p align="center">RibbonSwitchButton Without Grabber Text</p>
 </div>
+
+## 3.RibbonPushButton
+### 3.1 概述
++ 父类：Item
++ 展示：
+<div align="center">
+    <div align="center">
+        <img src="../pictures/RibbonSwitchButton/RSB-light.png" alt="RibbonSwitchButton Light Style" style="width:30%; height:auto;">
+        <img src="../pictures/RibbonSwitchButton/RSB-dark.png" alt="RibbonSwitchButton Dark Style" style="width:30%; height:auto;">
+    </div>
+    <p align="center">RibbonSwitchButton Light/Dark Style</p>
+</div>
+
+### 3.2 属性
+<!-- | `` | ``， |  |-->
+| 名称 | 说明 | 示例图片 |
+|:----:|:----:|:----:|
+

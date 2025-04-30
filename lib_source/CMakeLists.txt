@@ -83,6 +83,8 @@ endforeach(qmlfile)
 if(QT_VERSION VERSION_LESS 6.0)
     include(Qt5QMLPlugin)
     set(__qml_plugin_depend_module "QWindowKit")
+    set(__qml_plugin_depend_module_version 1.0)
+    set(__qml_plugin_depend_module_fake "QWindowKit")
 endif()
 
 # Define the RibbonUI library
