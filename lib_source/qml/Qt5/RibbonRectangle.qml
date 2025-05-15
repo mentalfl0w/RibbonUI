@@ -5,7 +5,7 @@ import QtGraphicalEffects 1.15
 
 Item {
     id: control
-    property string color
+    property color color
     property int radius: 0
     property int topLeftRadius: radius
     property int topRightRadius: radius
@@ -19,51 +19,73 @@ Item {
     property string borderColor: "transparent"
     default property alias contentItem: container.data
 
-    Shape {
+    onColorChanged: shape.requestPaint()
+    onBorderColorChanged: border.requestPaint()
+
+    Canvas {
         id: shape
         anchors.fill: parent
         layer.enabled: true
-        layer.samples: 4 // Workaround for Qt 6.5 and below, for Qt 6.6, just set "preferredRendererType" to "Shape.CurveRenderer"
-        ShapePath {
-            capStyle: ShapePath.RoundCap
-            strokeWidth: 0
-            strokeColor: "transparent"
-            fillColor: control.color
-            joinStyle: ShapePath.RoundJoin
-            startX: control.topLeftRadius; startY: 0
-            PathLine { x: shape.width - control.topRightRadius; y: 0 }
-            PathArc { x: shape.width; y: control.topRightRadius; radiusX: control.topRightRadius; radiusY: radiusX }
-            PathLine { x: shape.width; y: shape.height - control.bottomRightRadius }
-            PathArc { x: shape.width - control.bottomRightRadius; y: shape.height; radiusX: control.bottomRightRadius; radiusY: radiusX }
-            PathLine { x: control.bottomLeftRadius; y: shape.height }
-            PathArc { x: 0; y: shape.height - control.bottomLeftRadius; radiusX: control.bottomLeftRadius; radiusY: radiusX }
-            PathLine { x: 0; y: control.topLeftRadius }
-            PathArc { x: control.topLeftRadius; y: 0; radiusX: control.topLeftRadius; radiusY: radiusX }
+        layer.samples: 4
+
+        onPaint: {
+            var ctx = getContext("2d");
+            ctx.clearRect(0, 0, width, height);
+
+            var tl = control.topLeftRadius;
+            var tr = control.topRightRadius;
+            var br = control.bottomRightRadius;
+            var bl = control.bottomLeftRadius;
+
+            ctx.beginPath();
+            ctx.moveTo(tl, 0);
+            ctx.lineTo(width - tr, 0);
+            ctx.arc(width - tr, tr, tr, -Math.PI / 2, 0, false); // top-right
+            ctx.lineTo(width, height - br);
+            ctx.arc(width - br, height - br, br, 0, Math.PI / 2, false); // bottom-right
+            ctx.lineTo(bl, height);
+            ctx.arc(bl, height - bl, bl, Math.PI / 2, Math.PI, false); // bottom-left
+            ctx.lineTo(0, tl);
+            ctx.arc(tl, tl, tl, Math.PI, Math.PI * 3 / 2, false); // top-left
+            ctx.closePath();
+
+            ctx.fillStyle = control.color;
+            ctx.fill();
         }
     }
 
-    Shape {
+    Canvas {
         id: border
         width: shape.width
         height: shape.height
         anchors.centerIn: parent
         layer.enabled: true
         layer.samples: 4
-        ShapePath {
-            capStyle: ShapePath.RoundCap
-            strokeWidth: control.borderWidth * 2
-            strokeColor: control.borderColor
-            fillColor: "transparent"
-            joinStyle: ShapePath.RoundJoin
-            startX: control.topLeftRadius; startY: 0
-            PathLine { x: border.width - control.topRightRadius; y: 0 }
-            PathArc { x: border.width; y: control.topRightRadius; radiusX: control.topRightRadius; radiusY: radiusX }
-            PathLine { x: border.width; y: border.height - control.bottomRightRadius }
-            PathArc { x: border.width - control.bottomRightRadius; y: border.height; radiusX: control.bottomRightRadius; radiusY: radiusX }
-            PathLine { x: control.bottomLeftRadius; y: border.height }
-            PathArc { x: 0; y: border.height - control.bottomLeftRadius; radiusX: control.bottomLeftRadius; radiusY: radiusX }
-            PathLine { x: 0; y: control.topLeftRadius }
-            PathArc { x: control.topLeftRadius; y: 0; radiusX: control.topLeftRadius; radiusY: radiusX }
+
+        onPaint: {
+            var ctx = getContext("2d");
+            ctx.clearRect(0, 0, width, height);
+
+            var tl = control.topLeftRadius;
+            var tr = control.topRightRadius;
+            var br = control.bottomRightRadius;
+            var bl = control.bottomLeftRadius;
+
+            ctx.beginPath();
+            ctx.moveTo(tl, 0);
+            ctx.lineTo(width - tr, 0);
+            ctx.arc(width - tr, tr, tr, -Math.PI / 2, 0, false); // top-right
+            ctx.lineTo(width, height - br);
+            ctx.arc(width - br, height - br, br, 0, Math.PI / 2, false); // bottom-right
+            ctx.lineTo(bl, height);
+            ctx.arc(bl, height - bl, bl, Math.PI / 2, Math.PI, false); // bottom-left
+            ctx.lineTo(0, tl);
+            ctx.arc(tl, tl, tl, Math.PI, Math.PI * 3 / 2, false); // top-left
+            ctx.closePath();
+
+            ctx.strokeStyle = control.borderColor;
+            ctx.lineWidth = control.borderWidth * 2;
+            ctx.stroke();
         }
     }
 
@@ -79,10 +101,11 @@ Item {
         clip: true
         layer.enabled: true
         layer.effect: OpacityMask {
+            visible: false
             implicitHeight: container.height
             implicitWidth: container.width
             maskSource: shape
-            invert: control.color === "transparent" || control.color === "#00000000"
+            invert: control.color.a === 0
         }
     }
 }

@@ -5,7 +5,7 @@ import Qt5Compat.GraphicalEffects
 
 Item {
     id: control
-    property string color
+    property color color
     property int radius: 0
     property int topLeftRadius: radius
     property int topRightRadius: radius
@@ -82,7 +82,7 @@ Item {
             implicitHeight: container.height
             implicitWidth: container.width
             maskSource: shape
-            invert: control.color === "transparent" || control.color === "#00000000"
+            invert: control.color.a === 0
         }
     }
 }
