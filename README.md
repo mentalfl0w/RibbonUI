@@ -22,24 +22,24 @@ RibbonUI is a lightweight, minimalist and elegant Qt component library written i
 
 ***[Click here to watch demo video(Bilibili)](https://www.bilibili.com/video/BV1ES411P78Q/)***
 
-***[Click here to read the API documents](documents/menu.md)***
+***[Click here to read the API documents](https://doc.ourdocs.cn/docs/)***
 
 <div align="center">
-    <img src="documents/pictures/demo/demo.gif" alt="Demo" style="width:100%; height:auto;">
+    <img src="pictures/demo.gif" alt="Demo" style="width:100%; height:auto;">
 </div>
 <p align="center">Qt RibbonUI Demo</p>
 
 <div align="center">
     <div align="center">
-        <img src="documents/pictures/demo/home-light-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
-        <img src="documents/pictures/demo/home-dark-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
+        <img src="pictures/home-light-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
+        <img src="pictures/home-dark-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
     </div>
     <p align="center">Home Light/Dark Theme (Classic Style) </p>
 </div>
 <div align="center">
     <div align="center">
-        <img src="documents/pictures/demo/home-light-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
-        <img src="documents/pictures/demo/home-dark-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
+        <img src="pictures/home-light-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
+        <img src="pictures/home-dark-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
     </div>
     <p align="center">Home Light/Dark Theme (Modern Style) </p>
 </div>
@@ -48,28 +48,28 @@ RibbonUI is a lightweight, minimalist and elegant Qt component library written i
 Currently supports ***43*** components, more will be added later.
 | Components | Introduction | Demo Picture|
 |:----:|:----:|:----:|
-| RibbonWindow | A Window component that relies on framelesshelper to support exit confirmation popups and blur style backgrounds. |![RibbonWindow](documents/pictures/demo/home-light-modern.png)|
-| RibbonTabBar | A toolbar with support for page switching and retracting, and support for placing customized buttons in the upper right corner, just like Microsoft Word's. | ![RibbonTabBar](documents/pictures/demo/RibbonTabBar.png) |
-| RibbonTitleBar | A window title bar that supports custom colors and the free addition of secondary buttons, with different designs for Windows and macOS. | ![RibbonTitleBar](documents/pictures/demo/RibbonTitleBar.png) |
-| RibbonBottomBar | A bottom bar that supports adding custom tools. |![RibbonBottomBar](documents/pictures/demo/RibbonBottomBar.png) |
-| RibbonBlur | Provides blurring effects for various components | ![RibbonBlur](documents/pictures/demo/RibbonBlur.png) |
-| RibbonButton | A button that supports plain text/plain icons/icons and text with/without backgrounds, with mouse overlay support for displaying alert messages | ![RibbonButton](documents/pictures/demo/RibbonButton.png) |
-| RibbonPushButton | A large icon button that supports pop-up menus, either using the built-in icon library or a user-selected image | ![RibbonPushButton](documents/pictures/demo/RibbonPushButton.png) |
-| RibbonSlider | Support for horizontally or vertically placed slider | ![RibbonSlider](documents/pictures/demo/RibbonSlider.png) |
-| RibbonIcon | Icon component, built-in hundreds of beautiful icons from Microsoft | ![RibbonIcon](documents/pictures/demo/RibbonIcon.png) |
-| RibbonText | Text component that allows/disallows selection of text or copying | ![RibbonText](documents/pictures/demo/RibbonText.png) |
-| RibbonCheckBox | Checkbox component, customizable whether to display text, where to display text (left/right) | ![RibbonCheckBox](documents/pictures/demo/RibbonCheckBox.png) |
-| RibbonSwitchButton | Switch button, support for customizing the background color, whether to display the prompt text or button text, free to adjust the text display position (left/right) | ![RibbonSwitchButton](documents/pictures/demo/RibbonSwitchButton.png) |
-| RibbonTheme | Theme support light color, dark color, follow system three modes | ![RibbonTheme](documents/pictures/demo/RibbonTheme.png) |
-| RibbonMenu | Menu component with binary selection and submenu support | ![RibbonMenu](documents/pictures/demo/RibbonMenu.png) |
-| RibbonPopup | Auto-centered pop-ups | ![RibbonPopup](documents/pictures/demo/RibbonPopup.png) |
-| RibbonPopDialog | Popups supporting binary or ternary selection | ![RibbonPopDialog](documents/pictures/demo/RibbonPopDialog.png) |
-| RibbonLineEdit | Single-line text input control with support for icons and one-click clearing | ![RibbonLineEdit](documents/pictures/demo/RibbonLineEdit.png) |
-| RibbonTextEdit | Multi-line text input control with support for icons and one-click clearing, automatic line feed/scrolling as text is entered | ![RibbonTextEdit](documents/pictures/demo/RibbonTextEdit.png) |
-| RibbonComboBox | Supports drop-down menu selection controls with icons, and menus can be added with user input. | ![RibbonComboBox](documents/pictures/demo/RibbonComboBox.png) |
-| RibbonSpinBox | SpinBox with support for setting icons | ![RibbonSpinBox](documents/pictures/demo/RibbonSpinBox.png) |
-| RibbonView | View container component for use with TabBar and BottomBar, from which the blurred backgrounds of both components are based. | ![RibbonView](documents/pictures/demo/RibbonView.png) |
-| RibbonPaperView | Components similar to paper in Word | ![RibbonPaperView](documents/pictures/demo/RibbonPaperView.png) |
+| RibbonWindow | A Window component that relies on framelesshelper to support exit confirmation popups and blur style backgrounds. |![RibbonWindow](pictures/home-light-modern.png)|
+| RibbonTabBar | A toolbar with support for page switching and retracting, and support for placing customized buttons in the upper right corner, just like Microsoft Word's. | ![RibbonTabBar](pictures/RibbonTabBar.png) |
+| RibbonTitleBar | A window title bar that supports custom colors and the free addition of secondary buttons, with different designs for Windows and macOS. | ![RibbonTitleBar](pictures/RibbonTitleBar.png) |
+| RibbonBottomBar | A bottom bar that supports adding custom tools. |![RibbonBottomBar](pictures/RibbonBottomBar.png) |
+| RibbonBlur | Provides blurring effects for various components | ![RibbonBlur](pictures/RibbonBlur.png) |
+| RibbonButton | A button that supports plain text/plain icons/icons and text with/without backgrounds, with mouse overlay support for displaying alert messages | ![RibbonButton](pictures/RibbonButton.png) |
+| RibbonPushButton | A large icon button that supports pop-up menus, either using the built-in icon library or a user-selected image | ![RibbonPushButton](pictures/RibbonPushButton.png) |
+| RibbonSlider | Support for horizontally or vertically placed slider | ![RibbonSlider](pictures/RibbonSlider.png) |
+| RibbonIcon | Icon component, built-in hundreds of beautiful icons from Microsoft | ![RibbonIcon](pictures/RibbonIcon.png) |
+| RibbonText | Text component that allows/disallows selection of text or copying | ![RibbonText](pictures/RibbonText.png) |
+| RibbonCheckBox | Checkbox component, customizable whether to display text, where to display text (left/right) | ![RibbonCheckBox](pictures/RibbonCheckBox.png) |
+| RibbonSwitchButton | Switch button, support for customizing the background color, whether to display the prompt text or button text, free to adjust the text display position (left/right) | ![RibbonSwitchButton](pictures/RibbonSwitchButton.png) |
+| RibbonTheme | Theme support light color, dark color, follow system three modes | ![RibbonTheme](pictures/RibbonTheme.png) |
+| RibbonMenu | Menu component with binary selection and submenu support | ![RibbonMenu](pictures/RibbonMenu.png) |
+| RibbonPopup | Auto-centered pop-ups | ![RibbonPopup](pictures/RibbonPopup.png) |
+| RibbonPopDialog | Popups supporting binary or ternary selection | ![RibbonPopDialog](pictures/RibbonPopDialog.png) |
+| RibbonLineEdit | Single-line text input control with support for icons and one-click clearing | ![RibbonLineEdit](pictures/RibbonLineEdit.png) |
+| RibbonTextEdit | Multi-line text input control with support for icons and one-click clearing, automatic line feed/scrolling as text is entered | ![RibbonTextEdit](pictures/RibbonTextEdit.png) |
+| RibbonComboBox | Supports drop-down menu selection controls with icons, and menus can be added with user input. | ![RibbonComboBox](pictures/RibbonComboBox.png) |
+| RibbonSpinBox | SpinBox with support for setting icons | ![RibbonSpinBox](pictures/RibbonSpinBox.png) |
+| RibbonView | View container component for use with TabBar and BottomBar, from which the blurred backgrounds of both components are based. | ![RibbonView](pictures/RibbonView.png) |
+| RibbonPaperView | Components similar to paper in Word | ![RibbonPaperView](pictures/RibbonPaperView.png) |
 
 ***The introduction of other components will be updated later.***
 

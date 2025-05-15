@@ -21,24 +21,24 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 
 ***[点击这里观看示例程序演示视频(哔哩哔哩)](https://www.bilibili.com/video/BV1ES411P78Q/)***
 
-***[点击阅读API参考文档](documents/menu(zh-cn).md)***
+***[点击阅读API参考文档](https://doc.ourdocs.cn/docs/)***
 
 <div align="center">
-    <img src="documents/pictures/demo/demo.gif" alt="Demo" style="width:100%; height:auto;">
+    <img src="pictures/demo.gif" alt="Demo" style="width:100%; height:auto;">
 </div>
 <p align="center">Qt RibbonUI Demo</p>
 
 <div align="center">
     <div align="center">
-        <img src="documents/pictures/demo/home-light-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
-        <img src="documents/pictures/demo/home-dark-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
+        <img src="pictures/home-light-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
+        <img src="pictures/home-dark-classic.png" alt="Home Light Classic" style="width:45%; height:auto;">
     </div>
     <p align="center">主界面浅色/深色主题 (经典风格) </p>
 </div>
 <div align="center">
     <div align="center">
-        <img src="documents/pictures/demo/home-light-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
-        <img src="documents/pictures/demo/home-dark-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
+        <img src="pictures/home-light-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
+        <img src="pictures/home-dark-modern.png" alt="Home Light Modern" style="width:45%; height:auto;">
     </div>
     <p align="center">主界面浅色/深色主题 (现代风格) </p>
 </div>
@@ -47,30 +47,30 @@ RibbonUI是一个参考微软Ribbon风格（即Office 2016后的风格）设计�
 目前支持***43***种组件，后续会添加更多。
 | 名称 | 介绍 | 展示图片|
 |:----:|:----:|:----:|
-| RibbonWindow | 基于framelesshelper实现的无边框窗口，支持退出确认弹窗及模糊/亚克力化背景。|![RibbonWindow](documents/pictures/demo/home-light-modern.png)|
-| RibbonTabBar | 支持多分组页面切换、自定义右上角工具栏、自由收放的工具栏，如同Word的。| ![RibbonTabBar](documents/pictures/demo/RibbonTabBar.png) |
-| RibbonTitleBar | 支持自定义背景色、自由添加工具按钮的窗口标题栏，针对Windows和macOS有不同的窗口按钮设计。| ![RibbonTitleBar](documents/pictures/demo/RibbonTitleBar.png) |
-| RibbonBottomBar | 支持添加自定义工具的底栏。 |![RibbonBottomBar](documents/pictures/demo/RibbonBottomBar.png) |
-| RibbonBlur | 为各种组件提供模糊化效果 | ![RibbonBlur](documents/pictures/demo/RibbonBlur.png) |
-| RibbonButton | 支持有/无背景的纯文字/纯图标/图标加文字的按钮，支持鼠标覆盖显示提示信息 | ![RibbonButton](documents/pictures/demo/RibbonButton.png) |
-| RibbonPushButton | 支持弹出菜单的大图标按钮，可以使用内置图标库或用户自选图片 | ![RibbonPushButton](documents/pictures/demo/RibbonPushButton.png) |
-| RibbonSlider | 支持水平或垂直放置的滑动控制条 | ![RibbonSlider](documents/pictures/demo/RibbonSlider.png) |
-| RibbonIcon | 图标组件，内置图标数百个来自微软的精美图标 | ![RibbonIcon](documents/pictures/demo/RibbonIcon.png) |
-| RibbonText | 文字组件，可以允许/禁止选中文字或复制 | ![RibbonText](documents/pictures/demo/RibbonText.png) |
-| RibbonCheckBox | 选择框组件，可自定义是否显示文字、文字显示位置（左/右） | ![RibbonCheckBox](documents/pictures/demo/RibbonCheckBox.png) |
-| RibbonSwitchButton | 开关按钮，支持自定义背景颜色、是否显示提示文字或按钮文字，可自由调整文字显示位置（左/右） | ![RibbonSwitchButton](documents/pictures/demo/RibbonSwitchButton.png) |
-| RibbonTheme | 主题支持浅色、深色、跟随系统三种模式 | ![RibbonTheme](documents/pictures/demo/RibbonTheme.png) |
-| RibbonMenu | 菜单组件，支持二元选择及子菜单 | ![RibbonMenu](documents/pictures/demo/RibbonMenu.png) |
-| RibbonPopup | 自动居中的弹出式窗口 | ![RibbonPopup](documents/pictures/demo/RibbonPopup.png) |
-| RibbonPopDialog | 支持二元或三元选择的弹出式窗口 | ![RibbonPopDialog](documents/pictures/demo/RibbonPopDialog.png) |
-| RibbonLineEdit | 支持设置图标和一键清除的单行文本输入控件 | ![RibbonLineEdit](documents/pictures/demo/RibbonLineEdit.png) |
-| RibbonTextEdit | 支持设置图标和一键清除的多行文本输入控件，可随文本输入自动换行/滚动 | ![RibbonTextEdit](documents/pictures/demo/RibbonTextEdit.png) |
-| RibbonTextEdit | 支持设置图标和一键清除的多行文本输入控件，可随文本输入自动换行/滚动 | ![RibbonTextEdit](documents/pictures/demo/RibbonTextEdit.png) |
-| RibbonComboBox | 支持设置图标的下拉菜单选择控件，菜单支持用户输入添加 | ![RibbonComboBox](documents/pictures/demo/RibbonComboBox.png) |
-| RibbonSpinBox | 支持设置图标的旋钮控件 | ![RibbonSpinBox](documents/pictures/demo/RibbonSpinBox.png) |
-| RibbonSpinBox | 支持设置图标的旋钮控件 | ![RibbonSpinBox](documents/pictures/demo/RibbonSpinBox.png) |
-| RibbonView | 与TabBar和BottomBar搭配使用的界面容器组件，两组件模糊化的背景依赖它 | ![RibbonView](documents/pictures/demo/RibbonView.png) |
-| RibbonPaperView | 类似Word中纸张的组件 | ![RibbonPaperView](documents/pictures/demo/RibbonPaperView.png) |
+| RibbonWindow | 基于framelesshelper实现的无边框窗口，支持退出确认弹窗及模糊/亚克力化背景。|![RibbonWindow](pictures/home-light-modern.png)|
+| RibbonTabBar | 支持多分组页面切换、自定义右上角工具栏、自由收放的工具栏，如同Word的。| ![RibbonTabBar](pictures/RibbonTabBar.png) |
+| RibbonTitleBar | 支持自定义背景色、自由添加工具按钮的窗口标题栏，针对Windows和macOS有不同的窗口按钮设计。| ![RibbonTitleBar](pictures/RibbonTitleBar.png) |
+| RibbonBottomBar | 支持添加自定义工具的底栏。 |![RibbonBottomBar](pictures/RibbonBottomBar.png) |
+| RibbonBlur | 为各种组件提供模糊化效果 | ![RibbonBlur](pictures/RibbonBlur.png) |
+| RibbonButton | 支持有/无背景的纯文字/纯图标/图标加文字的按钮，支持鼠标覆盖显示提示信息 | ![RibbonButton](pictures/RibbonButton.png) |
+| RibbonPushButton | 支持弹出菜单的大图标按钮，可以使用内置图标库或用户自选图片 | ![RibbonPushButton](pictures/RibbonPushButton.png) |
+| RibbonSlider | 支持水平或垂直放置的滑动控制条 | ![RibbonSlider](pictures/RibbonSlider.png) |
+| RibbonIcon | 图标组件，内置图标数百个来自微软的精美图标 | ![RibbonIcon](pictures/RibbonIcon.png) |
+| RibbonText | 文字组件，可以允许/禁止选中文字或复制 | ![RibbonText](pictures/RibbonText.png) |
+| RibbonCheckBox | 选择框组件，可自定义是否显示文字、文字显示位置（左/右） | ![RibbonCheckBox](pictures/RibbonCheckBox.png) |
+| RibbonSwitchButton | 开关按钮，支持自定义背景颜色、是否显示提示文字或按钮文字，可自由调整文字显示位置（左/右） | ![RibbonSwitchButton](pictures/RibbonSwitchButton.png) |
+| RibbonTheme | 主题支持浅色、深色、跟随系统三种模式 | ![RibbonTheme](pictures/RibbonTheme.png) |
+| RibbonMenu | 菜单组件，支持二元选择及子菜单 | ![RibbonMenu](pictures/RibbonMenu.png) |
+| RibbonPopup | 自动居中的弹出式窗口 | ![RibbonPopup](pictures/RibbonPopup.png) |
+| RibbonPopDialog | 支持二元或三元选择的弹出式窗口 | ![RibbonPopDialog](pictures/RibbonPopDialog.png) |
+| RibbonLineEdit | 支持设置图标和一键清除的单行文本输入控件 | ![RibbonLineEdit](pictures/RibbonLineEdit.png) |
+| RibbonTextEdit | 支持设置图标和一键清除的多行文本输入控件，可随文本输入自动换行/滚动 | ![RibbonTextEdit](pictures/RibbonTextEdit.png) |
+| RibbonTextEdit | 支持设置图标和一键清除的多行文本输入控件，可随文本输入自动换行/滚动 | ![RibbonTextEdit](pictures/RibbonTextEdit.png) |
+| RibbonComboBox | 支持设置图标的下拉菜单选择控件，菜单支持用户输入添加 | ![RibbonComboBox](pictures/RibbonComboBox.png) |
+| RibbonSpinBox | 支持设置图标的旋钮控件 | ![RibbonSpinBox](pictures/RibbonSpinBox.png) |
+| RibbonSpinBox | 支持设置图标的旋钮控件 | ![RibbonSpinBox](pictures/RibbonSpinBox.png) |
+| RibbonView | 与TabBar和BottomBar搭配使用的界面容器组件，两组件模糊化的背景依赖它 | ![RibbonView](pictures/RibbonView.png) |
+| RibbonPaperView | 类似Word中纸张的组件 | ![RibbonPaperView](pictures/RibbonPaperView.png) |
 
 其他组件的介绍会陆续更新。
 
