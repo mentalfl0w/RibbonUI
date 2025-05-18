@@ -73,6 +73,8 @@ Window {
         {
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.isDarkMode ? "dark" : "light" : "none")
         }
+        RibbonLocalization.bindEngine();
+        RibbonUI.setTranslator(RibbonLocalization)
     }
     Item{
         id: windowItems

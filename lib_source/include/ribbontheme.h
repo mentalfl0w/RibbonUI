@@ -11,7 +11,7 @@ class RibbonTheme : public QQuickItem
     QML_SINGLETON
     QML_NAMED_ELEMENT(RibbonTheme)
 
-    Q_PROPERTY(bool isDarkMode READ isDarkMode() NOTIFY isDarkModeChanged FINAL)
+    Q_PROPERTY(bool isDarkMode READ isDarkMode NOTIFY isDarkModeChanged FINAL)
     Q_PROPERTY_RW(RibbonThemeType::ThemeMode,themeMode)
     Q_PROPERTY_RW(bool,modernStyle)
     Q_PROPERTY_RW(bool,nativeText)

@@ -12,6 +12,7 @@ RibbonWindow {
     title: qsTr("RibbonUI APP")
     comfirmedQuit: true
     property bool modernStyle: RibbonTheme.modernStyle
+
     RibbonMessageBarGroup{
         id: msg_bar
         implicitWidth: windowItems.width
@@ -142,7 +143,10 @@ RibbonWindow {
         blurEnabled: true
         targetRect: Qt.rect(windowItems.x + x, windowItems.y + y, width, height)
     }
-    Component.onCompleted: tour.open()
+    Component.onCompleted: {
+        RibbonUI.autoLoadLanguage = true
+        tour.open()
+    }
 
     TabBar{
         id: tab_bar
@@ -157,6 +161,7 @@ RibbonWindow {
         pageWidth: (page_slider.value / 100.0) * width
         spacing: 0
         isMainView: true
+
         ColumnLayout{
             Layout.alignment: Qt.AlignCenter
             Layout.topMargin: 30
@@ -368,42 +373,42 @@ RibbonWindow {
         blurTarget: root.windowItems
         radius: borderRadius
         RibbonBackStageMenuItem{
-            menuText: "Home"
+            menuText: qsTr("Home")
             menuIcon: RibbonIcons.Home
             type: RibbonBackStageView.MenuItemLocation.Head
             sourceComponent: t_content
             sourceArgs:{'pageName':"Home"}
         }
         RibbonBackStageMenuItem{
-            menuText: "File"
+            menuText: qsTr("File")
             menuIcon: RibbonIcons.Document
             type: RibbonBackStageView.MenuItemLocation.Head
             sourceComponent: t_content
             sourceArgs:{'pageName':"File"}
         }
         RibbonBackStageMenuItem{
-            menuText: "Search"
+            menuText: qsTr("Search")
             menuIcon: RibbonIcons.Search
             type: RibbonBackStageView.MenuItemLocation.Body
             sourceComponent: t_content
             sourceArgs:{'pageName':"Search"}
         }
         RibbonBackStageMenuItem{
-            menuText: "Account"
+            menuText: qsTr("Account")
             menuIcon: RibbonIcons.PersonAccounts
             type: RibbonBackStageView.MenuItemLocation.Tail
             clickOnly: true
             clickFunc: ()=>console.log("Menu Account clicked")
         }
         RibbonBackStageMenuItem{
-            menuText: "About"
+            menuText: qsTr("About")
             menuIcon: RibbonIcons.Info
             type: RibbonBackStageView.MenuItemLocation.Tail
             clickOnly: true
             clickFunc: ()=>root.showWindow(Qt.resolvedUrl("about.qml"))
         }
         RibbonBackStageMenuItem{
-            menuText: "Settings"
+            menuText: qsTr("Settings")
             menuIcon: RibbonIcons.Settings
             type: RibbonBackStageView.MenuItemLocation.Tail
             sourceUrl: Qt.resolvedUrl("pages/SettingsMenuPage.qml")

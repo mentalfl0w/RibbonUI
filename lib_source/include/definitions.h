@@ -2355,8 +2355,8 @@ enum class RibbonIcons_Filled{
 Q_ENUM_NS(RibbonIcons_Filled)
 QML_NAMED_ELEMENT(RibbonIcons_Filled)
 #if (QT_VERSION > QT_VERSION_CHECK(6, 3, 0))
-    Q_CLASSINFO("QML.Creatable", "false")
-    Q_CLASSINFO("QML.UncreatableReason", "This type is right-valued only.")
+Q_CLASSINFO("QML.Creatable", "false")
+Q_CLASSINFO("QML.UncreatableReason", "This type is right-valued only.")
 #elif (QT_VERSION <= QT_VERSION_CHECK(6, 3, 0))
 QML_UNCREATABLE("This type is right-valued only.")
 #endif
@@ -4718,30 +4718,30 @@ QML_UNCREATABLE("This type is right-valued only.")
 
 #define Q_PROPERTY_RW(TYPE, M)                  \
 Q_PROPERTY(TYPE M MEMBER _##M NOTIFY M##Changed  FINAL)   \
-public:                                         \
+    public:                                         \
     Q_SIGNAL void M##Changed();                 \
     void M(TYPE in_##M)                         \
-    {                                           \
+{                                           \
         _##M = in_##M;                          \
         Q_EMIT M##Changed();                    \
-    }                                           \
+}                                           \
     TYPE M()                                    \
-    {                                           \
+{                                           \
         return _##M;                            \
-    }                                           \
+}                                           \
                                                 \
-private:                                        \
+    private:                                        \
     TYPE _##M;
 
 #define Q_PROPERTY_R(TYPE, M)                   \
 Q_PROPERTY(TYPE M READ M NOTIFY M##Changed  FINAL)     \
-public:                                         \
+    public:                                         \
     Q_SIGNAL void M##Changed();                 \
     TYPE M()                                    \
-    {                                           \
+{                                           \
         return _##M;                            \
-    }                                           \
-private:                                        \
+}                                           \
+    private:                                        \
     TYPE _##M;
 
 namespace RibbonPopupDialogType {

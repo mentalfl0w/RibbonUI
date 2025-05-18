@@ -108,5 +108,43 @@ RibbonBackStagePage{
                 }
             }
         }
+        RibbonBackStageGroup{
+            Layout.alignment: Qt.AlignTop
+            Layout.preferredHeight: lang_combo.height + 40
+            Layout.fillWidth: true
+            groupName: qsTr("Language")
+            ColumnLayout{
+                RowLayout{
+                    RibbonText{
+                        text: qsTr("Current Language: ")
+                    }
+                    RibbonComboBox{
+                        id: lang_combo
+                        model: ListModel {
+                            id: model_lang
+                        }
+                        iconSource: RibbonIcons.LocalLanguage
+                        Component.onCompleted: update_state()
+                        onActivated: {
+                            RibbonLocalization.currentLanguage = currentText
+                        }
+                        Connections{
+                            target: RibbonLocalization
+                            function onCurrentLanguageChanged(){
+                                lang_combo.update_state()
+                            }
+                        }
+                        function update_state(){
+                            model_lang.clear()
+                            let langs = RibbonLocalization.languageList()
+                            for(let i = 0; i < langs.length; i++){
+                                model_lang.append({text:langs[i]})
+                            }
+                            currentIndex = find(RibbonLocalization.currentLanguage)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

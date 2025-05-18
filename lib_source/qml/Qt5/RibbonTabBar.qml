@@ -225,7 +225,8 @@ Item{
             {
                 let item = stack.contentData[i]
                 if(item instanceof RibbonTabPage){
-                    let btn = ribbonTabButton.createObject(bar,{text:qsTr(item.title),index:sign})
+                    let btn = ribbonTabButton.createObject(bar,{text:item.title,index:sign})
+                    item.titleChanged.connect(function(){btn.text=item.title})
                     if (sign===0)
                     {
                         btn.checked = true

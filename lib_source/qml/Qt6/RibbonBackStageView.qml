@@ -44,6 +44,12 @@ Popup {
             if(data_container.resources[index] instanceof RibbonBackStageMenuItem)
             {
                 let item = data_container.resources[index]
+                item.menuTextChanged.connect(function(){
+                    item.getPropertiesReady()
+                    pageModel[item.id] = item.properties
+                    refreshModel()
+                })
+                item.id = pageModel.length
                 item.getPropertiesReady()
                 pageModel.push(item.properties)
             }
@@ -555,5 +561,10 @@ Popup {
                 body_menu_list.model.append(item)
             }
         }
+        menu_bg.currentMenu = 0
+        head_menu_list.currentIndex = 0
+        body_menu_list.currentIndex = 0
+        tail_menu_list.currentIndex = 0
+        content_view.currentIndex = 0
     }
 }

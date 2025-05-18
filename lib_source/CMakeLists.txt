@@ -18,7 +18,7 @@ endif()
 
 # Find Qt package
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Qml REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Qml LinguistTools REQUIRED)
 
 # Determine library type and plugin target name based on build type
 if (RIBBONUI_BUILD_STATIC_LIB)
@@ -29,6 +29,9 @@ else()
     set(LIB_TYPE "SHARED")
     set(PLUGIN_TARGET_NAME ${PROJECT_NAME})
 endif()
+
+# List all ts files to be used in the project
+set(ts_files i18n/${PROJECT_NAME}_zh_CN.ts i18n/${PROJECT_NAME}_en_US.ts)
 
 # List of QML files to be included in the project
 set(qml_files
@@ -58,8 +61,11 @@ list(TRANSFORM qml_files PREPEND ${qml_prefix})
 
 # List of source files to be included in the project
 set (source_files
-    ribbonui.cpp ribbonui.h definitions.h ribbontheme.h ribbontheme.cpp
-    platformsupport.h)
+    include/ribbonui.h source/ribbonui.cpp
+    include/definitions.h
+    include/ribbontheme.h source/ribbontheme.cpp
+    include/platformsupport.h
+    include/ribbonlocalization.h source/ribbonlocalization.cpp)
 
 # Configure version header
 set(__ribbonui_project_version "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
@@ -70,7 +76,7 @@ list(APPEND source_files ${CMAKE_CURRENT_BINARY_DIR}/${__ribbonui_project_name_l
 
 # Add platform-specific source files for Apple
 if(APPLE)
-    list(APPEND source_files platformsupport.mm)
+    list(APPEND source_files source/platformsupport.mm)
 endif()
 
 # Set properties for QML files
@@ -88,6 +94,31 @@ endif()
 
 # Define the RibbonUI library
 qt_add_library(${PROJECT_NAME} ${LIB_TYPE})
+
+# Add i18n files
+set_source_files_properties(${ts_files} PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/i18n)
+
+if(QT_VERSION VERSION_LESS 6.0)
+    qt5_create_translation_plus(qm_files ${CMAKE_CURRENT_SOURCE_DIR} ${ts_files})
+    foreach(qm_file ${qm_files})
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" r_qm_file ${qm_file})
+        list(APPEND r_qm_files ${r_qm_file})
+    endforeach()
+    qt5_add_resources_plus(${PROJECT_NAME} "${PROJECT_NAME}-translations"
+        PREFIX "/"
+        FILES ${r_qm_files}
+    )
+else()
+    qt6_create_translation(qm_files ${CMAKE_CURRENT_SOURCE_DIR} ${ts_files})
+    foreach(qm_file ${qm_files})
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" r_qm_file ${qm_file})
+        list(APPEND r_qm_files ${r_qm_file})
+    endforeach()
+    qt6_add_resources(${PROJECT_NAME} "${PROJECT_NAME}-translations"
+        PREFIX "/"
+        FILES ${r_qm_files}
+    )
+endif()
 
 # Define the QML module for the library
 qt_add_qml_module(${PROJECT_NAME}
@@ -130,7 +161,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 
 # Include directories
 target_include_directories(${PROJECT_NAME} PUBLIC
-    ${PROJECT_SOURCE_DIR}
+    ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/3rdparty/qwindowkit/include
 )
 

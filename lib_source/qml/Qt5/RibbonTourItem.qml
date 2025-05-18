@@ -4,6 +4,7 @@ import RibbonUI 1.1
 RibbonObject {
     id: control
     required property string title
+    property int id
     property string text
     property var target
     property var enterFunc

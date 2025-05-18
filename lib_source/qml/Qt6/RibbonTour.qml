@@ -57,7 +57,7 @@ Popup {
             radius: 7
             maskOpacity: blurEnabled ? 0.9 : 1
             maskBorderColor: RibbonTheme.modernStyle ?
-                                   RibbonTheme.isDarkMode ? "#7A7A7A" : "#2C59B7" :
+                                 RibbonTheme.isDarkMode ? "#7A7A7A" : "#2C59B7" :
             RibbonTheme.isDarkMode ? "#5C5D5D" : "#B5B4B5"
             maskBorderWidth: 1
         }
@@ -155,6 +155,16 @@ Popup {
             if(data_container.resources[index] instanceof RibbonTourItem)
             {
                 let item = data_container.resources[index]
+                item.titleChanged.connect(function(){
+                    item.getPropertiesReady()
+                    targetList[item.id] = item.properties
+                })
+                if(item.text){
+                    item.textChanged.connect(function(){
+                        targetList[item.id].text = item.text
+                    })
+                }
+                item.id = targetList.length
                 item.getPropertiesReady()
                 targetList.push(item.properties)
             }

@@ -31,7 +31,10 @@ endif()
 
 # Find Qt package
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick LinguistTools REQUIRED)
+
+# List all ts files to be used in the project
+set(ts_files i18n/${PROJECT_NAME}_zh_CN.ts i18n/${PROJECT_NAME}_en_US.ts)
 
 # Source and QML files
 set(sources_files example.cpp)
@@ -55,6 +58,31 @@ list(APPEND source_files ${CMAKE_CURRENT_BINARY_DIR}/${__example_project_version
 # Define the executable
 qt_add_executable(${PROJECT_NAME}
     ${sources_files})
+
+# Add i18n files
+set_source_files_properties(${ts_files} PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/i18n)
+
+if(QT_VERSION VERSION_LESS 6.0)
+    qt5_create_translation_plus(qm_files ${CMAKE_CURRENT_SOURCE_DIR} ${ts_files})
+    foreach(qm_file ${qm_files})
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" r_qm_file ${qm_file})
+        list(APPEND r_qm_files ${r_qm_file})
+    endforeach()
+    qt5_add_resources_plus(${PROJECT_NAME} "${PROJECT_NAME}-translations"
+        PREFIX "/"
+        FILES ${r_qm_files}
+    )
+else()
+    qt6_create_translation(qm_files ${CMAKE_CURRENT_SOURCE_DIR} ${ts_files})
+    foreach(qm_file ${qm_files})
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" r_qm_file ${qm_file})
+        list(APPEND r_qm_files ${r_qm_file})
+    endforeach()
+    qt6_add_resources(${PROJECT_NAME} "${PROJECT_NAME}-translations"
+        PREFIX "/"
+        FILES ${r_qm_files}
+    )
+endif()
 
 # Windows-specific settings
 if (WIN32)

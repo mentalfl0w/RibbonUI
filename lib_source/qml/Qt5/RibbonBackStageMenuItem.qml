@@ -4,6 +4,7 @@ import RibbonUI 1.1
 RibbonObject {
     id: control
     required property string menuText
+    property int id
     property var menuIcon
     property var menuIconFilled
     required property var type
