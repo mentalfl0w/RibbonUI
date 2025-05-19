@@ -10,7 +10,7 @@ class RibbonUI : public QQuickItem
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
-    QML_NAMED_ELEMENT(RibbonUI)
+
     Q_PROPERTY_R(QString, version)
     Q_PROPERTY_R(int, qtVersion)
     Q_PROPERTY_R(int, isWin11)

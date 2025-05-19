@@ -9,7 +9,6 @@ class PlatformSupport : public QObject
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
-    QML_NAMED_ELEMENT(PlatformSupport)
 public:
     static PlatformSupport* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
     static PlatformSupport* instance(){

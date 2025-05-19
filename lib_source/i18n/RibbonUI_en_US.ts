@@ -29,25 +29,25 @@
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="482"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="476"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="482"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="493"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="487"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="493"/>
         <source>Minimize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="504"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="498"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="504"/>
         <source>Restore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="504"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="498"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="504"/>
         <source>Maximize</source>
         <translation type="unfinished"></translation>
     </message>
@@ -114,6 +114,14 @@
 </context>
 <context>
     <name>RibbonMessageBarGroup</name>
+    <message>
+        <location filename="../qml/Qt5/RibbonMessageBarGroup.qml" line="102"/>
+        <location filename="../qml/Qt5/RibbonMessageBarGroup.qml" line="111"/>
+        <location filename="../qml/Qt6/RibbonMessageBarGroup.qml" line="102"/>
+        <location filename="../qml/Qt6/RibbonMessageBarGroup.qml" line="111"/>
+        <source>&apos;s </source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <location filename="../qml/Qt5/RibbonMessageBarGroup.qml" line="180"/>
         <location filename="../qml/Qt6/RibbonMessageBarGroup.qml" line="180"/>
@@ -194,7 +202,7 @@
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonTabBar.qml" line="302"/>
-        <location filename="../qml/Qt6/RibbonTabBar.qml" line="301"/>
+        <location filename="../qml/Qt6/RibbonTabBar.qml" line="302"/>
         <source>RibbonTabBar: Error loading component:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -344,31 +352,31 @@
     <name>RibbonWindow</name>
     <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="148"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="149"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="148"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="149"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="150"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="149"/>
         <source>Minimize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="150"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="151"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="150"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="151"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="151"/>
         <source>Do you want to close this window?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="152"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="153"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
         <source>Please note</source>
         <translation type="unfinished"></translation>
     </message>

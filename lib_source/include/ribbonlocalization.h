@@ -10,7 +10,6 @@ class RibbonLocalization : public QQuickItem
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
-    QML_NAMED_ELEMENT(RibbonLocalization)
     Q_PROPERTY(QString currentLanguage READ currentLanguage WRITE setCurrentLanguage NOTIFY currentLanguageChanged FINAL)
 public:
     typedef QPair<QString, QString> LangItem; // example: <"zh_CN", "qrc://i18n/xxx_zh_CN.qm">
