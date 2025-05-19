@@ -68,6 +68,14 @@
     </message>
 </context>
 <context>
+    <name>RibbonLocalization</name>
+    <message>
+        <location filename="../source/ribbonlocalization.cpp" line="113"/>
+        <source>Not Found</source>
+        <translation>未找到对应语言</translation>
+    </message>
+</context>
+<context>
     <name>RibbonMessageBar</name>
     <message>
         <location filename="../qml/Qt5/RibbonMessageBar.qml" line="30"/>
@@ -380,6 +388,29 @@
         <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
         <source>Please note</source>
         <translation>请注意</translation>
+    </message>
+</context>
+<context>
+    <name>langList</name>
+    <message>
+        <location filename="../include/ribbonlocalization.h" line="43"/>
+        <source>zh_CN</source>
+        <translation>简体中文</translation>
+    </message>
+    <message>
+        <location filename="../include/ribbonlocalization.h" line="44"/>
+        <source>zh_TW</source>
+        <translation>繁体中文（台湾）</translation>
+    </message>
+    <message>
+        <location filename="../include/ribbonlocalization.h" line="45"/>
+        <source>en_US</source>
+        <translation>英文（美国）</translation>
+    </message>
+    <message>
+        <location filename="../include/ribbonlocalization.h" line="46"/>
+        <source>en_UK</source>
+        <translation>英文（英国）</translation>
     </message>
 </context>
 </TS>

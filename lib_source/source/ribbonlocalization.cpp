@@ -104,3 +104,11 @@ QList<QString> RibbonLocalization::languageList(){
     }
     return list;
 }
+
+QString RibbonLocalization::languageTranslate(QString langStr){
+    if(langList.contains(langStr)){
+        return qApp->translate("langList", langList[langStr]);
+    }
+    else
+        return tr("Not Found");
+}

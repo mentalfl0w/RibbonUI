@@ -352,6 +352,8 @@ RibbonWindow {
     Component{
         id: t_content
         RibbonBackStagePage{
+            property string rawName
+            pageName: qsTr(rawName)
             onPageNameChanged: t_text.text = pageName
             Rectangle{
                 anchors.fill: parent
@@ -377,21 +379,21 @@ RibbonWindow {
             menuIcon: RibbonIcons.Home
             type: RibbonBackStageView.MenuItemLocation.Head
             sourceComponent: t_content
-            sourceArgs:{'pageName':"Home"}
+            sourceArgs:{'rawName':QT_TR_NOOP("Home")}
         }
         RibbonBackStageMenuItem{
             menuText: qsTr("File")
             menuIcon: RibbonIcons.Document
             type: RibbonBackStageView.MenuItemLocation.Head
             sourceComponent: t_content
-            sourceArgs:{'pageName':"File"}
+            sourceArgs:{'rawName':QT_TR_NOOP("File")}
         }
         RibbonBackStageMenuItem{
             menuText: qsTr("Search")
             menuIcon: RibbonIcons.Search
             type: RibbonBackStageView.MenuItemLocation.Body
             sourceComponent: t_content
-            sourceArgs:{'pageName':"Search"}
+            sourceArgs:{'rawName':QT_TR_NOOP("Search")}
         }
         RibbonBackStageMenuItem{
             menuText: qsTr("Account")

@@ -26,22 +26,15 @@ RibbonBackStagePage{
                     }
                     RibbonComboBox{
                         id: theme_combo
+                        textRole: "text"
                         model: ListModel {
-                            id: model_theme
-                            ListElement { text: "Light" }
-                            ListElement { text: "Dark" }
-                            ListElement { text: "System" }
+                            ListElement { text: qsTr("Light"); value: RibbonThemeType.Light }
+                            ListElement { text: qsTr("Dark"); value: RibbonThemeType.Dark }
+                            ListElement { text: qsTr("System"); value: RibbonThemeType.System }
                         }
                         iconSource: RibbonIcons.DarkTheme
                         Component.onCompleted: update_state()
-                        onActivated: {
-                            if (currentText === "System")
-                                RibbonTheme.themeMode = RibbonThemeType.System
-                            else if (currentText === "Light")
-                                RibbonTheme.themeMode = RibbonThemeType.Light
-                            else
-                                RibbonTheme.themeMode = RibbonThemeType.Dark
-                        }
+                        onActivated: RibbonTheme.themeMode = model.get(currentIndex).value
                         Connections{
                             target: RibbonTheme
                             function onThemeModeChanged(){
@@ -49,7 +42,7 @@ RibbonBackStagePage{
                             }
                         }
                         function update_state(){
-                            let str = (RibbonTheme.themeMode === RibbonThemeType.System ? "System" : RibbonTheme.themeMode === RibbonThemeType.Light ? "Light" : "Dark")
+                            let str = (RibbonTheme.themeMode === RibbonThemeType.System ? qsTr("System") : RibbonTheme.themeMode === RibbonThemeType.Light ? qsTr("Light") : qsTr("Dark"))
                             currentIndex = find(str)
                         }
                     }
@@ -78,8 +71,8 @@ RibbonBackStagePage{
                 }
                 RibbonSwitchButton{
                     id: render_btn
-                    text: "Render"
-                    grabberText: RibbonTheme.nativeText ? "Native" : "Qt"
+                    text: qsTr("Render")
+                    grabberText: RibbonTheme.nativeText ? qsTr("Native") : qsTr("Qt")
                     checked: true
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
@@ -98,8 +91,8 @@ RibbonBackStagePage{
                     text: qsTr("Show TitleBar Icon: ")
                 }
                 RibbonSwitchButton{
-                    text: "Icon"
-                    grabberText: RibbonTheme.nativeText ? "Show" : "Hide"
+                    text: qsTr("Icon")
+                    grabberText: RibbonTheme.nativeText ? qsTr("Show") : qsTr("Hide")
                     checked: true
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
@@ -121,13 +114,11 @@ RibbonBackStagePage{
                     RibbonComboBox{
                         id: lang_combo
                         model: ListModel {
-                            id: model_lang
                         }
+                        textRole: "text"
                         iconSource: RibbonIcons.LocalLanguage
                         Component.onCompleted: update_state()
-                        onActivated: {
-                            RibbonLocalization.currentLanguage = currentText
-                        }
+                        onActivated: RibbonLocalization.currentLanguage = model.get(currentIndex).value
                         Connections{
                             target: RibbonLocalization
                             function onCurrentLanguageChanged(){
@@ -135,12 +126,15 @@ RibbonBackStagePage{
                             }
                         }
                         function update_state(){
-                            model_lang.clear()
+                            model.clear()
                             let langs = RibbonLocalization.languageList()
                             for(let i = 0; i < langs.length; i++){
-                                model_lang.append({text:langs[i]})
+                                model.append({
+                                                      text:RibbonLocalization.languageTranslate(langs[i]),
+                                                      value:langs[i]
+                                                  })
                             }
-                            currentIndex = find(RibbonLocalization.currentLanguage)
+                            currentIndex = find(RibbonLocalization.languageTranslate(RibbonLocalization.currentLanguage))
                         }
                     }
                 }

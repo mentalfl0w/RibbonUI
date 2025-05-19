@@ -21,6 +21,7 @@ public:
     Q_INVOKABLE bool removeLanguage(QString langName, QString path);
     Q_INVOKABLE void bindEngine();
     Q_INVOKABLE QList<QString> languageList();
+    Q_INVOKABLE QString languageTranslate(QString langStr);
     QString currentLanguage();
     bool setCurrentLanguage(QString langName);
     // Use if you need to directly save/load language from config files
@@ -34,10 +35,16 @@ private:
 #endif
     RibbonLocalization();
     ~RibbonLocalization();
-private:
+protected:
     ModuleTranslator moduleLangList;
     Translator transList;
     QString _currentLang;
+    const QMap<QString, const char*> langList = {
+        {"zh_CN", QT_TRANSLATE_NOOP("langList", "zh_CN")},
+        {"zh_TW", QT_TRANSLATE_NOOP("langList", "zh_TW")},
+        {"en_US", QT_TRANSLATE_NOOP("langList", "en_US")},
+        {"en_UK", QT_TRANSLATE_NOOP("langList", "en_UK")},
+    };
 signals:
     void currentLanguageChanged();
 };
