@@ -60,9 +60,6 @@ Window {
         windowAgent.setHitTestVisible(titleBar.leftContainer)
         windowAgent.setHitTestVisible(titleBar.rightContainer)
         windowAgent.setTitleBar(titleBar)
-        window.visible = true
-        windowAgent.centralize()
-        raise()
         windowAgent.setWindowAttribute("dark-mode", RibbonTheme.isDarkMode)
         blurBehindWindow =  Qt.platform.os === 'windows' && !RibbonUI.isWin11 ? false : true
         if (Qt.platform.os === 'windows')
@@ -75,6 +72,11 @@ Window {
         }
         RibbonLocalization.bindEngine();
         RibbonUI.setTranslator(RibbonLocalization)
+
+        window.visible = true
+        windowAgent.centralize()
+        raise()
+        requestActivate()
     }
     Item{
         id: windowItems
@@ -162,6 +164,44 @@ Window {
         id: windowAgent
     }
 
+    QtObject{
+        id: internal
+        function dealWithWindows(component, window, sub_windows, window_url){
+            if (!(window.object instanceof Window))
+            {
+                console.error("RibbonWindow: Error loading Window: Instance is not Window.")
+                return
+            }
+            window = window.object
+            sub_windows[window_url] = window
+            RibbonUI.windowsSet = sub_windows
+            window.onClosing.connect(function() {
+                component.destroy()
+                window.destroy()
+                let sub_windows = RibbonUI.windowsSet
+                delete sub_windows[window_url]
+                RibbonUI.windowsSet = sub_windows
+            });
+            window.raise()
+            window.requestActivate()
+        }
+
+        function configWindowAsynchronous(component, args, sub_windows, window_url){
+            let window = component.incubateObject(null, args)
+            if (window.status !== Component.Ready) {
+                window.onStatusChanged = function(status) {
+                    if (status === Component.Ready) {
+                        console.debug("Object", window.object, "is now ready.");
+                        dealWithWindows(component, window, sub_windows, window_url)
+                    }
+                }
+            } else {
+                console.debug("Object", window.object, "is ready immediately.");
+                dealWithWindows(component, window, sub_windows, window_url)
+            }
+        }
+    }
+
     onClosing:function(event){
         window.raise()
         event.accepted = !comfirmedQuit
@@ -197,26 +237,22 @@ Window {
                 sub_windows[window_url].close()
             }
         }
-        var component = Qt.createComponent(window_url, Component.PreferSynchronous, null);
-        if (component.status === Component.Ready) {
-            var window = component.createObject(null, args)
-            if (!(window instanceof Window))
-            {
-                console.error("RibbonWindow: Error loading Window: Instance is not Window.")
-                return
-            }
-            sub_windows[window_url] = window
-            RibbonUI.windowsSet = sub_windows
-            window.onClosing.connect(function() {
-                window.destroy()
-                let sub_windows = RibbonUI.windowsSet
-                delete sub_windows[window_url]
-                RibbonUI.windowsSet = sub_windows
-            });
-            window.raise()
-            window.requestActivate()
-        } else if (component.status === Component.Error) {
-            console.error("RibbonWindow: Error loading Window:", component.errorString())
+
+        const component = Qt.createComponent(window_url, Component.Asynchronous, null)
+
+        if(component.status !== Component.Ready){
+            component.statusChanged.connect(function(){
+                if (component.status === Component.Ready) {
+                    console.debug("Component", component, "is now ready.");
+                    internal.configWindowAsynchronous(component, args, sub_windows, window_url)
+                } else if (component.status === Component.Error) {
+                    console.error("RibbonWindow: Error loading Window Component:", component.errorString())
+                }
+            })
+        }
+        else{
+            console.debug("Component", component, "is ready immediately.");
+            internal.configWindowAsynchronous(component, args, sub_windows, window_url)
         }
     }
 }
