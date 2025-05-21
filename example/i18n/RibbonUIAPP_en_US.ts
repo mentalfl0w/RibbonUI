@@ -164,6 +164,27 @@
     </message>
 </context>
 <context>
+    <name>SplashScreen</name>
+    <message>
+        <location filename="../qml/Qt5/SplashScreen.qml" line="11"/>
+        <location filename="../qml/Qt6/SplashScreen.qml" line="11"/>
+        <source>Example App</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/SplashScreen.qml" line="12"/>
+        <location filename="../qml/Qt6/SplashScreen.qml" line="12"/>
+        <source>A example for users to use RibbonUI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/SplashScreen.qml" line="23"/>
+        <location filename="../qml/Qt6/SplashScreen.qml" line="23"/>
+        <source>Loading...Remain %1s...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TabBar</name>
     <message>
         <location filename="../qml/Qt5/components/TabBar.qml" line="38"/>
@@ -503,7 +524,7 @@
     </message>
     <message>
         <location filename="../qml/Qt5/example.qml" line="288"/>
-        <location filename="../qml/Qt5/example.qml" line="404"/>
+        <location filename="../qml/Qt5/example.qml" line="406"/>
         <location filename="../qml/Qt6/example.qml" line="288"/>
         <location filename="../qml/Qt6/example.qml" line="406"/>
         <source>About</source>
@@ -528,34 +549,37 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/example.qml" line="376"/>
+        <location filename="../qml/Qt5/example.qml" line="378"/>
+        <location filename="../qml/Qt5/example.qml" line="382"/>
         <location filename="../qml/Qt6/example.qml" line="378"/>
         <location filename="../qml/Qt6/example.qml" line="382"/>
         <source>Home</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/example.qml" line="383"/>
+        <location filename="../qml/Qt5/example.qml" line="385"/>
+        <location filename="../qml/Qt5/example.qml" line="389"/>
         <location filename="../qml/Qt6/example.qml" line="385"/>
         <location filename="../qml/Qt6/example.qml" line="389"/>
         <source>File</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/example.qml" line="390"/>
+        <location filename="../qml/Qt5/example.qml" line="392"/>
+        <location filename="../qml/Qt5/example.qml" line="396"/>
         <location filename="../qml/Qt6/example.qml" line="392"/>
         <location filename="../qml/Qt6/example.qml" line="396"/>
         <source>Search</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/example.qml" line="397"/>
+        <location filename="../qml/Qt5/example.qml" line="399"/>
         <location filename="../qml/Qt6/example.qml" line="399"/>
         <source>Account</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/example.qml" line="411"/>
+        <location filename="../qml/Qt5/example.qml" line="413"/>
         <location filename="../qml/Qt6/example.qml" line="413"/>
         <source>Settings</source>
         <translation></translation>

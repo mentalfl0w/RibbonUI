@@ -174,6 +174,15 @@
     </message>
 </context>
 <context>
+    <name>RibbonSplashScreenContent</name>
+    <message>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="148"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="148"/>
+        <source>Loading...</source>
+        <translation>加载中...</translation>
+    </message>
+</context>
+<context>
     <name>RibbonSwitchButton</name>
     <message>
         <location filename="../qml/Qt5/RibbonSwitchButton.qml" line="16"/>
@@ -360,32 +369,32 @@
 <context>
     <name>RibbonWindow</name>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="148"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="148"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="150"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="150"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="149"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="149"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="151"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="151"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="150"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="150"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="152"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="151"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="151"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="153"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="153"/>
         <source>Do you want to close this window?</source>
         <translation>需要关闭窗口吗？</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="152"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="154"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="154"/>
         <source>Please note</source>
         <translation>请注意</translation>
     </message>

@@ -51,7 +51,9 @@ set(qml_files
     RibbonRadioButton.qml RibbonBackStageMenuItem.qml RibbonTourItem.qml
     RibbonObject.qml RibbonProgressBar.qml RibbonProgressRing.qml
     RibbonBusyBar.qml RibbonBusyRing.qml RibbonPageIndicator.qml
-    RibbonMessageBar.qml RibbonMessageBarGroup.qml)
+    RibbonMessageBar.qml RibbonMessageBarGroup.qml RibbonSplashScreen.qml
+    RibbonSplashScreenContent.qml
+)
 
 # Set the QML prefix path
 set(qml_prefix "qml/Qt${QT_VERSION_MAJOR}/")

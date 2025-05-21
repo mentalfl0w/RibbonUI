@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     qml_static_register_types_RibbonUI();
 #endif
 #endif
-    const QUrl url("qrc:/qt/qml/RibbonUIAPP/example.qml");
+    const QUrl url("qrc:/qt/qml/RibbonUIAPP/SplashScreen.qml");
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {
             if (!obj && url == objUrl)

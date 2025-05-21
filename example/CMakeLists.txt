@@ -38,7 +38,9 @@ set(ts_files i18n/${PROJECT_NAME}_zh_CN.ts i18n/${PROJECT_NAME}_en_US.ts)
 
 # Source and QML files
 set(sources_files example.cpp)
-set(qml_files example.qml about.qml components/RibbonMessageListViewExample.qml pages/SettingsMenuPage.qml components/TabBar.qml)
+set(qml_files example.qml about.qml SplashScreen.qml
+    components/RibbonMessageListViewExample.qml
+    pages/SettingsMenuPage.qml components/TabBar.qml)
 set(qml_prefix "qml/Qt${QT_VERSION_MAJOR}/")
 list(TRANSFORM qml_files PREPEND ${qml_prefix})
 
