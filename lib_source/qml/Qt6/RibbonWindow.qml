@@ -181,7 +181,7 @@ Window {
                 let sub_windows = RibbonUI.windowsSet
                 delete sub_windows[window_url]
                 RibbonUI.windowsSet = sub_windows
-            });
+            })
             window.raise()
             window.requestActivate()
         }
@@ -191,12 +191,12 @@ Window {
             if (window.status !== Component.Ready) {
                 window.onStatusChanged = function(status) {
                     if (status === Component.Ready) {
-                        console.debug("Object", window.object, "is now ready.");
+                        console.debug("RibbonWindow:", "Object", window.object, "is now ready.")
                         dealWithWindows(component, window, sub_windows, window_url)
                     }
                 }
             } else {
-                console.debug("Object", window.object, "is ready immediately.");
+                console.debug("RibbonWindow:", "Object", window.object, "is ready immediately.")
                 dealWithWindows(component, window, sub_windows, window_url)
             }
         }
@@ -243,7 +243,7 @@ Window {
         if(component.status !== Component.Ready){
             component.statusChanged.connect(function(){
                 if (component.status === Component.Ready) {
-                    console.debug("Component", component, "is now ready.");
+                    console.debug("RibbonWindow:", "Component", component, "is now ready.")
                     internal.configWindowAsynchronous(component, args, sub_windows, window_url)
                 } else if (component.status === Component.Error) {
                     console.error("RibbonWindow: Error loading Window Component:", component.errorString())
@@ -251,7 +251,7 @@ Window {
             })
         }
         else{
-            console.debug("Component", component, "is ready immediately.");
+            console.debug("RibbonWindow:", "Component", component, "is ready immediately.")
             internal.configWindowAsynchronous(component, args, sub_windows, window_url)
         }
     }
