@@ -18,6 +18,7 @@ BusyIndicator {
     property real default_saturation: 0
     property int animationDuration: RibbonTheme.modernStyle ? 4000 : 1000
     property bool clockwise: true
+    property bool reverseColor: false
 
     onAnimationDurationChanged: {
         running = !running
@@ -52,7 +53,11 @@ BusyIndicator {
                 width: radiusWidth
                 height: ringWidth
                 property real item_saturation: (index + item.dynamic_index) % lineNumber * private_property.saturation + default_saturation
-                color: Qt.hsla(0, 0, RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? 1 : 0 : item_saturation, 1)
+                color: Qt.hsla(0, 0,
+                               RibbonTheme.modernStyle ?
+                                   (control.reverseColor ? (RibbonTheme.isDarkMode ? 0 : 1) : (RibbonTheme.isDarkMode ? 1 : 0)) :
+                                   (control.reverseColor ? 1 - item_saturation : item_saturation),
+                               1)
                 rotation: index * private_property.angle
                 x: (parent.width / 2) - (radiusLength - ringWidth) * Math.sin(rotation/180 * Math.PI)
                 y: (parent.height / 2 - height / 2) + (radiusLength - ringWidth) * Math.cos(rotation/180 * Math.PI)
