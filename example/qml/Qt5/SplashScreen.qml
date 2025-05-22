@@ -4,7 +4,7 @@ import RibbonUI 1.1
 RibbonSplashScreen {
     id: root
     homeUrl: "qrc:/qt/qml/RibbonUIAPP/example.qml"
-    delayMS: 10000
+    delayMS: 3000
     contentArgs: {
         "implicitHeight": 250,
         "implicitWidth": 450,
@@ -16,7 +16,7 @@ RibbonSplashScreen {
         interval: 1000
         triggeredOnStart: true
         repeat: true
-        running: true
+        running: remainSeconds !== 0
         property int remainSeconds: root.delayMS / 1000
         onTriggered: {
             remainSeconds -= 1
