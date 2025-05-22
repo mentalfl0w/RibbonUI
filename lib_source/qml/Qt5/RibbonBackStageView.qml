@@ -442,9 +442,14 @@ Popup {
             Repeater{
                 model: control.pageModel
                 Loader {
+                    required property var modelData
                     active: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
                     source: typeof(modelData.sourceUrl) !== 'undefined' && modelData.sourceUrl !== ""? modelData.sourceUrl : ""
                     sourceComponent: typeof(control.pageModel[modelData.globalIndex].sourceComponent) !== 'undefined' && typeof(modelData.sourceUrl) === 'undefined' ? control.pageModel[modelData.globalIndex].sourceComponent : undefined
+                    Component.onCompleted: {
+                        content_view.currentIndex = modelData.globalIndex
+                        content_view.currentIndex = 0
+                    }
                     onLoaded: {
                         if (typeof(modelData.sourceArgs) === 'undefined')
                             return
