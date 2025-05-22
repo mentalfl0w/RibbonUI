@@ -12,6 +12,7 @@ BusyIndicator {
                              implicitContentHeight + topPadding + bottomPadding)
 
     padding: 2
+    property color color: RibbonTheme.isDarkMode ? "white" : "black"
     property real barWidth: 200
     property real barHeight: 4
     property real indicatorWidth: 4
@@ -44,7 +45,7 @@ BusyIndicator {
             delegate: Rectangle {
                 width: indicatorWidth
                 height: indicatorHeight
-                color: RibbonTheme.isDarkMode ? "white" : "black"
+                color: control.color
                 x: -(index + 1) * indicatorWidth
                 y: (barHeight.height / 2 - height / 2)
                 radius: Math.min(width,height)/2
