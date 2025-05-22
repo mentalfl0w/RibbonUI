@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 
-RibbonRectangle {
+Rectangle {
     id: control
 
     property var dealWithLog: showLog
@@ -15,7 +15,14 @@ RibbonRectangle {
 
     color: {
         if (Window.window.blurBehindWindow) {
-            return "transparent"
+            if(RibbonTheme.modernStyle)
+                return "transparent"
+            else{
+                if(RibbonTheme.isDarkMode)
+                    return "#282828"
+                else
+                    return "#2C59B7"
+            }
         }
         if (RibbonTheme.isDarkMode) {
             return '#2C2B29'
@@ -24,7 +31,7 @@ RibbonRectangle {
     }
     implicitHeight: Math.max(250, btn_layout.height + title_layout.height + log_text.height + btn_layout.anchors.topMargin * 2)
     implicitWidth: Math.max(450, title_layout.width + btn_layout.anchors.topMargin * 2)
-    radius: 20
+    radius: Qt.platform.os === 'windows' ? RibbonUI.isWin11 ? 7 : 0 : 10
 
     Behavior on color {
         ColorAnimation {
@@ -45,12 +52,14 @@ RibbonRectangle {
             leftMargin: Qt.platform.os === 'osx' ? anchors.topMargin : undefined
         }
         RibbonButton{
+            textColor: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
             showBg: false
             showHoveredBg: false
             iconSource: RibbonIcons.Subtract
             onClicked: Window.window.visibility = Window.Minimized
         }
         RibbonButton{
+            textColor: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
             showBg: false
             showHoveredBg: false
             iconSource: RibbonIcons.Dismiss
@@ -83,7 +92,7 @@ RibbonRectangle {
             Layout.alignment: Qt.AlignVCenter
             font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
             font.pixelSize: 16
-            color: RibbonTheme.isDarkMode ? "white" : "black"
+            color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
             renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
             visible: text
             Behavior on color {
@@ -104,7 +113,8 @@ RibbonRectangle {
             Layout.alignment: Qt.AlignHCenter
             font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
             font.pixelSize: 50
-            color: RibbonTheme.isDarkMode ? "white" : "black"
+            font.bold: true
+            color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
             renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
             visible: text
             Behavior on color {
@@ -120,7 +130,7 @@ RibbonRectangle {
             Layout.alignment: Qt.AlignHCenter
             font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
             font.pixelSize: 15
-            color: RibbonTheme.isDarkMode ? "white" : "black"
+            color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
             renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
             visible: text
             Behavior on color {
@@ -133,6 +143,7 @@ RibbonRectangle {
         RibbonBusyBar{
             Layout.topMargin: btn_layout.anchors.topMargin - title_layout.spacing
             running: true
+            color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
             barWidth: control.width - btn_layout.anchors.topMargin * 4
         }
     }
@@ -148,7 +159,7 @@ RibbonRectangle {
         text: qsTr("Loading...")
         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
         font.pixelSize: 10
-        color: RibbonTheme.isDarkMode ? "white" : "black"
+        color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
         renderType: RibbonTheme.nativeText ? Text.NativeRendering : Text.QtRendering
         visible: text
         Behavior on color {
