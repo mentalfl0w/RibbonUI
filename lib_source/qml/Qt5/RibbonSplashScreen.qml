@@ -115,9 +115,9 @@ Window {
         if(Qt.platform.os === "osx")
         {
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.isDarkMode ? "dark" : "light" : "none")
+            PlatformSupport.showSystemTitleBtns(root, false)
         }
         root.flags |= Qt.WindowStaysOnTopHint
-        PlatformSupport.showSystemTitleBtns(root, false)
         root.visible = true
         windowAgent.centralize()
         raise()
