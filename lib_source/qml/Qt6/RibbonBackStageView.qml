@@ -566,6 +566,7 @@ Popup {
                 body_menu_list.model.append(item)
             }
         }
+        ani_modern_border.targetMenu = head_menu_list
         menu_bg.currentMenu = 0
         head_menu_list.currentIndex = 0
         body_menu_list.currentIndex = 0
