@@ -36,15 +36,15 @@ RibbonTabBar {
     RibbonTabPage{
         id: basic_page
         title: qsTr("Basic")
-        property var sliderLayout: getItem(0).sliderLayout
-        property var sliderWithBtn: getItem(0).sliderWithBtn
-        property var sliderWithoutBtn: getItem(0).sliderWithoutBtn
-        property var switchLayout: getItem(1).switchLayout
-        property var btnWithColorAndGrabberText: getItem(1).btnWithColorAndGrabberText
-        property var checkBoxLayout: getItem(2).checkBoxLayout
-        property var buttonLayout: getItem(3).buttonLayout
-        property var btnWithoutBgAndLabel: getItem(3).btnWithoutBgAndLabel
-        property var pushButtonLayout: getItem(4).pushButtonLayout
+        property var sliderLayout
+        property var sliderWithBtn
+        property var sliderWithoutBtn
+        property var switchLayout
+        property var btnWithColorAndGrabberText
+        property var checkBoxLayout
+        property var buttonLayout
+        property var btnWithoutBgAndLabel
+        property var pushButtonLayout
 
         onContainerItemUpdated: {
             if(getItem(0)){
@@ -329,8 +329,8 @@ RibbonTabBar {
     RibbonTabPage{
         id: input_page
         title: qsTr("Input")
-        property var lineEditLayout: getItem(0).lineEditLayout
-        property var lineEditWithIcon: getItem(0).lineEditWithIcon
+        property var lineEditLayout
+        property var lineEditWithIcon
 
         onContainerItemUpdated: {
             if(getItem(0)){
@@ -503,9 +503,16 @@ RibbonTabBar {
         }
     }
     RibbonTabPage{
+        id: progress_page
         title: qsTr("Progress")
+        property var progressbarSlider
+        onContainerItemUpdated:{
+            if(getItem(0))
+                progressbarSlider = getItem(0).progressbarSlider
+        }
         RibbonTabGroup{
             width: progressbar_slider.width + 30
+            property var progressbarSlider: progressbar_slider
             RibbonSlider{
                 id: progressbar_slider
                 anchors.centerIn: parent
@@ -526,22 +533,22 @@ RibbonTabBar {
                 ColumnLayout{
                     RibbonProgressBar{
                         barWidth: 100
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Top
                     }
                     RibbonProgressBar{
                         barWidth: 100
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Left
                     }
                     RibbonProgressBar{
                         barWidth: 100
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Right
                     }
                     RibbonProgressBar{
                         barWidth: 100
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Bottom
                     }
                 }
@@ -577,7 +584,7 @@ RibbonTabBar {
                         barWidth: 100
                         indeterminate: false
                         showText: false
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                     }
                 }
             }
@@ -593,26 +600,26 @@ RibbonTabBar {
                 RowLayout{
                     RibbonProgressRing{
                         barWidth: 30
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Top
                     }
                     RibbonProgressRing{
                         barWidth: 30
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Left
                     }
                     RibbonProgressRing{
                         barWidth: 30
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Right
                     }
                     RibbonProgressRing{
                         barWidth: 30
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         textLabelPosition: RibbonProgressBar.LabelPosition.Bottom
                     }
                     RibbonProgressRing{
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                         centerInTextLabel: true
                     }
                 }
@@ -652,7 +659,7 @@ RibbonTabBar {
                         barWidth: 30
                         indeterminate: false
                         showText: false
-                        value: progressbar_slider.value / 100
+                        value: progress_page.progressbarSlider ? progress_page.progressbarSlider.value / 100 : 0
                     }
                 }
             }

@@ -11,7 +11,7 @@ Item {
     property bool needActive: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
     property var delegateList: []
 
-    readonly property var contentItem: main_loader.item.containerItem
+    readonly property var contentItem: main_loader.item ? main_loader.item.containerItem : undefined
 
     signal containerItemUpdated()
     clip: true
@@ -45,7 +45,7 @@ Item {
                     model: control.delegateList
                     Loader{
                         required property var modelData
-                        width: item.width
+                        width: item ? item.width : 0
                         Layout.fillHeight: true
                         active: control.needActive
                         sourceComponent: control.delegateList[modelData.index].content
@@ -56,7 +56,7 @@ Item {
         onLoaded: containerItemUpdated()
     }
 
-    function getItem( index : int ){
+    function getItem( index ){
         return contentItem.children[index].item
     }
 
