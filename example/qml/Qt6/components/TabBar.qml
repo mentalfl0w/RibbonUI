@@ -1,22 +1,23 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Window
 import RibbonUI
 
 RibbonTabBar {
     id: tab_bar
-    property alias tab_bar_tool: tab_bar_tool
-    property alias slider_layout: slider_layout
-    property alias slider_with_btn: slider_with_btn
-    property alias slider_without_btn: slider_without_btn
-    property alias switch_layout: switch_layout
-    property alias btn_with_color_and_grabberText: btn_with_color_and_grabberText
-    property alias checkbox_layout: checkbox_layout
-    property alias button_layout: button_layout
-    property alias btn_without_bg_and_label: btn_without_bg_and_label
-    property alias pushbutton_layout: pushbutton_layout
-    property alias lineedit_layout: lineedit_layout
-    property alias lineedit_with_icon: lineedit_with_icon
+    readonly property alias tab_bar_tool: tab_bar_tool
+    readonly property var slider_layout: basic_page.sliderLayout
+    readonly property var slider_with_btn: basic_page.sliderWithBtn
+    readonly property var slider_without_btn: basic_page.sliderWithoutBtn
+    readonly property var switch_layout: basic_page.switchLayout
+    readonly property var btn_with_color_and_grabberText: basic_page.btnWithColorAndGrabberText
+    readonly property var checkbox_layout: basic_page.checkBoxLayout
+    readonly property var button_layout: basic_page.buttonLayout
+    readonly property var btn_without_bg_and_label: basic_page.btnWithoutBgAndLabel
+    readonly property var pushbutton_layout: basic_page.pushButtonLayout
+    readonly property var lineedit_layout: input_page.lineEditLayout
+    readonly property var lineedit_with_icon: input_page.lineEditWithIcon
 
     modernStyle: root.modernStyle
     rightToolBar: RowLayout{
@@ -35,7 +36,34 @@ RibbonTabBar {
     RibbonTabPage{
         id: basic_page
         title: qsTr("Basic")
+        property var sliderLayout: getItem(0).sliderLayout
+        property var sliderWithBtn: getItem(0).sliderWithBtn
+        property var sliderWithoutBtn: getItem(0).sliderWithoutBtn
+        property var switchLayout: getItem(1).switchLayout
+        property var btnWithColorAndGrabberText: getItem(1).btnWithColorAndGrabberText
+        property var checkBoxLayout: getItem(2).checkBoxLayout
+        property var buttonLayout: getItem(3).buttonLayout
+        property var btnWithoutBgAndLabel: getItem(3).btnWithoutBgAndLabel
+        property var pushButtonLayout: getItem(4).pushButtonLayout
+
+        onContainerItemUpdated: {
+            if(getItem(0)){
+                sliderLayout = getItem(0).sliderLayout
+                sliderWithBtn = getItem(0).sliderWithBtn
+                sliderWithoutBtn = getItem(0).sliderWithoutBtn
+                switchLayout = getItem(1).switchLayout
+                btnWithColorAndGrabberText = getItem(1).btnWithColorAndGrabberText
+                checkBoxLayout = getItem(2).checkBoxLayout
+                buttonLayout = getItem(3).buttonLayout
+                btnWithoutBgAndLabel = getItem(3).btnWithoutBgAndLabel
+                pushButtonLayout = getItem(4).pushButtonLayout
+            }
+        }
+
         RibbonTabGroup{
+            property alias sliderLayout: slider_layout
+            property alias sliderWithBtn: slider_with_btn
+            property alias sliderWithoutBtn: slider_without_btn
             showOpenExternal: true
             width: slider_layout.width + 20
             text: qsTr("Slider")
@@ -80,6 +108,8 @@ RibbonTabBar {
             width: switch_layout.width + 30
             text: qsTr("Switch Button")
             showOpenExternal: true
+            property alias switchLayout: switch_layout
+            property alias btnWithColorAndGrabberText: btn_with_color_and_grabberText
             RowLayout{
                 id: switch_layout
                 anchors.centerIn: parent
@@ -91,7 +121,6 @@ RibbonTabBar {
                         id: btn_with_color_and_grabberText
                         text: "Button"
                         grabberCheckedColor: "red"
-                        checked: true
                     }
                     RibbonSwitchButton{
                         text: "Button"
@@ -129,6 +158,7 @@ RibbonTabBar {
             width: checkbox_layout.width + 30
             text: qsTr("CheckBox")
             showOpenExternal: true
+            property alias checkBoxLayout: checkbox_layout
             RowLayout{
                 id: checkbox_layout
                 anchors.centerIn: parent
@@ -165,6 +195,8 @@ RibbonTabBar {
             width: button_layout.width + 30
             text: qsTr("Button")
             showOpenExternal: true
+            property alias buttonLayout: button_layout
+            property alias btnWithoutBgAndLabel: btn_without_bg_and_label
             RowLayout{
                 id: button_layout
                 anchors.centerIn: parent
@@ -233,6 +265,7 @@ RibbonTabBar {
         RibbonTabGroup{
             width: pushbutton_layout.width + 30
             text: qsTr("Push Button")
+            property alias pushButtonLayout: pushbutton_layout
             RowLayout{
                 id: pushbutton_layout
                 anchors.centerIn: parent
@@ -294,10 +327,23 @@ RibbonTabBar {
         }
     }
     RibbonTabPage{
+        id: input_page
         title: qsTr("Input")
+        property var lineEditLayout: getItem(0).lineEditLayout
+        property var lineEditWithIcon: getItem(0).lineEditWithIcon
+
+        onContainerItemUpdated: {
+            if(getItem(0)){
+                lineEditLayout = getItem(0).lineEditLayout
+                lineEditWithIcon = getItem(0).lineEditWithIcon
+            }
+        }
+
         RibbonTabGroup{
             width: lineedit_layout.width + 30
             text: qsTr("Line Edit")
+            property alias lineEditLayout: lineedit_layout
+            property alias lineEditWithIcon: lineedit_with_icon
             RowLayout{
                 id: lineedit_layout
                 anchors.centerIn: parent
@@ -327,7 +373,7 @@ RibbonTabBar {
             }
         }
         RibbonTabGroup{
-            width: lineedit_layout.width + 30
+            width: textedit_layout.width + 30
             text: qsTr("Text Edit")
             RowLayout{
                 id: textedit_layout
