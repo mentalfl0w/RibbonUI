@@ -155,15 +155,10 @@ Popup {
             if(data_container.resources[index] instanceof RibbonTourItem)
             {
                 let item = data_container.resources[index]
-                item.titleChanged.connect(function(){
+                item.propertiesUpdated.connect(function(){
                     item.getPropertiesReady()
                     targetList[item.id] = item.properties
                 })
-                if(item.text){
-                    item.textChanged.connect(function(){
-                        targetList[item.id].text = item.text
-                    })
-                }
                 item.id = targetList.length
                 item.getPropertiesReady()
                 targetList.push(item.properties)
