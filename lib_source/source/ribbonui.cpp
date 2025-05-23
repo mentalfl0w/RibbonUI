@@ -85,3 +85,18 @@ void RibbonUI::setAutoLoadLanguage(bool value){
     _autoLoadLanguage = value;
     initTranslator();
 }
+
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+Q_INVOKABLE QColor RibbonUI::color(QString colorName){
+    return QColor(colorName);
+}
+
+Q_INVOKABLE QColor RibbonUI::alpha(QString colorName, float alpha){
+    QColor c(colorName);
+    if(alpha > 1)
+        c.setAlpha(alpha);
+    else
+        c.setAlphaF(alpha);
+    return c;
+}
+#endif

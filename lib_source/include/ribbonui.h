@@ -26,6 +26,8 @@ public:
     bool autoLoadLanguage(){return _autoLoadLanguage;};
     void setAutoLoadLanguage(bool value);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    Q_INVOKABLE QColor color(QString colorName);
+    Q_INVOKABLE QColor alpha(QString colorName, float alpha = 1);
 public:
 #else
 private:
