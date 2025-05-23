@@ -124,9 +124,9 @@ Window {
             if (Qt.platform.os === 'windows')
             {
                 if (RibbonTheme.isDarkMode) {
-                    return Qt.rgba(44, 43, 41, 0.8)
+                    return RibbonUI.alpha('#2C2B29', 0.8)
                 }
-                return Qt.rgba(255, 255, 255, 0.8)
+                return RibbonUI.alpha('#FFFFFF',0.8)
             }
             return 'transparent'
         }
@@ -181,7 +181,7 @@ Window {
                 let sub_windows = RibbonUI.windowsSet
                 delete sub_windows[window_url]
                 RibbonUI.windowsSet = sub_windows
-            });
+            })
             window.raise()
             window.requestActivate()
         }
