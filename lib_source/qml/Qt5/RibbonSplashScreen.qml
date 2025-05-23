@@ -108,6 +108,7 @@ Window {
 
     Component.onCompleted: {
         windowAgent.setup(root)
+        root.flags |= Qt.WindowStaysOnTopHint
         if (Qt.platform.os === 'windows')
         {
             windowAgent.setWindowAttribute("dwm-blur", blurBehindWindow)
@@ -117,7 +118,6 @@ Window {
             windowAgent.setWindowAttribute("blur-effect", blurBehindWindow ? RibbonTheme.isDarkMode ? "dark" : "light" : "none")
             PlatformSupport.showSystemTitleBtns(root, false)
         }
-        root.flags |= Qt.WindowStaysOnTopHint
         root.visible = true
         windowAgent.centralize()
         raise()
