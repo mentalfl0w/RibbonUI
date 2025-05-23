@@ -13,6 +13,17 @@ RibbonObject {
     property bool clickOnly: false
     property var sourceUrl
     property var clickFunc
-    property int propertyCount: 0
     property_names: ['menuText','menuIcon','menuIconFilled','type','sourceComponent','sourceArgs','clickOnly','sourceUrl','clickFunc']
+
+    signal propertiesUpdated()
+
+    onMenuTextChanged: propertiesUpdated()
+    onMenuIconChanged: propertiesUpdated()
+    onMenuIconFilledChanged: propertiesUpdated()
+    onTypeChanged: propertiesUpdated()
+    onSourceComponentChanged: propertiesUpdated()
+    onSourceArgsChanged: propertiesUpdated()
+    onClickOnlyChanged: propertiesUpdated()
+    onSourceUrlChanged: propertiesUpdated()
+    onClickFuncChanged: propertiesUpdated()
 }

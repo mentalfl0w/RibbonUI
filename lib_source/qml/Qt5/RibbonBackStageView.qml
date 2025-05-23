@@ -44,7 +44,7 @@ Popup {
             if(data_container.resources[index] instanceof RibbonBackStageMenuItem)
             {
                 let item = data_container.resources[index]
-                item.menuTextChanged.connect(function(){
+                item.propertiesUpdated.connect(function(){
                     item.getPropertiesReady()
                     pageModel[item.id] = item.properties
                     refreshModel()
@@ -110,7 +110,7 @@ Popup {
         }
         width: 150
         x: -width
-        color: alphaTohex(control.menuBgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
+        color: RibbonUI.alpha(control.menuBgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.8 : 0.9 : 1)
         topLeftRadius: control.topMargin <= 0 ? control.radius : 0
         bottomLeftRadius: topLeftRadius
         property int currentMenu: 0
@@ -138,14 +138,14 @@ Popup {
                 if (RibbonTheme.modernStyle && !RibbonTheme.isDarkMode)
                 {
                     if(pressed)
-                        return alphaTohex("black", 0.8)
+                        return RibbonUI.alpha("black", 0.8)
                     else
                         return "black"
                 }
                 else
                 {
                     if(pressed)
-                        return alphaTohex("white", 0.8)
+                        return RibbonUI.alpha("white", 0.8)
                     else
                         return "white"
                 }
@@ -181,11 +181,11 @@ Popup {
                         if(mouse.containsMouse)
                         {
                             if(mouse.pressed)
-                                return alphaTohex(back_btn.textColor, 0.4)
-                            return alphaTohex(back_btn.textColor, 0.3)
+                                return RibbonUI.alpha(back_btn.textColor, 0.4)
+                            return RibbonUI.alpha(back_btn.textColor, 0.3)
                         }
                         else
-                            return alphaTohex(back_btn.textColor, 0.2)
+                            return RibbonUI.alpha(back_btn.textColor, 0.2)
                     }
                     else
                     {
@@ -193,8 +193,8 @@ Popup {
                         {
                             let color = back_btn.textColor === 'black' ? "white" : "black"
                             if(mouse.pressed)
-                                return alphaTohex(color, 0.3)
-                            return alphaTohex(color, 0.2)
+                                return RibbonUI.alpha(color, 0.3)
+                            return RibbonUI.alpha(color, 0.2)
                         }
                         else
                             return 'transparent'
@@ -337,7 +337,7 @@ Popup {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 1
                 Layout.preferredWidth: parent.width - 40
-                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : alphaTohex("white", 0.2)
+                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : RibbonUI.alpha("white", 0.2)
                 visible: head_menu_list.count && (body_menu_list.count || tail_menu_list.count)
             }
             ListView{
@@ -358,7 +358,7 @@ Popup {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 1
                 Layout.preferredWidth: parent.width - 40
-                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : alphaTohex("white", 0.2)
+                color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "#666666" : "#D1D1D1" :RibbonTheme.isDarkMode ? "#B1B1B1" : RibbonUI.alpha("white", 0.2)
                 visible: (head_menu_list.count || body_menu_list.count) && tail_menu_list.count
             }
             ListView{
@@ -424,7 +424,7 @@ Popup {
         }
         topRightRadius: control.topMargin <= 0 ? control.radius : 0
         bottomRightRadius: topRightRadius
-        color: alphaTohex(control.bgColor, 1)
+        color: RibbonUI.alpha(control.bgColor, 1)
 
         Behavior on color {
             ColorAnimation {
@@ -443,6 +443,7 @@ Popup {
                 model: control.pageModel
                 Loader {
                     required property var modelData
+                    asynchronous: true
                     active: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
                     source: typeof(modelData.sourceUrl) !== 'undefined' && modelData.sourceUrl !== ""? modelData.sourceUrl : ""
                     sourceComponent: typeof(control.pageModel[modelData.globalIndex].sourceComponent) !== 'undefined' && typeof(modelData.sourceUrl) === 'undefined' ? control.pageModel[modelData.globalIndex].sourceComponent : undefined
@@ -523,7 +524,7 @@ Popup {
     function show(){
         control.opacity = 1
         menu_bg.x = 0
-        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.92 : 0.9 : 1)
+        content_bg.color = RibbonUI.alpha(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.92 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
@@ -531,7 +532,7 @@ Popup {
 
     function hide(){
         menu_bg.x = -menu_bg.width
-        content_bg.color = alphaTohex(control.bgColor, 0)
+        content_bg.color = RibbonUI.alpha(control.bgColor, 0)
         blur_bg.maskOpacity = 0
         blur_bg.blurRadius = 0
         blur_bg.opacity = 0
@@ -539,7 +540,7 @@ Popup {
     }
 
     function refresh(){
-        content_bg.color = alphaTohex(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.92 : 0.9 : 1)
+        content_bg.color = RibbonUI.alpha(control.bgColor, blurEnabled ? RibbonTheme.modernStyle ? 0.92 : 0.9 : 1)
         blur_bg.maskOpacity = blurEnabled ? 0.5 : 1
         blur_bg.blurRadius = blurEnabled ? 32 : 0
         blur_bg.opacity = 1
@@ -572,17 +573,5 @@ Popup {
         body_menu_list.currentIndex = 0
         tail_menu_list.currentIndex = 0
         content_view.currentIndex = 0
-    }
-
-    function alphaTohex(color, alpha)
-    {
-        color = color.replace(/#/g,"")
-        if (color === "white")
-            color = "FFFFFF"
-        else if (color === "black")
-            color = "000000"
-        var num = Math.ceil(alpha * 255)
-        color = "#"+num.toString(16).toUpperCase().padStart(2, '0')+color
-        return color
     }
 }

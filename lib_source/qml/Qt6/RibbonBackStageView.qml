@@ -44,7 +44,7 @@ Popup {
             if(data_container.resources[index] instanceof RibbonBackStageMenuItem)
             {
                 let item = data_container.resources[index]
-                item.menuTextChanged.connect(function(){
+                item.propertiesUpdated.connect(function(){
                     item.getPropertiesReady()
                     pageModel[item.id] = item.properties
                     refreshModel()
