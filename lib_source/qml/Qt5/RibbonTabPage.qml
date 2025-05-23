@@ -4,22 +4,60 @@ import QtQuick.Layouts 1.11
 import RibbonUI 1.1
 
 Item {
+    id: control
+    property int delegateCount: 0
     property string title
-    default property alias content: container.data
+    required default property Component content
+    property bool needActive: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
+    property var delegateList: []
+
+    readonly property var contentItem: main_loader.item.containerItem
+
+    signal containerItemUpdated()
     clip: true
-    Flickable{
-        id: view
-        anchors.fill: parent
-        ScrollIndicator.horizontal: RibbonScrollIndicator{
-            anchors.bottom: view.bottom
-            anchors.horizontalCenter: view.horizontalCenter
-            width: view.width - 10
-        }
-        contentWidth: container.width
-        RowLayout{
-            id: container
-            spacing: 0
-            height: parent.height
-        }
+
+    onContentChanged: {
+        delegateList.push({
+                               "content": content,
+                               "index": control.delegateCount++
+                           })
     }
+
+    Loader{
+        id: main_loader
+        active: control.needActive
+        anchors.fill: parent
+        asynchronous: true
+        sourceComponent: Flickable{
+            id: view
+            property alias containerItem: container
+            ScrollIndicator.horizontal: RibbonScrollIndicator{
+                anchors.bottom: view.bottom
+                anchors.horizontalCenter: view.horizontalCenter
+                width: view.width - 10
+            }
+            contentWidth: container.width
+            RowLayout{
+                id: container
+                spacing: 0
+                height: parent.height
+                Repeater{
+                    model: control.delegateList
+                    Loader{
+                        required property var modelData
+                        width: item.width
+                        Layout.fillHeight: true
+                        active: control.needActive
+                        sourceComponent: control.delegateList[modelData.index].content
+                    }
+                }
+            }
+        }
+        onLoaded: containerItemUpdated()
+    }
+
+    function getItem( index : int ){
+        return contentItem.children[index].item
+    }
+
 }
