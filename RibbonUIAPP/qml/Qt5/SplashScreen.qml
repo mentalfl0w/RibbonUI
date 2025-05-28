@@ -9,9 +9,11 @@ RibbonSplashScreen {
     contentArgs: {
         "implicitHeight": 250,
         "implicitWidth": 450,
-        "titleText": QT_TRANSLATE_NOOP("RibbonSplashScreen", "Example App"),
-        "subTitleText": QT_TRANSLATE_NOOP("RibbonSplashScreen", "A example for users to use RibbonUI.")
+        "titleText": qsTr("Example App"),
+        "subTitleText": qsTr("A example for users to use RibbonUI.")
     }
+
+    onContentArgsChanged: loadItemArgs()
 
     Timer{
         interval: 1000

@@ -34,16 +34,7 @@ Window {
                 item.onDestroyed.connect(function(){
                         root.showLoadingLog.disconnect(item.dealWithLog)
                 })
-                if (!Object.keys(container.args).length)
-                    return
-                else if(Object.keys(container.args).length){
-                    for (let arg in container.args){
-                        item[arg] = container.args[arg]
-                    }
-                }
-                else{
-                    console.error("RibbonSplashScreen: Arguments error, please check.")
-                }
+                loadItemArgs()
             }
             onStatusChanged: {
                 if(status === Loader.Null &&
@@ -151,6 +142,21 @@ Window {
             console.debug("RibbonSplashScreen:", component, "is ready immediately.")
             internal.component = component
             internal.isComponentReady = true
+        }
+    }
+
+    function loadItemArgs(){
+        if(loader.item){
+            if (!Object.keys(container.args).length)
+                return
+            else if(Object.keys(container.args).length){
+                for (let arg in container.args){
+                    loader.item[arg] = container.args[arg]
+                }
+            }
+            else{
+                console.error("RibbonSplashScreen: Arguments error, please check.")
+            }
         }
     }
 }
