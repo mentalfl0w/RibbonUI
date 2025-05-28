@@ -3,9 +3,10 @@
 
 #include <QVariant>
 #include <QSettings>
+#include "definitions.h"
 #include "ribbonsingleton.h"
 
-class RibbonConfig : public QObject
+class RIBBONUI_API RibbonConfig : public QObject
 {
     Q_OBJECT
     QML_ELEMENT

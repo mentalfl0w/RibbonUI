@@ -6,7 +6,7 @@
 #include "ribbonsingleton.h"
 #include "definitions.h"
 
-class RibbonLocalization : public QObject
+class RIBBONUI_API RibbonLocalization : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
