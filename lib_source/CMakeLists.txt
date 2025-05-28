@@ -67,7 +67,10 @@ set (source_files
     include/definitions.h
     include/ribbontheme.h source/ribbontheme.cpp
     include/platformsupport.h
-    include/ribbonlocalization.h source/ribbonlocalization.cpp)
+    include/ribbonlocalization.h source/ribbonlocalization.cpp
+    include/ribbonsingleton.h
+    include/ribbonconfig.h source/ribbonconfig.cpp
+)
 
 # Configure version header
 set(__ribbonui_project_version "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
@@ -170,6 +173,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_BINARY_DIR}
 )
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE QT_QML_DEBUG)
+endif()
 
 # Install QML plugin directory
 install(DIRECTORY ${RIBBONUI_QML_PLUGIN_DIRECTORY} DESTINATION ${CMAKE_INSTALL_PREFIX}/imports)

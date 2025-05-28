@@ -1,5 +1,6 @@
-import QtQuick
-import RibbonUI
+import QtQuick 2.15
+import RibbonUI 1.1
+import RibbonUIAPP 1.1
 
 RibbonSplashScreen {
     id: root
@@ -22,5 +23,10 @@ RibbonSplashScreen {
             remainSeconds -= 1
             root.showLoadingLog(qsTr("Loading...Remain %1s...").arg(remainSeconds), {})
         }
+    }
+
+    Component.onCompleted: {
+        RibbonUI.autoLoadLanguage = true
+        RibbonUI.setTranslator(Localization)
     }
 }

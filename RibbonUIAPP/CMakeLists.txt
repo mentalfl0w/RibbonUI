@@ -37,7 +37,12 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Quick LinguistTools REQUIRED)
 set(ts_files i18n/${PROJECT_NAME}_zh_CN.ts i18n/${PROJECT_NAME}_en_US.ts)
 
 # Source and QML files
-set(sources_files example.cpp)
+set(sources_files
+    source/example.cpp
+)
+set(module_sources_files
+    include/localization.h source/localization.cpp
+)
 set(qml_files example.qml about.qml SplashScreen.qml
     components/RibbonMessageListViewExample.qml
     pages/SettingsMenuPage.qml components/TabBar.qml)
@@ -127,6 +132,15 @@ endif()
 # Include Qt5 QML plugin for Qt versions less than 6
 if (${QT_VERSION_MAJOR} LESS 6)
     include(Qt5QMLPlugin)
+else()
+    # Update QML_IMPORT_PATH (cached variable)
+    if(NOT QML_IMPORT_PATH MATCHES "(^|;)${CMAKE_CURRENT_BINARY_DIR}($|;)")
+        if(QML_IMPORT_PATH)
+            set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "Set for Qt Creator" FORCE)
+        else()
+            set(QML_IMPORT_PATH "${CMAKE_CURRENT_BINARY_DIR}" CACHE STRING "Set for Qt Creator" FORCE)
+        endif()
+    endif()
 endif()
 
 # Define the QML module
@@ -135,6 +149,7 @@ qt_add_qml_module(${PROJECT_NAME}
     VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     RESOURCE_PREFIX "/qt/qml/"
     QML_FILES ${qml_files}
+    SOURCES ${module_sources_files}
     RESOURCES resources/imgs/heart.png resources/imgs/search.png
 )
 
@@ -183,4 +198,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${PROJECT_SOURCE_DIR}
+    ${PROJECT_SOURCE_DIR}/include
+)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE QT_QML_DEBUG)
+endif()

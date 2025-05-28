@@ -1,41 +1,42 @@
 #ifndef RIBBONLOCALIZATION_H
 #define RIBBONLOCALIZATION_H
 
-#include <QQuickItem>
 #include <QLocale>
 #include <QTranslator>
+#include "ribbonsingleton.h"
+#include "definitions.h"
 
-class RibbonLocalization : public QQuickItem
+class RibbonLocalization : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
     Q_PROPERTY(QString currentLanguage READ currentLanguage WRITE setCurrentLanguage NOTIFY currentLanguageChanged FINAL)
+    Q_PROPERTY_RW(bool, enabled);
+    RIBBON_SINGLETON(RibbonLocalization)
 public:
     typedef QPair<QString, QString> LangItem; // example: <"zh_CN", "qrc://i18n/xxx_zh_CN.qm">
     typedef QMap<QString, QSharedPointer<QTranslator>> Translator; // example: <"main", mainTranslator>
     typedef QMap<LangItem, QString> ModuleTranslator; // example: <zhItem, "main">
-    static RibbonLocalization* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
-    static RibbonLocalization* instance();
     Q_INVOKABLE bool registerLanguage(QString langName, QString path, QString moduleName);
     Q_INVOKABLE bool removeLanguage(QString langName, QString path);
-    Q_INVOKABLE void bindEngine();
     Q_INVOKABLE QList<QString> languageList();
     Q_INVOKABLE QString languageTranslate(QString langStr);
     QString currentLanguage();
     bool setCurrentLanguage(QString langName);
     // Use if you need to directly save/load language from config files
-    Q_INVOKABLE virtual void loadCurrentLanguage(){};
-    virtual bool saveCurrentLanguage(const QString &language){return false;};
+    virtual void loadCurrentLanguage(){};
+    virtual void saveCurrentLanguage(const QString &language){};
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 public:
 #else
-private:
-    Q_DISABLE_COPY_MOVE(RibbonLocalization)
+protected:
 #endif
     RibbonLocalization();
-    ~RibbonLocalization();
+    virtual ~RibbonLocalization() override;
 protected:
+    virtual bool bindEngine();
+    virtual void switchState();
     ModuleTranslator moduleLangList;
     Translator transList;
     QString _currentLang;
@@ -47,6 +48,6 @@ protected:
     };
 signals:
     void currentLanguageChanged();
+    void registerLanguageFinished();
 };
-
 #endif // RIBBONLOCALIZATION_H

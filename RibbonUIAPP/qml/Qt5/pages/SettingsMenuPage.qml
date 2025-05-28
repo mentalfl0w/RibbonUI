@@ -1,8 +1,9 @@
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
-import QtQuick.Window
-import RibbonUI
+import QtQuick 2.15
+import QtQuick.Layouts 1.11
+import QtQuick.Controls 2.15
+import QtQuick.Window 2.15
+import RibbonUI 1.1
+import RibbonUIAPP 1.1
 
 RibbonBackStagePage{
     id: page
@@ -118,23 +119,24 @@ RibbonBackStagePage{
                         textRole: "text"
                         iconSource: RibbonIcons.LocalLanguage
                         Component.onCompleted: update_state()
-                        onActivated: RibbonLocalization.currentLanguage = model.get(currentIndex).value
+                        onActivated: Localization.currentLanguage = model.get(currentIndex).value
                         Connections{
-                            target: RibbonLocalization
+                            target: Localization
                             function onCurrentLanguageChanged(){
                                 lang_combo.update_state()
                             }
                         }
                         function update_state(){
                             model.clear()
-                            let langs = RibbonLocalization.languageList()
+                            let langs = Localization.languageList()
                             for(let i = 0; i < langs.length; i++){
                                 model.append({
-                                                      text:RibbonLocalization.languageTranslate(langs[i]),
+                                                      text:Localization.languageTranslate(langs[i]),
                                                       value:langs[i]
                                                   })
                             }
-                            currentIndex = find(RibbonLocalization.languageTranslate(RibbonLocalization.currentLanguage))
+
+                            currentIndex = find(Localization.languageTranslate(Localization.currentLanguage))
                         }
                     }
                 }

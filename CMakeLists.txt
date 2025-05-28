@@ -45,7 +45,7 @@ endif()
 add_subdirectory(lib_source)
 
 if (RIBBONUI_BUILD_EXAMPLES)
-    add_subdirectory(example)
+    add_subdirectory(RibbonUIAPP)
 endif()
 
 message("---------------------------- RibbonUI ----------------------------")

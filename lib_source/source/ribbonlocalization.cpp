@@ -1,26 +1,18 @@
 #include "ribbonlocalization.h"
 #include <QMutex>
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
+#include <QTimer>
 
-RibbonLocalization::RibbonLocalization() {
+RibbonLocalization::RibbonLocalization(){
     _currentLang = "en_US";
+    _enabled = true;
+    initialBind();
+    connect(this, &RibbonLocalization::enabledChanged, this, &RibbonLocalization::switchState);
 }
 
 RibbonLocalization::~RibbonLocalization() {
-    for (auto item : transList)
+    for (auto item : std::as_const(transList))
         item.clear();
-}
-
-RibbonLocalization* RibbonLocalization::instance(){
-    static QMutex mutex;
-    QMutexLocker locker(&mutex);
-
-    static RibbonLocalization *singleton = nullptr;
-    if (!singleton) {
-        singleton = new RibbonLocalization();
-    }
-    return singleton;
 }
 
 bool RibbonLocalization::registerLanguage(QString langName, QString path, QString moduleName){
@@ -34,8 +26,10 @@ bool RibbonLocalization::registerLanguage(QString langName, QString path, QStrin
             }
         }
         moduleLangList.insert(temp, moduleName);
+        emit registerLanguageFinished();
         return true;
     }
+    emit registerLanguageFinished();
     return false;
 }
 
@@ -62,12 +56,13 @@ QString RibbonLocalization::currentLanguage(){
 bool RibbonLocalization::setCurrentLanguage(QString langName){
     bool hasChanged = false;
     QMap<QString, bool> isNeeded;
-    for(auto langItem : moduleLangList.keys()){
+    auto keys = moduleLangList.keys();
+    for(auto &langItem : keys){
         if(langItem.first == langName){
             isNeeded[moduleLangList[langItem]] = true;
             Q_UNUSED(transList[moduleLangList[langItem]].get()->load(langItem.second));
             _currentLang = langName;
-            qApp->installTranslator(transList[moduleLangList[langItem]].get());;
+            qApp->installTranslator(transList[moduleLangList[langItem]].get());
             hasChanged = true;
         }
         else{
@@ -83,23 +78,31 @@ bool RibbonLocalization::setCurrentLanguage(QString langName){
     return hasChanged;
 }
 
-void RibbonLocalization::bindEngine(){
-    QQmlApplicationEngine * engine = dynamic_cast<QQmlApplicationEngine*>(qmlEngine(this));
-    Q_ASSERT(engine);
-    if (!engine)
-        return;
-    QObject::connect(this, &RibbonLocalization::currentLanguageChanged, engine, [engine]() -> void {
-        engine->retranslate();
-    });
+bool RibbonLocalization::bindEngine(){
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    QQmlApplicationEngine* &engine = getEngine();
+    engine = dynamic_cast<QQmlApplicationEngine*>(qmlEngine(this));
+#else
+    QQmlApplicationEngine *engine = dynamic_cast<QQmlApplicationEngine*>(qmlEngine(this));
+#endif
+    if(bindEngineBegin()){
+        QObject::connect(this, &RibbonLocalization::currentLanguageChanged, engine, [engine]() -> void {
+            engine->retranslate();
+        });
+        loadCurrentLanguage();
+        return true;
+    }
+    return false;
 }
 
 QList<QString> RibbonLocalization::languageList(){
     QList<QString> list;
     QSet<QString> set;
-    for(auto langItem : moduleLangList.keys()){
+    auto keys = moduleLangList.keys();
+    for(auto &langItem : keys){
         set.insert(langItem.first);
     }
-    for(auto setItem : set){
+    for(auto &setItem : set){
         list.append(setItem);
     }
     return list;
@@ -111,4 +114,18 @@ QString RibbonLocalization::languageTranslate(QString langStr){
     }
     else
         return tr("Not Found");
+}
+
+void RibbonLocalization::switchState(){
+    if(_enabled){
+        setCurrentLanguage(_currentLang);
+    }
+    else{
+        auto keys = moduleLangList.keys();
+        for(auto &langItem : keys){
+            if(langItem.first == _currentLang){
+                qApp->removeTranslator(transList[moduleLangList[langItem]].get());
+            }
+        }
+    }
 }

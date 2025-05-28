@@ -1,10 +1,10 @@
 #ifndef RIBBONTHEME_H
 #define RIBBONTHEME_H
 
-#include <QQuickItem>
+#include "ribbonsingleton.h"
 #include "definitions.h"
 
-class RibbonTheme : public QQuickItem
+class RibbonTheme : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
@@ -14,21 +14,21 @@ class RibbonTheme : public QQuickItem
     Q_PROPERTY_RW(RibbonThemeType::ThemeMode,themeMode)
     Q_PROPERTY_RW(bool,modernStyle)
     Q_PROPERTY_RW(bool,nativeText)
+
+    RIBBON_SINGLETON(RibbonTheme)
 public:
-    static RibbonTheme* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine){return instance();}
-    static RibbonTheme* instance();
     Q_SIGNAL void isDarkModeChanged();
     bool isDarkMode();
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 public:
 #else
 private:
-    Q_DISABLE_COPY_MOVE(RibbonTheme)
 #endif
     RibbonTheme();
+private:
     bool eventFilter(QObject *obj, QEvent *event);
+    bool bindEngine(){return bindEngineBegin();};
     RibbonThemeType::ThemeMode currentTheme();
     RibbonThemeType::ThemeMode _system_themeMode;
 };
-
 #endif // RIBBONTHEME_H

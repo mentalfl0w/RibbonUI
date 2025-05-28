@@ -7,24 +7,14 @@
 #include <QDir>
 #include "ribbonui_version.h"
 
-RibbonUI::RibbonUI(QQuickItem *parent)
-    : QQuickItem(parent)
+RibbonUI::RibbonUI(QObject *parent)
+    : QObject(parent)
 {
     _version = RIBBONUI_VERSION;
     _qtVersion = QString(qVersion()).replace('.',"").toInt();
     _isWin11 = QOperatingSystemVersion::current() >= QOperatingSystemVersion(QOperatingSystemVersion::Windows, 10, 0, 22000);
-    _translator = RibbonLocalization::instance();
-}
-
-RibbonUI* RibbonUI::instance(){
-    static QMutex mutex;
-    QMutexLocker locker(&mutex);
-
-    static RibbonUI *singleton = nullptr;
-    if (!singleton) {
-        singleton = new RibbonUI();
-    }
-    return singleton;
+    _translator = RibbonLocalization::getInstance();
+    initialBind();
 }
 
 void RibbonUI::init()
@@ -49,7 +39,9 @@ void RibbonUI::registerTypes(const char *uri)
 }
 
 void RibbonUI::setTranslator(RibbonLocalization *translator){
+    _translator->enabled(false);
     _translator = translator;
+    _translator->enabled(true);
     initTranslator();
 }
 
@@ -59,7 +51,7 @@ void RibbonUI::initTranslator(){
     filters<<"*.qm";
     dir.setNameFilters(filters);
     QStringList matchedFiles = dir.entryList();
-    for(auto file : matchedFiles){
+    for(auto &file : std::as_const(matchedFiles)){
         QString project, lang;
         int start = 0;
         int end = file.indexOf('_');
@@ -79,6 +71,7 @@ void RibbonUI::initTranslator(){
             }
         }
     }
+    emit initTranslatorFinished();
 }
 
 void RibbonUI::setAutoLoadLanguage(bool value){

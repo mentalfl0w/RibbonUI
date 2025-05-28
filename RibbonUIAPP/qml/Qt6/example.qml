@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import RibbonUI
+import RibbonUIAPP
 import "components"
 
 RibbonWindow {
@@ -145,6 +146,7 @@ RibbonWindow {
     }
     Component.onCompleted: {
         RibbonUI.autoLoadLanguage = true
+        RibbonUI.setTranslator(Localization)
         tour.open()
     }
 
