@@ -17,7 +17,7 @@ Item {
         RibbonText{
             Layout.preferredWidth: parent.width - leftPadding - rightPadding
             font.pixelSize: 22
-            text: popup.targetList[popup.currentIndex].title
+            text: qsTranslate("RibbonTour", popup.targetList[popup.currentIndex].title)
             viewOnly: true
             topPadding: contentMargins * 3 / 4
             leftPadding: contentMargins
@@ -33,7 +33,7 @@ Item {
             font.pixelSize: 13
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             verticalAlignment: Text.AlignVCenter
-            text: popup.targetList[popup.currentIndex].text
+            text: qsTranslate("RibbonTour", popup.targetList[popup.currentIndex].text)
             viewOnly: true
             topPadding: contentMargins * 3 / 4
             leftPadding: contentMargins

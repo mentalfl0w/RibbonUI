@@ -28,26 +28,26 @@
         <translation>返回</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="482"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="482"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="488"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="487"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="493"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="493"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="499"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="498"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="504"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="504"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
         <source>Restore</source>
         <translation>还原</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="504"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="504"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
         <source>Maximize</source>
         <translation>最大化</translation>
     </message>
@@ -70,7 +70,7 @@
 <context>
     <name>RibbonLocalization</name>
     <message>
-        <location filename="../source/ribbonlocalization.cpp" line="113"/>
+        <location filename="../source/ribbonlocalization.cpp" line="116"/>
         <source>Not Found</source>
         <translation>未找到对应语言</translation>
     </message>
@@ -176,8 +176,26 @@
 <context>
     <name>RibbonSplashScreenContent</name>
     <message>
-        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="148"/>
-        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="148"/>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="12"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="12"/>
+        <source>Dylan Liu&apos;s Lab</source>
+        <translation>Dylan Liu&apos;s Lab</translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="13"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="13"/>
+        <source>RibbonUI</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="14"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="14"/>
+        <source>A lightweight UI framework.</source>
+        <translation>一款轻量级UI框架。</translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="15"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="15"/>
         <source>Loading...</source>
         <translation>加载中...</translation>
     </message>
@@ -228,13 +246,13 @@
     <name>RibbonTabGroup</name>
     <message>
         <location filename="../qml/Qt5/RibbonTabGroup.qml" line="88"/>
-        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="87"/>
+        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="88"/>
         <source>Open </source>
         <translation>打开 </translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonTabGroup.qml" line="88"/>
-        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="87"/>
+        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="88"/>
         <source>&apos;s external</source>
         <translation>的外部链接</translation>
     </message>
@@ -369,32 +387,32 @@
 <context>
     <name>RibbonWindow</name>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="150"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="150"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="148"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="148"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="151"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="151"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="149"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="149"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="152"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="150"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="150"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="153"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="153"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="151"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="151"/>
         <source>Do you want to close this window?</source>
         <translation>需要关闭窗口吗？</translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="154"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="154"/>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="152"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
         <source>Please note</source>
         <translation>请注意</translation>
     </message>
@@ -402,22 +420,22 @@
 <context>
     <name>langList</name>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="43"/>
+        <location filename="../include/ribbonlocalization.h" line="44"/>
         <source>zh_CN</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="44"/>
+        <location filename="../include/ribbonlocalization.h" line="45"/>
         <source>zh_TW</source>
         <translation>繁体中文（台湾）</translation>
     </message>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="45"/>
+        <location filename="../include/ribbonlocalization.h" line="46"/>
         <source>en_US</source>
         <translation>英文（美国）</translation>
     </message>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="46"/>
+        <location filename="../include/ribbonlocalization.h" line="47"/>
         <source>en_UK</source>
         <translation>英文（英国）</translation>
     </message>

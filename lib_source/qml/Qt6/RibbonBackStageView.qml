@@ -251,7 +251,7 @@ Popup {
                     }
                     Text{
                         id: menu_label
-                        text: model.menuText
+                        text: qsTranslate("RibbonBackStageView",model.menuText)
                         color: !mouse.containsMouse && RibbonTheme.modernStyle && item_bg.view.currentIndex === index && item_bg.isCurrentMenu ? RibbonTheme.isDarkMode ? "#779CDB" : "#5882BB" : back_btn.textColor
                         Layout.alignment: Qt.AlignVCenter
                         verticalAlignment: Text.AlignVCenter
@@ -443,6 +443,7 @@ Popup {
                 model: control.pageModel
                 Loader {
                     required property var modelData
+                    asynchronous: true
                     active: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
                     source: typeof(modelData.sourceUrl) !== 'undefined' && modelData.sourceUrl !== ""? modelData.sourceUrl : ""
                     sourceComponent: typeof(control.pageModel[modelData.globalIndex].sourceComponent) !== 'undefined' && typeof(modelData.sourceUrl) === 'undefined' ? control.pageModel[modelData.globalIndex].sourceComponent : undefined

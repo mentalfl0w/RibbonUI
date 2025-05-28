@@ -68,8 +68,8 @@ RibbonWindow {
     RibbonTour{
         id: tour
         RibbonTourItem{
-            title: qsTr("Tab Bar")
-            text: qsTr("A tab bar for window, let user choose the controllers.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Tab Bar")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "A tab bar for window, let user choose the controllers.")
             target: tab_bar
             enterFunc: ()=>{
                 tab_bar.folded = false
@@ -77,13 +77,13 @@ RibbonWindow {
             }
         }
         RibbonTourItem{
-            title: qsTr("Tab Bar Buttons")
-            text: qsTr("Tool buttons at the top of tab bar.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Tab Bar Buttons")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "Tool buttons at the top of tab bar.")
             target: tab_bar.tab_bar_tool
         }
         RibbonTourItem{
-            title: qsTr("Sliders")
-            text: qsTr("Vertical/Horizental sliders with/without buttons.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Sliders")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "Vertical/Horizental sliders with/without buttons.")
             target: tab_bar.slider_layout
             enterFunc: ()=>{
                 tab_bar.setPage(0)
@@ -97,32 +97,32 @@ RibbonWindow {
             }
         }
         RibbonTourItem{
-            title: qsTr("Switch Buttons")
-            text: qsTr("Switch buttons with/without background color or grabber text.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Switch Buttons")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "Switch buttons with/without background color or grabber text.")
             target: tab_bar.switch_layout
             enterFunc: ()=>tab_bar.btn_with_color_and_grabberText.checked = true
             exitFunc: ()=>tab_bar.btn_with_color_and_grabberText.checked = false
         }
         RibbonTourItem{
-            title: qsTr("CheckBoxs")
-            text: qsTr("CheckBoxs with colorful background or with/without label text.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "CheckBoxs")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "CheckBoxs with colorful background or with/without label text.")
             target: tab_bar.checkbox_layout
         }
         RibbonTourItem{
-            title: qsTr("Buttons")
-            text: qsTr("Buttons with/without background or label text.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Buttons")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "Buttons with/without background or label text.")
             target: tab_bar.button_layout
             enterFunc: ()=>tab_bar.btn_without_bg_and_label.checked = true
             exitFunc: ()=>tab_bar.btn_without_bg_and_label.checked = false
         }
         RibbonTourItem{
-            title: qsTr("Push Buttons")
-            text: qsTr("Push buttons with/without sub menu.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Push Buttons")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "Push buttons with/without sub menu.")
             target: tab_bar.pushbutton_layout
         }
         RibbonTourItem{
-            title: qsTr("Line Edits")
-            text: qsTr("Line edits with/without icon.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Line Edits")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "Line edits with/without icon.")
             target: tab_bar.lineedit_layout
             enterFunc: ()=>{
                 tab_bar.setPage(1)
@@ -136,8 +136,8 @@ RibbonWindow {
             }
         }
         RibbonTourItem{
-            title: qsTr("Bottom Bar")
-            text: qsTr("A bottom bar for window.")
+            title: QT_TRANSLATE_NOOP("RibbonTour", "Bottom Bar")
+            text: QT_TRANSLATE_NOOP("RibbonTour", "A bottom bar for window.")
             target: bottom_bar
         }
         target: windowItems
@@ -354,14 +354,12 @@ RibbonWindow {
     Component{
         id: t_content
         RibbonBackStagePage{
-            property string rawName
-            pageName: qsTr(rawName)
-            onPageNameChanged: t_text.text = pageName
             Rectangle{
                 anchors.fill: parent
                 color: "transparent"
                 RibbonText{
                     id: t_text
+                    text: qsTr(pageName)
                     anchors.centerIn: parent
                     font.pixelSize: 20
                 }
@@ -377,42 +375,42 @@ RibbonWindow {
         blurTarget: root.windowItems
         radius: borderRadius
         RibbonBackStageMenuItem{
-            menuText: qsTr("Home")
+            menuText: QT_TRANSLATE_NOOP("RibbonBackStageView","Home")
             menuIcon: RibbonIcons.Home
             type: RibbonBackStageView.MenuItemLocation.Head
             sourceComponent: t_content
-            sourceArgs:{'rawName':QT_TR_NOOP("Home")}
+            sourceArgs:{'pageName':QT_TR_NOOP("Home")}
         }
         RibbonBackStageMenuItem{
-            menuText: qsTr("File")
+            menuText: QT_TRANSLATE_NOOP("RibbonBackStageView","File")
             menuIcon: RibbonIcons.Document
             type: RibbonBackStageView.MenuItemLocation.Head
             sourceComponent: t_content
-            sourceArgs:{'rawName':QT_TR_NOOP("File")}
+            sourceArgs:{'pageName':QT_TR_NOOP("File")}
         }
         RibbonBackStageMenuItem{
-            menuText: qsTr("Search")
+            menuText: QT_TRANSLATE_NOOP("RibbonBackStageView","Search")
             menuIcon: RibbonIcons.Search
             type: RibbonBackStageView.MenuItemLocation.Body
             sourceComponent: t_content
-            sourceArgs:{'rawName':QT_TR_NOOP("Search")}
+            sourceArgs:{'pageName':QT_TR_NOOP("Search")}
         }
         RibbonBackStageMenuItem{
-            menuText: qsTr("Account")
+            menuText: QT_TRANSLATE_NOOP("RibbonBackStageView","Account")
             menuIcon: RibbonIcons.PersonAccounts
             type: RibbonBackStageView.MenuItemLocation.Tail
             clickOnly: true
             clickFunc: ()=>console.log("Menu Account clicked")
         }
         RibbonBackStageMenuItem{
-            menuText: qsTr("About")
+            menuText: QT_TRANSLATE_NOOP("RibbonBackStageView","About")
             menuIcon: RibbonIcons.Info
             type: RibbonBackStageView.MenuItemLocation.Tail
             clickOnly: true
             clickFunc: ()=>root.showWindow(Qt.resolvedUrl("about.qml"))
         }
         RibbonBackStageMenuItem{
-            menuText: qsTr("Settings")
+            menuText: QT_TRANSLATE_NOOP("RibbonBackStageView","Settings")
             menuIcon: RibbonIcons.Settings
             type: RibbonBackStageView.MenuItemLocation.Tail
             sourceUrl: Qt.resolvedUrl("pages/SettingsMenuPage.qml")

@@ -251,7 +251,7 @@ Popup {
                     }
                     Text{
                         id: menu_label
-                        text: model.menuText
+                        text: qsTranslate("RibbonBackStageView",model.menuText)
                         color: !mouse.containsMouse && RibbonTheme.modernStyle && item_bg.view.currentIndex === index && item_bg.isCurrentMenu ? RibbonTheme.isDarkMode ? "#779CDB" : "#5882BB" : back_btn.textColor
                         Layout.alignment: Qt.AlignVCenter
                         verticalAlignment: Text.AlignVCenter

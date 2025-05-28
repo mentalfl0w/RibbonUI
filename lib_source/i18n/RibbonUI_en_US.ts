@@ -28,26 +28,26 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="482"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="482"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="488"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="487"/>
         <source>Close</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="493"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="493"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="499"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="498"/>
         <source>Minimize</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="504"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="504"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
         <source>Restore</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="504"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="504"/>
+        <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
         <source>Maximize</source>
         <translation></translation>
     </message>
@@ -70,7 +70,7 @@
 <context>
     <name>RibbonLocalization</name>
     <message>
-        <location filename="../source/ribbonlocalization.cpp" line="113"/>
+        <location filename="../source/ribbonlocalization.cpp" line="116"/>
         <source>Not Found</source>
         <translation></translation>
     </message>
@@ -176,8 +176,26 @@
 <context>
     <name>RibbonSplashScreenContent</name>
     <message>
-        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="148"/>
-        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="148"/>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="12"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="12"/>
+        <source>Dylan Liu&apos;s Lab</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="13"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="13"/>
+        <source>RibbonUI</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="14"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="14"/>
+        <source>A lightweight UI framework.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/RibbonSplashScreenContent.qml" line="15"/>
+        <location filename="../qml/Qt6/RibbonSplashScreenContent.qml" line="15"/>
         <source>Loading...</source>
         <translation></translation>
     </message>
@@ -228,13 +246,13 @@
     <name>RibbonTabGroup</name>
     <message>
         <location filename="../qml/Qt5/RibbonTabGroup.qml" line="88"/>
-        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="87"/>
+        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="88"/>
         <source>Open </source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonTabGroup.qml" line="88"/>
-        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="87"/>
+        <location filename="../qml/Qt6/RibbonTabGroup.qml" line="88"/>
         <source>&apos;s external</source>
         <translation></translation>
     </message>
@@ -368,32 +386,32 @@
 <context>
     <name>RibbonWindow</name>
     <message>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="148"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="148"/>
+        <source>Quit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/RibbonWindow.qml" line="149"/>
+        <location filename="../qml/Qt6/RibbonWindow.qml" line="149"/>
+        <source>Minimize</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="150"/>
         <location filename="../qml/Qt6/RibbonWindow.qml" line="150"/>
-        <source>Quit</source>
+        <source>Cancel</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="151"/>
         <location filename="../qml/Qt6/RibbonWindow.qml" line="151"/>
-        <source>Minimize</source>
+        <source>Do you want to close this window?</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonWindow.qml" line="152"/>
         <location filename="../qml/Qt6/RibbonWindow.qml" line="152"/>
-        <source>Cancel</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="153"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="153"/>
-        <source>Do you want to close this window?</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../qml/Qt5/RibbonWindow.qml" line="154"/>
-        <location filename="../qml/Qt6/RibbonWindow.qml" line="154"/>
         <source>Please note</source>
         <translation></translation>
     </message>
@@ -401,22 +419,22 @@
 <context>
     <name>langList</name>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="43"/>
+        <location filename="../include/ribbonlocalization.h" line="44"/>
         <source>zh_CN</source>
         <translation>Chinese (Simplified)</translation>
     </message>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="44"/>
+        <location filename="../include/ribbonlocalization.h" line="45"/>
         <source>zh_TW</source>
         <translation>Chinese (Traditional)</translation>
     </message>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="45"/>
+        <location filename="../include/ribbonlocalization.h" line="46"/>
         <source>en_US</source>
         <translation>English (USA)</translation>
     </message>
     <message>
-        <location filename="../include/ribbonlocalization.h" line="46"/>
+        <location filename="../include/ribbonlocalization.h" line="47"/>
         <source>en_UK</source>
         <translation>English (UK)</translation>
     </message>

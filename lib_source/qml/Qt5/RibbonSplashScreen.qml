@@ -31,6 +31,9 @@ Window {
             source: contentSource ? contentSource : ""
             onLoaded: {
                 root.showLoadingLog.connect(item.dealWithLog)
+                item.onDestroyed.connect(function(){
+                        root.showLoadingLog.disconnect(item.dealWithLog)
+                })
                 if (!Object.keys(container.args).length)
                     return
                 else if(Object.keys(container.args).length){
@@ -40,6 +43,14 @@ Window {
                 }
                 else{
                     console.error("RibbonSplashScreen: Arguments error, please check.")
+                }
+            }
+            onStatusChanged: {
+                if(status === Loader.Null &&
+                        ((contentSource !== source) ||
+                         (contentItems !== sourceComponent))){
+                    sourceComponent = contentSource ? undefined : contentItems
+                    source = contentSource ? contentSource : ""
                 }
             }
         }

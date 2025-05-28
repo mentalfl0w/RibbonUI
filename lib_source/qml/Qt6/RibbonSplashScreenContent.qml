@@ -9,9 +9,12 @@ Rectangle {
 
     property var dealWithLog: showLog
     property string picSource: "qrc:/qt/qml/RibbonUI/resources/imgs/icon.png"
-    property string labelText: "Dylan Liu's Lab"
-    property string titleText: "RibbonUI"
-    property string subTitleText: "A lightweight UI framework."
+    property var labelText: QT_TR_NOOP("Dylan Liu's Lab")
+    property var titleText: QT_TR_NOOP("RibbonUI")
+    property var subTitleText: QT_TR_NOOP("A lightweight UI framework.")
+    property var logText: QT_TR_NOOP("Loading...")
+
+    signal onDestroyed()
 
     color: {
         if (Window.window.blurBehindWindow) {
@@ -88,7 +91,7 @@ Rectangle {
         }
         Text {
             id: label_text
-            text: control.labelText
+            text: qsTranslate("RibbonSplashScreen", control.labelText)
             Layout.alignment: Qt.AlignVCenter
             font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
             font.pixelSize: 16
@@ -109,7 +112,7 @@ Rectangle {
         spacing: -5
         Text {
             id: title_text
-            text: control.titleText
+            text: qsTranslate("RibbonSplashScreen", control.titleText)
             Layout.alignment: Qt.AlignHCenter
             font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
             font.pixelSize: 50
@@ -126,7 +129,7 @@ Rectangle {
         }
         Text {
             id: subtitle_text
-            text: control.subTitleText
+            text: qsTranslate("RibbonSplashScreen", control.subTitleText)
             Layout.alignment: Qt.AlignHCenter
             font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
             font.pixelSize: 15
@@ -156,7 +159,7 @@ Rectangle {
             bottom: parent.bottom
             bottomMargin: btn_layout.anchors.topMargin
         }
-        text: qsTr("Loading...")
+        text: qsTranslate("RibbonSplashScreen", control.logText)
         font.family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
         font.pixelSize: 10
         color: RibbonTheme.modernStyle ? RibbonTheme.isDarkMode ? "white" : "black" : "white"
@@ -170,7 +173,9 @@ Rectangle {
         }
     }
 
+    Component.onDestruction: onDestroyed()
+
     function showLog(log, others){
-        log_text.text = log
+        control.logText = log
     }
 }

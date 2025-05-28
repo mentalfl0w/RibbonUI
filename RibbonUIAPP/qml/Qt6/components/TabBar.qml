@@ -35,7 +35,7 @@ RibbonTabBar {
 
     RibbonTabPage{
         id: basic_page
-        title: qsTr("Basic")
+        title: QT_TRANSLATE_NOOP("RibbonTabBar", "Basic")
         property var sliderLayout
         property var sliderWithBtn
         property var sliderWithoutBtn
@@ -328,7 +328,7 @@ RibbonTabBar {
     }
     RibbonTabPage{
         id: input_page
-        title: qsTr("Input")
+        title: QT_TRANSLATE_NOOP("RibbonTabBar", "Input")
         property var lineEditLayout
         property var lineEditWithIcon
 
@@ -504,7 +504,7 @@ RibbonTabBar {
     }
     RibbonTabPage{
         id: progress_page
-        title: qsTr("Progress")
+        title: QT_TRANSLATE_NOOP("RibbonTabBar", "Progress")
         property var progressbarSlider
         onContainerItemUpdated:{
             if(getItem(0))
@@ -666,7 +666,7 @@ RibbonTabBar {
         }
     }
     RibbonTabPage{
-        title: qsTr("Indicator")
+        title: QT_TRANSLATE_NOOP("RibbonTabBar", "Indicator")
         RibbonTabGroup{
             text: qsTr("BusyRing")
             width: busyring_layout.width + 30
@@ -722,7 +722,7 @@ RibbonTabBar {
         }
     }
     RibbonTabPage{
-        title: qsTr("Views")
+        title: QT_TRANSLATE_NOOP("RibbonTabBar", "Views")
         RibbonTabGroup{
             width: message_list_view_layout.width + 30
             text: qsTr("MessageListView")
@@ -742,7 +742,7 @@ RibbonTabBar {
         }
     }
     RibbonTabPage{
-        title: qsTr("Others")
+        title: QT_TRANSLATE_NOOP("RibbonTabBar", "Others")
         RibbonTabGroup{
             width: text_layout.width + 30
             text: qsTr("Text")
