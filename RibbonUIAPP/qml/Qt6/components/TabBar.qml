@@ -47,17 +47,15 @@ RibbonTabBar {
         property var pushButtonLayout
 
         onContainerItemUpdated: {
-            if(getItem(0)){
-                sliderLayout = getItem(0).sliderLayout
-                sliderWithBtn = getItem(0).sliderWithBtn
-                sliderWithoutBtn = getItem(0).sliderWithoutBtn
-                switchLayout = getItem(1).switchLayout
-                btnWithColorAndGrabberText = getItem(1).btnWithColorAndGrabberText
-                checkBoxLayout = getItem(2).checkBoxLayout
-                buttonLayout = getItem(3).buttonLayout
-                btnWithoutBgAndLabel = getItem(3).btnWithoutBgAndLabel
-                pushButtonLayout = getItem(4).pushButtonLayout
-            }
+            basic_page.sliderLayout = getItem(0).sliderLayout
+            basic_page.sliderWithBtn = getItem(0).sliderWithBtn
+            basic_page.sliderWithoutBtn = getItem(0).sliderWithoutBtn
+            basic_page.switchLayout = getItem(1).switchLayout
+            basic_page.btnWithColorAndGrabberText = getItem(1).btnWithColorAndGrabberText
+            basic_page.checkBoxLayout = getItem(2).checkBoxLayout
+            basic_page.buttonLayout = getItem(3).buttonLayout
+            basic_page.btnWithoutBgAndLabel = getItem(3).btnWithoutBgAndLabel
+            basic_page.pushButtonLayout = getItem(4).pushButtonLayout
         }
 
         RibbonTabGroup{
@@ -333,10 +331,8 @@ RibbonTabBar {
         property var lineEditWithIcon
 
         onContainerItemUpdated: {
-            if(getItem(0)){
-                lineEditLayout = getItem(0).lineEditLayout
-                lineEditWithIcon = getItem(0).lineEditWithIcon
-            }
+            lineEditLayout = getItem(0).lineEditLayout
+            lineEditWithIcon = getItem(0).lineEditWithIcon
         }
 
         RibbonTabGroup{
@@ -507,8 +503,7 @@ RibbonTabBar {
         title: QT_TRANSLATE_NOOP("RibbonTabBar", "Progress")
         property var progressbarSlider
         onContainerItemUpdated:{
-            if(getItem(0))
-                progressbarSlider = getItem(0).progressbarSlider
+            progress_page.progressbarSlider = getItem(0).progressbarSlider
         }
         RibbonTabGroup{
             width: progressbar_slider.width + 30

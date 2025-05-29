@@ -28,6 +28,7 @@ Item {
         active: control.needActive
         anchors.fill: parent
         asynchronous: true
+        property int loadedItem: 0
         sourceComponent: Flickable{
             id: view
             property alias containerItem: container
@@ -49,11 +50,19 @@ Item {
                         Layout.fillHeight: true
                         active: control.needActive
                         sourceComponent: control.delegateList[modelData.index].content
+                        onLoaded: main_loader.loadedItem++
                     }
                 }
             }
         }
-        onLoaded: containerItemUpdated()
+        Timer{
+            running: main_loader.loadedItem === control.delegateCount && main_loader.loadedItem !==0
+            interval: 1
+            onTriggered: {
+                main_loader.loadedItem = 0
+                containerItemUpdated()
+            }
+        }
     }
 
     function getItem( index ){
