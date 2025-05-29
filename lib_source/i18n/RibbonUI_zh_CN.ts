@@ -29,25 +29,25 @@
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="488"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="487"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="488"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="499"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="498"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="499"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="510"/>
         <source>Restore</source>
         <translation>还原</translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="510"/>
         <source>Maximize</source>
         <translation>最大化</translation>
     </message>

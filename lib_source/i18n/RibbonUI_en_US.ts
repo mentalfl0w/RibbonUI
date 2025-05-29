@@ -29,25 +29,25 @@
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="488"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="487"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="488"/>
         <source>Close</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="499"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="498"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="499"/>
         <source>Minimize</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="510"/>
         <source>Restore</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../qml/Qt5/RibbonBackStageView.qml" line="510"/>
-        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="509"/>
+        <location filename="../qml/Qt6/RibbonBackStageView.qml" line="510"/>
         <source>Maximize</source>
         <translation></translation>
     </message>

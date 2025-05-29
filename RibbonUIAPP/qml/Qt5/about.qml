@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.15
 import RibbonUI 1.1
+import RibbonUIAPP 1.1
 
 RibbonWindow {
     id: window
@@ -33,16 +34,21 @@ RibbonWindow {
         }
         RibbonText{
             Layout.alignment: Qt.AlignHCenter
-            text: "RibbonUI"
+            text: qsTr("RibbonUI")
             font.pixelSize: 16
         }
         RibbonText{
             Layout.alignment: Qt.AlignHCenter
-            text: `©${new Date().getFullYear()} mentalfl0w`
+            text: qsTr("© 2023 - %1 mentalfl0w").arg(`${new Date().getFullYear()}`)
         }
         RibbonText{
             Layout.alignment: Qt.AlignHCenter
-            text: `Version: V${RibbonUI.version}`
+            text: qsTr('Version: V%1').arg(`${RibbonUI.version}`)
         }
+    }
+
+    Component.onCompleted: {
+        RibbonUI.autoLoadLanguage = true
+        RibbonUI.setTranslator(Localization)
     }
 }
