@@ -21,7 +21,7 @@ TabButton {
 
         Text {
             id :btn_text
-            text: control.text
+            text: qsTranslate("RibbonTabBar",control.text)
             font{
                 family: Qt.platform.os === "osx" ? "PingFang SC" : "Microsoft YaHei UI"
                 pixelSize: 13
