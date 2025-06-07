@@ -295,7 +295,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=${{ env.QT_ROOT_DIR }} -DCMAKE_C_COMPILER=${{ env.QT_ROOT_DIR }}/../../Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=${{ env.QT_ROOT_DIR }}/../../Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -GNinja ..
           ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
       
       - name: package
@@ -351,7 +351,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/mingw_64 -DCMAKE_C_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=D:/a/${{ env.REPO_NAME }}/Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=${{ env.QT_ROOT_DIR }} -DCMAKE_C_COMPILER=${{ env.QT_ROOT_DIR }}/../../Qt/Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/gcc.exe -DCMAKE_CXX_COMPILER=${{ env.QT_ROOT_DIR }}/../../Tools/${{ env.QT_MINGW_TOOLS_INSTALL }}/bin/g++.exe -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
           ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
       
       - name: package
@@ -408,7 +408,7 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=${{ env.QT_ROOT_DIR }} -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
           ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
@@ -470,7 +470,7 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/${{ env.QT_VERSION }}/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=${{ env.QT_ROOT_DIR }} -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -D${{ env.REPO_NAME }}_BUILD_STATIC_LIB=ON -GNinja ..
           ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
@@ -531,7 +531,7 @@ jobs:
           call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" ${{ env.QT_MSVC_ARCH }}
           mkdir build
           cd build
-          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=D:/a/${{ env.REPO_NAME }}/Qt/5.15.2/msvc2019_64 -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
+          ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe -DCMAKE_MESSAGE_LOG_LEVEL=STATUS -DCMAKE_PREFIX_PATH=${{ env.QT_ROOT_DIR }} -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DCMAKE_BUILD_TYPE=Release -GNinja ..
           ${{ env.QT_ROOT_DIR }}\..\..\Tools\CMake_64\bin\cmake.exe --build . --target all --config Release --parallel
           echo winSdkDir=%WindowsSdkDir% >> %GITHUB_ENV%
           echo winSdkVer=%WindowsSdkVersion% >> %GITHUB_ENV%
