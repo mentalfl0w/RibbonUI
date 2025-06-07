@@ -52,7 +52,7 @@ set(qml_files
     RibbonObject.qml RibbonProgressBar.qml RibbonProgressRing.qml
     RibbonBusyBar.qml RibbonBusyRing.qml RibbonPageIndicator.qml
     RibbonMessageBar.qml RibbonMessageBarGroup.qml RibbonSplashScreen.qml
-    RibbonSplashScreenContent.qml
+    RibbonSplashScreenContent.qml RibbonTableView.qml RibbonDelegateChoice.qml
 )
 
 # Set the QML prefix path

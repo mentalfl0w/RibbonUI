@@ -45,7 +45,9 @@ set(module_sources_files
 )
 set(qml_files example.qml about.qml SplashScreen.qml
     components/RibbonMessageListViewExample.qml
-    pages/SettingsMenuPage.qml components/TabBar.qml)
+    pages/SettingsMenuPage.qml components/TabBar.qml
+    components/RibbonTableViewExample.qml
+)
 set(qml_prefix "qml/Qt${QT_VERSION_MAJOR}/")
 list(TRANSFORM qml_files PREPEND ${qml_prefix})
 

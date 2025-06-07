@@ -281,8 +281,7 @@
         <location filename="../qml/Qt5/RibbonTextBoxMenu.qml" line="41"/>
         <location filename="../qml/Qt6/RibbonTextBoxMenu.qml" line="40"/>
         <source>Select All</source>
-        <translatorcomment>全选</translatorcomment>
-        <translation></translation>
+        <translation>全选</translation>
     </message>
 </context>
 <context>

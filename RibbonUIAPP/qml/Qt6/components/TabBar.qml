@@ -735,6 +735,23 @@ RibbonTabBar {
                 }
             }
         }
+        RibbonTabGroup{
+            width: table_view_layout.width + 30
+            text: qsTr("TableView")
+            RowLayout{
+                id: table_view_layout
+                anchors.centerIn: parent
+                height: parent.height
+                spacing: 10
+                RibbonButton{
+                    text: qsTr('Open Table View')
+                    iconSource: RibbonIcons.Open
+                    onClicked: {
+                        Window.window.popup.showContent("qrc:/qt/qml/RibbonUIAPP/components/RibbonTableViewExample.qml")
+                    }
+                }
+            }
+        }
     }
     RibbonTabPage{
         title: QT_TRANSLATE_NOOP("RibbonTabBar", "Others")

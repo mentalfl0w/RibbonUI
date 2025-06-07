@@ -96,8 +96,29 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="740"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="757"/>
         <source>Others</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>RibbonTableViewExample</name>
+    <message>
+        <location filename="../qml/Qt5/components/RibbonTableViewExample.qml" line="17"/>
+        <location filename="../qml/Qt6/components/RibbonTableViewExample.qml" line="17"/>
+        <source>Table View Example</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/components/RibbonTableViewExample.qml" line="54"/>
+        <location filename="../qml/Qt6/components/RibbonTableViewExample.qml" line="54"/>
+        <source>Add Table Item</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/components/RibbonTableViewExample.qml" line="65"/>
+        <location filename="../qml/Qt6/components/RibbonTableViewExample.qml" line="65"/>
+        <source>Clear Table</source>
         <translation></translation>
     </message>
 </context>
@@ -402,10 +423,10 @@
     <message>
         <location filename="../qml/Qt5/components/TabBar.qml" line="278"/>
         <location filename="../qml/Qt5/components/TabBar.qml" line="295"/>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="766"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="783"/>
         <location filename="../qml/Qt6/components/TabBar.qml" line="278"/>
         <location filename="../qml/Qt6/components/TabBar.qml" line="295"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="766"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="783"/>
         <source>Menu</source>
         <translation></translation>
     </message>
@@ -502,62 +523,74 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="740"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="757"/>
         <source>Others</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="743"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="743"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="760"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="760"/>
         <source>Text</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="773"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="773"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="790"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="790"/>
         <source>Open Menu</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="781"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="781"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="798"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="798"/>
         <source>Popup</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="791"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="791"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="808"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="808"/>
         <source>Open Popup</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="796"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="796"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="813"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="813"/>
         <source>Open Popup Dialog (Double Choices)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="804"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="804"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="821"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="821"/>
         <source>Open Popup Dialog (Triple Choices)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="830"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="830"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="847"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="847"/>
         <source>MessageBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="837"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="837"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="854"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="854"/>
         <source>Generate One Message</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../qml/Qt5/components/TabBar.qml" line="844"/>
-        <location filename="../qml/Qt6/components/TabBar.qml" line="844"/>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="861"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="861"/>
         <source>Clear All Messages</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="740"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="740"/>
+        <source>TableView</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../qml/Qt5/components/TabBar.qml" line="747"/>
+        <location filename="../qml/Qt6/components/TabBar.qml" line="747"/>
+        <source>Open Table View</source>
         <translation></translation>
     </message>
 </context>
