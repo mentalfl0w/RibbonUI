@@ -23,8 +23,8 @@ DelegateChoice {
         property bool isCurrentCell: delegate_item.view.modelCurrentColumn === column && delegate_item.view.modelCurrentRow === row
         property var currentRowData: delegate_item.view.rowsData[delegate_item.hasHeader && !delegate_item.isHeader ? row - 1 : row] ? delegate_item.view.rowsData[delegate_item.hasHeader && !delegate_item.isHeader ? row - 1 : row] : undefined
 
-        border.color: isCurrentCell && !isHeader ? "#3A714A" : RibbonTheme.isDarkMode ? "#565656" : "#D4D4D4"
-        border.width: isCurrentCell && !isHeader ? 2 : !isRowIndex && !isHeader ? 0.5 : 0
+        border.color: isCurrentCell && !isHeader && !isRowIndex ? "#3A714A" : RibbonTheme.isDarkMode ? "#565656" : "#D4D4D4"
+        border.width: isCurrentCell && !isHeader && !isRowIndex ? 2 : !isRowIndex && !isHeader ? 0.5 : 0
 
         Rectangle{
             visible: viewModel ? viewModel.columnsCount !== column && delegate_item.isHeader : false
@@ -77,13 +77,13 @@ DelegateChoice {
         color: {
             if(isHeader || isRowIndex){
                 if(isCurrentCell)
-                    return RibbonTheme.isDarkMode ? "#565656" : "#F3F3F3"
+                    return RibbonTheme.isDarkMode ? "#565656" : "#F0F0F0"
                 else
                     return RibbonTheme.isDarkMode ? "#161616" : "#FBFBFB"
             }
             else{
                 if(isCurrentCell)
-                    return RibbonTheme.isDarkMode ? "#262626" : "#FCFCFC"
+                    return RibbonTheme.isDarkMode ? "#262626" : "#F3F3F3"
                 else
                     return RibbonTheme.isDarkMode ? "black" : "white"
             }
