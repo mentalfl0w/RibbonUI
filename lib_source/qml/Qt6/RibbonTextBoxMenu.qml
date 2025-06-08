@@ -8,6 +8,7 @@ RibbonMenu{
     width: 100
     onVisibleChanged: {
         inputItem.forceActiveFocus()
+        inputItem.persistentSelection = visible
     }
     Connections{
         target: inputItem

@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.11
 import RibbonUI 1.1
 
 RibbonMenu{
@@ -9,6 +8,7 @@ RibbonMenu{
     width: 100
     onVisibleChanged: {
         inputItem.forceActiveFocus()
+        inputItem.persistentSelection = visible
     }
     Connections{
         target: inputItem

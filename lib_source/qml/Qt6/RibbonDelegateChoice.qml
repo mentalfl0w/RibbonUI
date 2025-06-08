@@ -144,6 +144,7 @@ DelegateChoice {
                 contentWidth: edit.contentWidth
                 contentHeight: edit.contentHeight
                 clip: true
+                boundsBehavior: Flickable.StopAtBounds
 
                 function ensureVisible(r)
                 {
