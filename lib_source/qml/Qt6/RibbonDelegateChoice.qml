@@ -22,6 +22,7 @@ DelegateChoice {
         property string convertTargetKey: needConvert ? model.display.substring(model.display.indexOf('$') + 1) : ""
         property bool isCurrentCell: delegate_item.view.modelCurrentColumn === column && delegate_item.view.modelCurrentRow === row
         property var currentRowData: delegate_item.view.rowsData[delegate_item.hasHeader && !delegate_item.isHeader ? row - 1 : row] ? delegate_item.view.rowsData[delegate_item.hasHeader && !delegate_item.isHeader ? row - 1 : row] : undefined
+        property bool readOnly: !(view && !isRowIndex && !needConvert && !isHeader ? typeof view.columnsReadability === "boolean" ? view.columnsReadability : view.columnsReadability[view.showRowIndex ? column -1 : column] : false)
 
         border.color: isCurrentCell && !isHeader && !isRowIndex ? "#3A714A" : RibbonTheme.isDarkMode ? "#565656" : "#D4D4D4"
         border.width: isCurrentCell && !isHeader && !isRowIndex ? 2 : !isRowIndex && !isHeader ? 0.5 : 0
@@ -105,7 +106,7 @@ DelegateChoice {
             text: delegate_item.needConvert ? "" : model.display
             visible: hover.hovered && !delegate_item.needConvert &&
                      !delegate_item.isHeader && delegate_item.showToolTip &&
-                        delegate_item.needToolTip
+                     delegate_item.needToolTip
         }
         HoverHandler{
             id: hover
@@ -123,12 +124,14 @@ DelegateChoice {
                 }
             }
             onDoubleTapped: {
-                if(!delegate_item.needConvert){
-                    loader.item.readOnly = false
-                    delegate_item.view.editingBegin()
-                }
-                else{
-                    delegate_item.view.editingNeedBegin(row, column, delegate_item.convertTargetKey)
+                if(!delegate_item.readOnly){
+                    if(!delegate_item.needConvert){
+                        loader.item.readOnly = false
+                        delegate_item.view.editingBegin()
+                    }
+                    else{
+                        delegate_item.view.editingNeedBegin(row, column, delegate_item.convertTargetKey)
+                    }
                 }
             }
         }

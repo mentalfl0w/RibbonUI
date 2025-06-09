@@ -23,6 +23,7 @@ Item {
             Layout.preferredWidth: parent.width
             Layout.alignment: Qt.AlignHCenter
             columnsWidth: [150, 150, 100]
+            columnsReadability: [true, false, false]
             columnsData: ["name", "price","action"]
             rowsData: [
                 {

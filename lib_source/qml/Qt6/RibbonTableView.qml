@@ -9,6 +9,7 @@ TableView {
     property var modelColumns: model.columns
     property var modelRows: model.rows
     property var columnsData: []
+    property var columnsReadability: []
     property var rowsData: []
     property double cellWidth: 100
     property double cellHeight: 30
